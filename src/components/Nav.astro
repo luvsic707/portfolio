@@ -1,0 +1,117 @@
+---
+const path = Astro.url.pathname;
+const isWork = path.startsWith('/work');
+const isInfo = path.startsWith('/info');
+---
+
+<header class="nav" data-nav>
+  <div class="nav-inner wrap">
+
+    <a href="/" class="brand" aria-label="返回首页">
+      <span class="brand-cn">红线</span>
+      <span class="brand-en mono">RED&nbsp;LINE</span>
+    </a>
+
+    <nav class="links" aria-label="主导航">
+      <a href="/work" class:list={['link', 'mono', { on: isWork }]}>
+        <span class="glyph">◆</span>WORK
+      </a>
+      <a href="/info" class:list={['link', 'mono', { on: isInfo }]}>
+        <span class="glyph">▢</span>INFO
+      </a>
+    </nav>
+
+  </div>
+</header>
+
+<script>
+  // 往下滚超过一屏高度的 10% 就给导航加底线
+  const nav = document.querySelector('[data-nav]');
+  if (nav) {
+    const onScroll = () => {
+      nav.classList.toggle('is-stuck', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
+
+<style>
+  .nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--paper) 80%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+
+  .nav.is-stuck {
+    border-bottom-color: var(--line);
+    background: color-mix(in srgb, var(--paper) 94%, transparent);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.9rem;
+  }
+
+  /* --- 品牌 --- */
+
+  .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 0.55rem;
+  }
+
+  .brand-cn {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-1);
+    letter-spacing: 0.04em;
+    color: var(--red);
+  }
+
+  .brand-en {
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    transition: color 0.2s var(--ease);
+  }
+
+  .brand:hover .brand-en { color: var(--ink); }
+
+  /* --- 链接 --- */
+
+  .links {
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  .link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.45em;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    transition: color 0.2s var(--ease);
+  }
+
+  .glyph {
+    font-size: 0.72em;
+    color: var(--line-strong);
+    transition: color 0.2s var(--ease), transform 0.3s var(--ease);
+  }
+
+  .link:hover,
+  .link.on { color: var(--ink); }
+
+  .link:hover .glyph,
+  .link.on .glyph { color: var(--red); }
+
+  .link:hover .glyph { transform: rotate(45deg); }
+</style>

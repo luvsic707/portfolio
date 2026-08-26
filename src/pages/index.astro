@@ -1,0 +1,226 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const all = (await getCollection('projects')).filter((p) => !p.data.draft);
+const featured = all
+  .filter((p) => p.data.featured)
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
+  .slice(0, 4);
+---
+
+<Base>
+
+  <!-- ==================== 首屏：三行，加一根红线 ==================== -->
+  <section class="hero">
+    <canvas class="hero-thread" data-thread aria-hidden="true"></canvas>
+
+    <div class="wrap hero-inner">
+      <p class="hero-eyebrow mono">▶ MULTIDISCIPLINARY ARTIST &amp; DESIGNER — BOSTON</p>
+
+      <h1 class="hero-title">
+        I&rsquo;m <span class="hl">Red&nbsp;Line</span>.<br />
+        I design, paint, tattoo,<br />
+        and make games.
+      </h1>
+
+      <p class="hero-tail mono">
+        ____&gt; 红线 &gt;&gt;__or__&gt; a multi-hyphenate by passion
+      </p>
+    </div>
+
+    <a href="#work" class="hero-cue mono" aria-label="向下看作品">
+      SCROLL <span class="cue-arrow">↓</span>
+    </a>
+  </section>
+
+  <!-- ==================== 精选作品 ==================== -->
+  <section id="work" class="section">
+    <div class="wrap">
+
+      <div class="head reveal">
+        <h2 class="section-label">SELECTED WORK</h2>
+        <a href="/work" class="head-all mono">全部作品 <span class="index">[{all.length}]</span> →</a>
+      </div>
+
+      {featured.length > 0 ? (
+        <div class="grid">
+          {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
+        </div>
+      ) : (
+        <p class="empty mono">
+          还没有标记为精选的项目 —— 在任意作品的 md 文件里写 featured: true 就会出现在这里。
+        </p>
+      )}
+
+    </div>
+  </section>
+
+  <!-- ==================== 简述 ==================== -->
+  <section class="section about">
+    <div class="wrap about-grid">
+
+      <h2 class="section-label reveal">ABOUT</h2>
+
+      <div class="about-body">
+        <p class="prose reveal">
+          我正在攻读 Digital Media 硕士，探索传统工艺与现代技术如何碰撞出张力、
+          矛盾与视觉叙事。我的作品处在<em>可触</em>与<em>非真</em>之间——
+          神话、情绪与数据在那里交织。
+        </p>
+        <p class="prose reveal">
+          我能帮你把抽象的想法变成有冲击力、有叙事的视觉——
+          无论是品牌设计、插画，还是能在视觉和情感上打动人的沉浸式媒体体验。
+        </p>
+        <a href="/info" class="about-more mono reveal">更多关于我 →</a>
+      </div>
+
+    </div>
+  </section>
+
+</Base>
+
+<script>
+  import { initRedThread } from '../scripts/red-thread.js';
+  const canvas = document.querySelector('[data-thread]');
+  if (canvas) initRedThread(canvas as HTMLCanvasElement);
+</script>
+
+<style>
+  /* ==================== 首屏 ==================== */
+
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-thread {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    padding-top: 4rem;
+  }
+
+  .hero-eyebrow {
+    color: var(--ink-soft);
+    letter-spacing: 0.16em;
+  }
+
+  .hero-title {
+    margin-top: clamp(1.5rem, 4vw, 2.75rem);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-4);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .hl { color: var(--red); }
+
+  .hero-tail {
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+
+  .hero-cue {
+    position: absolute;
+    z-index: 1;
+    left: var(--gutter);
+    bottom: 2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    color: var(--ink-faint);
+    letter-spacing: 0.18em;
+    transition: color 0.25s var(--ease);
+  }
+
+  .hero-cue:hover { color: var(--red); }
+
+  .cue-arrow {
+    display: inline-block;
+    animation: bob 2.4s var(--ease) infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); opacity: 0.55; }
+    50%      { transform: translateY(5px); opacity: 1; }
+  }
+
+  /* ==================== 精选 ==================== */
+
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .head-all {
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: none;
+    transition: color 0.2s var(--ease);
+  }
+
+  .head-all:hover { color: var(--red); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .empty {
+    color: var(--ink-faint);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  /* ==================== 简述 ==================== */
+
+  .about {
+    border-top: 1px solid var(--line);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 14rem) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .about-body > * + * { margin-top: 1.4rem; }
+
+  .about-more {
+    display: inline-block;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    text-transform: none;
+    transition: color 0.2s var(--ease);
+  }
+
+  .about-more:hover { color: var(--red); }
+
+  @media (max-width: 720px) {
+    .about-grid { grid-template-columns: 1fr; }
+  }
+</style>

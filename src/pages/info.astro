@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+
+/* 这几块直接改文字就行 */
+const capabilities = [
+  'Brand Design',
+  'Illustration',
+  'Tattoo',
+  'Game Design',
+  'Graphic & Visual Communication',
+  'AR / VR',
+  'Animation',
+];
+
+const tools = ['Procreate', 'Photoshop', 'Illustrator', 'Unity', 'Blender', 'Figma', 'After Effects'];
+
+const timeline = [
+  { year: '2024—', text: 'M.S. Digital Media，东北大学（波士顿）' },
+  { year: '2021—', text: '独立接稿：品牌、插画、纹身设计' },
+];
+---
+
+<Base title="Info — 红线 RED LINE">
+
+  <section class="head-block">
+    <div class="wrap">
+      <p class="mono eyebrow">▢ INFO</p>
+      <h1 class="page-title">关于</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap layout">
+
+      <div class="col-main">
+        <p class="prose reveal">
+          我是红线（Red Line），一个多栖的艺术家与设计师。
+          我做设计、画画、做纹身，也做游戏——按热情而不是按职业分类来工作。
+        </p>
+
+        <p class="prose reveal">
+          我正在攻读 Digital Media 硕士，探索传统工艺与现代技术如何碰撞出
+          <em>张力</em>、<em>矛盾</em>与视觉叙事。我的作品处在可触与非真之间——
+          神话、情绪与数据在那里交织。
+        </p>
+
+        <p class="prose reveal">
+          我能帮你把抽象的想法变成有冲击力、有叙事的视觉，
+          无论是品牌设计、插画，还是能在视觉与情感上打动人的沉浸式媒体体验。
+        </p>
+      </div>
+
+      <aside class="col-side">
+
+        <div class="block reveal">
+          <h2 class="section-label">CAPABILITIES</h2>
+          <ul class="tick">
+            {capabilities.map((c) => <li class="mono">{c}</li>)}
+          </ul>
+        </div>
+
+        <div class="block reveal">
+          <h2 class="section-label">TOOLS</h2>
+          <ul class="tick">
+            {tools.map((t) => <li class="mono">{t}</li>)}
+          </ul>
+        </div>
+
+        <div class="block reveal">
+          <h2 class="section-label">TIMELINE</h2>
+          <dl class="time">
+            {timeline.map((t) => (
+              <div class="time-row">
+                <dt class="mono">{t.year}</dt>
+                <dd class="mono">{t.text}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+      </aside>
+
+    </div>
+  </section>
+
+</Base>
+
+<style>
+  .head-block {
+    padding-top: clamp(7rem, 14vw, 11rem);
+    padding-bottom: 0;
+  }
+
+  .eyebrow {
+    color: var(--ink-soft);
+    letter-spacing: 0.18em;
+  }
+
+  .page-title {
+    margin-top: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: start;
+  }
+
+  .col-main > * + * { margin-top: 1.4rem; }
+
+  .col-side > * + * { margin-top: clamp(2rem, 4vw, 3rem); }
+
+  .block .section-label { margin-bottom: 0.9rem; }
+
+  .tick li {
+    padding-block: 0.4rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    letter-spacing: 0.06em;
+    text-transform: none;
+  }
+
+  .tick li::before {
+    content: '◆';
+    margin-right: 0.6em;
+    color: var(--line-strong);
+    font-size: 0.7em;
+  }
+
+  .time-row {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0.8rem;
+    padding-block: 0.45rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .time-row dt {
+    color: var(--red);
+    letter-spacing: 0.06em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .time-row dd {
+    color: var(--ink);
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+
+  @media (max-width: 820px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+</style>

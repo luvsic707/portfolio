@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Red Line 红线 — Multidisciplinary Artist & Designer',
+  description = '设计、绘画、纹身、游戏。在传统工艺与现代技术的碰撞处工作。',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#F1EEE7" />
+</head>
+
+<body>
+  <a href="#main" class="skip">跳到主要内容</a>
+
+  <Nav />
+
+  <main id="main">
+    <slot />
+  </main>
+
+  <Footer />
+
+  <script>
+    // 滚动入场：元素进入视口时加 .is-in
+    const items = document.querySelectorAll('.reveal');
+    if (items.length) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.classList.add('is-in');
+            io.unobserve(entry.target);
+          }
+        },
+        { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
+      );
+      items.forEach((el, i) => {
+        (el as HTMLElement).style.transitionDelay = `${Math.min(i, 6) * 55}ms`;
+        io.observe(el);
+      });
+    }
+  </script>
+
+  <style>
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      padding: 0.6rem 1rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-mono);
+      font-size: var(--step--1);
+      z-index: 100;
+    }
+    .skip:focus { left: 0; }
+  </style>
+</body>
+</html>

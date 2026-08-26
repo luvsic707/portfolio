@@ -1,0 +1,207 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORIES } from '../../content.config';
+import Base from '../../layouts/Base.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = (await getCollection('projects'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => {
+    const ao = a.data.order ?? 999;
+    const bo = b.data.order ?? 999;
+    if (ao !== bo) return ao - bo;
+    return b.data.year.localeCompare(a.data.year);
+  });
+
+/* 每个分类下有几件作品 —— 显示在筛选器上，像文件树的计数 */
+const counts = Object.fromEntries(
+  CATEGORIES.map((c) => [c, projects.filter((p) => p.data.categories.includes(c)).length])
+);
+
+const active = CATEGORIES.filter((c) => counts[c] > 0);
+---
+
+<Base title="Work — 红线 RED LINE">
+
+  <section class="head-block">
+    <div class="wrap">
+      <p class="mono eyebrow">▶ WORKS EXPLORER</p>
+      <h1 class="page-title">作品</h1>
+      <p class="mono count">
+        {projects.length} {projects.length === 1 ? 'PROJECT' : 'PROJECTS'} · 2021—{new Date().getFullYear()}
+      </p>
+    </div>
+  </section>
+
+  <section class="filters" data-filters>
+    <div class="wrap filter-row">
+      <button class="chip mono is-on" data-cat="*">
+        <span class="chip-glyph">▤</span>ALL
+        <span class="chip-n">{projects.length}</span>
+      </button>
+
+      {active.map((c) => (
+        <button class="chip mono" data-cat={c}>
+          <span class="chip-glyph">◆</span>{c.toUpperCase()}
+          <span class="chip-n">{counts[c]}</span>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <section class="section list">
+    <div class="wrap">
+      <div class="grid" data-grid>
+        {projects.map((p, i) => (
+          <div class="cell" data-cats={p.data.categories.join('|')}>
+            <ProjectCard project={p} index={i} />
+          </div>
+        ))}
+      </div>
+
+      <p class="none mono" data-none hidden>
+        ____&gt; 这个分类下还没有作品
+      </p>
+    </div>
+  </section>
+
+</Base>
+
+<script>
+  const root = document.querySelector('[data-filters]');
+  const grid = document.querySelector('[data-grid]');
+  const none = document.querySelector('[data-none]');
+
+  if (root && grid && none) {
+    const chips = root.querySelectorAll<HTMLButtonElement>('.chip');
+    const cells = grid.querySelectorAll<HTMLElement>('.cell');
+
+    const apply = (cat: string) => {
+      let shown = 0;
+
+      for (const cell of cells) {
+        const cats = (cell.dataset.cats ?? '').split('|');
+        const match = cat === '*' || cats.includes(cat);
+        cell.hidden = !match;
+        if (match) shown++;
+      }
+
+      (none as HTMLElement).hidden = shown > 0;
+
+      // 把选中的分类写进地址栏，方便直接分享某个分类
+      const url = new URL(window.location.href);
+      if (cat === '*') url.searchParams.delete('cat');
+      else url.searchParams.set('cat', cat);
+      history.replaceState(null, '', url);
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => {
+        chips.forEach((c) => c.classList.toggle('is-on', c === chip));
+        apply(chip.dataset.cat ?? '*');
+      });
+    }
+
+    // 进页面时读一下地址栏，支持 /work?cat=Tattoo 这样的直达链接
+    const initial = new URL(window.location.href).searchParams.get('cat');
+    if (initial) {
+      const chip = [...chips].find((c) => c.dataset.cat === initial);
+      if (chip) chip.click();
+    }
+  }
+</script>
+
+<style>
+  .head-block {
+    padding-top: clamp(7rem, 14vw, 11rem);
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  }
+
+  .eyebrow {
+    color: var(--ink-soft);
+    letter-spacing: 0.18em;
+  }
+
+  .page-title {
+    margin-top: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .count {
+    margin-top: 0.9rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.12em;
+  }
+
+  /* --- 筛选器 --- */
+
+  .filters {
+    position: sticky;
+    top: 3.4rem;
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-block: 1px solid var(--line);
+  }
+
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-block: 0.7rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.32em 0.7em;
+    border: 1px solid var(--line);
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    font-size: 0.6875rem;
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease),
+                background 0.2s var(--ease);
+  }
+
+  .chip:hover {
+    border-color: var(--line-strong);
+    color: var(--ink);
+  }
+
+  .chip.is-on {
+    border-color: var(--red);
+    color: var(--red);
+    background: var(--red-wash);
+  }
+
+  .chip-glyph { font-size: 0.8em; opacity: 0.7; }
+
+  .chip-n {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.55;
+  }
+
+  /* --- 列表 --- */
+
+  .list { padding-top: clamp(2.5rem, 6vw, 4rem); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  .cell[hidden] { display: none; }
+
+  .none {
+    padding-block: 4rem;
+    color: var(--ink-faint);
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+</style>

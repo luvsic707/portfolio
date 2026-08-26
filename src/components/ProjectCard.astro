@@ -1,0 +1,150 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+const { title, titleCn, year, categories, summary, cover, coverAlt } = project.data;
+const num = String(index + 1).padStart(2, '0');
+---
+
+<article class="card reveal">
+  <a class="card-hit" href={`/work/${project.id}`}>
+
+    <div class="card-media">
+      {cover
+        ? <img src={cover} alt={coverAlt ?? title} loading="lazy" decoding="async" />
+        : <div class="card-empty"><span class="mono">NO IMAGE YET</span></div>}
+      <span class="card-num index">[{num}]</span>
+    </div>
+
+    <div class="card-body">
+      <div class="card-head">
+        <h3 class="card-title">
+          {title}
+          {titleCn && <span class="card-title-cn">{titleCn}</span>}
+        </h3>
+        <span class="card-year mono">{year}</span>
+      </div>
+
+      <p class="card-sum">{summary}</p>
+
+      <ul class="card-tags">
+        {categories.map((c) => <li class="mono">{c}</li>)}
+      </ul>
+    </div>
+
+  </a>
+</article>
+
+<style>
+  .card-hit { display: block; }
+
+  /* --- 图 --- */
+
+  .card-media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--paper-sunk);
+    border: 1px solid var(--line);
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s var(--ease), filter 0.5s var(--ease);
+  }
+
+  .card-hit:hover .card-media img {
+    transform: scale(1.035);
+  }
+
+  .card-empty {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    color: var(--ink-faint);
+    letter-spacing: 0.18em;
+  }
+
+  .card-num {
+    position: absolute;
+    top: 0.7rem;
+    left: 0.8rem;
+    color: var(--ink-soft);
+    mix-blend-mode: multiply;
+  }
+
+  /* --- 文字 --- */
+
+  .card-body { padding-top: 1rem; }
+
+  .card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--step-1);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    transition: color 0.25s var(--ease);
+  }
+
+  .card-hit:hover .card-title { color: var(--red); }
+
+  .card-title-cn {
+    display: block;
+    margin-top: 0.15em;
+    font-size: 0.72em;
+    font-weight: 400;
+    color: var(--ink-soft);
+    letter-spacing: 0.06em;
+  }
+
+  .card-year {
+    flex: none;
+    color: var(--ink-faint);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card-sum {
+    margin-top: 0.7rem;
+    font-family: var(--font-prose);
+    font-size: var(--step-0);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.9rem;
+  }
+
+  .card-tags li {
+    padding: 0.18em 0.55em;
+    border: 1px solid var(--line);
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    font-size: 0.6875rem;
+    transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+  }
+
+  .card-hit:hover .card-tags li {
+    border-color: var(--line-strong);
+    color: var(--ink-soft);
+  }
+</style>

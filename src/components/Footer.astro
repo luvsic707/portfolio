@@ -1,0 +1,116 @@
+---
+const year = new Date().getFullYear();
+
+/* 社交链接 —— 改这里就行 */
+const links = [
+  { label: 'EMAIL',     href: 'mailto:hello@redthreadcreative.me' },
+  { label: 'INSTAGRAM', href: '#' },
+  { label: 'BEHANCE',   href: '#' },
+];
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <hr class="rule" />
+
+    <div class="foot-grid">
+
+      <div class="foot-say">
+        <p class="say-line mono">▶ 有想法、有项目，或者只是想聊聊</p>
+        <a class="say-mail" href="mailto:hello@redthreadcreative.me">
+          hello@redthreadcreative.me
+        </a>
+      </div>
+
+      <ul class="foot-links">
+        {links.map((l) => (
+          <li>
+            <a class="foot-link mono" href={l.href}>
+              {l.label}<span class="arrow">↗</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <p class="foot-copy mono">© {year} · 红线 RED LINE</p>
+
+    </div>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    padding-block: clamp(3rem, 7vw, 6rem) 2.5rem;
+  }
+
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+    padding-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .say-line {
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: none;
+  }
+
+  .say-mail {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: var(--step-2);
+    letter-spacing: -0.01em;
+    background-image: linear-gradient(var(--red), var(--red));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.4s var(--ease), color 0.3s var(--ease);
+  }
+
+  .say-mail:hover {
+    color: var(--red);
+    background-size: 100% 1px;
+  }
+
+  .foot-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: right;
+  }
+
+  .foot-link {
+    letter-spacing: 0.14em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .foot-link:hover { color: var(--red); }
+
+  .arrow {
+    display: inline-block;
+    margin-left: 0.4em;
+    color: var(--line-strong);
+    transition: transform 0.25s var(--ease), color 0.2s var(--ease);
+  }
+
+  .foot-link:hover .arrow {
+    color: var(--red);
+    transform: translate(2px, -2px);
+  }
+
+  .foot-copy {
+    grid-column: 1 / -1;
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 640px) {
+    .foot-grid { grid-template-columns: 1fr; }
+    .foot-links { text-align: left; }
+  }
+</style>
