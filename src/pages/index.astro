@@ -3,18 +3,27 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
-const all = (await getCollection('projects')).filter((p) => !p.data.draft);
-const featured = all
-  .filter((p) => p.data.featured)
-  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99))
-  .slice(0, 4);
+const all = (await getCollection('projects'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
+
+const featured = all.filter((p) => p.data.featured).slice(0, 4);
 ---
 
 <Base>
 
-  <!-- ==================== 首屏：三行，加一根红线 ==================== -->
+  <!-- ==================== 首屏：红线帘 ==================== -->
   <section class="hero">
-    <canvas class="hero-thread" data-thread aria-hidden="true"></canvas>
+    <canvas class="curtain" data-curtain aria-hidden="true"></canvas>
+
+    <!-- 九根挂作品的线。真链接，JS 只负责让它们跟着珠子走。 -->
+    <nav class="labels" data-labels aria-label="Work, hanging on the threads">
+      {all.map((p) => (
+        <a class="tlabel" href={`/work/${p.id}`} data-label>
+          <span class="tlabel-text">{p.data.title}</span>
+        </a>
+      ))}
+    </nav>
 
     <div class="wrap hero-inner">
       <p class="hero-eyebrow mono">▶ MULTIDISCIPLINARY ARTIST &amp; DESIGNER — BOSTON</p>
@@ -30,6 +39,10 @@ const featured = all
       </p>
     </div>
 
+    <p class="hero-hint mono">
+      ▶ brush through the threads &mdash;&mdash; {all.length} of them carry work
+    </p>
+
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
       SCROLL <span class="cue-arrow">↓</span>
     </a>
@@ -44,15 +57,9 @@ const featured = all
         <a href="/work" class="head-all mono">ALL WORK <span class="index">[{all.length}]</span> →</a>
       </div>
 
-      {featured.length > 0 ? (
-        <div class="grid">
-          {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
-        </div>
-      ) : (
-        <p class="empty mono">
-          Nothing marked as featured yet — set featured: true in any project&rsquo;s md file.
-        </p>
-      )}
+      <div class="grid">
+        {featured.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
 
     </div>
   </section>
@@ -85,9 +92,20 @@ const featured = all
 </Base>
 
 <script>
-  import { initRedThread } from '../scripts/red-thread.js';
-  const canvas = document.querySelector('[data-thread]');
-  if (canvas) initRedThread(canvas as HTMLCanvasElement);
+  import { initThreadCurtain } from '../scripts/thread-curtain.js';
+
+  const canvas = document.querySelector('[data-curtain]');
+  const wrap = document.querySelector('[data-labels]');
+
+  if (canvas && wrap) {
+    const links = [...wrap.querySelectorAll<HTMLAnchorElement>('[data-label]')].map((el) => ({
+      el,
+      href: el.getAttribute('href') ?? '/work',
+    }));
+
+    wrap.setAttribute('data-ready', '');
+    initThreadCurtain(canvas as HTMLCanvasElement, links);
+  }
 </script>
 
 <style>
@@ -102,19 +120,77 @@ const featured = all
     overflow: hidden;
   }
 
-  .hero-thread {
+  .curtain {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
+  }
+
+  /* --- 挂在线上的作品标签 --- */
+
+  .labels {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
     pointer-events: none;
   }
+
+  /* JS 接管之前先藏起来，避免所有标签堆在左上角 */
+  .labels:not([data-ready]) .tlabel { visibility: hidden; }
+
+  .tlabel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+    /* 珠子画在 canvas 上，文字从珠子右侧展开 */
+    padding: 0.35em 0.7em 0.35em 1.1em;
+    white-space: nowrap;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    transition: opacity 0.28s var(--ease);
+  }
+
+  .tlabel.is-on,
+  .tlabel:focus-visible { opacity: 1; }
+
+  /* 右侧的标签往左展开，不出界 */
+  .tlabel.flip {
+    transform-origin: right center;
+    margin-left: -100%;
+    padding: 0.35em 1.1em 0.35em 0.7em;
+    text-align: right;
+  }
+
+  /* --- 文案 --- */
 
   .hero-inner {
     position: relative;
     z-index: 1;
     padding-top: 4rem;
+    pointer-events: none;   /* 让光标能穿过文字去拨线 */
+  }
+
+  /* 文字后面垫一层纸色，压住背后的线保证可读 */
+  .hero-inner::before {
+    content: '';
+    position: absolute;
+    inset: -8% -12% -14% -6%;
+    z-index: -1;
+    background: radial-gradient(
+      70% 60% at 24% 50%,
+      color-mix(in srgb, var(--paper) 94%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 78%, transparent) 42%,
+      transparent 78%
+    );
   }
 
   .hero-eyebrow {
@@ -141,9 +217,22 @@ const featured = all
     text-transform: none;
   }
 
-  .hero-cue {
+  /* --- 提示与滚动指示 --- */
+
+  .hero-hint {
     position: absolute;
     z-index: 1;
+    left: var(--gutter);
+    bottom: 4.5rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    text-transform: none;
+    pointer-events: none;
+  }
+
+  .hero-cue {
+    position: absolute;
+    z-index: 3;
     left: var(--gutter);
     bottom: 2rem;
     display: inline-flex;
@@ -164,6 +253,10 @@ const featured = all
   @keyframes bob {
     0%, 100% { transform: translateY(0); opacity: 0.55; }
     50%      { transform: translateY(5px); opacity: 1; }
+  }
+
+  @media (max-width: 640px) {
+    .hero-hint { display: none; }
   }
 
   /* ==================== 精选 ==================== */
@@ -193,17 +286,9 @@ const featured = all
     gap: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
   }
 
-  .empty {
-    color: var(--ink-faint);
-    text-transform: none;
-    letter-spacing: 0.02em;
-  }
-
   /* ==================== 简述 ==================== */
 
-  .about {
-    border-top: 1px solid var(--line);
-  }
+  .about { border-top: 1px solid var(--line); }
 
   .about-grid {
     display: grid;
