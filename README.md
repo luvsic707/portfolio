@@ -1,6 +1,7 @@
 # 红线 RED LINE — 作品集网站
 
-浅底打底（保护作品图）+ 终端细节（导航与元信息），首屏是一根用物理模拟的红线。
+浅底打底（保护作品图）+ 终端细节（导航与元信息），
+首屏是一整面用物理模拟的红线帘 —— 光标穿过会把线拨开，其中九根挂着作品。
 
 ---
 
@@ -23,7 +24,7 @@ src/
   components/           ← 导航、页脚、作品卡片
   layouts/Base.astro    ← 所有页面共用的外壳（<head>、meta、字体）
   styles/global.css     ← 颜色和字体都在这里的 :root
-  scripts/red-thread.js ← 首屏那根红线
+  scripts/thread-curtain.js ← 首屏那面红线帘
 ```
 
 图片放在项目文件夹里（不是 `public/`）是有意的：这样 Astro 会自动生成多档尺寸、
@@ -171,7 +172,7 @@ Brand · Illustration · Tattoo · Game · Graphic · AR/VR · Animation
 | 底部邮箱和社交链接 | `src/components/Footer.astro` |
 | 导航栏 | `src/components/Nav.astro` |
 | **颜色和字体**（全站统一） | `src/styles/global.css` 顶部的 `:root` |
-| 红线的物理参数 | `src/scripts/red-thread.js` 顶部几行 |
+| 红线的物理参数 | `src/scripts/thread-curtain.js` 顶部几行 |
 | 域名（换域名时改这一处） | `astro.config.mjs` 的 `site` |
 
 当前配色：暖纸 `#F1EEE7` / 墨 `#171614` / 朱砂 `#C7402B`
@@ -195,7 +196,11 @@ npm run build
 
 - **Astro** — 静态站生成，产出纯 HTML/CSS，没有前端框架的运行时开销
 - **图片** — 走 Astro 内置优化：自动多档尺寸 + WebP + 宽高属性（防止加载时布局跳动）
-- **红线** — 原生 canvas 写的 Verlet 物理，约 4KB，没用 p5.js。
-  含一层弯曲约束，否则绳子被压缩时会折成锯齿
+- **红线帘** — 原生 canvas 写的 Verlet 物理，约 4KB，没用 p5.js。
+  顶点钉死、靠重力自然垂下（入场动画不用另写），线数随屏宽自适应。
+  挂作品的那几根不受光标推力 —— 否则珠子会一直躲开光标，永远点不到
+- **触屏** — 用 `(hover: hover)` 判断而不是屏幕宽度（iPad 接触控板算能悬停）。
+  没有悬停能力时帘子退化为纯装饰，导航交给作品网格；
+  所有点击热区在触屏下撑到 40px 以上
 - **字体** — Space Grotesk（标题）/ Newsreader（长文衬线）/ IBM Plex Mono（界面）
 - 已配 sitemap、robots.txt、canonical、Open Graph（分享时用封面图做预览）
