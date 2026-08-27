@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Not found — Red Line" description="This page doesn't exist.">
+  <section class="nf">
+    <div class="wrap">
+      <p class="mono code">404</p>
+      <h1 class="nf-title">This thread<br />leads nowhere.</h1>
+      <p class="mono hint">____&gt; the page you asked for doesn&rsquo;t exist</p>
+
+      <div class="links">
+        <a href="/" class="mono link">← HOME</a>
+        <a href="/work" class="mono link">◆ WORK</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    min-height: 78svh;
+    display: flex;
+    align-items: center;
+    padding-top: 5rem;
+  }
+
+  .code {
+    color: var(--red);
+    letter-spacing: 0.24em;
+  }
+
+  .nf-title {
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--step-3);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+  }
+
+  .hint {
+    margin-top: 1.5rem;
+    color: var(--ink-faint);
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+
+  .links {
+    display: flex;
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .link {
+    color: var(--ink-soft);
+    letter-spacing: 0.14em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .link:hover { color: var(--red); }
+</style>

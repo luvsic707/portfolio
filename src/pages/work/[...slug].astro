@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
 
 export async function getStaticPaths() {
@@ -23,11 +24,11 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next } = Astro.props;
-const { title, titleCn, year, categories, summary, cover, coverAlt, meta } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta } = project.data;
 const { Content } = await render(project);
 ---
 
-<Base title={`${title} — Red Line`} description={summary}>
+<Base title={`${title} — Red Line`} description={summary} image={cover?.src} type="article">
 
   <!-- ==================== 标题区 ==================== -->
   <article>
@@ -36,10 +37,7 @@ const { Content } = await render(project);
 
         <a href="/work" class="back mono">← WORK</a>
 
-        <h1 class="title">
-          {title}
-          {titleCn && <span class="title-cn">{titleCn}</span>}
-        </h1>
+        <h1 class="title">{title}</h1>
 
         <p class="lede prose">{summary}</p>
 
@@ -67,7 +65,14 @@ const { Content } = await render(project);
     {cover && (
       <figure class="cover">
         <div class="wrap">
-          <img src={cover} alt={coverAlt ?? title} />
+          <Image
+            src={cover}
+            alt={coverAlt ?? title}
+            widths={[640, 1024, 1440, 2000]}
+            sizes="(max-width: 1440px) 100vw, 1440px"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
       </figure>
     )}
@@ -132,15 +137,6 @@ const { Content } = await render(project);
     letter-spacing: -0.032em;
     max-width: 20ch;
     text-wrap: balance;
-  }
-
-  .title-cn {
-    display: block;
-    margin-top: 0.3em;
-    font-size: 0.42em;
-    font-weight: 400;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
   }
 
   .lede {
@@ -236,9 +232,69 @@ const { Content } = await render(project);
 
   .prose-body :global(img) {
     width: 100%;
+    height: auto;
     margin-block: clamp(1.75rem, 4vw, 3rem);
     border: 1px solid var(--line);
     background: var(--paper-sunk);
+  }
+
+  /* ---- 正文里的排版工具 ----
+     在 md 里直接写 <div class="grid-2"> 就能用，详见 README。 */
+
+  .prose-body :global(.grid-2),
+  .prose-body :global(.grid-3) {
+    display: grid;
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .prose-body :global(.grid-2) { grid-template-columns: repeat(2, 1fr); }
+  .prose-body :global(.grid-3) { grid-template-columns: repeat(3, 1fr); }
+
+  /* 网格里的图取消自身外边距，间距交给 gap */
+  .prose-body :global(.grid-2 p),
+  .prose-body :global(.grid-3 p) { margin: 0; }
+
+  .prose-body :global(.grid-2 img),
+  .prose-body :global(.grid-3 img) { margin: 0; }
+
+  @media (max-width: 640px) {
+    .prose-body :global(.grid-3) { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* 通栏大图：冲破正文宽度铺满视口，用来放主视觉 */
+  .prose-body :global(.full) {
+    width: 100vw;
+    max-width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  .prose-body :global(.full p) { margin: 0; }
+
+  .prose-body :global(.full img) {
+    margin: 0;
+    border-inline: 0;
+  }
+
+  /* 图注 */
+  .prose-body :global(figure) {
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .prose-body :global(figure img) { margin-block: 0; }
+
+  .prose-body :global(figcaption) {
+    margin-top: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .prose-body :global(figcaption)::before {
+    content: '— ';
+    color: var(--red);
   }
 
   .prose-body :global(em) { font-style: italic; }
