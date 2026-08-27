@@ -5,14 +5,19 @@ categories: ['Illustration', 'Graphic']
 featured: true
 order: 9
 summary: A twelve-piece illustration series using the baimiao line method of Chinese ink painting crossed with geometric structure, on the state of traditional culture in the present day.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: EDEN OF EAST key visual
 meta:
   date: 2021.09 – 2022.02
   dimension: 20cm × 20cm
   media: comprehensive material · Chinese ink · watercolour
   tools: Procreate · Photoshop
+gallery:
+  - image: ./hero-01.jpg
+    alt: EDEN OF EAST 01
+  - image: ./hero-02.jpg
+    alt: EDEN OF EAST 02
+  - image: ./hero-03.jpg
+    alt: EDEN OF EAST 03
+cover: ./hero-01.jpg
 ---
 
 I've lived in China for 22 years since it is my homeland. Although these two decades

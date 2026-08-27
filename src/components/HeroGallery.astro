@@ -1,0 +1,339 @@
+---
+import { Image } from 'astro:assets';
+
+interface Slide {
+  image?: ImageMetadata;
+  video?: string;
+  poster?: ImageMetadata;
+  alt?: string;
+}
+
+interface Props {
+  slides: Slide[];
+  title: string;
+}
+
+const { slides, title } = Astro.props;
+const hasVideo = slides.some((s) => s.video);
+---
+
+<section
+  class="gallery"
+  data-gallery
+  data-interval="3500"
+  aria-roledescription="carousel"
+  aria-label={`${title} — gallery`}
+>
+  <div class="stage">
+    {slides.map((s, i) => (
+      <div
+        class:list={['slide', { 'is-on': i === 0 }]}
+        data-slide
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${i + 1} / ${slides.length}`}
+      >
+        {s.video ? (
+          <video
+            data-video
+            src={s.video}
+            poster={s.poster?.src}
+            muted
+            playsinline
+            preload={i === 0 ? 'auto' : 'none'}
+            aria-label={s.alt ?? `${title} — video`}
+          ></video>
+        ) : s.image ? (
+          <Image
+            src={s.image}
+            alt={s.alt ?? title}
+            widths={[720, 1280, 1920, 2400]}
+            sizes="100vw"
+            loading={i === 0 ? 'eager' : 'lazy'}
+            fetchpriority={i === 0 ? 'high' : 'auto'}
+          />
+        ) : null}
+      </div>
+    ))}
+  </div>
+
+  {slides.length > 1 && (
+    <>
+      <button class="nav prev" data-prev type="button" aria-label="Previous">←</button>
+      <button class="nav next" data-next type="button" aria-label="Next">→</button>
+
+      <div class="dots" data-dots role="tablist" aria-label="Choose slide">
+        {slides.map((_, i) => (
+          <button
+            class:list={['dot', { 'is-on': i === 0 }]}
+            data-dot
+            type="button"
+            role="tab"
+            aria-label={`Slide ${i + 1}`}
+            aria-selected={i === 0}
+          ></button>
+        ))}
+      </div>
+
+      <p class="counter mono" data-counter aria-live="polite">
+        01 / {String(slides.length).padStart(2, '0')}
+      </p>
+    </>
+  )}
+
+  {hasVideo && (
+    <button class="sound mono" data-sound type="button" aria-pressed="false">
+      <span data-sound-label>SOUND OFF</span>
+    </button>
+  )}
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    if (slides.length === 0) return;
+
+    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
+    const counter = root.querySelector<HTMLElement>('[data-counter]');
+    const soundBtn = root.querySelector<HTMLButtonElement>('[data-sound]');
+    const soundLabel = root.querySelector<HTMLElement>('[data-sound-label]');
+    const interval = Number(root.dataset.interval ?? 3500);
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let index = 0;
+    let timer: number | null = null;
+    let paused = false;
+    let soundOn = false;
+
+    const videoIn = (el: HTMLElement) => el.querySelector<HTMLVideoElement>('[data-video]');
+
+    const clearTimer = () => {
+      if (timer !== null) { clearTimeout(timer); timer = null; }
+    };
+
+    /* 排下一次切换。视频那一格等它自己放完，不按固定秒数切断。 */
+    const schedule = () => {
+      clearTimer();
+      if (paused || reduced || slides.length < 2) return;
+
+      const v = videoIn(slides[index]);
+      if (v) return;                       // 视频结束时会自己触发 next
+      timer = window.setTimeout(() => go(index + 1), interval);
+    };
+
+    const go = (next: number) => {
+      const to = (next + slides.length) % slides.length;
+
+      slides.forEach((s, i) => {
+        const on = i === to;
+        s.classList.toggle('is-on', on);
+        const v = videoIn(s);
+        if (!v) return;
+        if (on) {
+          v.muted = !soundOn;
+          v.currentTime = 0;
+          v.play().catch(() => {/* 自动播放被拦就算了，用户点一下就行 */});
+        } else {
+          v.pause();
+        }
+      });
+
+      dots.forEach((d, i) => {
+        d.classList.toggle('is-on', i === to);
+        d.setAttribute('aria-selected', String(i === to));
+      });
+
+      if (counter) {
+        counter.textContent =
+          `${String(to + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+      }
+
+      index = to;
+      schedule();
+    };
+
+    /* 视频放完自动进下一张 */
+    slides.forEach((s) => {
+      const v = videoIn(s);
+      v?.addEventListener('ended', () => { if (!paused) go(index + 1); });
+    });
+
+    root.querySelector('[data-prev]')?.addEventListener('click', () => go(index - 1));
+    root.querySelector('[data-next]')?.addEventListener('click', () => go(index + 1));
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+
+    /* 声音：浏览器不允许带声自动播放，所以默认静音 + 一个开关 */
+    soundBtn?.addEventListener('click', () => {
+      soundOn = !soundOn;
+      soundBtn.setAttribute('aria-pressed', String(soundOn));
+      if (soundLabel) soundLabel.textContent = soundOn ? 'SOUND ON' : 'SOUND OFF';
+      const v = videoIn(slides[index]);
+      if (v) {
+        v.muted = !soundOn;
+        if (soundOn) v.play().catch(() => {});
+      }
+    });
+
+    /* 鼠标停在上面就暂停自动播放 */
+    root.addEventListener('pointerenter', () => { paused = true; clearTimer(); });
+    root.addEventListener('pointerleave', () => { paused = false; schedule(); });
+
+    /* 触屏左右滑 */
+    let x0: number | null = null;
+    root.addEventListener('pointerdown', (e) => { x0 = e.clientX; }, { passive: true });
+    root.addEventListener('pointerup', (e) => {
+      if (x0 === null) return;
+      const dx = e.clientX - x0;
+      x0 = null;
+      if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+
+    /* 键盘左右键（画廊在视野里时才响应） */
+    let visible = true;
+    new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (visible) schedule(); else clearTimer();
+    }).observe(root);
+
+    document.addEventListener('keydown', (e) => {
+      if (!visible) return;
+      if (e.key === 'ArrowLeft') go(index - 1);
+      if (e.key === 'ArrowRight') go(index + 1);
+    });
+
+    /* 起播 */
+    const first = videoIn(slides[0]);
+    if (first) first.play().catch(() => {});
+    schedule();
+  });
+</script>
+
+<style>
+  .gallery {
+    position: relative;
+    width: 100%;
+    padding-top: var(--nav-h, 3.4rem);
+    background: var(--paper-sunk);
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  .stage {
+    position: relative;
+    width: 100vw;
+    height: min(82svh, 72vw);
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.7s var(--ease);
+    pointer-events: none;
+  }
+
+  .slide.is-on { opacity: 1; pointer-events: auto; }
+
+  .slide :global(img),
+  .slide video {
+    width: 100%;
+    height: 100%;
+    /* 不裁切作品 —— 宁可留边也不切掉画面 */
+    object-fit: contain;
+    object-position: center;
+    background: var(--paper-sunk);
+  }
+
+  /* --- 左右箭头 --- */
+
+  .nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 3rem;
+    height: 3rem;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 78%, transparent);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    opacity: 0;
+    transition: opacity 0.3s var(--ease), color 0.2s var(--ease);
+  }
+
+  .prev { left: clamp(0.5rem, 2vw, 1.5rem); }
+  .next { right: clamp(0.5rem, 2vw, 1.5rem); }
+
+  .gallery:hover .nav,
+  .nav:focus-visible { opacity: 1; }
+
+  .nav:hover { color: var(--red); }
+
+  /* 触屏没有 hover，箭头常驻 */
+  @media (hover: none) {
+    .nav { opacity: 0.85; }
+  }
+
+  /* --- 圆点与计数 --- */
+
+  .dots {
+    position: absolute;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--line-strong);
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .dot.is-on { background: var(--red); transform: scale(1.35); }
+
+  .counter {
+    position: absolute;
+    right: clamp(0.75rem, 2vw, 1.5rem);
+    bottom: 1rem;
+    z-index: 3;
+    color: var(--ink-soft);
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- 声音开关 --- */
+
+  .sound {
+    position: absolute;
+    left: clamp(0.75rem, 2vw, 1.5rem);
+    bottom: 1rem;
+    z-index: 3;
+    padding: 0.4em 0.8em;
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 82%, transparent);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .sound:hover { color: var(--red); border-color: var(--red); }
+  .sound[aria-pressed='true'] { color: var(--red); border-color: var(--red); }
+
+  @media (max-width: 640px) {
+    .dots { bottom: 0.7rem; }
+    .counter, .sound { bottom: 0.7rem; }
+    .nav { width: 2.4rem; height: 2.4rem; }
+  }
+</style>

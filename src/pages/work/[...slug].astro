@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Base from '../../layouts/Base.astro';
+import HeroGallery from '../../components/HeroGallery.astro';
 
 export async function getStaticPaths() {
   const projects = (await getCollection('projects')).filter((p) => !p.data.draft);
@@ -24,28 +25,28 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next } = Astro.props;
-const { title, year, categories, summary, cover, coverAlt, meta } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta, gallery } = project.data;
 const { Content } = await render(project);
+
+/* 画廊优先；只给了单张 cover 时把它当成只有一格的画廊 */
+const slides =
+  gallery && gallery.length > 0
+    ? gallery
+    : cover
+      ? [{ image: cover, alt: coverAlt }]
+      : [];
+
+/* 分享预览图：画廊里第一张图 */
+const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
 ---
 
-<Base title={`${title} — Red Line`} description={summary} image={cover?.src} type="article">
+<Base title={`${title} — Red Line`} description={summary} image={shareImage} type="article">
 
-  <!-- ==================== 开屏：整幅成品 ==================== -->
+  <!-- ==================== 开屏：全屏画廊 ==================== -->
   <article>
-    {cover && (
-      <figure class="hero-shot">
-        <Image
-          src={cover}
-          alt={coverAlt ?? title}
-          widths={[720, 1280, 1920, 2400]}
-          sizes="100vw"
-          loading="eager"
-          fetchpriority="high"
-        />
-      </figure>
-    )}
+    {slides.length > 0 && <HeroGallery slides={slides} title={title} />}
 
-    <header class:list={['head', { 'has-shot': !!cover }]}>
+    <header class:list={['head', { 'has-shot': slides.length > 0 }]}>
       <div class="wrap">
 
         <a href="/work" class="back mono">← WORK</a>
@@ -111,23 +112,6 @@ const { Content } = await render(project);
 
 <style>
   /* ==================== 标题区 ==================== */
-
-  /* ==================== 开屏整幅 ==================== */
-
-  .hero-shot {
-    width: 100%;
-    /* 顶到导航下沿，整幅铺满视口宽度 */
-    padding-top: var(--nav-h, 3.4rem);
-    background: var(--paper-sunk);
-  }
-
-  .hero-shot :global(img) {
-    width: 100vw;
-    height: min(82svh, 72vw);
-    object-fit: contain;   /* 作品不裁切 —— 宁可留边也不切掉画面 */
-    object-position: center;
-    background: var(--paper-sunk);
-  }
 
   .head {
     padding-top: clamp(6.5rem, 13vw, 10rem);

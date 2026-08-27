@@ -34,8 +34,22 @@ const projects = defineCollection({
       summary: z.string(),                 // 列表页显示的一句话
 
       /* --- 选填 --- */
-      cover: image().optional(),           // 写 './cover.jpg'，相对于本文件夹
+      cover: image().optional(),           // 作品列表上的缩略图。不写就自动用画廊第一张
       coverAlt: z.string().optional(),
+
+      /* 作品页顶部的全屏画廊：可左右滑，闲置时自动播放。
+         图片和视频混着放都行，数组顺序就是播放顺序。
+         由 tools/import-images.py 自动生成，一般不用手写。 */
+      gallery: z
+        .array(
+          z.object({
+            image: image().optional(),     // './hero-01.jpg'
+            video: z.string().optional(),  // '/media/<slug>/demo.mp4'，放在 public 里
+            poster: image().optional(),    // 视频的占位图
+            alt: z.string().optional(),
+          })
+        )
+        .optional(),
 
       /* 作品页顶部那块等宽元信息，想写几行写几行，左边的名字随便取 */
       meta: z.record(z.string()).optional(),
