@@ -32,9 +32,9 @@ VIDEO = {".mp4", ".mov", ".m4v", ".avi"}
 
 MARK_OPEN, MARK_CLOSE = "<!-- auto:images -->", "<!-- /auto:images -->"
 
-MAX_EDGE_GRID = 1600     # 网格小图
+MAX_EDGE_GRID = 1200     # 网格小图（4 列里每格约 270px，1200 已很宽裕）
 MAX_EDGE_FULL = 2400     # 通栏大图和封面
-QUALITY = 76
+QUALITY = 72
 
 
 def slugify(name: str) -> str:
@@ -70,8 +70,22 @@ def videos_in(folder: Path):
             if f.is_file() and f.suffix.lower() in VIDEO and not f.name.startswith(".")]
 
 
-def layout_for(n: int) -> str:
-    if n == 1:  return "full"
+# 这些章节放的是成品，不管几张都要大图 —— 只按数量排会把主作品压成缩略图
+FINISHED = ("FINAL", "OUTPUT", "OUTCOME", "STILL", "PRINT", "POSTER",
+            "IMPLEMENTATION", "POSTER COMPOSITION", "POSTER")
+
+
+def is_finished(title: str) -> bool:
+    t = title.upper()
+    return any(k in t for k in FINISHED)
+
+
+def layout_for(n: int, title: str = "") -> str:
+    if n == 1:
+        return "full"
+    # 成品章节最多两列，让画看得清
+    if is_finished(title):
+        return "grid-2"
     if n == 2:  return "grid-2"
     if n == 3:  return "grid-3"
     if n == 4:  return "grid-2"
@@ -80,7 +94,7 @@ def layout_for(n: int) -> str:
 
 
 def block(files, alt_base: str) -> str:
-    cls = layout_for(len(files))
+    cls = layout_for(len(files), alt_base)
     imgs = "\n\n".join(f"![{alt_base} {i+1:02d}](./{f})" for i, f in enumerate(files))
     return f'{MARK_OPEN}\n<div class="{cls}">\n\n{imgs}\n\n</div>\n{MARK_CLOSE}'
 
@@ -209,7 +223,7 @@ def process(project_dir: Path) -> str | None:
         files = sec_images[match]
         base = slugify(title)
         names = []
-        big = len(files) == 1
+        big = len(files) == 1 or is_finished(title)
         for i, f in enumerate(files):
             out = f"{base}-{i+1:02d}.jpg"
             if convert(f, target / out, MAX_EDGE_FULL if big else MAX_EDGE_GRID):
