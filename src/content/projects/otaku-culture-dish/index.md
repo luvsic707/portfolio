@@ -2,36 +2,84 @@
 title: The Person in a Culture Dish — Otaku
 year: '2023'
 categories: ['Illustration', 'Graphic']
-featured: true
-order: 2
-summary: On otaku culture, isolation, and the condition of being observed.
-draft: true
+featured: false
+order: 6
+summary: Nine types of contemporary otaku distilled into nine symbols, each sealed in resin like a specimen — small enclosed worlds that grow and change on their own.
+# 封面图放进本文件夹，然后去掉下面两行行首的 #
+# cover: ./cover.jpg
+# coverAlt: The Person in a Culture Dish key visual
 meta:
-  date: TBD
-  media: TBD
+  date: 2023.08 – 2023.11
+  dimension: 25cm × 25cm × 0.3cm · 19cm × 19cm × 4cm
+  media: resin, acrylic paint, clay, ultraviolet epoxy
 ---
 
-Write the body of this project here. Use a `## A — SKETCHES` style heading to start
-a section — it renders as a terminal-style section label with a red ▶ in front.
+## A — INSPIRATION
 
-<!--
-图片：先把文件放进本文件夹（和 index.md 并排），再写引用。
-Astro 会检查每一条图片路径，引用了不存在的文件会导致构建失败——
-这是好事，能挡住拼错的路径，但也意味着不能先写占位引用。
+The term "Otaku" originated in Japan in the 1970s and has become an enduring part of East
+Asian culture. It generally refers to people who are deeply passionate about subcultures —
+especially anime, manga, and video games. Today, "otaku" is seen as a neutral identity,
+embraced by many in Japan.
 
-放好图之后，把下面这段挪到正文里、去掉注释符号：
+Otaku culture has many branches, such as ACG fans, idol enthusiasts, "rotting girls" who
+enjoy BL content, and niche groups like railroad or car otaku. Some are also defined by
+lifestyle, such as NEETs (Not in Education, Employment, or Training).
 
-    ![说明文字](./01.jpg)
+Despite their diversity, otaku share a tendency to stay within their own worlds, building
+small spaces shaped by personal interests. To me, this state is like a *culture dish* — an
+enclosed environment that grows and changes on its own.
 
-    <div class="grid-2">
+## B — PROCESS
 
-    ![图一](./01.jpg)
+First, I distinguished nine types of contemporary otaku with distinctive characteristics and
+extracted their figurative features to form a collection. In this process the representative
+colours, materials, and objects of each type become apparent, and create the basis for the
+subsequent installation. The figurative representations are then distilled into simple moving
+shapes, made even more mysterious by the flow of ink and the symmetry of origami, and
+finally overlaid with corresponding colours to form unique symbols.
 
-    ![图二](./02.jpg)
+### Type No.1 — Military Otaku
 
-    </div>
+People passionate about the military field and related ACGs, often showing a high level of
+passion for politics on the internet. Graphic extracts: guns, ammunition, keyboards.
 
-完整的排版清单见 README.md 或 _template/index.md
--->
+### Type No.2 — Occult Otaku
 
-写完、图也放好了，就把上面的 `draft: true` 删掉，作品会自动出现在网站上。
+People passionate about metaphysics such as tarot cards, astrology, or I Ching Bagua.
+Graphic extracts: eyes, hexagrams, reptiles.
+
+### Type No.3 — ACG Otaku
+
+The most typical otaku, obsessed with games, anime, and manga. Graphics extracted: from
+books and pen and paper.
+
+### Type No.4 — Transportation Otaku
+
+People obsessed with collecting models and information about transportation, including buses
+and plane tickets. Graphic extraction: wheels and triangles representing roadblocks.
+
+### Type No.5 — Pop Culture Otaku
+
+People obsessed with popular online culture, covering a wide range of media platforms.
+Image extraction: morphing of logos from various social media.
+
+### Type No.6 — Earthy Culture Otaku
+
+A special group reflecting poverty and hardship, often creating their own circle in
+marginalized markets. Graphic extraction: cigarette butts and wine bottles.
+
+### Type No.7 — Phantom Concept Otaku
+
+People passionate about studying speculative and post-apocalyptic worldviews such as
+cyberpunk and steampunk. Graphic extraction: red and blue pills, scattered data from
+*The Matrix*.
+
+### Type No.8 — Alien Pet Otaku
+
+People who breed special plants and animals such as lizards, snakes, and spiders. Graphic
+extraction: snakes and alien flowers.
+
+### Type No.9 — Clothing Otaku
+
+Mostly women passionate about culturally specific clothing, inspired by European Rococo,
+Japanese school uniforms, and punk fashion. Image extraction: Rococo corset, ribbon bow.

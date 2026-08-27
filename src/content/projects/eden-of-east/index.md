@@ -3,7 +3,7 @@ title: EDEN OF EAST
 year: '2021–2022'
 categories: ['Illustration', 'Graphic']
 featured: true
-order: 1
+order: 9
 summary: A twelve-piece illustration series using the baimiao line method of Chinese ink painting crossed with geometric structure, on the state of traditional culture in the present day.
 # 封面图放进本文件夹，然后去掉下面两行行首的 #
 # cover: ./cover.jpg
@@ -74,3 +74,9 @@ the overall color harmony in Photoshop.
 
 The series seeks to merge traditional craftsmanship, critical reflection, and
 contemporary formal innovation.
+
+## E — TEST BOARD 06
+
+This book is made by the traditional Chinese way of binding and layout, which means that I
+use simple cotton thread to connect every page. Then I set the proportion of the book as a
+total square, and in this way I can show more sense of form and decoration.

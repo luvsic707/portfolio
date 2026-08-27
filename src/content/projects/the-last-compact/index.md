@@ -1,37 +1,43 @@
 ---
 title: The Last Compact
-year: '2025'
+year: '2026'
 categories: ['Game', 'AR/VR']
-featured: false
-order: 8
-summary: An immersive piece about covenant and betrayal.
-draft: true
+featured: true
+order: 1
+summary: A first-person interactive narrative installation on memory, debt, and entropy — an infinite corridor of memory chambers whose ending is driven by a model of the protagonist's psychological state.
+# 封面图放进本文件夹，然后去掉下面两行行首的 #
+# cover: ./cover.jpg
+# coverAlt: The Last Compact key visual
 meta:
-  date: TBD
-  media: TBD
+  date: 2026.01 – 2026.04
+  dimension: 1920×1080
+  media: Unity / C# / Photoshop / Illustrator / Blender
+  subtitle: First-Person Narrative Exploration
 ---
 
-Write the body of this project here. Use a `## A — SKETCHES` style heading to start
-a section — it renders as a terminal-style section label with a red ▶ in front.
+## A — PROJECT OVERVIEW
 
-<!--
-图片：先把文件放进本文件夹（和 index.md 并排），再写引用。
-Astro 会检查每一条图片路径，引用了不存在的文件会导致构建失败——
-这是好事，能挡住拼错的路径，但也意味着不能先写占位引用。
+The Last Compact is a first-person interactive narrative installation exploring themes of
+memory, debt, and entropy. Developed in Unity with the URP pipeline, the experience guides
+players through an infinite corridor of interconnected memory chambers, where the narrative
+path and final outcome are dynamically driven by a mathematical model of the protagonist's
+psychological state.
 
-放好图之后，把下面这段挪到正文里、去掉注释符号：
+## B — GAMEPLAY FLOW
 
-    ![说明文字](./01.jpg)
+The experience begins with a prologue, leading the player into an infinite corridor.
+Players navigate through six distinct memory chambers across two phases, collecting
+fragments to progress toward a final judgment, culminating in one of three possible
+endings: **Stable**, **Unstable**, or **Collapse**.
 
-    <div class="grid-2">
+## C — TECHNICAL BREAKDOWN
 
-    ![图一](./01.jpg)
+The entire project follows a layered, event-driven architecture. All game data lives in
+ScriptableObject assets — zero hardcoding. Systems communicate through a static event bus,
+meaning no script directly references another. This makes every component independently
+testable, swappable, and debuggable.
 
-    ![图二](./02.jpg)
+## D — SEE IT IN ACTION
 
-    </div>
-
-完整的排版清单见 README.md 或 _template/index.md
--->
-
-写完、图也放好了，就把上面的 `draft: true` 删掉，作品会自动出现在网站上。
+Words and diagrams can only show so much. Watch the full walkthrough to see how it all
+comes together.
