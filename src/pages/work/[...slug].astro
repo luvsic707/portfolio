@@ -30,9 +30,22 @@ const { Content } = await render(project);
 
 <Base title={`${title} — Red Line`} description={summary} image={cover?.src} type="article">
 
-  <!-- ==================== 标题区 ==================== -->
+  <!-- ==================== 开屏：整幅成品 ==================== -->
   <article>
-    <header class="head">
+    {cover && (
+      <figure class="hero-shot">
+        <Image
+          src={cover}
+          alt={coverAlt ?? title}
+          widths={[720, 1280, 1920, 2400]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </figure>
+    )}
+
+    <header class:list={['head', { 'has-shot': !!cover }]}>
       <div class="wrap">
 
         <a href="/work" class="back mono">← WORK</a>
@@ -61,21 +74,6 @@ const { Content } = await render(project);
 
       </div>
     </header>
-
-    {cover && (
-      <figure class="cover">
-        <div class="wrap">
-          <Image
-            src={cover}
-            alt={coverAlt ?? title}
-            widths={[640, 1024, 1440, 2000]}
-            sizes="(max-width: 1440px) 100vw, 1440px"
-            loading="eager"
-            fetchpriority="high"
-          />
-        </div>
-      </figure>
-    )}
 
     <!-- ==================== 正文 ==================== -->
     <div class="body">
@@ -114,9 +112,31 @@ const { Content } = await render(project);
 <style>
   /* ==================== 标题区 ==================== */
 
+  /* ==================== 开屏整幅 ==================== */
+
+  .hero-shot {
+    width: 100%;
+    /* 顶到导航下沿，整幅铺满视口宽度 */
+    padding-top: var(--nav-h, 3.4rem);
+    background: var(--paper-sunk);
+  }
+
+  .hero-shot :global(img) {
+    width: 100vw;
+    height: min(82svh, 72vw);
+    object-fit: contain;   /* 作品不裁切 —— 宁可留边也不切掉画面 */
+    object-position: center;
+    background: var(--paper-sunk);
+  }
+
   .head {
     padding-top: clamp(6.5rem, 13vw, 10rem);
     padding-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  /* 有开屏图时标题区不用再留那么高的顶部空白 */
+  .head.has-shot {
+    padding-top: clamp(2.5rem, 6vw, 4.5rem);
   }
 
   .back {
@@ -242,24 +262,49 @@ const { Content } = await render(project);
      在 md 里直接写 <div class="grid-2"> 就能用，详见 README。 */
 
   .prose-body :global(.grid-2),
-  .prose-body :global(.grid-3) {
+  .prose-body :global(.grid-3),
+  .prose-body :global(.grid-4) {
     display: grid;
-    gap: clamp(0.75rem, 2vw, 1.25rem);
+    gap: clamp(0.6rem, 1.6vw, 1.1rem);
     margin-block: clamp(1.75rem, 4vw, 3rem);
+    /* 网格整体比正文宽 —— 正文是给人读的，图是给人看的 */
+    width: min(100%, 1180px);
   }
 
   .prose-body :global(.grid-2) { grid-template-columns: repeat(2, 1fr); }
   .prose-body :global(.grid-3) { grid-template-columns: repeat(3, 1fr); }
+  .prose-body :global(.grid-4) { grid-template-columns: repeat(4, 1fr); }
 
-  /* 网格里的图取消自身外边距，间距交给 gap */
-  .prose-body :global(.grid-2 p),
-  .prose-body :global(.grid-3 p) { margin: 0; }
+  /* 网格里的每张图各占一格：段落是格子，取消自身外边距，间距交给 gap */
+  .prose-body :global([class^='grid-'] p) {
+    margin: 0;
+    position: relative;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
 
-  .prose-body :global(.grid-2 img),
-  .prose-body :global(.grid-3 img) { margin: 0; }
+  .prose-body :global([class^='grid-'] img) {
+    margin: 0;
+    aspect-ratio: 1;
+    object-fit: cover;
+    height: 100%;
+  }
+
+  /* 悬停微微放大并浮起，方便看清小图 */
+  @media (hover: hover) and (pointer: fine) {
+    .prose-body :global([class^='grid-'] p:hover) {
+      transform: scale(1.045);
+      z-index: 2;
+      box-shadow: 0 8px 26px rgba(23, 22, 20, 0.16);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .prose-body :global(.grid-4) { grid-template-columns: repeat(3, 1fr); }
+  }
 
   @media (max-width: 640px) {
-    .prose-body :global(.grid-3) { grid-template-columns: repeat(2, 1fr); }
+    .prose-body :global(.grid-3),
+    .prose-body :global(.grid-4) { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* 通栏大图：冲破正文宽度铺满视口，用来放主视觉 */

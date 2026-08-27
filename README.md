@@ -99,7 +99,33 @@ meta:
 Brand · Illustration · Tattoo · Game · Graphic · AR/VR · Animation
 ```
 
-### 4. 写正文
+### 4. 批量导入图片（推荐）
+
+把图丢进桌面「作品集图片」里对应的章节文件夹，然后跑：
+
+```bash
+cd ~/projects/portfolio && python3 tools/import-images.py
+```
+
+脚本会自动转格式（HEIC/PSD 也吃）、压缩、命名、按数量决定版式：
+
+| 一节里的图片数 | 版式 |
+|---:|---|
+| 1 张 | 通栏大图 |
+| 2 张 | 两列 |
+| 3 张 | 三列 |
+| 4 张 | 两列（2×2） |
+| 5–9 张 | 三列 |
+| 10 张以上 | 四列密集网格 |
+
+可以反复运行，不会重复叠加。只处理 `<!-- auto:images -->` 标记之间的部分，
+你手写的段落不会被动。只想做某一个项目就加上它的名字：
+
+```bash
+python3 tools/import-images.py eden-of-east
+```
+
+### 5. 写正文
 
 `---` 之后就是正文。你原来那套 A / B / C / D 的过程结构模板里已经搭好了。
 

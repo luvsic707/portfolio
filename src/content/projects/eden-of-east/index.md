@@ -41,6 +41,52 @@ Part of the inspiration comes from Fei Xiaotong's *From the Soil*, which reflect
 the structure of local societies and the order of human relationships in traditional
 China.
 
+<!-- auto:images -->
+<div class="grid-4">
+
+![A — SKETCHES 01](./a-sketches-01.jpg)
+
+![A — SKETCHES 02](./a-sketches-02.jpg)
+
+![A — SKETCHES 03](./a-sketches-03.jpg)
+
+![A — SKETCHES 04](./a-sketches-04.jpg)
+
+![A — SKETCHES 05](./a-sketches-05.jpg)
+
+![A — SKETCHES 06](./a-sketches-06.jpg)
+
+![A — SKETCHES 07](./a-sketches-07.jpg)
+
+![A — SKETCHES 08](./a-sketches-08.jpg)
+
+![A — SKETCHES 09](./a-sketches-09.jpg)
+
+![A — SKETCHES 10](./a-sketches-10.jpg)
+
+![A — SKETCHES 11](./a-sketches-11.jpg)
+
+![A — SKETCHES 12](./a-sketches-12.jpg)
+
+![A — SKETCHES 13](./a-sketches-13.jpg)
+
+![A — SKETCHES 14](./a-sketches-14.jpg)
+
+![A — SKETCHES 15](./a-sketches-15.jpg)
+
+![A — SKETCHES 16](./a-sketches-16.jpg)
+
+![A — SKETCHES 17](./a-sketches-17.jpg)
+
+![A — SKETCHES 18](./a-sketches-18.jpg)
+
+![A — SKETCHES 19](./a-sketches-19.jpg)
+
+![A — SKETCHES 20](./a-sketches-20.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## B — MATERIAL EXPERIMENT
 
 These works are made with traditional Chinese tools such as black ink, golden dust,
