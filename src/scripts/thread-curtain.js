@@ -26,6 +26,17 @@ export function initThreadCurtain(canvas, links = []) {
   const ctx = canvas.getContext('2d', { alpha: true });
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* 能不能悬停，决定挂不挂作品。
+     用 hover 能力判断而不是屏幕宽度：iPad 接了触控板能悬停，纯触屏的不能。
+     触屏上没有 hover，浮动标签既没法预览也会互相打架，所以那边只留纯装饰的帘子，
+     导航交给下面的作品网格。 */
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const activeLinks = canHover ? links : [];
+
+  if (!canHover) {
+    for (const l of links) l.el.remove();
+  }
+
   let W = 0;
   let H = 0;
   let dpr = 1;
@@ -41,18 +52,32 @@ export function initThreadCurtain(canvas, links = []) {
   /* ---------- 建线 ---------- */
 
   function build() {
-    // 线的疏密跟着屏宽走，手机上不要太密
-    const gap = W < 640 ? 18 : 13;
-    const count = Math.max(24, Math.min(120, Math.round(W / gap)));
+    // 线的疏密跟着屏宽走。窄屏用更小的间距，否则线太少会像几道划痕而不是一面帘子。
+    const gap = W < 640 ? 14 : 13;
+    const count = Math.max(22, Math.min(120, Math.round(W / gap)));
 
     // 把作品均匀分配到这些线里，两端留白避免贴边
     const slots = [];
-    if (links.length) {
+    if (activeLinks.length) {
       const usable = count - 6;
-      for (let i = 0; i < links.length; i++) {
-        slots.push(3 + Math.round(((i + 0.5) / links.length) * usable));
+      for (let i = 0; i < activeLinks.length; i++) {
+        slots.push(3 + Math.round(((i + 0.5) / activeLinks.length) * usable));
       }
     }
+
+    // 触屏上没有作品线，画面会缺少红色重音、整片糊掉。
+    // 补几根同样份量但不可点的红线，把「红线帘」的样子撑住。
+    const accents = [];
+    if (!activeLinks.length) {
+      const n = 6;
+      const usable = count - 6;
+      for (let i = 0; i < n; i++) {
+        accents.push(3 + Math.round(((i + 0.5) / n) * usable));
+      }
+    }
+
+    // 窄屏上线更细，需要整体提一点存在感
+    const boost = W < 640 ? 1 : 0;
 
     threads = [];
 
@@ -60,7 +85,7 @@ export function initThreadCurtain(canvas, links = []) {
       const x = ((i + 0.5) / count) * W;
 
       const linkIndex = slots.indexOf(i);
-      const link = linkIndex >= 0 ? links[linkIndex] : null;
+      const link = linkIndex >= 0 ? activeLinks[linkIndex] : null;
 
       // 长度错落，避免下缘像被剪齐一样
       const seed = Math.sin(i * 12.9898) * 43758.5453;
@@ -75,17 +100,19 @@ export function initThreadCurtain(canvas, links = []) {
         points.push({ x, y: 0, px: x, py: 0 });
       }
 
+      const accent = !link && accents.includes(i);
+
       // 未挂作品的线里掺一部分淡红，让整片有冷暖变化
-      const reddish = !link && rand > 0.72;
+      const reddish = !link && !accent && rand > 0.72;
 
       threads.push({
         x,
         points,
         rest: len / (POINTS_PER_THREAD - 1),
         link,
-        color: link ? COLOR_RED : reddish ? COLOR_RED : COLOR_GREY,
-        alpha: link ? 1 : reddish ? 0.3 : 0.42,
-        width: link ? 1.7 : 0.9,
+        color: link || accent || reddish ? COLOR_RED : COLOR_GREY,
+        alpha: link ? 1 : accent ? 0.8 : reddish ? 0.34 + boost * 0.1 : 0.44 + boost * 0.12,
+        width: link ? 1.7 : accent ? 1.4 : 0.9 + boost * 0.25,
         // 挂着作品的线完全不被光标推开：珠子必须站得住，否则永远点不到它。
         // 它们仍然随风轻摆，所以不会显得僵硬。
         resist: link ? 0 : 1,
@@ -162,8 +189,13 @@ export function initThreadCurtain(canvas, links = []) {
         }
       }
 
-      // 限位：线可以荡，但不能荡到离自己挂点太远，也不能荡出画面
-      const span = th.rest * (points.length - 1) * SWAY_LIMIT;
+      // 限位：线可以荡，但不能荡到离自己挂点太远，也不能荡出画面。
+      // 同时要按屏宽收一道 —— 窄屏上线很长，只按长度限位的话它们会横着扫过整个
+      // 屏幕互相穿插，看起来很乱。
+      const span = Math.min(
+        th.rest * (points.length - 1) * SWAY_LIMIT,
+        W * 0.18
+      );
       for (let j = 1; j < points.length; j++) {
         const p = points[j];
         const lo = Math.max(2, th.x - span);
@@ -242,11 +274,21 @@ export function initThreadCurtain(canvas, links = []) {
       const el = th.link.el;
       const active = th === hovered || th === focused;
 
-      el.style.transform = `translate(${th.bead.x}px, ${th.bead.y}px)`;
-      el.classList.toggle('is-on', active);
+      // 按标签自己的实际宽度决定往哪边展开，并夹回视口内。
+      // 注意不能用 CSS 的 margin-left:-100% —— 绝对定位元素的百分比外边距
+      // 是相对容器宽度算的，不是相对自身宽度。
+      const w = el.offsetWidth || 160;
+      const h = el.offsetHeight || 28;
 
-      // 靠右侧的标签往左展开，避免出界
-      el.classList.toggle('flip', th.bead.x > W * 0.68);
+      const flip = th.bead.x + w + 16 > W;
+      let x = flip ? th.bead.x - w : th.bead.x;
+      x = Math.max(8, Math.min(W - w - 8, x));
+
+      const y = Math.max(8, Math.min(H - h - 8, th.bead.y - h / 2));
+
+      el.style.transform = `translate(${x}px, ${y}px)`;
+      el.classList.toggle('is-on', active);
+      el.classList.toggle('flip', flip);
     }
   }
 

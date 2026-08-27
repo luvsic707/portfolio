@@ -162,12 +162,20 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
   .tlabel.is-on,
   .tlabel:focus-visible { opacity: 1; }
 
-  /* 右侧的标签往左展开，不出界 */
+  /* 靠右的标签往左展开（位移由 JS 按实际宽度算，这里只管内边距和对齐） */
   .tlabel.flip {
-    transform-origin: right center;
-    margin-left: -100%;
     padding: 0.35em 1.1em 0.35em 0.7em;
     text-align: right;
+  }
+
+  /* 标签最长不超过半屏，长标题自己截断 */
+  .tlabel-text {
+    display: inline-block;
+    max-width: min(46vw, 20rem);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: bottom;
   }
 
   /* --- 文案 --- */
@@ -255,8 +263,39 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     50%      { transform: translateY(5px); opacity: 1; }
   }
 
+  /* 触屏上帘子只是装饰（没有 hover 就没法预览作品名），提示语也就没意义了 */
+  @media (hover: none), (pointer: coarse) {
+    .hero-hint { display: none; }
+  }
+
   @media (max-width: 640px) {
     .hero-hint { display: none; }
+
+    /* 手机上标题别把整屏吃满，留出帘子透气的地方 */
+    .hero-title { line-height: 1.04; }
+
+    .hero-inner { padding-top: 3rem; }
+
+    .hero-eyebrow {
+      font-size: 0.6875rem;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-tail {
+      font-size: 0.6875rem;
+      margin-top: 1.25rem;
+    }
+
+    /* 竖屏时纸色蒙版要更实，否则线会穿过字 */
+    .hero-inner::before {
+      inset: -6% -10% -10% -8%;
+      background: radial-gradient(
+        86% 56% at 40% 50%,
+        color-mix(in srgb, var(--paper) 97%, transparent) 0%,
+        color-mix(in srgb, var(--paper) 88%, transparent) 52%,
+        transparent 88%
+      );
+    }
   }
 
   /* ==================== 精选 ==================== */

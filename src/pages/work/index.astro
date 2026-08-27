@@ -141,7 +141,8 @@ const active = CATEGORIES.filter((c) => counts[c] > 0);
 
   .filters {
     position: sticky;
-    top: 3.4rem;
+    /* --nav-h 由 Nav.astro 实测写入；JS 没跑起来时退回一个接近的值 */
+    top: var(--nav-h, 3.4rem);
     z-index: 20;
     background: color-mix(in srgb, var(--paper) 92%, transparent);
     backdrop-filter: blur(8px);
@@ -153,6 +154,28 @@ const active = CATEGORIES.filter((c) => counts[c] > 0);
     flex-wrap: wrap;
     gap: 0.4rem;
     padding-block: 0.7rem;
+  }
+
+  /* 窄屏上七个筛选会折成三行，吸顶时能吃掉三分之一个屏。
+     改成单行横滑，跟原生 App 的 chip 一样。 */
+  @media (max-width: 720px) {
+    .filter-row {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      /* 让首尾能滑到边上，同时抵消 .wrap 的内边距 */
+      margin-inline: calc(var(--gutter) * -1);
+      padding-inline: var(--gutter);
+      scroll-padding-inline: var(--gutter);
+    }
+
+    .filter-row::-webkit-scrollbar { display: none; }
+
+    .chip {
+      flex: none;
+      scroll-snap-align: start;
+    }
   }
 
   .chip {

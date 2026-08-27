@@ -34,7 +34,7 @@
   --step-1:  clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
   --step-2:  clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
   --step-3:  clamp(2.25rem, 1.7rem + 2.6vw, 4rem);
-  --step-4:  clamp(3rem, 1.8rem + 6vw, 7.5rem);
+  --step-4:  clamp(2.35rem, 1.05rem + 6.6vw, 7.5rem);
 
   --gutter:  clamp(1.25rem, 4vw, 4rem);
   --measure: 62ch;
@@ -203,4 +203,49 @@ button {
     transition-duration: 0.01ms !important;
   }
   .reveal { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   触屏：撑大点击区域
+   等宽小字做的链接只有 16–19px 高，手指根本点不准。
+   用一层不可见的 ::after 把热区撑到 40px 以上 —— 不占布局，
+   视觉一点不变。
+   ============================================================ */
+
+@media (pointer: coarse) {
+  .nav .link,
+  .nav .brand,
+  .foot-link,
+  .say-mail,
+  .head-all,
+  .about-more,
+  .back,
+  .pager-link,
+  .hero-cue,
+  .card-hit {
+    position: relative;
+  }
+
+  .nav .link::after,
+  .nav .brand::after,
+  .foot-link::after,
+  .say-mail::after,
+  .head-all::after,
+  .about-more::after,
+  .back::after,
+  .pager-link::after,
+  .hero-cue::after {
+    content: '';
+    position: absolute;
+    inset: -13px -8px;
+  }
+
+  /* 筛选按钮直接长高，它们本来就是块状的 */
+  .chip {
+    min-height: 40px;
+    padding-inline: 0.85em;
+  }
+
+  /* 页脚链接是竖排的，热区别互相盖住 */
+  .foot-links { gap: 0.9rem; }
 }

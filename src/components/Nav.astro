@@ -25,14 +25,26 @@ const isInfo = path.startsWith('/info');
 </header>
 
 <script>
-  // 往下滚超过一屏高度的 10% 就给导航加底线
   const nav = document.querySelector('[data-nav]');
+
   if (nav) {
+    // 往下滚一点就给导航加底线
     const onScroll = () => {
       nav.classList.toggle('is-stuck', window.scrollY > 24);
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+
+    // 把导航实测高度写进 --nav-h，供作品页的吸顶筛选器对齐。
+    // 导航高度随字号变化，写死 rem 值在不同断点会错位。
+    const measure = () => {
+      document.documentElement.style.setProperty(
+        '--nav-h',
+        `${Math.round(nav.getBoundingClientRect().height)}px`
+      );
+    };
+    measure();
+    new ResizeObserver(measure).observe(nav);
   }
 </script>
 
