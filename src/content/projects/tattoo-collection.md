@@ -4,20 +4,20 @@ year: '2021–2026'
 categories: ['Tattoo', 'Illustration']
 featured: true
 order: 9
-summary: 历年纹身设计与实作合集。
+summary: Tattoo designs and finished pieces, 2021 to now.
 draft: true
 meta:
-  date: 待填
-  media: 待填
+  date: TBD
+  media: TBD
 ---
 
-在这里写这个项目的正文。用 `## A — SKETCHES` 这样的二级标题分段，
-渲染出来会自动变成终端风格的章节标题（前面带红色 ▶）。
+Write the body of this project here. Use a `## A — SKETCHES` style heading to start
+a section — it renders as a terminal-style section label with a red ▶ in front.
 
-插图这样写：
+Add images like this:
 
-![图片说明](/images/tattoo-collection/01.jpg)
+![Caption for this image](/images/tattoo-collection/01.jpg)
 
-图片放到 `public/images/tattoo-collection/` 文件夹里就行。
+Put the image files in `public/images/tattoo-collection/`.
 
-写完之后把上面的 `draft: true` 删掉，这个项目就会出现在网站上。
+当这篇写完、图也放好了，把上面的 `draft: true` 删掉，作品就会出现在网站上。

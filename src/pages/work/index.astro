@@ -21,12 +21,12 @@ const counts = Object.fromEntries(
 const active = CATEGORIES.filter((c) => counts[c] > 0);
 ---
 
-<Base title="Work — 红线 RED LINE">
+<Base title="Work — Red Line">
 
   <section class="head-block">
     <div class="wrap">
       <p class="mono eyebrow">▶ WORKS EXPLORER</p>
-      <h1 class="page-title">作品</h1>
+      <h1 class="page-title">Work</h1>
       <p class="mono count">
         {projects.length} {projects.length === 1 ? 'PROJECT' : 'PROJECTS'} · 2021—{new Date().getFullYear()}
       </p>
@@ -60,7 +60,7 @@ const active = CATEGORIES.filter((c) => counts[c] > 0);
       </div>
 
       <p class="none mono" data-none hidden>
-        ____&gt; 这个分类下还没有作品
+        ____&gt; nothing in this category yet
       </p>
     </div>
   </section>

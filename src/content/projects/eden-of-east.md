@@ -1,59 +1,76 @@
 ---
 title: EDEN OF EAST
-titleCn: 东方伊甸
 year: '2021–2022'
 categories: ['Illustration', 'Graphic']
 featured: true
 order: 1
-summary: 一组十二幅的插画系列，用中国画白描的造型方法混入几何结构，谈论传统文化在当下的处境。
+summary: A twelve-piece illustration series using the baimiao line method of Chinese ink painting crossed with geometric structure, on the state of traditional culture in the present day.
 # 把封面图放到 public/images/eden-of-east/ 里，然后把下面两行前面的 # 去掉
 # cover: /images/eden-of-east/cover.jpg
-# coverAlt: EDEN OF EAST 系列主视觉
+# coverAlt: EDEN OF EAST key visual
 meta:
   date: 2021.09 – 2022.02
   dimension: 20cm × 20cm
-  media: 综合材料 · 中国画颜料 · 水彩
+  media: comprehensive material · Chinese ink · watercolour
   tools: Procreate · Photoshop
 ---
 
-我在中国生活了二十二年，那是我的故乡。这二十年看似平稳无事，心里却积了很多疑问。
-我常常往不同的都市跑，有时也去尚未开发的地方。摩天楼、琳琅的店铺、豪车构成一派繁荣，
-而多数小城与乡村是破败的楼房、泥泞的路、不便的交通——两幅画面完全相反，
-中间是一道无法忽视的裂口。
+I've lived in China for 22 years since it is my homeland. Although these two decades
+seem to be safe and sound, there are plenty of doubts that come up in my mind.
+I frequently take trips to different sorts of metropolis in China, while sometimes
+I travel to undeveloped areas. Skyscrapers, various shops, and luxury cars show a
+prosperous view that is totally opposite to shabby buildings, muddy paths, and
+inconvenient transportation in most small cities and countrysides. All of the scenes
+illustrate a huge gap that we can't ignore.
 
-经历过这些之后，我决定去处理那种**矛盾**与**撕裂**的感觉。
+Being through these things, I decided to explore the sense of **contradiction** and
+**avulsion**.
 
 ## A — SKETCHES
 
-我先去和不同年龄、不同职业的人聊天，他们给出的答案让我相当震动。
-我不只知道了一些具体的事件，也去找了能解释这些事件、能支撑我想法的参考资料。
+To start with, I communicated with people of different ages and careers, and the
+answers they gave shocked me quite a lot. I not only realized some specific events,
+but also searched particular references that could explain all of the events and
+support my ideas.
 
-最后我发现，有很多真相是我们长久以来忽略掉的。
-接受这片土地上所有的伤疤是痛苦的，但最重要的事情是面对它们。
+Finally, I figured out there are a number of truths that we've neglected for a long
+time. It is painful to accept all the scars in this region, but the most important
+thing is facing them.
 
-灵感有一部分来自费孝通的《乡土中国》——它反思了传统中国的社会结构与人际秩序。
+Part of the inspiration comes from Fei Xiaotong's *From the Soil*, which reflects on
+the structure of local societies and the order of human relationships in traditional
+China.
 
 ## B — MATERIAL EXPERIMENT
 
-这些作品使用了传统的中国工具：墨、金粉、手工艺术纸。
+These works are made with traditional Chinese tools such as black ink, golden dust,
+and handmade art paper.
 
-在处理水彩时，我尝试了多种传统绘画技法，包括撒盐、泡沫肌理、以及不同的运笔方式，
-想在这种寻常的媒介里找出新的可能性。
+While working with watercolor, I experimented with various traditional painting
+techniques, including salt scattering, foam texture, and different brush movements,
+to explore new possibilities within this ordinary medium.
 
 ## C — PHOTOGRAPHY
 
-这些照片拍摄于我在内蒙古的旅行。那是中国北方一个仍然保留着较为传统的生活方式与
-景观的地区。辽阔的土地、凛冽的风、粗粝的质地，深刻地映照出中国性格与文化的底色。
+The photographs were taken during my trip to Inner Mongolia, a region in northern
+China that preserves a more traditional lifestyle and landscape. The vast land, harsh
+wind, and rough textures there deeply reflect the essence of Chinese character and
+culture.
 
 ## D — FINAL OUTPUT
 
-这个插画系列由十二幅主要作品和若干辅助图形组成。构图由一个总的概念统领——
-每一幅都从我自己的视角出发，反映传统中国文化在当下的某一种状态。
-作品不直接传达意义，而是聚焦于结构性与文化性的元素，把反思和解读留给观看的人。
+This illustration series consists of twelve main pieces along with several supporting
+graphics. The compositions are guided by an overarching concept — each piece reflects,
+from my own perspective, a state of traditional Chinese culture in the present day.
+Rather than conveying meaning directly, the works focus on structural and cultural
+elements, inviting the viewer to reflect and interpret.
 
-技法上，在确定基本构图之后，我用中国画传统的**白描**方法造型；
-但我脱离了常规的写意水墨风格，引入几何形体来强化视觉结构。
-绘制在 Procreate 中完成，形状与颜色取样自传统工艺的肌理，
-最后在 Photoshop 里统一整体的色彩关系。
+In terms of technique, after confirming the basic composition, I used the traditional
+*baimiao* (fine-line) method from Chinese ink painting for modeling. However, I broke
+away from the conventional *xieyi* (freehand) ink style, introducing geometric forms
+to enhance visual structure. The drawings were created in Procreate, where I matched
+shapes and colors using textures sampled from traditional crafts, and then finalized
+the overall color harmony in Photoshop.
 
-这个系列试图把传统工艺、批判性反思与当代形式创新合并到一起。
+The series seeks to merge traditional craftsmanship, critical reflection, and
+contemporary formal innovation.

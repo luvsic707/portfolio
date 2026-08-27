@@ -7,12 +7,12 @@ const isInfo = path.startsWith('/info');
 <header class="nav" data-nav>
   <div class="nav-inner wrap">
 
-    <a href="/" class="brand" aria-label="返回首页">
-      <span class="brand-cn">红线</span>
-      <span class="brand-en mono">RED&nbsp;LINE</span>
+    <a href="/" class="brand" aria-label="Red Line — home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">RED&nbsp;LINE</span>
     </a>
 
-    <nav class="links" aria-label="主导航">
+    <nav class="links" aria-label="Main">
       <a href="/work" class:list={['link', 'mono', { on: isWork }]}>
         <span class="glyph">◆</span>WORK
       </a>
@@ -64,26 +64,27 @@ const isInfo = path.startsWith('/info');
 
   .brand {
     display: flex;
-    align-items: baseline;
-    gap: 0.55rem;
+    align-items: center;
+    gap: 0.6rem;
   }
 
-  .brand-cn {
+  /* 品牌前的那道红线 —— 名字本身就是这个意思 */
+  .brand-mark {
+    width: 1.4rem;
+    height: 2px;
+    background: var(--red);
+    transition: width 0.35s var(--ease);
+  }
+
+  .brand:hover .brand-mark { width: 2.2rem; }
+
+  .brand-name {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: var(--step-1);
-    letter-spacing: 0.04em;
-    color: var(--red);
+    font-size: var(--step-0);
+    letter-spacing: 0.14em;
+    color: var(--ink);
   }
-
-  .brand-en {
-    font-size: var(--step--1);
-    letter-spacing: 0.16em;
-    color: var(--ink-soft);
-    transition: color 0.2s var(--ease);
-  }
-
-  .brand:hover .brand-en { color: var(--ink); }
 
   /* --- 链接 --- */
 

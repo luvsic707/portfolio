@@ -9,13 +9,14 @@ interface Props {
 }
 
 const {
-  title = 'Red Line 红线 — Multidisciplinary Artist & Designer',
-  description = '设计、绘画、纹身、游戏。在传统工艺与现代技术的碰撞处工作。',
+  title = 'Red Line — Multidisciplinary Artist & Designer',
+  description =
+    'Design, illustration, tattoo, and games. Working where traditional craft and modern technology collide.',
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,6 +25,10 @@ const {
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..500&family=IBM+Plex+Mono:wght@400;500&display=swap"
+  />
 
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -32,7 +37,7 @@ const {
 </head>
 
 <body>
-  <a href="#main" class="skip">跳到主要内容</a>
+  <a href="#main" class="skip">Skip to content</a>
 
   <Nav />
 

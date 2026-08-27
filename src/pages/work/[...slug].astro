@@ -27,7 +27,7 @@ const { title, titleCn, year, categories, summary, cover, coverAlt, meta } = pro
 const { Content } = await render(project);
 ---
 
-<Base title={`${title} — 红线 RED LINE`} description={summary}>
+<Base title={`${title} — Red Line`} description={summary}>
 
   <!-- ==================== 标题区 ==================== -->
   <article>
@@ -89,14 +89,14 @@ const { Content } = await render(project);
       <div class="pager-row">
         {prev ? (
           <a class="pager-link is-prev" href={`/work/${prev.id}`}>
-            <span class="mono pager-dir">← 上一件</span>
+            <span class="mono pager-dir">← Previous</span>
             <span class="pager-title">{prev.data.title}</span>
           </a>
         ) : <span />}
 
         {next ? (
           <a class="pager-link is-next" href={`/work/${next.id}`}>
-            <span class="mono pager-dir">下一件 →</span>
+            <span class="mono pager-dir">Next →</span>
             <span class="pager-title">{next.data.title}</span>
           </a>
         ) : <span />}
