@@ -55,6 +55,42 @@ def convert(src: Path, dst: Path, max_edge: int) -> bool:
     return r.returncode == 0 and dst.exists()
 
 
+def has_ffmpeg() -> bool:
+    return shutil.which("ffmpeg") is not None
+
+
+def compress_video(src: Path, dst: Path) -> bool:
+    """压成网页规格的 mp4。
+
+    关键几项：
+      H.264 + yuv420p  —— 兼容性最好，各浏览器都认
+      CRF 24           —— 画质/体积的甜点，网页尺寸下看不出损失
+      宽度封顶 1920    —— 再大对网页没意义
+      +faststart       —— 把索引move到文件头，不用下完就能起播（很重要）
+    """
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    r = subprocess.run(
+        ["ffmpeg", "-y", "-i", str(src),
+         "-vf", "scale='min(1920,iw)':-2",
+         "-c:v", "libx264", "-crf", "24", "-preset", "medium", "-pix_fmt", "yuv420p",
+         "-c:a", "aac", "-b:a", "128k",
+         "-movflags", "+faststart",
+         str(dst)],
+        capture_output=True,
+    )
+    return r.returncode == 0 and dst.exists()
+
+
+def video_block(rel_paths, alt_base: str) -> str:
+    """正文里的视频：整幅，带控件，不自动播放（正文里突然动起来很烦）。"""
+    vids = "\n\n".join(
+        f'<video src="{p}" controls playsinline preload="metadata" '
+        f'aria-label="{alt_base} — video {i+1:02d}"></video>'
+        for i, p in enumerate(rel_paths)
+    )
+    return f'<div class="videos">\n\n{vids}\n\n</div>'
+
+
 def images_in(folder: Path):
     """只取本层的图，不递归 —— 子文件夹是下一级小节，各管各的。"""
     out = []
@@ -143,6 +179,9 @@ def process(project_dir: Path) -> str | None:
     proj_title = m.group(1).strip() if m else project_dir.name
 
     # 清掉上一次生成的图，避免删了图之后还留着旧文件
+    vdir_old = PUBLIC / "media" / slug
+    if vdir_old.exists():
+        shutil.rmtree(vdir_old)
     for old in target.glob("*.jpg"):
         if re.match(r"^(cover|hero-\d{2}|[a-z0-9-]+-\d{2})\.jpg$", old.name):
             old.unlink()
@@ -172,8 +211,11 @@ def process(project_dir: Path) -> str | None:
                 n_vid += 1
                 vdir = PUBLIC / "media" / slug
                 vdir.mkdir(parents=True, exist_ok=True)
-                vname = f"hero-{n_vid:02d}{f.suffix.lower()}"
-                shutil.copy2(f, vdir / vname)
+                vname = f"hero-{n_vid:02d}.mp4"
+                if not compress_video(f, vdir / vname):
+                    print(f"     ⚠️  视频压缩失败，跳过：{f.name}")
+                    n_vid -= 1
+                    continue
                 entries.append(f'  - video: /media/{slug}/{vname}\n'
                                f'    alt: {proj_title} — video {n_vid:02d}')
             else:
@@ -198,29 +240,35 @@ def process(project_dir: Path) -> str | None:
 
     # 章节文件夹（含嵌套的小节）→ 图片
     sec_images: dict[str, list[Path]] = {}
+    sec_videos: dict[str, list[Path]] = {}
     for sec in sorted(project_dir.iterdir()):
         if not sec.is_dir() or sec.name == "00 封面":
             continue
         imgs = images_in(sec)
         if imgs:
             sec_images[sec.name] = imgs
-        skipped_video += videos_in(sec)
+        vids = videos_in(sec)
+        if vids:
+            sec_videos[sec.name] = vids
         for sub in sorted(sec.iterdir()):
             if sub.is_dir():
                 simgs = images_in(sub)
                 if simgs:
                     sec_images[sub.name] = simgs
-                skipped_video += videos_in(sub)
+                svids = videos_in(sub)
+                if svids:
+                    sec_videos[sub.name] = svids
 
     # 按标题倒序插入，避免行号错位
     for idx, (ln, head) in reversed(list(enumerate(heads))):
         title = re.sub(r"^#{2,3} ", "", head).strip()
         norm = re.sub(r"\s+", " ", title)
         match = next((k for k in sec_images if re.sub(r"\s+", " ", k) == norm), None)
-        if not match:
+        vmatch = next((k for k in sec_videos if re.sub(r"\s+", " ", k) == norm), None)
+        if not match and not vmatch:
             continue
 
-        files = sec_images[match]
+        files = sec_images.get(match, []) if match else []
         base = slugify(title)
         names = []
         big = len(files) == 1 or is_finished(title)
@@ -229,12 +277,31 @@ def process(project_dir: Path) -> str | None:
             if convert(f, target / out, MAX_EDGE_FULL if big else MAX_EDGE_GRID):
                 names.append(out)
                 generated.append(out)
-        if not names:
+        # 章节里的视频，压缩后放 public
+        vpaths = []
+        if vmatch:
+            vdir = PUBLIC / "media" / slug
+            for j, vf in enumerate(sec_videos[vmatch]):
+                vname = f"{base}-{j+1:02d}.mp4"
+                if compress_video(vf, vdir / vname):
+                    vpaths.append(f"/media/{slug}/{vname}")
+                    generated.append(vname)
+                else:
+                    skipped_video.append(vf)
+
+        if not names and not vpaths:
             continue
+
+        parts = []
+        if names:  parts.append(block(names, title))
+        if vpaths: parts.append(video_block(vpaths, title))
+        payload = MARK_OPEN + "\n" + "\n\n".join(
+            b.replace(MARK_OPEN + "\n", "").replace("\n" + MARK_CLOSE, "") for b in parts
+        ) + "\n" + MARK_CLOSE
 
         end = heads[idx + 1][0] if idx + 1 < len(heads) else len(lines)
         chunk = strip_auto("\n".join(lines[ln + 1:end]))
-        lines[ln + 1:end] = (chunk.rstrip() + "\n\n" + block(names, title) + "\n").split("\n")
+        lines[ln + 1:end] = (chunk.rstrip() + "\n\n" + payload + "\n").split("\n")
 
     body = "\n".join(lines)
     md_path.write_text(front + body)

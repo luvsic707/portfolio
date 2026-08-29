@@ -306,6 +306,22 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     border-inline: 0;
   }
 
+  /* 正文里的视频 */
+  .prose-body :global(.videos) {
+    width: min(100%, 1180px);
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+    display: grid;
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+  }
+
+  .prose-body :global(.videos video) {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: var(--ink);
+    border: 1px solid var(--line);
+  }
+
   /* 图注 */
   .prose-body :global(figure) {
     margin-block: clamp(1.75rem, 4vw, 3rem);
