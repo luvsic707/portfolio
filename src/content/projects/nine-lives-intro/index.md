@@ -5,13 +5,13 @@ categories: ['Animation', 'Game']
 featured: true
 order: 4
 summary: An 80-second 2D collage animation retelling the opening of the Chinese myth Investiture of the Gods — a proud king offends the goddess of creation, and his kingdom burns.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: Nine Lives intro animation still
 meta:
   date: 2025.04 – 2025.07
   dimension: 1920×1080 (H.264 / ProRes)
   media: Adobe Illustrator / Photoshop / After Effects · Procreate · Sora
+gallery:
+  - video: /media/nine-lives-intro/hero-01.mp4
+    alt: Nine Lives to Ruin a Kingdom — Intro Animation — video 01
 ---
 
 ## A — INSPIRATION
@@ -34,6 +34,16 @@ have always remembered the feeling of that vast world where gods and humans coex
 decided to create this animation to depict the very beginning of it all — a proud king who
 offended the goddess of creation, leading to the destruction of his kingdom.
 
+<!-- auto:images -->
+<div class="grid-2">
+
+![A — INSPIRATION 01](./a-inspiration-01.jpg)
+
+![A — INSPIRATION 02](./a-inspiration-02.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## B — EARLY CONCEPT AND STORY DEVELOPMENT
 
 I made a few simple storyboard sketches to explore the rhythm and flow of the scenes in the
@@ -41,6 +51,22 @@ most direct way. At the same time, I started writing a rough version of the scri
 the overall tone of the animation. However, I was still quite lost then. I hadn't decided on
 a visual style or figured out the technical direction. I was simply following my impulse and
 intuition, trying to find a way to tell this story.
+
+<!-- auto:images -->
+<div class="full">
+
+![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-01.jpg)
+
+</div>
+
+<div class="videos">
+
+<video src="/media/nine-lives-intro/b-early-concept-and-story-development-01.mp4" controls playsinline preload="metadata" aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT — video 01"></video>
+
+<video src="/media/nine-lives-intro/b-early-concept-and-story-development-02.mp4" controls playsinline preload="metadata" aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT — video 02"></video>
+
+</div>
+<!-- /auto:images -->
 
 ## C — AI PROTOTYPE ITERATION
 
@@ -50,6 +76,14 @@ at that time, such as inconsistent characters, strange camera transitions, and l
 emotional expression. Although the test video was still rough, it helped me quickly confirm
 that the story structure was reasonable and gave me confidence in the creative direction
 ahead.
+
+<!-- auto:images -->
+<div class="videos">
+
+<video src="/media/nine-lives-intro/c-ai-prototype-iteration-01.mp4" controls playsinline preload="metadata" aria-label="C — AI PROTOTYPE ITERATION — video 01"></video>
+
+</div>
+<!-- /auto:images -->
 
 ## D — VISUAL STYLE AND TECHNICAL REFINEMENT
 
@@ -66,6 +100,18 @@ through layered editing and repainting. Finally, I completed the animation and e
 After Effects. Some shots, such as the scene where the flames transform into a fox, were
 hand-drawn frame by frame, to enhance the handmade texture and emotional continuity of the
 animation.
+
+<!-- auto:images -->
+<div class="grid-3">
+
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 01](./d-visual-style-and-technical-refinement-01.jpg)
+
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 02](./d-visual-style-and-technical-refinement-02.jpg)
+
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 03](./d-visual-style-and-technical-refinement-03.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## E — FILM STILLS
 
@@ -87,6 +133,32 @@ This alternation between abstraction and realism builds rhythm and balance throu
 work. To maintain unity across these visual changes, I ensured that the textures, shapes,
 and even the line quality remained internally and externally connected, preserving both
 visual harmony and emotional flow.
+
+<!-- auto:images -->
+<div class="grid-2">
+
+![E — FILM STILLS 01](./e-film-stills-01.jpg)
+
+![E — FILM STILLS 02](./e-film-stills-02.jpg)
+
+![E — FILM STILLS 03](./e-film-stills-03.jpg)
+
+![E — FILM STILLS 04](./e-film-stills-04.jpg)
+
+![E — FILM STILLS 05](./e-film-stills-05.jpg)
+
+![E — FILM STILLS 06](./e-film-stills-06.jpg)
+
+![E — FILM STILLS 07](./e-film-stills-07.jpg)
+
+![E — FILM STILLS 08](./e-film-stills-08.jpg)
+
+![E — FILM STILLS 09](./e-film-stills-09.jpg)
+
+![E — FILM STILLS 10](./e-film-stills-10.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## F — FINAL PRODUCTION AND REFLECTION
 

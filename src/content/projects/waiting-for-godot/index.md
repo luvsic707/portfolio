@@ -5,13 +5,13 @@ categories: ['Animation', 'Graphic']
 featured: false
 order: 7
 summary: A 1min47s stop-motion adaptation of Beckett — a nihilistic comedy shot in a photography classroom with an iPhone and a few fill lights.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: Waiting for Godot film still
 meta:
   date: 2023.05 – 2023.07
   dimension: 1min 47sec
   media: stop-motion animation
+gallery:
+  - video: /media/waiting-for-godot/hero-01.mp4
+    alt: Waiting for Godot — video 01
 ---
 
 ## A — INSPIRATION
@@ -28,6 +28,14 @@ the meaning of my life. I am still the peasant waiting for Godot under the withe
 Beckett's book, looking repeatedly and never coming to fruition. But I wanted to show this
 nihilistic comedy in a light-hearted way, and so a stop-motion animation was born.
 
+<!-- auto:images -->
+<div class="full">
+
+![A — INSPIRATION 01](./a-inspiration-01.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## B — SCRIPT, STORYBOARD AND CONFIGURATION
 
 The original *Waiting for Godot* was itself a two-act tragicomedy, so the animation follows
@@ -41,12 +49,38 @@ kept simple, with a dead tree with scattered branches and leaves standing under 
 curtain. The basic character of both protagonists is the not-so-smart farmer, but the
 difference is made in terms of height, weight, and skin colour and clothing.
 
+<!-- auto:images -->
+<div class="grid-3">
+
+![B — SCRIPT, STORYBOARD AND CONFIGURATION 01](./b-script-storyboard-and-configuration-01.jpg)
+
+![B — SCRIPT, STORYBOARD AND CONFIGURATION 02](./b-script-storyboard-and-configuration-02.jpg)
+
+![B — SCRIPT, STORYBOARD AND CONFIGURATION 03](./b-script-storyboard-and-configuration-03.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## C — PROP MAKING
 
 First of all, make the skeleton of the figure, summarize the general shape, and finally
 shape the details of the face and hands. The dead tree is shaped with wire and clay, then
 textured with a spatula and finally coloured with acrylics. Leaves and stones are made of
 paper and foam glue respectively.
+
+<!-- auto:images -->
+<div class="grid-2">
+
+![C — PROP MAKING 01](./c-prop-making-01.jpg)
+
+![C — PROP MAKING 02](./c-prop-making-02.jpg)
+
+![C — PROP MAKING 03](./c-prop-making-03.jpg)
+
+![C — PROP MAKING 04](./c-prop-making-04.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## D — FILM STILLS
 
@@ -56,6 +90,34 @@ despair sets in, they attempt to end their lives but fail.
 
 This cycle repeats twice — but we know they will go on like this forever, just like you and
 me in front of the screen.
+
+<!-- auto:images -->
+<div class="grid-2">
+
+![D — FILM STILLS 01](./d-film-stills-01.jpg)
+
+![D — FILM STILLS 02](./d-film-stills-02.jpg)
+
+![D — FILM STILLS 03](./d-film-stills-03.jpg)
+
+![D — FILM STILLS 04](./d-film-stills-04.jpg)
+
+![D — FILM STILLS 05](./d-film-stills-05.jpg)
+
+![D — FILM STILLS 06](./d-film-stills-06.jpg)
+
+![D — FILM STILLS 07](./d-film-stills-07.jpg)
+
+![D — FILM STILLS 08](./d-film-stills-08.jpg)
+
+![D — FILM STILLS 09](./d-film-stills-09.jpg)
+
+![D — FILM STILLS 10](./d-film-stills-10.jpg)
+
+![D — FILM STILLS 11](./d-film-stills-11.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## E — FINAL OUTCOME
 
@@ -72,3 +134,11 @@ process, I tried to return my thinking to a simple, instinctive state, approachi
 with a childlike mindset. The stop-motion animation was filmed in a photography classroom
 using only an iPhone and a few fill lights, preserving the work's handcrafted, tactile, and
 spontaneous quality.
+
+<!-- auto:images -->
+<div class="videos">
+
+<video src="/media/waiting-for-godot/e-final-outcome-01.mp4" controls playsinline preload="metadata" aria-label="E — FINAL OUTCOME — video 01"></video>
+
+</div>
+<!-- /auto:images -->

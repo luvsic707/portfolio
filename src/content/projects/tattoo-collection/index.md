@@ -5,9 +5,6 @@ categories: ['Tattoo', 'Illustration']
 featured: true
 order: 2
 summary: Bespoke tattoo work — cyber totemism grown along the body's own contours, plus commissioned pieces built from each client's story.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: Tattoo collection key visual
 meta:
   date: 2025.03 – Present
   dimension: Whatever

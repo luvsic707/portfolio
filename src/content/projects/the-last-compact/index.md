@@ -5,9 +5,6 @@ categories: ['Game', 'AR/VR']
 featured: true
 order: 1
 summary: A first-person interactive narrative installation on memory, debt, and entropy — an infinite corridor of memory chambers whose ending is driven by a model of the protagonist's psychological state.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: The Last Compact key visual
 meta:
   date: 2026.01 – 2026.04
   dimension: 1920×1080

@@ -5,13 +5,76 @@ categories: ['Illustration', 'Graphic']
 featured: false
 order: 8
 summary: A three-part book made for people living with borderline personality disorder — first-person montage, clinical explanation, and a route toward treatment.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: Love in the Time of Borderline book spread
 meta:
   date: 2022.09 – 2022.11
   dimension: 23cm × 29cm × 2.5cm · 19cm × 27cm × 3cm
   media: Print, Photography, Mixed Media
+gallery:
+  - image: ./hero-01.jpg
+    alt: Love in the Time of Borderline 01
+  - image: ./hero-02.jpg
+    alt: Love in the Time of Borderline 02
+  - image: ./hero-03.jpg
+    alt: Love in the Time of Borderline 03
+  - image: ./hero-04.jpg
+    alt: Love in the Time of Borderline 04
+  - image: ./hero-05.jpg
+    alt: Love in the Time of Borderline 05
+  - image: ./hero-06.jpg
+    alt: Love in the Time of Borderline 06
+  - image: ./hero-07.jpg
+    alt: Love in the Time of Borderline 07
+  - image: ./hero-08.jpg
+    alt: Love in the Time of Borderline 08
+  - image: ./hero-09.jpg
+    alt: Love in the Time of Borderline 09
+  - image: ./hero-10.jpg
+    alt: Love in the Time of Borderline 10
+  - image: ./hero-11.jpg
+    alt: Love in the Time of Borderline 11
+  - image: ./hero-12.jpg
+    alt: Love in the Time of Borderline 12
+  - image: ./hero-13.jpg
+    alt: Love in the Time of Borderline 13
+  - image: ./hero-14.jpg
+    alt: Love in the Time of Borderline 14
+  - image: ./hero-15.jpg
+    alt: Love in the Time of Borderline 15
+  - image: ./hero-16.jpg
+    alt: Love in the Time of Borderline 16
+  - image: ./hero-17.jpg
+    alt: Love in the Time of Borderline 17
+  - image: ./hero-18.jpg
+    alt: Love in the Time of Borderline 18
+  - image: ./hero-19.jpg
+    alt: Love in the Time of Borderline 19
+  - image: ./hero-20.jpg
+    alt: Love in the Time of Borderline 20
+  - image: ./hero-21.jpg
+    alt: Love in the Time of Borderline 21
+  - image: ./hero-22.jpg
+    alt: Love in the Time of Borderline 22
+  - image: ./hero-23.jpg
+    alt: Love in the Time of Borderline 23
+  - image: ./hero-24.jpg
+    alt: Love in the Time of Borderline 24
+  - image: ./hero-25.jpg
+    alt: Love in the Time of Borderline 25
+  - image: ./hero-26.jpg
+    alt: Love in the Time of Borderline 26
+  - image: ./hero-27.jpg
+    alt: Love in the Time of Borderline 27
+  - image: ./hero-28.jpg
+    alt: Love in the Time of Borderline 28
+  - image: ./hero-29.jpg
+    alt: Love in the Time of Borderline 29
+  - image: ./hero-30.jpg
+    alt: Love in the Time of Borderline 30
+  - image: ./hero-31.jpg
+    alt: Love in the Time of Borderline 31
+  - image: ./hero-32.jpg
+    alt: Love in the Time of Borderline 32
+cover: ./hero-01.jpg
 ---
 
 ## A — INSPIRATION AND RESEARCH
@@ -40,9 +103,33 @@ returning their emotional level to a healthy or normal baseline. Somebody descri
 - Matsuko in *Memories of Matsuko*
 - Clementine in *Eternal Sunshine of the Spotless Mind*
 
+<!-- auto:images -->
+<div class="grid-3">
+
+![On-screen 01](./on-screen-01.jpg)
+
+![On-screen 02](./on-screen-02.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## B — MOODBOARD
 
 MY MOST OF FILES MISSING .....
+
+<!-- auto:images -->
+<div class="grid-2">
+
+![B — MOODBOARD 01](./b-moodboard-01.jpg)
+
+![B — MOODBOARD 02](./b-moodboard-02.jpg)
+
+![B — MOODBOARD 03](./b-moodboard-03.jpg)
+
+![B — MOODBOARD 04](./b-moodboard-04.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## C — PHOTOGRAPHY
 

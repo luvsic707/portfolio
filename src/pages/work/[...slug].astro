@@ -273,6 +273,11 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     height: 100%;
   }
 
+  /* 网格里只剩一张图时，别让它占着两列的格子把右边空掉 */
+  .prose-body :global([class^='grid-']:has(> p:only-child)) {
+    grid-template-columns: minmax(0, 560px);
+  }
+
   /* 悬停微微放大并浮起，方便看清小图 */
   @media (hover: hover) and (pointer: fine) {
     .prose-body :global([class^='grid-'] p:hover) {

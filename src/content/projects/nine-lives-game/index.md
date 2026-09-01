@@ -5,9 +5,6 @@ categories: ['Game', 'Illustration']
 featured: false
 order: 3
 summary: A story-driven card game staged as a psychological duel between fate and freedom — every card is a moral event, and four hidden attributes decide which ending you reach.
-# 封面图放进本文件夹，然后去掉下面两行行首的 #
-# cover: ./cover.jpg
-# coverAlt: Nine Lives card game key visual
 meta:
   date: 2025.05 – 2025.06 (Phase I) · 2025.10 – 2025.12 (Phase II)
   dimension: 1920×1080

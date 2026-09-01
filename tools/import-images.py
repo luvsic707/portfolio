@@ -68,6 +68,8 @@ def compress_video(src: Path, dst: Path) -> bool:
       宽度封顶 1920    —— 再大对网页没意义
       +faststart       —— 把索引move到文件头，不用下完就能起播（很重要）
     """
+    if not has_ffmpeg():
+        return False          # 没装 ffmpeg 就跳过视频，图片照常导入
     dst.parent.mkdir(parents=True, exist_ok=True)
     r = subprocess.run(
         ["ffmpeg", "-y", "-i", str(src),
@@ -116,7 +118,12 @@ def is_finished(title: str) -> bool:
     return any(k in t for k in FINISHED)
 
 
-def layout_for(n: int, title: str = "") -> str:
+def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
+    # 子小节是「细节」，一律走密集网格，不跟大章节抢视觉重量
+    if is_sub:
+        if n == 1:  return "grid-2"
+        if n <= 3:  return "grid-3"
+        return "grid-4"
     if n == 1:
         return "full"
     # 成品章节最多两列，让画看得清
@@ -129,8 +136,8 @@ def layout_for(n: int, title: str = "") -> str:
     return "grid-4"
 
 
-def block(files, alt_base: str) -> str:
-    cls = layout_for(len(files), alt_base)
+def block(files, alt_base: str, is_sub: bool = False) -> str:
+    cls = layout_for(len(files), alt_base, is_sub)
     imgs = "\n\n".join(f"![{alt_base} {i+1:02d}](./{f})" for i, f in enumerate(files))
     return f'{MARK_OPEN}\n<div class="{cls}">\n\n{imgs}\n\n</div>\n{MARK_CLOSE}'
 
@@ -187,6 +194,7 @@ def process(project_dir: Path) -> str | None:
             old.unlink()
 
     generated, skipped_video = [], []
+    # 注：封面出现过的图，正文里照常出现 —— 开屏是快速预览，正文才是细看的地方
 
     # ---------- 封面画廊 ----------
     # 「00 封面」里可以放多张图，也可以混视频。顺序＝播放顺序。
@@ -205,6 +213,7 @@ def process(project_dir: Path) -> str | None:
         )
 
         entries, first_img, n_img, n_vid = [], None, 0, 0
+        # 记下封面用过的源文件名，正文里遇到同名的就跳过
         for f in media:
             if f.suffix.lower() in VIDEO:
                 # 视频不走 Astro 图片管线，放 public 里直接引用
@@ -261,6 +270,7 @@ def process(project_dir: Path) -> str | None:
 
     # 按标题倒序插入，避免行号错位
     for idx, (ln, head) in reversed(list(enumerate(heads))):
+        is_sub = head.startswith("### ")
         title = re.sub(r"^#{2,3} ", "", head).strip()
         norm = re.sub(r"\s+", " ", title)
         match = next((k for k in sec_images if re.sub(r"\s+", " ", k) == norm), None)
@@ -271,7 +281,7 @@ def process(project_dir: Path) -> str | None:
         files = sec_images.get(match, []) if match else []
         base = slugify(title)
         names = []
-        big = len(files) == 1 or is_finished(title)
+        big = (len(files) == 1 or is_finished(title)) and not is_sub
         for i, f in enumerate(files):
             out = f"{base}-{i+1:02d}.jpg"
             if convert(f, target / out, MAX_EDGE_FULL if big else MAX_EDGE_GRID):
@@ -293,7 +303,7 @@ def process(project_dir: Path) -> str | None:
             continue
 
         parts = []
-        if names:  parts.append(block(names, title))
+        if names:  parts.append(block(names, title, is_sub))
         if vpaths: parts.append(video_block(vpaths, title))
         payload = MARK_OPEN + "\n" + "\n\n".join(
             b.replace(MARK_OPEN + "\n", "").replace("\n" + MARK_CLOSE, "") for b in parts
