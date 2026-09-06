@@ -242,3 +242,113 @@ Japanese school uniforms, and punk fashion. Image extraction: Rococo corset, rib
 
 </div>
 <!-- /auto:images -->
+
+## C — BOOK DESIGN
+
+In the book design, the content takes the form of haiku — a short classical Japanese poem —
+using phrases and words to poetically summarize the qualities of each type of otaku.
+
+In the typographic process, graphics and text are seen as part of the symbol, linked
+together with flowing lines that reflect the wholeness and rhythm of the composition.
+
+<!-- auto:images -->
+<div class="grid-3">
+
+![C — BOOK DESIGN 01](./c-book-design-01.jpg)
+
+![C — BOOK DESIGN 02](./c-book-design-02.jpg)
+
+![C — BOOK DESIGN 03](./c-book-design-03.jpg)
+
+![C — BOOK DESIGN 04](./c-book-design-04.jpg)
+
+![C — BOOK DESIGN 05](./c-book-design-05.jpg)
+
+![C — BOOK DESIGN 06](./c-book-design-06.jpg)
+
+![C — BOOK DESIGN 07](./c-book-design-07.jpg)
+
+![C — BOOK DESIGN 08](./c-book-design-08.jpg)
+
+![C — BOOK DESIGN 09](./c-book-design-09.jpg)
+
+</div>
+<!-- /auto:images -->
+
+## D — OUTCOME 1: PRINT
+
+Instead of traditional paper, the material is weighted transparent acrylic, which is
+designed to allow readers to experience the various effects of the work in different
+combinations, in different environments, and under different lights. It makes the process
+of reading no longer boring, but as much fun as exploring.
+
+<!-- auto:images -->
+<div class="grid-2">
+
+![D — OUTCOME 1: PRINT 01](./d-outcome-1-print-01.jpg)
+
+![D — OUTCOME 1: PRINT 02](./d-outcome-1-print-02.jpg)
+
+![D — OUTCOME 1: PRINT 03](./d-outcome-1-print-03.jpg)
+
+![D — OUTCOME 1: PRINT 04](./d-outcome-1-print-04.jpg)
+
+![D — OUTCOME 1: PRINT 05](./d-outcome-1-print-05.jpg)
+
+![D — OUTCOME 1: PRINT 06](./d-outcome-1-print-06.jpg)
+
+![D — OUTCOME 1: PRINT 07](./d-outcome-1-print-07.jpg)
+
+![D — OUTCOME 1: PRINT 08](./d-outcome-1-print-08.jpg)
+
+![D — OUTCOME 1: PRINT 09](./d-outcome-1-print-09.jpg)
+
+![D — OUTCOME 1: PRINT 10](./d-outcome-1-print-10.jpg)
+
+![D — OUTCOME 1: PRINT 11](./d-outcome-1-print-11.jpg)
+
+![D — OUTCOME 1: PRINT 12](./d-outcome-1-print-12.jpg)
+
+</div>
+<!-- /auto:images -->
+
+## E — OUTCOME 2: INSTALLATION
+
+A small interactive installation was developed to echo the theme *The Person in a Culture
+Dish — Otaku*. Using traditional craft techniques such as acrylic fluid painting, felt work,
+and clay modeling, it recreates a miniature ecological environment that quickly visualizes
+the persona of this social group.
+
+<!-- auto:images -->
+<div class="grid-2">
+
+![E — OUTCOME 2: INSTALLATION 01](./e-outcome-2-installation-01.jpg)
+
+![E — OUTCOME 2: INSTALLATION 02](./e-outcome-2-installation-02.jpg)
+
+![E — OUTCOME 2: INSTALLATION 03](./e-outcome-2-installation-03.jpg)
+
+![E — OUTCOME 2: INSTALLATION 04](./e-outcome-2-installation-04.jpg)
+
+![E — OUTCOME 2: INSTALLATION 05](./e-outcome-2-installation-05.jpg)
+
+![E — OUTCOME 2: INSTALLATION 06](./e-outcome-2-installation-06.jpg)
+
+![E — OUTCOME 2: INSTALLATION 07](./e-outcome-2-installation-07.jpg)
+
+![E — OUTCOME 2: INSTALLATION 08](./e-outcome-2-installation-08.jpg)
+
+![E — OUTCOME 2: INSTALLATION 09](./e-outcome-2-installation-09.jpg)
+
+</div>
+<!-- /auto:images -->
+
+## F — DETAIL
+
+In order to simulate the growing state of the fungus in the installation, clay was used to
+pinch out the different forms of fungus, then fluid acrylic and silicone oil were used to
+colour the texture of the cellular form — the same with the bottom surface of the petri dish.
+Lastly, a layer of UV adhesive was applied to fix the colour and enhance the brightness.
+
+The fungus is also made in the form of mycelium using wool felt with miniature models that
+can represent the fixed characteristics, to make it more vivid.
