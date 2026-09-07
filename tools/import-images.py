@@ -110,7 +110,9 @@ def videos_in(folder: Path):
 
 # 这些章节放的是成品，不管几张都要大图 —— 只按数量排会把主作品压成缩略图
 FINISHED = ("FINAL", "OUTPUT", "OUTCOME", "STILL", "PRINT", "POSTER",
-            "IMPLEMENTATION", "POSTER COMPOSITION", "POSTER")
+            "IMPLEMENTATION",
+            # 纹身这类「拍下来的成品」也算成品章节
+            "ON SKIN", "HEALED", "FRESH", "RECENT", "PLATE", "PIECES")
 
 
 def is_finished(title: str) -> bool:
@@ -126,9 +128,11 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
     full      单张通栏
     grid-N    数量少时的普通网格
     """
-    # 成品优先判断 —— 不管几张，成品永远大而直接
+    # 成品优先判断 —— 成品永远大而直接，区别只在几件还是一批
     if is_finished(title):
-        return "full" if n == 1 else "showcase"
+        if n == 1:  return "full"       # 单件：通栏
+        if n <= 5:  return "showcase"   # 几件：两栏大图
+        return "flow"                   # 一批：三栏瀑布流
     # 子小节是「细节」，密排小图，不跟大章节抢视觉重量
     if is_sub:
         if n == 1:  return "grid-2"
@@ -259,7 +263,8 @@ def process(project_dir: Path) -> str | None:
     sec_images: dict[str, list[Path]] = {}
     sec_videos: dict[str, list[Path]] = {}
     for sec in sorted(project_dir.iterdir()):
-        if not sec.is_dir() or sec.name == "00 封面":
+        # 下划线开头 = 封存，不导入。弃用的素材原地放着就行，不用删。
+        if not sec.is_dir() or sec.name == "00 封面" or sec.name.startswith("_"):
             continue
         imgs = images_in(sec)
         if imgs:
