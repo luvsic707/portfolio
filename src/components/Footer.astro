@@ -1,11 +1,14 @@
 ---
 const year = new Date().getFullYear();
 
-/* 社交链接 —— 改这里就行 */
+/* 联系方式 —— 改这里就行 */
+const email = 'ruojingpu19@gmail.com';
+
+/* 社交链接 —— 加一行就多一个，删一行就少一个 */
 const links = [
-  { label: 'EMAIL',     href: 'mailto:hello@redthreadcreative.me' },
-  { label: 'INSTAGRAM', href: '#' },
-  { label: 'BEHANCE',   href: '#' },
+  { label: 'EMAIL',     href: `mailto:${email}` },
+  { label: 'INSTAGRAM', href: 'https://www.instagram.com/luvsic707/' },
+  // { label: 'BEHANCE', href: 'https://www.behance.net/你的用户名' },
 ];
 ---
 
@@ -17,15 +20,18 @@ const links = [
 
       <div class="foot-say">
         <p class="say-line mono">▶ For a project, a collaboration, or just to say hello</p>
-        <a class="say-mail" href="mailto:hello@redthreadcreative.me">
-          hello@redthreadcreative.me
-        </a>
+        <a class="say-mail" href={`mailto:${email}`}>{email}</a>
       </div>
 
       <ul class="foot-links">
         {links.map((l) => (
           <li>
-            <a class="foot-link mono" href={l.href}>
+            <a
+              class="foot-link mono"
+              href={l.href}
+              target={l.href.startsWith('http') ? '_blank' : undefined}
+              rel={l.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
               {l.label}<span class="arrow">↗</span>
             </a>
           </li>
