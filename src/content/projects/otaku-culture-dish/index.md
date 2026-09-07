@@ -252,7 +252,7 @@ In the typographic process, graphics and text are seen as part of the symbol, li
 together with flowing lines that reflect the wholeness and rhythm of the composition.
 
 <!-- auto:images -->
-<div class="grid-3">
+<div class="strip">
 
 ![C — BOOK DESIGN 01](./c-book-design-01.jpg)
 
@@ -283,7 +283,7 @@ combinations, in different environments, and under different lights. It makes th
 of reading no longer boring, but as much fun as exploring.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="showcase">
 
 ![D — OUTCOME 1: PRINT 01](./d-outcome-1-print-01.jpg)
 
@@ -320,7 +320,7 @@ and clay modeling, it recreates a miniature ecological environment that quickly 
 the persona of this social group.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="showcase">
 
 ![E — OUTCOME 2: INSTALLATION 01](./e-outcome-2-installation-01.jpg)
 

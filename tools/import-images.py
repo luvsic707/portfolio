@@ -119,21 +119,29 @@ def is_finished(title: str) -> bool:
 
 
 def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
-    # 子小节是「细节」，一律走密集网格，不跟大章节抢视觉重量
+    """决定一组图用哪种版式。
+
+    showcase  成品：突破正文宽度的大图，两列，直给
+    strip     过程：一条横向滑动带，图小、高度错落、只占一屏的一小条
+    full      单张通栏
+    grid-N    数量少时的普通网格
+    """
+    # 成品优先判断 —— 不管几张，成品永远大而直接
+    if is_finished(title):
+        return "full" if n == 1 else "showcase"
+    # 子小节是「细节」，密排小图，不跟大章节抢视觉重量
     if is_sub:
         if n == 1:  return "grid-2"
         if n <= 3:  return "grid-3"
-        return "grid-4"
+        if n <= 6:  return "grid-4"
+        return "strip"
     if n == 1:
         return "full"
-    # 成品章节最多两列，让画看得清
-    if is_finished(title):
-        return "grid-2"
-    if n == 2:  return "grid-2"
-    if n == 3:  return "grid-3"
-    if n == 4:  return "grid-2"
-    if n <= 9:  return "grid-3"
-    return "grid-4"
+    # 四张以内还是网格，排成一条滑动带反而小气
+    if n <= 4:
+        return "grid-3" if n == 3 else "grid-2"
+    # 过程图多了就收进横向滑动带，纵向不再吃版面
+    return "strip"
 
 
 def block(files, alt_base: str, is_sub: bool = False) -> str:

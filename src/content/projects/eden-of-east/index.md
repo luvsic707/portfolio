@@ -65,7 +65,7 @@ the structure of local societies and the order of human relationships in traditi
 China.
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="strip">
 
 ![A — SKETCHES 01](./a-sketches-01.jpg)
 
@@ -120,7 +120,7 @@ techniques, including salt scattering, foam texture, and different brush movemen
 to explore new possibilities within this ordinary medium.
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="strip">
 
 ![B — MATERIAL EXPERIMENT 01](./b-material-experiment-01.jpg)
 
@@ -181,7 +181,7 @@ wind, and rough textures there deeply reflect the essence of Chinese character a
 culture.
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="strip">
 
 ![C — PHOTOGRAPHY 01](./c-photography-01.jpg)
 
@@ -237,7 +237,7 @@ The series seeks to merge traditional craftsmanship, critical reflection, and
 contemporary formal innovation.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="showcase">
 
 ![D — FINAL OUTPUT 01](./d-final-output-01.jpg)
 
@@ -281,7 +281,7 @@ use simple cotton thread to connect every page. Then I set the proportion of the
 total square, and in this way I can show more sense of form and decoration.
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="strip">
 
 ![E — TEST BOARD 06 01](./e-test-board-06-01.jpg)
 

@@ -94,7 +94,7 @@ that best matched the theme and my personal aesthetic as the main basis for furt
 development.
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="strip">
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.jpg)
 
@@ -129,7 +129,7 @@ based on graphic design, integrating spatial composition and visual experimentat
 complete the work efficiently.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="showcase">
 
 ![D — POSTER COMPOSITION 01](./d-poster-composition-01.jpg)
 

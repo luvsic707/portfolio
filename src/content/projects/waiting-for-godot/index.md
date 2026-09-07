@@ -92,7 +92,7 @@ This cycle repeats twice — but we know they will go on like this forever, just
 me in front of the screen.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="showcase">
 
 ![D — FILM STILLS 01](./d-film-stills-01.jpg)
 

@@ -135,7 +135,7 @@ and even the line quality remained internally and externally connected, preservi
 visual harmony and emotional flow.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="showcase">
 
 ![E — FILM STILLS 01](./e-film-stills-01.jpg)
 
