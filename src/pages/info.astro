@@ -198,4 +198,15 @@ const revised = new Date().toISOString().slice(0, 10);
   .ledger > div:first-child .ledger-n,
   .ledger li:first-child .ledger-n { color: var(--red); }
 
+  /* 窄屏收成单栏 —— 两栏在手机上会把页面撑宽 */
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: minmax(0, 1fr); }
+    .col-side { margin-top: clamp(2rem, 6vw, 3rem); }
+  }
+
+  @media (max-width: 480px) {
+    .ledger li,
+    .ledger > div { grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.5rem; }
+  }
+
 </style>
