@@ -160,14 +160,80 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
 
   /* ---- 2. 过程图的横向滑动带 ----
      鼠标可以直接按住拖，触控板/触屏本来就能横滑。 */
+  /* 按原始比例把图分栏：同一栏统一宽度、竖着摞满整条高度，
+     所以栏内不会有窄图留下的空档，栏与栏之间也齐平。 */
+  const layoutStrip = (strip: HTMLElement) => {
+    const items: HTMLElement[] = (strip as any)._items
+      ?? ((strip as any)._items = [...strip.querySelectorAll<HTMLElement>(':scope > p')]);
+    if (!items.length) return;
+
+    /* 先把图全倒回来，拆掉上一次分的栏 */
+    strip.append(...items);
+    strip.querySelectorAll('.strip-col').forEach((c) => c.remove());
+
+    const ratio = items.map((p) => {
+      const img = p.querySelector('img')!;
+      const w = Number(img.getAttribute('width')) || img.naturalWidth || 1;
+      const h = Number(img.getAttribute('height')) || img.naturalHeight || 1;
+      return w / h;
+    });
+
+    const gap = parseFloat(getComputedStyle(strip).rowGap) || 6;
+    const band = Math.min(innerHeight * 0.62, 660);
+    const narrow = strip.clientWidth < 700;
+    /* 目标栏宽：手机上约占三分之二屏宽，桌面上约占三成 */
+    const target = narrow
+      ? strip.clientWidth * 0.68
+      : Math.max(230, Math.min(strip.clientWidth * 0.3, 420));
+
+    /* 每栏松紧不同才有节奏：宽的那栏只放一两张大图，紧的那栏摞三张小的。
+       手机屏窄，节奏收敛一点，否则最紧的那栏会摞出四张指甲盖。 */
+    const RHYTHM = narrow
+      ? [1.3, 0.86, 1.0, 0.8]
+      : [1.45, 0.78, 1.0, 0.62];
+
+    const cols: { at: number[]; w: number }[] = [];
+    let at: number[] = [];
+    let inv = 0;
+
+    items.forEach((_, i) => {
+      at.push(i);
+      inv += 1 / ratio[i];
+      const w = (band - gap * (at.length - 1)) / inv;
+      if (w <= target * RHYTHM[cols.length % RHYTHM.length]) {
+        cols.push({ at, w });
+        at = [];
+        inv = 0;
+      }
+    });
+
+    /* 收尾那一栏可能摞不满，宽度封顶，别让一张横图撑得离谱 */
+    if (at.length) {
+      cols.push({ at, w: Math.min((band - gap * (at.length - 1)) / inv, target * 1.4) });
+    }
+
+    for (const c of cols) {
+      const col = document.createElement('div');
+      col.className = 'strip-col';
+      col.style.width = `${Math.round(c.w)}px`;
+      c.at.forEach((i) => col.append(items[i]));
+      strip.append(col);
+    }
+  };
+
   document.querySelectorAll<HTMLElement>('.strip').forEach((strip) => {
     const n = strip.querySelectorAll('img').length;
     strip.tabIndex = 0;
     strip.setAttribute('role', 'group');
     strip.setAttribute('aria-label', `${n} images, scroll sideways`);
 
-    /* 图少就少排几行，别让一条带子空着半截 */
-    strip.style.setProperty('--rows', String(n <= 6 ? 2 : 3));
+    layoutStrip(strip);
+
+    let t = 0;
+    addEventListener('resize', () => {
+      clearTimeout(t);
+      t = window.setTimeout(() => layoutStrip(strip), 150);
+    });
 
     let down = false;
     let startX = 0;
@@ -395,6 +461,9 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
 
   .prose-body :global(strong) { color: var(--ink); }
 
+  /* 装图的段落不受字宽限制 —— 否则大图会被 56ch 截住 */
+  .prose-body :global(p:has(img)) { max-width: none; }
+
   .prose-body :global(p + p) { margin-top: 1.1em; }
 
   /* 章节标题：# A / ## MATERIAL EXPERIMENT 这类 */
@@ -546,20 +615,14 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
      版面本身就铺满几排小图，放不下的部分才靠左右滑。
      大小不一（每四张里有一张占两排高）才灵动，不是一条整齐的胶片。 */
   .prose-body :global(.strip) {
-    --row: clamp(102px, 12vw, 150px);
-    --gap: clamp(0.35rem, 0.9vw, 0.7rem);
-
     width: 100vw;
     margin-inline: calc(50% - 50vw);
     margin-block: clamp(1.75rem, 4vw, 3rem);
     padding: 0.25rem clamp(0.75rem, 3vw, 3rem) 1rem;
 
-    display: grid;
-    grid-template-rows: repeat(var(--rows, 3), var(--row));
-    grid-auto-flow: column dense;
-    grid-auto-columns: min-content;
-    gap: var(--gap);
-    justify-items: start;
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(5px, 0.5vw, 8px);
 
     overflow-x: auto;
     overscroll-behavior-x: contain;
@@ -579,27 +642,32 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     mask-image: linear-gradient(to right, #000 88%, transparent);
   }
 
-  .prose-body :global(.strip p) {
-    margin: 0;
-    height: 100%;
-    grid-row: span 1;
+  /* 一栏 = 若干张等宽的图竖着摞起来，总高正好等于整条的高度 */
+  .prose-body :global(.strip-col) {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 0.5vw, 8px);
     scroll-snap-align: start;
-    transition: transform 0.3s var(--ease);
   }
 
-  /* 每四张里挑一张占满两排，密排里才有起伏 */
-  .prose-body :global(.strip p:nth-child(4n + 1)) { grid-row: span 2; }
+  .prose-body :global(.strip p) {
+    margin: 0;
+    transition: opacity 0.3s var(--ease);
+  }
 
   .prose-body :global(.strip img) {
     margin: 0;
     display: block;
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: auto;
     max-width: none;
   }
 
+  /* 鼠标扫过时其余的图退一点，被指的那张更清楚 */
   @media (hover: hover) and (pointer: fine) {
-    .prose-body :global(.strip p:hover) { transform: translateY(-3px); }
+    .prose-body :global(.strip:hover p) { opacity: 0.55; }
+    .prose-body :global(.strip p:hover) { opacity: 1; }
   }
 
   /* 滑动带在子小节里就老实待在右栏，不再通栏 */
