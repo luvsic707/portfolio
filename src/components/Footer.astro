@@ -1,5 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
+
 const year = new Date().getFullYear();
+
+/* 横栏里的数字必须是真的 —— 编出来的档案数据一眼就假。
+   卷宗数取自内容集合，修订日期取自构建时间。 */
+const cases = (await getCollection('projects')).filter((p) => !p.data.draft).length;
+const revised = new Date().toISOString().slice(0, 10);
 
 /* 联系方式 —— 改这里就行 */
 const email = 'ruojingpu19@gmail.com';
@@ -38,8 +45,16 @@ const links = [
         ))}
       </ul>
 
-      <p class="foot-copy mono">© {year} · RED THREAD · ALL RIGHTS RESERVED</p>
+    </div>
+  </div>
 
+  <!-- 页脚横栏：跟项目页页眉同一个格式。字段永远这几个，值变、位置不变。 -->
+  <div class="foot-rail">
+    <div class="wrap foot-rail-inner">
+      <span>RED THREAD REHAB</span>
+      <span>{cases} CASES ON FILE</span>
+      <span>REV. {revised}</span>
+      <span class="foot-rail-end">© {year}</span>
     </div>
   </div>
 </footer>
@@ -108,11 +123,30 @@ const links = [
     transform: translate(2px, -2px);
   }
 
-  .foot-copy {
-    grid-column: 1 / -1;
+  /* --- 页脚横栏 --- */
+
+  .foot-rail {
     margin-top: clamp(2.5rem, 6vw, 4.5rem);
+    border-top: 1px solid var(--ink);
+  }
+
+  .foot-rail-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.6rem;
+    padding-block: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
     color: var(--ink-faint);
-    letter-spacing: 0.1em;
+  }
+
+  .foot-rail-end { margin-left: auto; }
+
+  @media (max-width: 560px) {
+    .foot-rail-end { margin-left: 0; }
   }
 
   @media (max-width: 640px) {
