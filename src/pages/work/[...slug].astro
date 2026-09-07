@@ -298,6 +298,39 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     hint();
   });
 
+  /* ---- 2b. 混排的视频：进视野才播，离开就停 ----
+     不这么做的话一页几十个视频会同时解码，手机直接卡死。
+     点一下切声音 —— 浏览器不允许带声自播，所以默认静音。 */
+  const inlineVideos = document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]');
+
+  if (inlineVideos.length) {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const watch = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting && !reduced) v.play().catch(() => {});
+          else v.pause();
+        }
+      },
+      { rootMargin: '10% 0px' },
+    );
+
+    for (const v of inlineVideos) {
+      watch.observe(v);
+      v.addEventListener('click', () => {
+        v.muted = !v.muted;
+        /* 开了声音就把别的静音，不然满页在响 */
+        if (!v.muted) {
+          for (const o of inlineVideos) if (o !== v) o.muted = true;
+          v.play().catch(() => {});
+        }
+      });
+      v.style.cursor = 'pointer';
+    }
+  }
+
   /* ---- 3. 章节索引跟着滚动高亮 ---- */
   const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-sec]')];
 
@@ -845,7 +878,47 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.sub-head) { position: static; }
   }
 
-  /* 正文里的视频 */
+  /* ---- 混排在图片里的视频 ----
+     结构跟图片一样是 <p><video>，所以各版式的尺寸规则直接复用。
+     只多两件事：底色压深、右上角一个小标记表明这是动的。 */
+  .prose-body :global([class^='grid-'] video),
+  .prose-body :global(.flow video),
+  .prose-body :global(.showcase video),
+  .prose-body :global(.full video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background: var(--ink);
+  }
+
+  .prose-body :global(.strip video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    background: var(--ink);
+  }
+
+  .prose-body :global(p:has(video)) {
+    position: relative;
+    max-width: none;
+  }
+
+  .prose-body :global(p:has(video[data-autoplay]))::after {
+    content: 'VIDEO';
+    position: absolute;
+    top: 0.45rem;
+    right: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.08em;
+    color: #fff;
+    mix-blend-mode: difference;
+    pointer-events: none;
+  }
+
+  /* 正文里的视频（旧的独立视频块，保留兼容） */
   .prose-body :global(.videos) {
     width: min(100%, 1180px);
     margin-block: clamp(1.75rem, 4vw, 3rem);

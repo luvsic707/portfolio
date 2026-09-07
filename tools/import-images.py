@@ -108,6 +108,35 @@ def videos_in(folder: Path):
             if f.is_file() and f.suffix.lower() in VIDEO and not f.name.startswith(".")]
 
 
+def media_in(folder: Path):
+    """图和视频一起按文件名排序 —— 它们是同一批作品，不该分成两块。"""
+    out = []
+    for f in sorted(folder.iterdir(), key=lambda p: p.name.lower()):
+        if not f.is_file() or f.name.startswith("."):
+            continue
+        if f.suffix.lower() in RASTER:
+            out.append(("img", f))
+        elif f.suffix.lower() in VIDEO:
+            out.append(("vid", f))
+    return out
+
+
+def video_size(path: Path):
+    """读出视频宽高，写进标签里，瀑布流才不会等元数据加载完再跳一次。"""
+    if not shutil.which("ffprobe"):
+        return (16, 9)
+    r = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "v:0",
+         "-show_entries", "stream=width,height", "-of", "csv=p=0:s=x", str(path)],
+        capture_output=True, text=True,
+    )
+    try:
+        w, h = r.stdout.strip().split("x")[:2]
+        return (int(w), int(h))
+    except Exception:
+        return (16, 9)
+
+
 # 这些章节放的是成品，不管几张都要大图 —— 只按数量排会把主作品压成缩略图
 FINISHED = ("FINAL", "OUTPUT", "OUTCOME", "STILL", "PRINT", "POSTER",
             "IMPLEMENTATION",
@@ -148,10 +177,30 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
     return "strip"
 
 
-def block(files, alt_base: str, is_sub: bool = False) -> str:
-    cls = layout_for(len(files), alt_base, is_sub)
-    imgs = "\n\n".join(f"![{alt_base} {i+1:02d}](./{f})" for i, f in enumerate(files))
-    return f'{MARK_OPEN}\n<div class="{cls}">\n\n{imgs}\n\n</div>\n{MARK_CLOSE}'
+def block(items, alt_base: str, is_sub: bool = False) -> str:
+    """items 是 ('img', 文件名) 和 ('vid', 路径, 宽, 高) 混在一起的有序列表。
+
+    视频包一层 <p>，跟图片渲染出来的结构完全一致 —— 这样瀑布流、
+    接触表、网格都不用为视频写特例。
+    """
+    cls = layout_for(len(items), alt_base, is_sub)
+    solo = len(items) == 1
+    out = []
+    for i, it in enumerate(items):
+        label = f"{alt_base} {i+1:02d}"
+        if it[0] == "img":
+            out.append(f"![{label}](./{it[1]})")
+        else:
+            _, src, w, h = it
+            # 独占一格的视频给控件；混在一批里的静音循环自播，不然满屏控件条很吵
+            attrs = ('controls preload="metadata"' if solo
+                     else 'muted loop playsinline preload="metadata" data-autoplay')
+            out.append(
+                f'<p><video src="{src}" width="{w}" height="{h}" '
+                f'{attrs} aria-label="{label}"></video></p>'
+            )
+    inner = "\n\n".join(out)
+    return f'{MARK_OPEN}\n<div class="{cls}">\n\n{inner}\n\n</div>\n{MARK_CLOSE}'
 
 
 def drop_key(front: str, key: str) -> str:
@@ -266,20 +315,14 @@ def process(project_dir: Path) -> str | None:
         # 下划线开头 = 封存，不导入。弃用的素材原地放着就行，不用删。
         if not sec.is_dir() or sec.name == "00 封面" or sec.name.startswith("_"):
             continue
-        imgs = images_in(sec)
-        if imgs:
-            sec_images[sec.name] = imgs
-        vids = videos_in(sec)
-        if vids:
-            sec_videos[sec.name] = vids
+        media = media_in(sec)
+        if media:
+            sec_images[sec.name] = media
         for sub in sorted(sec.iterdir()):
             if sub.is_dir():
-                simgs = images_in(sub)
-                if simgs:
-                    sec_images[sub.name] = simgs
-                svids = videos_in(sub)
-                if svids:
-                    sec_videos[sub.name] = svids
+                smedia = media_in(sub)
+                if smedia:
+                    sec_images[sub.name] = smedia
 
     # 按标题倒序插入，避免行号错位
     for idx, (ln, head) in reversed(list(enumerate(heads))):
@@ -287,40 +330,35 @@ def process(project_dir: Path) -> str | None:
         title = re.sub(r"^#{2,3} ", "", head).strip()
         norm = re.sub(r"\s+", " ", title)
         match = next((k for k in sec_images if re.sub(r"\s+", " ", k) == norm), None)
-        vmatch = next((k for k in sec_videos if re.sub(r"\s+", " ", k) == norm), None)
-        if not match and not vmatch:
+        if not match:
             continue
 
-        files = sec_images.get(match, []) if match else []
+        media = sec_images[match]
         base = slugify(title)
-        names = []
-        big = (len(files) == 1 or is_finished(title)) and not is_sub
-        for i, f in enumerate(files):
-            out = f"{base}-{i+1:02d}.jpg"
-            if convert(f, target / out, MAX_EDGE_FULL if big else MAX_EDGE_GRID):
-                names.append(out)
-                generated.append(out)
-        # 章节里的视频，压缩后放 public
-        vpaths = []
-        if vmatch:
-            vdir = PUBLIC / "media" / slug
-            for j, vf in enumerate(sec_videos[vmatch]):
-                vname = f"{base}-{j+1:02d}.mp4"
-                if compress_video(vf, vdir / vname):
-                    vpaths.append(f"/media/{slug}/{vname}")
+        big = (len(media) == 1 or is_finished(title)) and not is_sub
+        vdir = PUBLIC / "media" / slug
+
+        # 图和视频按原顺序逐个处理，编号连续 —— 混排的关键
+        items = []
+        for i, (kind, f) in enumerate(media):
+            if kind == "img":
+                out = f"{base}-{i+1:02d}.jpg"
+                if convert(f, target / out, MAX_EDGE_FULL if big else MAX_EDGE_GRID):
+                    items.append(("img", out))
+                    generated.append(out)
+            else:
+                vname = f"{base}-{i+1:02d}.mp4"
+                if compress_video(f, vdir / vname):
+                    w, h = video_size(f)
+                    items.append(("vid", f"/media/{slug}/{vname}", w, h))
                     generated.append(vname)
                 else:
-                    skipped_video.append(vf)
+                    skipped_video.append(f)
 
-        if not names and not vpaths:
+        if not items:
             continue
 
-        parts = []
-        if names:  parts.append(block(names, title, is_sub))
-        if vpaths: parts.append(video_block(vpaths, title))
-        payload = MARK_OPEN + "\n" + "\n\n".join(
-            b.replace(MARK_OPEN + "\n", "").replace("\n" + MARK_CLOSE, "") for b in parts
-        ) + "\n" + MARK_CLOSE
+        payload = block(items, title, is_sub)
 
         end = heads[idx + 1][0] if idx + 1 < len(heads) else len(lines)
         chunk = strip_auto("\n".join(lines[ln + 1:end]))
