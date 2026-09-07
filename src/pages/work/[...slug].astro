@@ -26,7 +26,10 @@ export async function getStaticPaths() {
 
 const { project, prev, next } = Astro.props;
 const { title, year, categories, summary, cover, coverAlt, meta, gallery } = project.data;
-const { Content } = await render(project);
+const { Content, headings } = await render(project);
+
+/* 章节索引：只取 ## 这一级，长案例才值得放 */
+const sections = headings.filter((h) => h.depth === 2);
 
 /* 画廊优先；只给了单张 cover 时把它当成只有一格的画廊 */
 const slides =
@@ -76,6 +79,21 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
       </div>
     </header>
 
+    <!-- ==================== 章节索引 ==================== -->
+    {sections.length > 2 && (
+      <nav class="sections" aria-label="Sections">
+        <div class="wrap">
+          <ul class="sec-list" data-sections>
+            {sections.map((h) => (
+              <li>
+                <a class="sec-link mono" href={`#${h.slug}`} data-sec={h.slug}>{h.text}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    )}
+
     <!-- ==================== 正文 ==================== -->
     <div class="body">
       <div class="wrap">
@@ -109,6 +127,90 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
   </nav>
 
 </Base>
+
+<script>
+  const body = document.querySelector<HTMLElement>('.prose-body');
+
+  /* ---- 1. 子小节改成两栏：标题和说明在左，图在右 ----
+     ### 底下往往只有三四张小图，标题独占一行太浪费高度。 */
+  if (body) {
+    let head: HTMLElement | null = null;
+    let main: HTMLElement | null = null;
+
+    for (const el of [...body.children] as HTMLElement[]) {
+      if (el.tagName === 'H3') {
+        const sub = document.createElement('section');
+        sub.className = 'sub';
+        head = document.createElement('div');
+        head.className = 'sub-head';
+        main = document.createElement('div');
+        main.className = 'sub-main';
+        sub.append(head, main);
+        el.replaceWith(sub);
+        head.append(el);
+        continue;
+      }
+      if (!head || !main) continue;
+      if (el.tagName === 'H2') { head = main = null; continue; }
+      /* 纯文字说明跟着标题走，图和列表进右栏 */
+      if (el.tagName === 'P' && !el.querySelector('img')) head.append(el);
+      else main.append(el);
+    }
+  }
+
+  /* ---- 2. 过程图太多时先折叠 ----
+     只折叠 grid-3 / grid-4 这类小图；成品是 grid-2 或通栏，永远整组露出来。 */
+  const LIMIT = 12;
+
+  document.querySelectorAll<HTMLElement>('.grid-3, .grid-4').forEach((grid) => {
+    const n = grid.querySelectorAll('img').length;
+    if (n <= LIMIT) return;
+
+    const clamp = document.createElement('div');
+    clamp.className = 'clamp is-closed';
+    grid.replaceWith(clamp);
+    clamp.append(grid);
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'more mono';
+    btn.textContent = `SHOW ALL ${n} ↓`;
+    clamp.after(btn);
+
+    btn.addEventListener('click', () => {
+      const closed = clamp.classList.toggle('is-closed');
+      btn.textContent = closed ? `SHOW ALL ${n} ↓` : 'SHOW LESS ↑';
+      if (closed) clamp.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
+  });
+
+  /* ---- 3. 章节索引跟着滚动高亮 ---- */
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-sec]')];
+
+  if (links.length) {
+    const byId = new Map(links.map((a) => [a.dataset.sec!, a]));
+    const seen = new Set<string>();
+
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) seen.add(e.target.id);
+          else seen.delete(e.target.id);
+        }
+        /* 视野里最靠上的那节算当前节 */
+        const current = links.find((a) => seen.has(a.dataset.sec!));
+        links.forEach((a) => a.classList.toggle('is-on', a === current));
+        current?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      },
+      { rootMargin: '-30% 0px -60% 0px' },
+    );
+
+    for (const id of byId.keys()) {
+      const h = document.getElementById(id);
+      if (h) spy.observe(h);
+    }
+  }
+</script>
 
 <style>
   /* ==================== 标题区 ==================== */
@@ -190,9 +292,53 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     background: var(--paper-sunk);
   }
 
+  /* ==================== 章节索引 ==================== */
+
+  .sections {
+    position: sticky;
+    top: var(--nav-h, 3.4rem);
+    z-index: 5;
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-block: 1px solid var(--line);
+  }
+
+  .sec-list {
+    display: flex;
+    gap: 0.35rem;
+    padding-block: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sec-list::-webkit-scrollbar { display: none; }
+
+  .sec-link {
+    display: block;
+    white-space: nowrap;
+    padding: 0.35em 0.7em;
+    font-size: var(--step--2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    border: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .sec-link:hover { color: var(--ink); }
+
+  .sec-link.is-on {
+    color: var(--red);
+    border-color: var(--red);
+  }
+
   /* ==================== 正文 ==================== */
 
   .body { padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 9vw, 7rem); }
+
+  /* 锚点跳转时别被吸顶的导航和索引条挡住 */
+  .prose-body :global(h2) { scroll-margin-top: calc(var(--nav-h, 3.4rem) + 3.5rem); }
 
   /* Markdown 渲染出来的内容 —— 长文用衬线，小标题用等宽 */
   .prose-body :global(p) {
@@ -313,6 +459,81 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
   .prose-body :global(.full img) {
     margin: 0;
     border-inline: 0;
+  }
+
+  /* ---- 过程图折叠 ----
+     先露一屏多一点，底部渐隐，按钮在下面。 */
+  .prose-body :global(.clamp) {
+    position: relative;
+    width: min(100%, 1180px);
+  }
+
+  .prose-body :global(.clamp.is-closed) {
+    max-height: min(58svh, 620px);
+    overflow: hidden;
+  }
+
+  .prose-body :global(.clamp.is-closed)::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 8rem;
+    background: linear-gradient(to bottom, transparent, var(--paper) 88%);
+    pointer-events: none;
+  }
+
+  /* 折叠时网格自身的下外边距会撑出空隙，收掉 */
+  .prose-body :global(.clamp > [class^='grid-']) { margin-block: 0; }
+
+  .prose-body :global(.more) {
+    display: block;
+    margin: 1rem 0 clamp(1.75rem, 4vw, 3rem);
+    padding: 0.55em 1.1em;
+    font-size: var(--step--2);
+    letter-spacing: 0.16em;
+    color: var(--ink-soft);
+    background: none;
+    border: 1px solid var(--line);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .prose-body :global(.more:hover) {
+    color: var(--red);
+    border-color: var(--red);
+  }
+
+  /* ---- 子小节：标题在左，图在右 ---- */
+  .prose-body :global(.sub) {
+    display: grid;
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: start;
+    margin-block: clamp(1.75rem, 4vw, 2.75rem);
+    width: min(100%, 1180px);
+  }
+
+  /* 图多的时候标题跟着滚一段，一直知道在看哪一类 */
+  .prose-body :global(.sub-head) {
+    position: sticky;
+    top: calc(var(--nav-h, 3.4rem) + 4rem);
+  }
+
+  .prose-body :global(.sub h3) { margin-top: 0; }
+
+  .prose-body :global(.sub-head p) {
+    font-size: var(--step--1);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  .prose-body :global(.sub-main > :first-child) { margin-top: 0; }
+
+  .prose-body :global(.sub-main [class^='grid-']),
+  .prose-body :global(.sub-main .clamp) { width: 100%; }
+
+  @media (max-width: 860px) {
+    .prose-body :global(.sub) { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
+    .prose-body :global(.sub-head) { position: static; }
   }
 
   /* 正文里的视频 */
