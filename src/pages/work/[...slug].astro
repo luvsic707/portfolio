@@ -41,6 +41,16 @@ const slides =
 
 /* 分享预览图：画廊里第一张图 */
 const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
+
+/* ---- 卷宗编号 ----
+   从 slug 首字母 + 序号推出来，不用另外维护字段。
+   eden-of-east / 9 → RT-EOE-009，页眉和页脚都用它。 */
+const caseNo = String(project.data.order ?? 0).padStart(3, '0');
+const initials = project.id.split('-').map((w) => w[0]).join('').toUpperCase().slice(0, 3);
+const ref = `RT-${initials}-${caseNo}`;
+
+/* 页眉右侧的日期区间：meta.date 有就用，没有就退回年份 */
+const span = (meta as Record<string, string> | undefined)?.date ?? year;
 ---
 
 <Base title={`${title} — Red Thread`} description={summary} image={shareImage} type="article">
@@ -52,26 +62,33 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     <header class:list={['head', { 'has-shot': slides.length > 0 }]}>
       <div class="wrap">
 
-        <a href="/work" class="back mono">← WORK</a>
+        <!-- 页眉横栏：一本正经的档案抬头 -->
+        <div class="rail rail-top">
+          <a href="/work" class="rail-cell back">← RETURN</a>
+          <span class="rail-cell">CASE FILE</span>
+          <span class="rail-cell">{categories.join(' / ')}</span>
+          <span class="rail-cell rail-end">{span}</span>
+        </div>
 
-        <h1 class="title">{title}</h1>
+        <!-- 编号行：编号 · 品名 · 序号 -->
+        <div class="slug-line">
+          <span class="ref">{ref}</span>
+          <h1 class="title">{title}</h1>
+          <span class="hash">#{caseNo}</span>
+        </div>
 
-        <p class="lede prose">{summary}</p>
+        <p class="lede">{summary}</p>
 
-        <!-- 等宽元信息块 —— 终端感的来源 -->
-        <dl class="meta">
-          <div class="meta-row">
-            <dt class="mono">year</dt>
-            <dd class="mono">{year}</dd>
-          </div>
-          <div class="meta-row">
-            <dt class="mono">category</dt>
-            <dd class="mono">{categories.join(' · ')}</dd>
+        <!-- 检验表：横向分栏，不是竖着的键值对 -->
+        <dl class="spec">
+          <div class="spec-col">
+            <dt>Année</dt>
+            <dd>{year}</dd>
           </div>
           {meta && Object.entries(meta).map(([k, v]) => (
-            <div class="meta-row">
-              <dt class="mono">{k}</dt>
-              <dd class="mono">{v}</dd>
+            <div class="spec-col">
+              <dt>{k}</dt>
+              <dd>{v}</dd>
             </div>
           ))}
         </dl>
@@ -326,61 +343,95 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     padding-top: clamp(2.5rem, 6vw, 4.5rem);
   }
 
-  .back {
-    display: inline-block;
-    color: var(--ink-faint);
-    letter-spacing: 0.16em;
-    transition: color 0.2s var(--ease);
-  }
+  /* --- 页眉横栏：档案抬头，发丝线上下夹住 --- */
 
-  .back:hover { color: var(--red); }
-
-  .title {
-    margin-top: 1.2rem;
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: var(--step-3);
-    line-height: 1.02;
-    letter-spacing: -0.032em;
-    max-width: 20ch;
-    text-wrap: balance;
-  }
-
-  .lede {
-    margin-top: clamp(1.25rem, 3vw, 2rem);
-    font-size: var(--step-1);
+  .rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.6rem;
+    padding-block: 0.4rem;
+    border-block: 1px solid var(--ink);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: var(--ink-soft);
   }
 
-  /* --- 元信息 --- */
+  .rail-top { border-bottom-width: 0; }
 
-  .meta {
-    margin-top: clamp(2rem, 5vw, 3rem);
-    border-top: 1px solid var(--line);
-    max-width: 46rem;
-  }
+  .rail-end { margin-left: auto; font-variant-numeric: tabular-nums; }
 
-  .meta-row {
-    display: grid;
-    grid-template-columns: minmax(0, 9rem) minmax(0, 1fr);
-    gap: 1rem;
-    padding-block: 0.55rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .meta-row dt {
+  a.rail-cell {
     color: var(--ink-faint);
-    letter-spacing: 0.1em;
+    transition: color 0.2s var(--ease);
   }
 
-  .meta-row dd {
+  a.rail-cell:hover { color: var(--red); }
+
+  /* --- 编号行：编号 · 品名 · 序号 --- */
+
+  .slug-line {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem clamp(0.9rem, 3vw, 2.5rem);
+    padding-top: 0.5rem;
+    padding-bottom: clamp(1rem, 2.5vw, 1.6rem);
+    border-top: 1px solid var(--ink);
+  }
+
+  .ref,
+  .hash {
+    font-size: var(--step-2);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
     color: var(--ink);
-    text-transform: none;
-    letter-spacing: 0.02em;
   }
 
-  @media (max-width: 560px) {
-    .meta-row { grid-template-columns: 1fr; gap: 0.15rem; }
+  .hash { margin-left: auto; color: var(--red); }
+
+  .title {
+    font-size: var(--step-2);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.012em;
+    text-transform: uppercase;
+  }
+
+  .lede {
+    max-width: 62ch;
+    font-size: var(--step-0);
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* --- 检验表：横向分栏，跟参考的 Nom / Fichier / Donnée 一个读法 --- */
+
+  .spec {
+    margin-top: clamp(1.5rem, 4vw, 2.5rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: 0 clamp(0.75rem, 2vw, 2rem);
+    border-top: 1px solid var(--ink);
+    padding-top: 0.35rem;
+  }
+
+  .spec-col {
+    padding-bottom: 0.6rem;
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  .spec-col dt {
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .spec-col dd {
+    margin: 0;
+    color: var(--ink);
   }
 
   /* ==================== 封面 ==================== */

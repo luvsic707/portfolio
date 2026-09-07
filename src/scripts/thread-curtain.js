@@ -19,8 +19,8 @@ const WIND_AMP = 0.03;          // 风的强度。调大会让线荡成钟摆，
 const WIND_SPEED = 0.00042;
 const SWAY_LIMIT = 0.9;         // 线相对自身基准位置的最大横向漂移（乘以线长）
 
-const COLOR_RED = '#C7402B';
-const COLOR_GREY = '#B9B2A2';
+const COLOR_RED = '#C4122F';
+const COLOR_GREY = '#A9AEAB';
 
 export function initThreadCurtain(canvas, links = []) {
   const ctx = canvas.getContext('2d', { alpha: true });

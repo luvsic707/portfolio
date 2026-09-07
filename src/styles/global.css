@@ -1,27 +1,28 @@
 /* ============================================================
-   Red Thread — design tokens
-   浅底打底（保护作品图） + 终端细节（导航与元信息）
+   RED THREAD REHAB — design tokens
+   视觉急救室：惨白底、冷灰线、一根红线。
+   参照医学档案与刑侦卷宗 —— 冷峻、克制，荒谬感来自格式本身。
    ============================================================ */
 
 /* 字体在 src/layouts/Base.astro 的 <head> 里用 <link> 加载 —— 比在这里 @import 快一步 */
 
 :root {
-  /* --- 纸 --- */
-  --paper:        #F1EEE7;   /* 主背景，暖纸色而非纯白 */
-  --paper-sunk:   #E9E5DB;   /* 卡片 / 图片占位底 */
-  --paper-raised: #F7F5F0;
+  /* --- 纸：惨白，偏冷、去饱和，像检验报告和相纸背板 --- */
+  --paper:        #F7F8F7;   /* 主背景 */
+  --paper-sunk:   #ECEEEC;   /* 表格底 / 图片占位 */
+  --paper-raised: #FFFFFF;   /* 需要更白的一层：标本卡、票签 */
 
-  /* --- 墨 --- */
-  --ink:          #171614;
-  --ink-soft:     #57534A;
-  --ink-faint:    #97907F;
-  --line:         #D6D0C2;
-  --line-strong:  #B8B1A0;
+  /* --- 墨：近黑不是纯黑，冷调 --- */
+  --ink:          #0F1110;
+  --ink-soft:     #565A59;
+  --ink-faint:    #979C9A;
+  --line:         #D4D8D5;   /* 发丝线，档案表格的骨架 */
+  --line-strong:  #A2A7A4;
 
-  /* --- 朱砂 --- */
-  --red:          #C7402B;
-  --red-deep:     #9E2E1E;
-  --red-wash:     rgba(199, 64, 43, 0.10);
+  /* --- 红线：唯一的彩色，冷血红，不带砖橙 --- */
+  --red:          #C4122F;
+  --red-deep:     #8C0B22;
+  --red-wash:     rgba(196, 18, 47, 0.09);
 
   /* --- 字族 --- */
   --font-display: 'Space Grotesk', 'Noto Sans SC', -apple-system, sans-serif;
