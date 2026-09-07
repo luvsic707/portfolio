@@ -45,9 +45,12 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
 /* ---- 卷宗编号 ----
    从 slug 首字母 + 序号推出来，不用另外维护字段。
    eden-of-east / 9 → RT-EOE-009，页眉和页脚都用它。 */
+const refOf = (p: { id: string; data: { order?: number } }) =>
+  `RT-${p.id.split('-').map((w) => w[0]).join('').toUpperCase().slice(0, 3)}-` +
+  String(p.data.order ?? 0).padStart(3, '0');
+
 const caseNo = String(project.data.order ?? 0).padStart(3, '0');
-const initials = project.id.split('-').map((w) => w[0]).join('').toUpperCase().slice(0, 3);
-const ref = `RT-${initials}-${caseNo}`;
+const ref = refOf(project);
 
 /* 页眉右侧的日期区间：meta.date 有就用，没有就退回年份 */
 const span = (meta as Record<string, string> | undefined)?.date ?? year;
@@ -114,6 +117,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     <!-- ==================== 正文 ==================== -->
     <div class="body">
       <div class="wrap">
+        <!-- 页边竖排卷宗号，只在够宽的屏幕出现 -->
+        <span class="folio" aria-hidden="true">{ref}</span>
         <div class="prose-body">
           <Content />
         </div>
@@ -128,14 +133,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       <div class="pager-row">
         {prev ? (
           <a class="pager-link is-prev" href={`/work/${prev.id}`}>
-            <span class="mono pager-dir">← Previous</span>
+            <span class="pager-dir">← {refOf(prev)}</span>
             <span class="pager-title">{prev.data.title}</span>
           </a>
         ) : <span />}
 
         {next ? (
           <a class="pager-link is-next" href={`/work/${next.id}`}>
-            <span class="mono pager-dir">Next →</span>
+            <span class="pager-dir">{refOf(next)} →</span>
             <span class="pager-title">{next.data.title}</span>
           </a>
         ) : <span />}
@@ -487,7 +492,34 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* ==================== 正文 ==================== */
 
-  .body { padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 9vw, 7rem); }
+  .body {
+    padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 9vw, 7rem);
+  }
+
+  .body .wrap { position: relative; }
+
+  /* --- 页边竖排卷宗号 ---
+     跟着正文一起滚，压在留白里。窄屏直接不出现：
+     rotate 不影响布局盒，放在小屏上会把页面撑宽。 */
+  .folio {
+    display: none;
+    position: absolute;
+    top: 0;
+    /* 贴内容框右缘，不能伸进 gutter —— 伸出去就会把页面撑宽 */
+    right: 0;
+    writing-mode: vertical-rl;
+    font-family: var(--font-mono);
+    font-size: clamp(1.75rem, 3.2vw, 3.25rem);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--line);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  @media (min-width: 1180px) {
+    .folio { display: block; }
+  }
 
   /* 锚点跳转时别被吸顶的导航和索引条挡住 */
   .prose-body :global(h2) { scroll-margin-top: calc(var(--nav-h, 3.4rem) + 3.5rem); }
@@ -886,9 +918,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .is-next { text-align: right; }
 
   .pager-dir {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
     color: var(--ink-faint);
-    letter-spacing: 0.12em;
-    text-transform: none;
   }
 
   .pager-title {
