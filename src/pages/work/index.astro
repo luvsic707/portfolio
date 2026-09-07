@@ -25,7 +25,7 @@ const active = CATEGORIES.filter((c) => counts[c] > 0);
 
   <section class="head-block">
     <div class="wrap">
-      <p class="mono eyebrow">▶ WORKS EXPLORER</p>
+      <p class="mono eyebrow">INDEX OF CASES</p>
       <h1 class="page-title">Work</h1>
       <p class="mono count">
         {projects.length} {projects.length === 1 ? 'PROJECT' : 'PROJECTS'} · 2021—{new Date().getFullYear()}
@@ -42,7 +42,7 @@ const active = CATEGORIES.filter((c) => counts[c] > 0);
 
       {active.map((c) => (
         <button class="chip mono" data-cat={c}>
-          <span class="chip-glyph">◆</span>{c.toUpperCase()}
+          {c.toUpperCase()}
           <span class="chip-n">{counts[c]}</span>
         </button>
       ))}

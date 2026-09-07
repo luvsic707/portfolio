@@ -26,7 +26,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     </nav>
 
     <div class="wrap hero-inner">
-      <p class="hero-eyebrow mono">▶ MULTIDISCIPLINARY ARTIST &amp; DESIGNER — BOSTON</p>
+      <p class="hero-eyebrow mono">MULTIDISCIPLINARY ARTIST &amp; DESIGNER · BOSTON</p>
 
       <h1 class="hero-title">
         I&rsquo;m <span class="hl">Red&nbsp;Thread</span>.<br />
@@ -40,7 +40,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     </div>
 
     <p class="hero-hint mono">
-      ▶ brush through the threads &mdash;&mdash; {all.length} of them carry work
+      brush through the threads &mdash; {all.length} of them carry work
     </p>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
@@ -210,7 +210,8 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     margin-top: clamp(1.5rem, 4vw, 2.75rem);
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: var(--step-4);
+    /* step-4 是留给单行巨号编号的，五行的句子用它会高过一整屏 */
+    font-size: clamp(2.4rem, 0.9rem + 6.6vw, 7rem);
     line-height: 0.98;
     letter-spacing: -0.035em;
     text-wrap: balance;

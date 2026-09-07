@@ -7,18 +7,15 @@ const isInfo = path.startsWith('/info');
 <header class="nav" data-nav>
   <div class="nav-inner wrap">
 
-    <a href="/" class="brand" aria-label="Red Thread — home">
+    <a href="/" class="brand" aria-label="Red Thread Rehab — home">
       <span class="brand-mark" aria-hidden="true"></span>
       <span class="brand-name">RED&nbsp;THREAD</span>
+      <span class="brand-sub">REHAB</span>
     </a>
 
     <nav class="links" aria-label="Main">
-      <a href="/work" class:list={['link', 'mono', { on: isWork }]}>
-        <span class="glyph">◆</span>WORK
-      </a>
-      <a href="/info" class:list={['link', 'mono', { on: isInfo }]}>
-        <span class="glyph">▢</span>INFO
-      </a>
+      <a href="/work" class:list={['link', 'mono', { on: isWork }]}>WORK</a>
+      <a href="/info" class:list={['link', 'mono', { on: isInfo }]}>INFO</a>
     </nav>
 
   </div>

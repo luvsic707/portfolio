@@ -13,29 +13,41 @@
   --paper-raised: #FFFFFF;   /* 需要更白的一层：标本卡、票签 */
 
   /* --- 墨：近黑不是纯黑，冷调 --- */
-  --ink:          #0F1110;
-  --ink-soft:     #565A59;
-  --ink-faint:    #979C9A;
-  --line:         #D4D8D5;   /* 发丝线，档案表格的骨架 */
-  --line-strong:  #A2A7A4;
+  --ink:          #101314;
+  --ink-soft:     #5C6262;
+  /* 别再压浅了 —— 9px 全大写小字用 #9AA0A0 只有 2.8:1，过不了 WCAG AA */
+  --ink-faint:    #6E7474;
+  --line:         #D6DAD9;   /* 发丝线，档案表格的骨架 */
+  --line-strong:  #A8ADAB;
 
-  /* --- 红线：唯一的彩色，冷血红，不带砖橙 --- */
-  --red:          #C4122F;
-  --red-deep:     #8C0B22;
-  --red-wash:     rgba(196, 18, 47, 0.09);
+  /* --- 红线：全站唯一的彩色，冷血红，近 Pantone 200 --- */
+  --red:          #C8102E;
+  --red-deep:     #8E0B21;
+  --red-wash:     rgba(200, 16, 46, 0.09);
 
-  /* --- 字族 --- */
-  --font-display: 'Space Grotesk', 'Noto Sans SC', -apple-system, sans-serif;
-  --font-prose:   'Newsreader', 'Noto Serif SC', Georgia, serif;
-  --font-mono:    'IBM Plex Mono', 'Noto Sans SC', ui-monospace, Menlo, monospace;
+  /* --- 字族 ---
+     全站一族 Archivo（可变：宽度轴 + 字重轴）。
+     不用衬线 —— 档案和卷宗里没有衬线，文字是记录不是叙述。
+     等宽只留给真正的机器数据：编号、计数、时间戳。 */
+  --font-display: 'Archivo', 'Noto Sans SC', -apple-system, sans-serif;
+  --font-prose:   'Archivo', 'Noto Sans SC', -apple-system, sans-serif;
+  /* Fragment Mono 是等宽版的 Helvetica（由 Nimbus Sans 改出），
+     跟 Archivo 的关系相当于 Suisse Int'l 配 Suisse Int'l Mono */
+  --font-mono:    'Fragment Mono', ui-monospace, Menlo, monospace;
+
+  /* 压窄字宽 —— 表单标签、页眉横栏用 */
+  --cond: 84%;
 
   /* --- 尺度 --- */
-  --step--1: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
-  --step-0:  clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
-  --step-1:  clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
-  --step-2:  clamp(1.5rem, 1.3rem + 1vw, 2.25rem);
-  --step-3:  clamp(2.25rem, 1.7rem + 2.6vw, 4rem);
-  --step-4:  clamp(2.35rem, 1.05rem + 6.6vw, 7.5rem);
+  /* 档案排版的尺度是掏空的：极小的表单字，极大的编号，中段基本不用。
+     平滑爬升的字阶读起来像网页，断裂的字阶读起来像印刷品。 */
+  --step--2: 0.6875rem;                                        /* 11px 表单标签，不随屏缩放 */
+  --step--1: 0.75rem;                                          /* 12px 表格数据 */
+  --step-0:  clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);     /* 13–14px 正文 */
+  --step-1:  clamp(1rem, 0.93rem + 0.32vw, 1.1875rem);         /* 引言，克制地用 */
+  --step-2:  clamp(1.375rem, 1.1rem + 1.2vw, 2.125rem);        /* 编号行 */
+  --step-3:  clamp(2.5rem, 1.4rem + 5vw, 6rem);                /* 页面大标题 */
+  --step-4:  clamp(3.5rem, 0.5rem + 13vw, 13rem);              /* 巨号编号、竖排页码 */
 
   --gutter:  clamp(1.25rem, 4vw, 4rem);
   --measure: 62ch;
@@ -95,18 +107,28 @@ button {
 }
 
 /* ============================================================
-   终端细节 —— 界面外壳统一用等宽字
+   表单层 —— 界面外壳是档案表格的语言：压窄、全大写、发丝线
    ============================================================ */
 
 .mono {
-  font-family: var(--font-mono);
   font-size: var(--step--1);
-  letter-spacing: 0.06em;
+  font-stretch: var(--cond);
+  font-weight: 500;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
 
-/* 小标签：▶ WORKS  的那种前导符号 */
+/* 真·机器数据：编号、计数、时间戳，才用等宽 */
+.data {
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+}
+
+/* 小标签的前导符号 */
 .marker::before {
   content: attr(data-marker) ' ';
   color: var(--red);
@@ -127,33 +149,30 @@ button {
   border: 0;
 }
 
-/* 章节标题：▶ 加大写等宽 */
+/* 章节标题：编号在前，规矩，不带箭头 */
 .section-label {
-  font-family: var(--font-mono);
   font-size: var(--step--1);
-  letter-spacing: 0.14em;
+  font-stretch: var(--cond);
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--ink);
   display: flex;
   align-items: baseline;
-  gap: 0.6em;
-}
-
-.section-label::before {
-  content: '▶';
-  color: var(--red);
-  font-size: 0.85em;
+  gap: 0.7em;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--ink);
 }
 
 /* ============================================================
-   长文用衬线 —— 工艺、手感
+   长文 —— 同一族无衬线，靠字号和行距拉开层次
    ============================================================ */
 
 .prose {
   font-family: var(--font-prose);
-  font-size: var(--step-1);
-  line-height: 1.72;
-  color: var(--ink);
+  font-size: var(--step-0);
+  line-height: 1.68;
+  color: var(--ink-soft);
   max-width: var(--measure);
 }
 
