@@ -166,6 +166,9 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     strip.setAttribute('role', 'group');
     strip.setAttribute('aria-label', `${n} images, scroll sideways`);
 
+    /* 图少就少排几行，别让一条带子空着半截 */
+    strip.style.setProperty('--rows', String(n <= 6 ? 2 : 3));
+
     let down = false;
     let startX = 0;
     let startLeft = 0;
@@ -213,6 +216,7 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
   if (links.length) {
     const byId = new Map(links.map((a) => [a.dataset.sec!, a]));
     const seen = new Set<string>();
+    const list = document.querySelector<HTMLElement>('[data-sections]');
 
     const spy = new IntersectionObserver(
       (entries) => {
@@ -223,7 +227,15 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
         /* 视野里最靠上的那节算当前节 */
         const current = links.find((a) => seen.has(a.dataset.sec!));
         links.forEach((a) => a.classList.toggle('is-on', a === current));
-        current?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+
+        /* 只横向挪索引条本身。用 scrollIntoView 会连整页一起滚，把人拽走。 */
+        if (current && list) {
+          const l = current.offsetLeft;
+          const r = l + current.offsetWidth;
+          if (l < list.scrollLeft || r > list.scrollLeft + list.clientWidth) {
+            list.scrollTo({ left: l - 12, behavior: 'smooth' });
+          }
+        }
       },
       { rootMargin: '-30% 0px -60% 0px' },
     );
@@ -530,19 +542,25 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
     .prose-body :global(.showcase) { column-count: 1; }
   }
 
-  /* ---- 过程：横向滑动带 ----
-     图小、高度错落，纵向只占一条，看多少全凭手往旁边推。 */
+  /* ---- 过程：横向接触表 ----
+     版面本身就铺满几排小图，放不下的部分才靠左右滑。
+     大小不一（每四张里有一张占两排高）才灵动，不是一条整齐的胶片。 */
   .prose-body :global(.strip) {
-    position: relative;
+    --row: clamp(102px, 12vw, 150px);
+    --gap: clamp(0.35rem, 0.9vw, 0.7rem);
+
     width: 100vw;
     margin-inline: calc(50% - 50vw);
     margin-block: clamp(1.75rem, 4vw, 3rem);
-    padding: 0.5rem clamp(0.75rem, 3vw, 3rem) 1.25rem;
+    padding: 0.25rem clamp(0.75rem, 3vw, 3rem) 1rem;
+
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: max-content;
-    align-items: center;
-    gap: clamp(0.5rem, 1.4vw, 1rem);
+    grid-template-rows: repeat(var(--rows, 3), var(--row));
+    grid-auto-flow: column dense;
+    grid-auto-columns: min-content;
+    gap: var(--gap);
+    justify-items: start;
+
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
@@ -555,42 +573,33 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
 
   .prose-body :global(.strip.is-dragging) { cursor: grabbing; scroll-snap-type: none; }
 
-  .prose-body :global(.strip p) {
-    margin: 0;
-    scroll-snap-align: start;
-    transition: transform 0.35s var(--ease);
+  /* 右边还有图时右缘淡出，提示还能往旁边推 */
+  .prose-body :global(.strip.has-more) {
+    -webkit-mask-image: linear-gradient(to right, #000 88%, transparent);
+    mask-image: linear-gradient(to right, #000 88%, transparent);
   }
 
-  /* 高度按 4 张一轮错落，排面才灵动，不是一条整齐的胶片 */
+  .prose-body :global(.strip p) {
+    margin: 0;
+    height: 100%;
+    grid-row: span 1;
+    scroll-snap-align: start;
+    transition: transform 0.3s var(--ease);
+  }
+
+  /* 每四张里挑一张占满两排，密排里才有起伏 */
+  .prose-body :global(.strip p:nth-child(4n + 1)) { grid-row: span 2; }
+
   .prose-body :global(.strip img) {
     margin: 0;
     display: block;
-    height: clamp(150px, 22svh, 250px);
+    height: 100%;
     width: auto;
     max-width: none;
   }
 
-  .prose-body :global(.strip p:nth-child(4n + 2) img) { height: clamp(190px, 29svh, 330px); }
-  .prose-body :global(.strip p:nth-child(4n + 3) img) { height: clamp(130px, 19svh, 215px); }
-
-  /* 右边还有内容时给一道渐隐，暗示可以继续推 */
-  .prose-body :global(.strip)::after {
-    content: '';
-    position: sticky;
-    right: 0;
-    justify-self: end;
-    width: clamp(2rem, 6vw, 5rem);
-    height: 100%;
-    background: linear-gradient(to right, transparent, var(--paper));
-    opacity: 0;
-    transition: opacity 0.3s var(--ease);
-    pointer-events: none;
-  }
-
-  .prose-body :global(.strip.has-more)::after { opacity: 1; }
-
   @media (hover: hover) and (pointer: fine) {
-    .prose-body :global(.strip p:hover) { transform: translateY(-4px); }
+    .prose-body :global(.strip p:hover) { transform: translateY(-3px); }
   }
 
   /* 滑动带在子小节里就老实待在右栏，不再通栏 */
