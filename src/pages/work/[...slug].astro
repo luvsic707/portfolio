@@ -245,37 +245,41 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
   /* ---- 正文里的排版工具 ----
      在 md 里直接写 <div class="grid-2"> 就能用，详见 README。 */
 
+  /* 用多栏而不是 grid：图按上传时的原始比例呈现，高度参差也不会留空档。
+     2:1 就是 2:1，竖图就是竖图，一律不裁。 */
   .prose-body :global(.grid-2),
   .prose-body :global(.grid-3),
   .prose-body :global(.grid-4) {
-    display: grid;
-    gap: clamp(0.6rem, 1.6vw, 1.1rem);
+    column-gap: clamp(0.6rem, 1.6vw, 1.1rem);
     margin-block: clamp(1.75rem, 4vw, 3rem);
     /* 网格整体比正文宽 —— 正文是给人读的，图是给人看的 */
     width: min(100%, 1180px);
   }
 
-  .prose-body :global(.grid-2) { grid-template-columns: repeat(2, 1fr); }
-  .prose-body :global(.grid-3) { grid-template-columns: repeat(3, 1fr); }
-  .prose-body :global(.grid-4) { grid-template-columns: repeat(4, 1fr); }
+  .prose-body :global(.grid-2) { column-count: 2; }
+  .prose-body :global(.grid-3) { column-count: 3; }
+  .prose-body :global(.grid-4) { column-count: 4; }
 
-  /* 网格里的每张图各占一格：段落是格子，取消自身外边距，间距交给 gap */
+  /* 每张图是一个栏内块，不许被拆到两栏去 */
   .prose-body :global([class^='grid-'] p) {
-    margin: 0;
+    margin: 0 0 clamp(0.6rem, 1.6vw, 1.1rem);
     position: relative;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   }
 
   .prose-body :global([class^='grid-'] img) {
     margin: 0;
-    aspect-ratio: 1;
-    object-fit: cover;
-    height: 100%;
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
-  /* 网格里只剩一张图时，别让它占着两列的格子把右边空掉 */
+  /* 网格里只剩一张图时，别让它缩在一栏里 */
   .prose-body :global([class^='grid-']:has(> p:only-child)) {
-    grid-template-columns: minmax(0, 560px);
+    column-count: 1;
+    width: min(100%, 560px);
   }
 
   /* 悬停微微放大并浮起，方便看清小图 */
@@ -288,12 +292,12 @@ const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
   }
 
   @media (max-width: 900px) {
-    .prose-body :global(.grid-4) { grid-template-columns: repeat(3, 1fr); }
+    .prose-body :global(.grid-4) { column-count: 3; }
   }
 
   @media (max-width: 640px) {
     .prose-body :global(.grid-3),
-    .prose-body :global(.grid-4) { grid-template-columns: repeat(2, 1fr); }
+    .prose-body :global(.grid-4) { column-count: 2; }
   }
 
   /* 通栏大图：冲破正文宽度铺满视口，用来放主视觉 */

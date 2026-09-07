@@ -27,14 +27,28 @@ const hasVideo = slides.some((s) => s.video);
   <div class="stage">
     {slides.map((s, i) => (
       <div
-        class:list={['slide', { 'is-on': i === 0 }]}
+        class:list={['slide', { 'is-on': i === 0, 'is-video': !!s.video }]}
         data-slide
         role="group"
         aria-roledescription="slide"
         aria-label={`${i + 1} / ${slides.length}`}
       >
+        {/* 背景是同一张图的模糊放大版，用来把留白填满 —— 前景仍然完整不裁切 */}
+        {(s.image ?? s.poster) && (
+          <Image
+            class="bg"
+            src={(s.image ?? s.poster)!}
+            alt=""
+            aria-hidden="true"
+            widths={[64]}
+            sizes="64px"
+            loading={i === 0 ? 'eager' : 'lazy'}
+          />
+        )}
+
         {s.video ? (
           <video
+            class="fg"
             data-video
             src={s.video}
             poster={s.poster?.src}
@@ -45,6 +59,7 @@ const hasVideo = slides.some((s) => s.video);
           ></video>
         ) : s.image ? (
           <Image
+            class="fg"
             src={s.image}
             alt={s.alt ?? title}
             widths={[720, 1280, 1920, 2400]}
@@ -62,19 +77,6 @@ const hasVideo = slides.some((s) => s.video);
       <button class="nav prev" data-prev type="button" aria-label="Previous">←</button>
       <button class="nav next" data-next type="button" aria-label="Next">→</button>
 
-      <div class="dots" data-dots role="tablist" aria-label="Choose slide">
-        {slides.map((_, i) => (
-          <button
-            class:list={['dot', { 'is-on': i === 0 }]}
-            data-dot
-            type="button"
-            role="tab"
-            aria-label={`Slide ${i + 1}`}
-            aria-selected={i === 0}
-          ></button>
-        ))}
-      </div>
-
       <p class="counter mono" data-counter aria-live="polite">
         01 / {String(slides.length).padStart(2, '0')}
       </p>
@@ -82,8 +84,13 @@ const hasVideo = slides.some((s) => s.video);
   )}
 
   {hasVideo && (
-    <button class="sound mono" data-sound type="button" aria-pressed="false">
-      <span data-sound-label>SOUND OFF</span>
+    <button class="sound" data-sound type="button" aria-pressed="false" aria-label="Toggle sound">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"
+           fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+        <path d="M4 9.3h3.3L12 5.4v13.2L7.3 14.7H4z" fill="currentColor" stroke="none" />
+        <g class="ico-off"><path d="M16.4 9.6l4.6 4.8M21 9.6l-4.6 4.8" /></g>
+        <g class="ico-on"><path d="M16 9.2a4 4 0 0 1 0 5.6" /><path d="M18.7 6.8a7.6 7.6 0 0 1 0 10.4" /></g>
+      </svg>
     </button>
   )}
 </section>
@@ -93,10 +100,8 @@ const hasVideo = slides.some((s) => s.video);
     const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
     if (slides.length === 0) return;
 
-    const dots = [...root.querySelectorAll<HTMLElement>('[data-dot]')];
     const counter = root.querySelector<HTMLElement>('[data-counter]');
     const soundBtn = root.querySelector<HTMLButtonElement>('[data-sound]');
-    const soundLabel = root.querySelector<HTMLElement>('[data-sound-label]');
     const interval = Number(root.dataset.interval ?? 3500);
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -138,10 +143,8 @@ const hasVideo = slides.some((s) => s.video);
         }
       });
 
-      dots.forEach((d, i) => {
-        d.classList.toggle('is-on', i === to);
-        d.setAttribute('aria-selected', String(i === to));
-      });
+      /* 声音开关只在视频那一格出现，别挂在图片上碍事 */
+      root.classList.toggle('on-video', !!videoIn(slides[to]));
 
       if (counter) {
         counter.textContent =
@@ -160,13 +163,11 @@ const hasVideo = slides.some((s) => s.video);
 
     root.querySelector('[data-prev]')?.addEventListener('click', () => go(index - 1));
     root.querySelector('[data-next]')?.addEventListener('click', () => go(index + 1));
-    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
 
     /* 声音：浏览器不允许带声自动播放，所以默认静音 + 一个开关 */
     soundBtn?.addEventListener('click', () => {
       soundOn = !soundOn;
       soundBtn.setAttribute('aria-pressed', String(soundOn));
-      if (soundLabel) soundLabel.textContent = soundOn ? 'SOUND ON' : 'SOUND OFF';
       const v = videoIn(slides[index]);
       if (v) {
         v.muted = !soundOn;
@@ -174,9 +175,11 @@ const hasVideo = slides.some((s) => s.video);
       }
     });
 
-    /* 鼠标停在上面就暂停自动播放 */
-    root.addEventListener('pointerenter', () => { paused = true; clearTimer(); });
-    root.addEventListener('pointerleave', () => { paused = false; schedule(); });
+    /* 只有停在控件上才暂停 —— 画面是满屏的，停在画面上就暂停等于永不轮播 */
+    root.querySelectorAll<HTMLElement>('.nav, .sound').forEach((el) => {
+      el.addEventListener('pointerenter', () => { paused = true; clearTimer(); });
+      el.addEventListener('pointerleave', () => { paused = false; schedule(); });
+    });
 
     /* 触屏左右滑 */
     let x0: number | null = null;
@@ -202,6 +205,7 @@ const hasVideo = slides.some((s) => s.video);
     });
 
     /* 起播 */
+    root.classList.toggle('on-video', !!videoIn(slides[0]));
     const first = videoIn(slides[0]);
     if (first) first.play().catch(() => {});
     schedule();
@@ -218,10 +222,11 @@ const hasVideo = slides.some((s) => s.video);
     touch-action: pan-y;
   }
 
+  /* 开屏铺满一整屏 —— 导航条以下全给作品 */
   .stage {
     position: relative;
     width: 100vw;
-    height: min(82svh, 72vw);
+    height: calc(100svh - var(--nav-h, 3.4rem));
   }
 
   .slide {
@@ -230,18 +235,35 @@ const hasVideo = slides.some((s) => s.video);
     opacity: 0;
     transition: opacity 0.7s var(--ease);
     pointer-events: none;
+    background: var(--paper-sunk);
+    overflow: hidden;
   }
+
+  .slide.is-video { background: #08080a; }
 
   .slide.is-on { opacity: 1; pointer-events: auto; }
 
-  .slide :global(img),
-  .slide video {
+  /* 背景层：同一张图放大模糊，把上下留白填掉，观感是满的 */
+  .slide :global(img.bg) {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    /* 不裁切作品 —— 宁可留边也不切掉画面 */
+    object-fit: cover;
+    filter: blur(38px) saturate(1.15) brightness(0.9);
+    transform: scale(1.12);
+    z-index: 0;
+  }
+
+  /* 前景层：作品本身，完整呈现，一寸都不裁 */
+  .slide :global(img.fg),
+  .slide video.fg {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: center;
-    background: var(--paper-sunk);
   }
 
   /* --- 左右箭头 --- */
@@ -257,83 +279,83 @@ const hasVideo = slides.some((s) => s.video);
     place-items: center;
     font-family: var(--font-mono);
     font-size: 1rem;
-    color: var(--ink);
-    background: color-mix(in srgb, var(--paper) 78%, transparent);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--line);
+    color: #fff;
+    mix-blend-mode: difference;
+    background: none;
+    border: 0;
     opacity: 0;
-    transition: opacity 0.3s var(--ease), color 0.2s var(--ease);
+    transition: opacity 0.3s var(--ease);
   }
 
   .prev { left: clamp(0.5rem, 2vw, 1.5rem); }
   .next { right: clamp(0.5rem, 2vw, 1.5rem); }
 
-  .gallery:hover .nav,
-  .nav:focus-visible { opacity: 1; }
+  .gallery:hover .nav { opacity: 0.55; }
+  .nav:hover, .nav:focus-visible { opacity: 1; }
 
-  .nav:hover { color: var(--red); }
-
-  /* 触屏没有 hover，箭头常驻 */
+  /* 触屏没有 hover，箭头淡淡地常驻 */
   @media (hover: none) {
-    .nav { opacity: 0.85; }
+    .nav { opacity: 0.4; }
   }
 
-  /* --- 圆点与计数 --- */
-
-  .dots {
-    position: absolute;
-    left: 50%;
-    bottom: 1rem;
-    transform: translateX(-50%);
-    z-index: 3;
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--line-strong);
-    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .dot.is-on { background: var(--red); transform: scale(1.35); }
+  /* --- 页码 ---
+     不做进度条：只留一个极轻的页码，鼠标进来才浮现。
+     mix-blend-mode 让它在深色浅色画面上都读得清，不用垫底色块。 */
 
   .counter {
     position: absolute;
     right: clamp(0.75rem, 2vw, 1.5rem);
-    bottom: 1rem;
+    bottom: clamp(0.75rem, 2vw, 1.4rem);
     z-index: 3;
-    color: var(--ink-soft);
-    letter-spacing: 0.12em;
+    color: #fff;
+    mix-blend-mode: difference;
+    font-size: var(--step--1);
+    letter-spacing: 0.16em;
     font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transition: opacity 0.35s var(--ease);
+    pointer-events: none;
   }
 
-  /* --- 声音开关 --- */
+  .gallery:hover .counter { opacity: 0.5; }
+
+  @media (hover: none) {
+    .counter { opacity: 0.35; }
+  }
+
+  /* --- 声音开关 ---
+     只在视频那一格出现，纯图标、无边框、无底色，不抢构图。 */
 
   .sound {
     position: absolute;
     left: clamp(0.75rem, 2vw, 1.5rem);
-    bottom: 1rem;
-    z-index: 3;
-    padding: 0.4em 0.8em;
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
-    letter-spacing: 0.12em;
-    color: var(--ink);
-    background: color-mix(in srgb, var(--paper) 82%, transparent);
-    backdrop-filter: blur(6px);
-    border: 1px solid var(--line);
-    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+    bottom: clamp(0.75rem, 2vw, 1.4rem);
+    z-index: 4;
+    display: none;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: #fff;
+    mix-blend-mode: difference;
+    opacity: 0.4;
+    transition: opacity 0.25s var(--ease);
   }
 
-  .sound:hover { color: var(--red); border-color: var(--red); }
-  .sound[aria-pressed='true'] { color: var(--red); border-color: var(--red); }
+  .gallery.on-video .sound { display: grid; }
+
+  .sound:hover,
+  .sound:focus-visible { opacity: 1; }
+
+  .sound[aria-pressed='true'] { opacity: 0.85; }
+
+  .sound .ico-on { display: none; }
+  .sound[aria-pressed='true'] .ico-off { display: none; }
+  .sound[aria-pressed='true'] .ico-on { display: inline; }
 
   @media (max-width: 640px) {
-    .dots { bottom: 0.7rem; }
-    .counter, .sound { bottom: 0.7rem; }
     .nav { width: 2.4rem; height: 2.4rem; }
   }
 </style>
