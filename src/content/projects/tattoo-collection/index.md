@@ -9,6 +9,7 @@ meta:
   date: 2025.03 – Present
   dimension: Whatever
   media: INK PLZ!!!
+cover: ./a-on-skin-01.jpg
 ---
 
 ## A — ON SKIN

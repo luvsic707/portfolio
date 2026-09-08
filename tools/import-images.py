@@ -131,6 +131,23 @@ def media_in(folder: Path):
     return out
 
 
+def poster_from_video(src: Path, dst: Path) -> bool:
+    """从视频里抽一帧当列表页缩略图。
+
+    只有视频没有图的项目，卡片会一直空着 —— 抽帧比让作者再挑一张省事。
+    取第 1 秒，避开开头常见的黑场。
+    """
+    if not has_ffmpeg():
+        return False
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    r = subprocess.run(
+        ["ffmpeg", "-y", "-ss", "1", "-i", str(src), "-frames:v", "1",
+         "-vf", f"scale='min({MAX_EDGE_FULL},iw)':-2", "-q:v", "3", str(dst)],
+        capture_output=True,
+    )
+    return r.returncode == 0 and dst.exists()
+
+
 def video_size(path: Path):
     """读出视频宽高，写进标签里，瀑布流才不会等元数据加载完再跳一次。"""
     if not shutil.which("ffprobe"):
@@ -310,6 +327,13 @@ def process(project_dir: Path) -> str | None:
                     entries.append(f'  - image: ./{out}\n'
                                    f'    alt: {proj_title} {n_img:02d}')
 
+        # 开屏只有视频时，抽一帧当列表页缩略图
+        if entries and not first_img:
+            first_vid = next((f for f in media if f.suffix.lower() in VIDEO), None)
+            if first_vid and poster_from_video(first_vid, target / "hero-poster.jpg"):
+                first_img = "hero-poster.jpg"
+                generated.append(first_img)
+
         if entries:
             front = front.rstrip() + "\ngallery:\n" + "\n".join(entries) + "\n"
             # 列表页的缩略图用画廊第一张图
@@ -378,6 +402,14 @@ def process(project_dir: Path) -> str | None:
         lines[ln + 1:end] = (chunk.rstrip() + "\n\n" + payload + "\n").split("\n")
 
     body = "\n".join(lines)
+
+    # 「00 封面」空着的项目，用正文第一张图当列表页缩略图 ——
+    # 卡片一直空着比用一张不那么讲究的图更糟
+    if "\ncover:" not in "\n" + front:
+        fallback = next((g for g in generated if g.endswith(".jpg")), None)
+        if fallback:
+            front = front.rstrip() + f"\ncover: ./{fallback}\n"
+
     md_path.write_text(front + body)
 
     vids = f"，跳过 {len(skipped_video)} 个视频" if skipped_video else ""

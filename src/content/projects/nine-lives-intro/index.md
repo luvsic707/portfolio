@@ -12,6 +12,7 @@ meta:
 gallery:
   - video: /media/nine-lives-intro/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Intro Animation — video 01
+cover: ./hero-poster.jpg
 ---
 
 ## A — INSPIRATION
@@ -53,17 +54,13 @@ a visual style or figured out the technical direction. I was simply following my
 intuition, trying to find a way to tell this story.
 
 <!-- auto:images -->
-<div class="full">
+<div class="grid-3">
 
-![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-01.jpg)
+<p><video src="/media/nine-lives-intro/b-early-concept-and-story-development-01.mp4" width="1356" height="1312" muted loop playsinline preload="metadata" data-autoplay aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT 01"></video></p>
 
-</div>
+<p><video src="/media/nine-lives-intro/b-early-concept-and-story-development-02.mp4" width="1356" height="1312" muted loop playsinline preload="metadata" data-autoplay aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT 02"></video></p>
 
-<div class="videos">
-
-<video src="/media/nine-lives-intro/b-early-concept-and-story-development-01.mp4" controls playsinline preload="metadata" aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT — video 01"></video>
-
-<video src="/media/nine-lives-intro/b-early-concept-and-story-development-02.mp4" controls playsinline preload="metadata" aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT — video 02"></video>
+![B — EARLY CONCEPT AND STORY DEVELOPMENT 03](./b-early-concept-and-story-development-03.jpg)
 
 </div>
 <!-- /auto:images -->
@@ -78,9 +75,9 @@ that the story structure was reasonable and gave me confidence in the creative d
 ahead.
 
 <!-- auto:images -->
-<div class="videos">
+<div class="full">
 
-<video src="/media/nine-lives-intro/c-ai-prototype-iteration-01.mp4" controls playsinline preload="metadata" aria-label="C — AI PROTOTYPE ITERATION — video 01"></video>
+<p><video src="/media/nine-lives-intro/c-ai-prototype-iteration-01.mp4" width="2560" height="1440" controls preload="metadata" aria-label="C — AI PROTOTYPE ITERATION 01"></video></p>
 
 </div>
 <!-- /auto:images -->
