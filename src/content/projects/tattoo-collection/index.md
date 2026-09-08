@@ -31,9 +31,9 @@ meta:
 
 ![A — ON SKIN 07](./a-on-skin-07.jpg)
 
-![A — ON SKIN 08](./a-on-skin-08.jpg)
+<p><video src="/media/tattoo-collection/a-on-skin-08.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 08"></video></p>
 
-<p><video src="/media/tattoo-collection/a-on-skin-09.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 09"></video></p>
+![A — ON SKIN 09](./a-on-skin-09.jpg)
 
 ![A — ON SKIN 10](./a-on-skin-10.jpg)
 
@@ -56,42 +56,6 @@ meta:
 ![A — ON SKIN 19](./a-on-skin-19.jpg)
 
 ![A — ON SKIN 20](./a-on-skin-20.jpg)
-
-![A — ON SKIN 21](./a-on-skin-21.jpg)
-
-![A — ON SKIN 22](./a-on-skin-22.jpg)
-
-<p><video src="/media/tattoo-collection/a-on-skin-23.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 23"></video></p>
-
-![A — ON SKIN 24](./a-on-skin-24.jpg)
-
-![A — ON SKIN 25](./a-on-skin-25.jpg)
-
-![A — ON SKIN 26](./a-on-skin-26.jpg)
-
-![A — ON SKIN 27](./a-on-skin-27.jpg)
-
-![A — ON SKIN 28](./a-on-skin-28.jpg)
-
-![A — ON SKIN 29](./a-on-skin-29.jpg)
-
-![A — ON SKIN 30](./a-on-skin-30.jpg)
-
-![A — ON SKIN 31](./a-on-skin-31.jpg)
-
-![A — ON SKIN 32](./a-on-skin-32.jpg)
-
-![A — ON SKIN 33](./a-on-skin-33.jpg)
-
-![A — ON SKIN 34](./a-on-skin-34.jpg)
-
-![A — ON SKIN 35](./a-on-skin-35.jpg)
-
-![A — ON SKIN 36](./a-on-skin-36.jpg)
-
-![A — ON SKIN 37](./a-on-skin-37.jpg)
-
-![A — ON SKIN 38](./a-on-skin-38.jpg)
 
 </div>
 <!-- /auto:images -->
