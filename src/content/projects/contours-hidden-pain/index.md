@@ -11,17 +11,8 @@ meta:
   media: AR Poster, Animation, Sound Design
   tools: Unity · Vuforia · Tripo AI · Suno AI
 gallery:
-  - image: ./hero-01.jpg
-    alt: Contours of Hidden Pain 01
-  - image: ./hero-02.jpg
-    alt: Contours of Hidden Pain 02
-  - image: ./hero-03.jpg
-    alt: Contours of Hidden Pain 03
-  - image: ./hero-04.jpg
-    alt: Contours of Hidden Pain 04
-  - image: ./hero-05.jpg
-    alt: Contours of Hidden Pain 05
-cover: ./hero-01.jpg
+  - video: /media/contours-hidden-pain/hero-01.mp4
+    alt: Contours of Hidden Pain — video 01
 ---
 
 ## A — RESEARCH
@@ -44,15 +35,11 @@ trauma-informed perspectives in physical and mental health care.
 - [Childhood Trauma and Physiological Responses](https://pmc.ncbi.nlm.nih.gov/articles/PMC9138975/) — PubMed Central
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="grid-3">
 
-![References 01](./references-01.jpg)
+<p><video src="/media/contours-hidden-pain/references-01.mp4" width="480" height="532" muted loop playsinline preload="metadata" data-autoplay aria-label="References 01"></video></p>
 
-</div>
-
-<div class="videos">
-
-<video src="/media/contours-hidden-pain/references-01.mp4" controls playsinline preload="metadata" aria-label="References — video 01"></video>
+![References 02](./references-02.jpg)
 
 </div>
 <!-- /auto:images -->
@@ -94,7 +81,7 @@ that best matched the theme and my personal aesthetic as the main basis for furt
 development.
 
 <!-- auto:images -->
-<div class="strip">
+<div class="flow">
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.jpg)
 
@@ -149,9 +136,9 @@ More than half of the project time was spent learning new software and technical
 I hope to further refine this demo in the future as my technical abilities continue to grow.
 
 <!-- auto:images -->
-<div class="videos">
+<div class="full">
 
-<video src="/media/contours-hidden-pain/e-final-ar-implementation-and-video-presentation-01.mp4" controls playsinline preload="metadata" aria-label="E — FINAL AR IMPLEMENTATION AND VIDEO PRESENTATION — video 01"></video>
+<p><video src="/media/contours-hidden-pain/e-final-ar-implementation-and-video-presentation-01.mp4" width="1666" height="1080" controls preload="metadata" aria-label="E — FINAL AR IMPLEMENTATION AND VIDEO PRESENTATION 01"></video></p>
 
 </div>
 <!-- /auto:images -->

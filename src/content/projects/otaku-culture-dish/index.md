@@ -252,7 +252,7 @@ In the typographic process, graphics and text are seen as part of the symbol, li
 together with flowing lines that reflect the wholeness and rhythm of the composition.
 
 <!-- auto:images -->
-<div class="strip">
+<div class="flow">
 
 ![C — BOOK DESIGN 01](./c-book-design-01.jpg)
 

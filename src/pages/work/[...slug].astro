@@ -201,12 +201,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     });
 
     const gap = parseFloat(getComputedStyle(strip).rowGap) || 6;
-    const band = Math.min(innerHeight * 0.62, 660);
+    const band = Math.min(innerHeight * 0.72, 780);
     const narrow = strip.clientWidth < 700;
-    /* 目标栏宽：手机上约占三分之二屏宽，桌面上约占三成 */
+    /* 目标栏宽：手机上约占七成屏宽，桌面上约占三成六。
+       过程图也是作品，宁可少看几张也要看得清。 */
     const target = narrow
-      ? strip.clientWidth * 0.68
-      : Math.max(230, Math.min(strip.clientWidth * 0.3, 420));
+      ? strip.clientWidth * 0.72
+      : Math.max(280, Math.min(strip.clientWidth * 0.36, 520));
 
     /* 每栏松紧不同才有节奏：宽的那栏只放一两张大图，紧的那栏摞三张小的。
        手机屏窄，节奏收敛一点，否则最紧的那栏会摞出四张指甲盖。 */
@@ -837,12 +838,16 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.strip p:hover) { opacity: 1; }
   }
 
-  /* 滑动带在子小节里就老实待在右栏，不再通栏 */
-  .prose-body :global(.sub-main .strip) {
+  /* 通栏版式在子小节里就老实待在右栏 —— 子小节是细节，不该冲破版心 */
+  .prose-body :global(.sub-main .strip),
+  .prose-body :global(.sub-main .flow),
+  .prose-body :global(.sub-main .showcase) {
     width: 100%;
     margin-inline: 0;
     padding-inline: 0;
   }
+
+  .prose-body :global(.sub-main .flow) { column-count: 2; }
 
   /* ---- 子小节：标题在左，图在右 ---- */
   .prose-body :global(.sub) {

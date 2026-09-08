@@ -159,9 +159,9 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
     """
     # 成品优先判断 —— 成品永远大而直接，区别只在几件还是一批
     if is_finished(title):
-        if n == 1:  return "full"       # 单件：通栏
-        if n <= 5:  return "showcase"   # 几件：两栏大图
-        return "flow"                   # 一批：三栏瀑布流
+        if n == 1:   return "full"       # 单件：通栏
+        if n <= 16:  return "showcase"   # 一组成品：两栏大图，能多大就多大
+        return "flow"                    # 几十件的合集：三栏瀑布流才收得住
     # 子小节是「细节」，密排小图，不跟大章节抢视觉重量
     if is_sub:
         if n == 1:  return "grid-2"
@@ -173,7 +173,10 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
     # 四张以内还是网格，排成一条滑动带反而小气
     if n <= 4:
         return "grid-3" if n == 3 else "grid-2"
-    # 过程图多了就收进横向滑动带，纵向不再吃版面
+    # 十几张以内竖着铺开 —— 过程图也得看得清，不该一上来就缩成小条
+    if n <= 12:
+        return "flow"
+    # 真的多了才收进横向滑动带，纵向不再吃版面
     return "strip"
 
 
