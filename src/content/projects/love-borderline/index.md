@@ -118,7 +118,7 @@ returning their emotional level to a healthy or normal baseline. Somebody descri
 MY MOST OF FILES MISSING .....
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="grid-4">
 
 ![B — MOODBOARD 01](./b-moodboard-01.jpg)
 

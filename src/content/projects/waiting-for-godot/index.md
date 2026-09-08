@@ -69,7 +69,7 @@ textured with a spatula and finally coloured with acrylics. Leaves and stones ar
 paper and foam glue respectively.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="grid-4">
 
 ![C — PROP MAKING 01](./c-prop-making-01.jpg)
 

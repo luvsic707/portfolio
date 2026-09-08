@@ -6,13 +6,23 @@
     python3 tools/import-images.py            # 全部项目
     python3 tools/import-images.py eden-of-east   # 只做某一个
 
-规则（按一节里的图片数量自动决定版式）：
-    1 张      → 通栏大图（成品就该大）
-    2 张      → 两列
-    3 张      → 三列
-    4 张      → 两列（2×2）
-    5–9 张    → 三列
-    10 张以上 → 四列密集网格（草稿、过程图）
+版式由「章节名 + 数量」自动决定，见 layout_for()：
+
+    成品章节（名字含 FINAL / OUTPUT / OUTCOME / STILL / PRINT / POSTER /
+              IMPLEMENTATION / ON SKIN / HEALED / FRESH / RECENT / PLATE / PIECES）
+        1 张      → full      通栏
+        2–16 张   → showcase  满宽两栏大图（视觉权重最高）
+        17 张以上 → flow      满宽三栏瀑布流
+
+    过程章节
+        1 张      → full
+        2–4 张    → grid-2/3/4  一排排完，不占重量
+        5–12 张   → flow        三栏瀑布流
+        13 张以上 → strip       横向接触表，左右滑
+
+    子小节（###）  密排小图 grid-2/3/4，超过 6 张走 strip
+
+图和视频按文件名混在同一块里；下划线开头的文件夹跳过（弃用素材原地封存）。
 
 可重复运行：每次都会重新生成，不会叠加。
 手写的段落不会被动，脚本只管 <!-- auto:images --> 标记之间的部分。
@@ -170,9 +180,9 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
         return "strip"
     if n == 1:
         return "full"
-    # 四张以内还是网格，排成一条滑动带反而小气
+    # 四张以内一排排完 —— 过程素材不是重点，别按成品的尺寸摊开
     if n <= 4:
-        return "grid-3" if n == 3 else "grid-2"
+        return f"grid-{n}"
     # 十几张以内竖着铺开 —— 过程图也得看得清，不该一上来就缩成小条
     if n <= 12:
         return "flow"
