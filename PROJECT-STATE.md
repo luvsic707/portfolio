@@ -19,23 +19,29 @@ npm run build                              # 构建检查
 
 ## 内容填充状态
 
-| 项目 | 正文图 | 视频 | 开屏 | 备注 |
-|---|---:|---:|---:|---|
-| eden-of-east | 106 | 0 | 12 | 完成 |
-| love-borderline | 92 | 0 | 32 | 完成，**开屏偏长，待议** |
-| otaku-culture-dish | 80 | 0 | 12 | F — DETAIL 待放图 |
-| waiting-for-godot | 19 | 2 | 1 | 完成 |
-| tattoo-collection | 18 | 3 | 0 | **封面待放** |
-| contours-hidden-pain | 17 | 3 | 1 | 完成 |
-| nine-lives-intro | 16 | 4 | 1 | 完成 |
-| the-last-compact | 0 | 0 | 0 | **待填图** |
-| nine-lives-game | 0 | 0 | 0 | **待填图** |
+最后核对：2026-09-08
+
+| 项目 | 正文图 | 视频 | 开屏 | 卡片封面 | 备注 |
+|---|---:|---:|---:|:--:|---|
+| eden-of-east | 106 | 0 | 12 | ✓ | 完成 |
+| love-borderline | 92 | 0 | 32 | ✓ | 完成，**开屏偏长，待议** |
+| otaku-culture-dish | 80 | 0 | 12 | ✓ | F — DETAIL 待放图 |
+| waiting-for-godot | 19 | 2 | 1 | ✓ | 完成 |
+| contours-hidden-pain | 18 | 3 | 1 | ✓ | 完成 |
+| tattoo-collection | 18 | 3 | 0 | ✓ | 封面是正文首图兜底，**作者要自己挑** |
+| nine-lives-intro | 17 | 4 | 1 | ✓ | 完成 |
+| the-last-compact | 0 | 0 | 0 | ✗ | **待填图** |
+| nine-lives-game | 0 | 0 | 0 | ✗ | **待填图** |
+
+封面规则：`00 封面` 里第一张图 → 卡片封面；只有视频就抽第 1 秒的帧
+（`hero-poster.jpg`）；整个空着就用正文第一张兜底。所以卡片永远不会空。
 
 ## 待办 / 待议（作者说「最后一起调整」）
 
 - **BPD 开屏 32 张，一轮 112 秒太长**。三个选项：砍到 8–10 张精选 / 加快到 2 秒一张 /
   保持不动。作者要等内容都齐了再定。
-- 纹身项目 `00 封面` 还空着，Work 列表卡片显示 `NO PLATE ON FILE`
+- **作者要自己挑各项目的封面**（放进 `00 封面`，文件名前加 `01_` `02_` 控顺序）。
+  当前 tattoo 用的是兜底图，其他项目是作者早先放的。
 - Otaku `F — DETAIL` 只有文案没有图
 - `the-last-compact` / `nine-lives-game` 两个项目一张图都没有（章节文件夹已建好）
 - 首页文案还是 "I'm Red Thread. I design, paint, tattoo, and make games."，
