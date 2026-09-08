@@ -37,11 +37,11 @@ meta:
 
 ![A — ON SKIN 10](./a-on-skin-10.jpg)
 
-![A — ON SKIN 11](./a-on-skin-11.jpg)
+<p><video src="/media/tattoo-collection/a-on-skin-11.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 11"></video></p>
 
-<p><video src="/media/tattoo-collection/a-on-skin-12.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 12"></video></p>
+![A — ON SKIN 12](./a-on-skin-12.jpg)
 
-![A — ON SKIN 13](./a-on-skin-13.jpg)
+<p><video src="/media/tattoo-collection/a-on-skin-13.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 13"></video></p>
 
 ![A — ON SKIN 14](./a-on-skin-14.jpg)
 
@@ -56,6 +56,8 @@ meta:
 ![A — ON SKIN 19](./a-on-skin-19.jpg)
 
 ![A — ON SKIN 20](./a-on-skin-20.jpg)
+
+![A — ON SKIN 21](./a-on-skin-21.jpg)
 
 </div>
 <!-- /auto:images -->
