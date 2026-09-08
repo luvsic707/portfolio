@@ -201,13 +201,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     });
 
     const gap = parseFloat(getComputedStyle(strip).rowGap) || 6;
-    const band = Math.min(innerHeight * 0.72, 780);
-    const narrow = strip.clientWidth < 700;
+
+    /* 后台标签页里 innerHeight / clientWidth 会是 0，算出来整条塌成 0 高。
+       兜底给个下限，等真正可见时再重排一次。 */
+    const vh = innerHeight || document.documentElement.clientHeight || 800;
+    const cw = strip.clientWidth || strip.parentElement?.clientWidth || 1200;
+
+    const band = Math.max(320, Math.min(vh * 0.72, 780));
+    const narrow = cw < 700;
     /* 目标栏宽：手机上约占七成屏宽，桌面上约占三成六。
        过程图也是作品，宁可少看几张也要看得清。 */
     const target = narrow
-      ? strip.clientWidth * 0.72
-      : Math.max(280, Math.min(strip.clientWidth * 0.36, 520));
+      ? cw * 0.72
+      : Math.max(280, Math.min(cw * 0.36, 520));
 
     /* 每栏松紧不同才有节奏：宽的那栏只放一两张大图，紧的那栏摞三张小的。
        手机屏窄，节奏收敛一点，否则最紧的那栏会摞出四张指甲盖。 */
@@ -253,9 +259,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     layoutStrip(strip);
 
     let t = 0;
-    addEventListener('resize', () => {
+    const relayout = () => {
       clearTimeout(t);
       t = window.setTimeout(() => layoutStrip(strip), 150);
+    };
+    addEventListener('resize', relayout);
+    /* 从后台切回前台时视口尺寸才真正确定，补排一次 */
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) relayout();
     });
 
     let down = false;

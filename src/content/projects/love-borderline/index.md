@@ -139,6 +139,40 @@ at the time. On impulse, I walked barefoot across a construction site — feelin
 rising from the ground, the roughness, and the hardness beneath my feet. It was a brief yet
 powerful moment of connection with reality.
 
+<!-- auto:images -->
+<div class="strip">
+
+![C — PHOTOGRAPHY 01](./c-photography-01.jpg)
+
+![C — PHOTOGRAPHY 02](./c-photography-02.jpg)
+
+![C — PHOTOGRAPHY 03](./c-photography-03.jpg)
+
+![C — PHOTOGRAPHY 04](./c-photography-04.jpg)
+
+![C — PHOTOGRAPHY 05](./c-photography-05.jpg)
+
+![C — PHOTOGRAPHY 06](./c-photography-06.jpg)
+
+![C — PHOTOGRAPHY 07](./c-photography-07.jpg)
+
+![C — PHOTOGRAPHY 08](./c-photography-08.jpg)
+
+![C — PHOTOGRAPHY 09](./c-photography-09.jpg)
+
+![C — PHOTOGRAPHY 10](./c-photography-10.jpg)
+
+![C — PHOTOGRAPHY 11](./c-photography-11.jpg)
+
+![C — PHOTOGRAPHY 12](./c-photography-12.jpg)
+
+![C — PHOTOGRAPHY 13](./c-photography-13.jpg)
+
+![C — PHOTOGRAPHY 14](./c-photography-14.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## D — STRUCTURE OF THE BOOK
 
 The work is presented in three sections, each different in size but all within an A4 frame
@@ -153,6 +187,24 @@ suitable for them.
 
 The use of a riding staple binding better represents the large number of interleaved pages.
 And the book is made of vintage special paper to reflect the archival feel.
+
+<!-- auto:images -->
+<div class="flow">
+
+![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
+
+![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.jpg)
+
+![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.jpg)
+
+![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.jpg)
+
+![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.jpg)
+
+![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## E — PRINT (BOOK DESIGN)
 
@@ -175,3 +227,77 @@ space, and the quiet tension between structure and spontaneity.
 **Part Three** centers on information design, returning to clarity and structure. It
 translates emotional narrative into a rational visual system, guiding readers through a
 layered and deliberate flow of communication.
+
+<!-- auto:images -->
+<div class="flow">
+
+![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.jpg)
+
+![E — PRINT (BOOK DESIGN) 02](./e-print-book-design-02.jpg)
+
+![E — PRINT (BOOK DESIGN) 03](./e-print-book-design-03.jpg)
+
+![E — PRINT (BOOK DESIGN) 04](./e-print-book-design-04.jpg)
+
+![E — PRINT (BOOK DESIGN) 05](./e-print-book-design-05.jpg)
+
+![E — PRINT (BOOK DESIGN) 06](./e-print-book-design-06.jpg)
+
+![E — PRINT (BOOK DESIGN) 07](./e-print-book-design-07.jpg)
+
+![E — PRINT (BOOK DESIGN) 08](./e-print-book-design-08.jpg)
+
+![E — PRINT (BOOK DESIGN) 09](./e-print-book-design-09.jpg)
+
+![E — PRINT (BOOK DESIGN) 10](./e-print-book-design-10.jpg)
+
+![E — PRINT (BOOK DESIGN) 11](./e-print-book-design-11.jpg)
+
+![E — PRINT (BOOK DESIGN) 12](./e-print-book-design-12.jpg)
+
+![E — PRINT (BOOK DESIGN) 13](./e-print-book-design-13.jpg)
+
+![E — PRINT (BOOK DESIGN) 14](./e-print-book-design-14.jpg)
+
+![E — PRINT (BOOK DESIGN) 15](./e-print-book-design-15.jpg)
+
+![E — PRINT (BOOK DESIGN) 16](./e-print-book-design-16.jpg)
+
+![E — PRINT (BOOK DESIGN) 17](./e-print-book-design-17.jpg)
+
+![E — PRINT (BOOK DESIGN) 18](./e-print-book-design-18.jpg)
+
+![E — PRINT (BOOK DESIGN) 19](./e-print-book-design-19.jpg)
+
+![E — PRINT (BOOK DESIGN) 20](./e-print-book-design-20.jpg)
+
+![E — PRINT (BOOK DESIGN) 21](./e-print-book-design-21.jpg)
+
+![E — PRINT (BOOK DESIGN) 22](./e-print-book-design-22.jpg)
+
+![E — PRINT (BOOK DESIGN) 23](./e-print-book-design-23.jpg)
+
+![E — PRINT (BOOK DESIGN) 24](./e-print-book-design-24.jpg)
+
+![E — PRINT (BOOK DESIGN) 25](./e-print-book-design-25.jpg)
+
+![E — PRINT (BOOK DESIGN) 26](./e-print-book-design-26.jpg)
+
+![E — PRINT (BOOK DESIGN) 27](./e-print-book-design-27.jpg)
+
+![E — PRINT (BOOK DESIGN) 28](./e-print-book-design-28.jpg)
+
+![E — PRINT (BOOK DESIGN) 29](./e-print-book-design-29.jpg)
+
+![E — PRINT (BOOK DESIGN) 30](./e-print-book-design-30.jpg)
+
+![E — PRINT (BOOK DESIGN) 31](./e-print-book-design-31.jpg)
+
+![E — PRINT (BOOK DESIGN) 32](./e-print-book-design-32.jpg)
+
+![E — PRINT (BOOK DESIGN) 33](./e-print-book-design-33.jpg)
+
+![E — PRINT (BOOK DESIGN) 34](./e-print-book-design-34.jpg)
+
+</div>
+<!-- /auto:images -->
