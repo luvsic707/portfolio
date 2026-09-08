@@ -114,8 +114,6 @@ me in front of the screen.
 
 ![D — FILM STILLS 10](./d-film-stills-10.jpg)
 
-![D — FILM STILLS 11](./d-film-stills-11.jpg)
-
 </div>
 <!-- /auto:images -->
 
@@ -136,9 +134,9 @@ using only an iPhone and a few fill lights, preserving the work's handcrafted, t
 spontaneous quality.
 
 <!-- auto:images -->
-<div class="videos">
+<div class="full">
 
-<video src="/media/waiting-for-godot/e-final-outcome-01.mp4" controls playsinline preload="metadata" aria-label="E — FINAL OUTCOME — video 01"></video>
+<p><video src="/media/waiting-for-godot/e-final-outcome-01.mp4" width="3840" height="2160" controls preload="metadata" aria-label="E — FINAL OUTCOME 01"></video></p>
 
 </div>
 <!-- /auto:images -->
