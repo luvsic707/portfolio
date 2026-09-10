@@ -910,6 +910,201 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
   }
 
+  /* ==================== 正文里的图表 ====================
+     用发丝线和等宽字画，不用发光和圆角 —— 跟全站的档案风格保持一致。
+     节点是方的，箭头是排版符号，红色只给关键路径。 */
+
+  .prose-body :global(.dg) {
+    width: min(100%, 1180px);
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+    border-top: 1px solid var(--ink);
+    padding-top: 1rem;
+  }
+
+  /* --- 单个节点 --- */
+  .prose-body :global(.dg-node) {
+    border: 1px solid var(--line-strong);
+    background: var(--paper-raised);
+    padding: 0.5rem 0.7rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+
+  .prose-body :global(.dg-node b) {
+    display: block;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .prose-body :global(.dg-node i) {
+    display: block;
+    margin-top: 0.2em;
+    font-style: normal;
+    font-family: var(--font-display);
+    font-size: var(--step--2);
+    font-stretch: var(--cond);
+    color: var(--ink-faint);
+  }
+
+  /* 关键路径上的节点：红边 */
+  .prose-body :global(.dg-node.key) {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  /* --- 竖向流程：节点之间用一根竖线连 --- */
+  .prose-body :global(.dg-flow) {
+    display: grid;
+    justify-items: center;
+    gap: 0;
+  }
+
+  .prose-body :global(.dg-flow > *) { width: 100%; max-width: 22rem; }
+
+  .prose-body :global(.dg-arrow) {
+    width: 1px;
+    height: 1.5rem;
+    background: var(--line-strong);
+    justify-self: center;
+    max-width: none;
+  }
+
+  .prose-body :global(.dg-arrow.long) { height: 2.25rem; }
+
+  /* --- 一横排的小节点，中间带箭头 --- */
+  .prose-body :global(.dg-row) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 0.4rem;
+    width: 100%;
+    max-width: none;
+  }
+
+  .prose-body :global(.dg-row .dg-node) { flex: 1 1 8rem; }
+
+  .prose-body :global(.dg-sep) {
+    align-self: center;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--line-strong);
+  }
+
+  /* --- 分叉：两条并行的支线 --- */
+  .prose-body :global(.dg-split) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.75rem, 2vw, 1.5rem);
+    width: 100%;
+    max-width: none;
+  }
+
+  .prose-body :global(.dg-branch) {
+    border: 1px solid var(--line);
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+
+  .prose-body :global(.dg-branch > .dg-label) {
+    font-family: var(--font-display);
+    font-size: var(--step--2);
+    font-stretch: var(--cond);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* --- 结局那一排 --- */
+  .prose-body :global(.dg-ends) {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+    width: 100%;
+    max-width: none;
+  }
+
+  .prose-body :global(.dg-ends .dg-node) { text-align: center; }
+
+  /* --- 公式 --- */
+  .prose-body :global(.dg-eq) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-top: 0.45em;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--ink);
+  }
+
+  .prose-body :global(.dg-frac) {
+    display: inline-grid;
+    justify-items: center;
+    line-height: 1.25;
+  }
+
+  .prose-body :global(.dg-frac > span:first-child) {
+    border-bottom: 1px solid var(--ink);
+    padding: 0 0.4em 0.1em;
+  }
+
+  .prose-body :global(.dg-frac > span:last-child) { padding: 0.1em 0.4em 0; }
+
+  /* --- 分层架构：左边层名，右边一排盒子 --- */
+  .prose-body :global(.dg-layer) {
+    display: grid;
+    grid-template-columns: minmax(0, 8.5rem) minmax(0, 1fr);
+    gap: clamp(0.75rem, 2vw, 1.75rem);
+    padding-block: 0.9rem;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .prose-body :global(.dg-layer:first-child) { border-top: 1px solid var(--line); }
+
+  .prose-body :global(.dg-layer > .dg-label) {
+    font-family: var(--font-display);
+    font-size: var(--step--2);
+    font-stretch: var(--cond);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .prose-body :global(.dg-layer > .dg-label span) {
+    display: block;
+    font-family: var(--font-mono);
+    color: var(--red);
+    letter-spacing: 0.04em;
+  }
+
+  .prose-body :global(.dg-boxes) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+    gap: 0.4rem;
+  }
+
+  .prose-body :global(.dg-note) {
+    grid-column: 1 / -1;
+    margin-top: 0.15rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 700px) {
+    .prose-body :global(.dg-split),
+    .prose-body :global(.dg-ends) { grid-template-columns: minmax(0, 1fr); }
+    .prose-body :global(.dg-layer) { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  }
+
   /* ---- 瀑布流：一批成品 ----
      通栏满宽，三栏密排，保留原始比例。
      跟 showcase 的分工：几件成品用 showcase 给到最大，
