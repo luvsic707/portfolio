@@ -773,6 +773,41 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.showcase) { column-width: auto; column-count: 1; }
   }
 
+  /* ---- 卡牌阵：手排的整齐方阵 ----
+     用 grid 不用多栏，因为要的是「每排正好几张」，
+     多栏是按高度分的，做不到浅底一排、深底一排。 */
+  .prose-body :global(.cards) {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    margin-block: clamp(2rem, 5vw, 3.5rem);
+    padding-inline: clamp(0.75rem, 3vw, 3rem);
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1.4vw, 1rem);
+    align-items: start;
+  }
+
+  .prose-body :global(.cards p) { margin: 0; max-width: none; }
+
+  /* 视频是横的，卡牌是竖的 —— 让视频在自己那格里居中，别吊在顶上 */
+  .prose-body :global(.cards p:has(video)) { align-self: center; }
+
+  .prose-body :global(.cards img),
+  .prose-body :global(.cards video) {
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 1100px) {
+    .prose-body :global(.cards) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 620px) {
+    .prose-body :global(.cards) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
   /* ---- 瀑布流：一批成品 ----
      通栏满宽，三栏密排，保留原始比例。
      跟 showcase 的分工：几件成品用 showcase 给到最大，

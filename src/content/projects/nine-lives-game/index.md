@@ -180,7 +180,7 @@ and immersive.
 
 
 <!-- auto:images -->
-<div class="flow">
+<div class="cards">
 
 ![H — CARD DESIGN 01](./h-card-design-01.jpg)
 
@@ -194,9 +194,9 @@ and immersive.
 
 ![H — CARD DESIGN 06](./h-card-design-06.jpg)
 
-![H — CARD DESIGN 07](./h-card-design-07.jpg)
+<p><video src="/media/nine-lives-game/h-card-design-07.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="H — CARD DESIGN 07"></video></p>
 
-<p><video src="/media/nine-lives-game/h-card-design-08.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="H — CARD DESIGN 08"></video></p>
+![H — CARD DESIGN 08](./h-card-design-08.jpg)
 
 ![H — CARD DESIGN 09](./h-card-design-09.jpg)
 

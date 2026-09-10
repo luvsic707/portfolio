@@ -436,9 +436,16 @@ def process(project_dir: Path) -> str | None:
         if not items:
             continue
 
-        # 超宽的流程图/时间轴并排会把标签压得看不清 —— 数量不多时各占一行
+        # 章节文件夹里放个 .layout 文件（内容写版式名）就能钉死版式，
+        # 用于规则算不出来的手排情况，比如「浅底一排、深底一排」
         force = None
-        if not is_sub and 2 <= len(media) <= 4:
+        src_dir = next((d for d in [project_dir / match] + list(project_dir.glob("*/" + match))
+                        if d.is_dir()), None)
+        if src_dir and (src_dir / ".layout").exists():
+            force = (src_dir / ".layout").read_text().strip() or None
+
+        # 超宽的流程图/时间轴并排会把标签压得看不清 —— 数量不多时各占一行
+        if force is None and not is_sub and 2 <= len(media) <= 4:
             ratios = [media_ratio(f) for _, f in media]
             if min(ratios) >= WIDE_RATIO:
                 force = "full"
