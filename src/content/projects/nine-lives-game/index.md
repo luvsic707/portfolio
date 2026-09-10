@@ -163,12 +163,45 @@ and immersive.
 </div>
 <!-- /auto:images -->
 
-## G — CARD DESIGN
+## G — PRODUCTION FLOW
 
-## H — GAME ASSETS
+## H — CARD DESIGN
 
-### H.1 — CHARACTER SHEETS
 
-### H.2 — SYMBOLS & ICONS
+<!-- auto:images -->
+<div class="flow">
 
-### H.3 — UI & INTERFACE
+![H — CARD DESIGN 01](./h-card-design-01.jpg)
+
+![H — CARD DESIGN 02](./h-card-design-02.jpg)
+
+![H — CARD DESIGN 03](./h-card-design-03.jpg)
+
+![H — CARD DESIGN 04](./h-card-design-04.jpg)
+
+![H — CARD DESIGN 05](./h-card-design-05.jpg)
+
+![H — CARD DESIGN 06](./h-card-design-06.jpg)
+
+![H — CARD DESIGN 07](./h-card-design-07.jpg)
+
+<p><video src="/media/nine-lives-game/h-card-design-08.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="H — CARD DESIGN 08"></video></p>
+
+![H — CARD DESIGN 09](./h-card-design-09.jpg)
+
+![H — CARD DESIGN 10](./h-card-design-10.jpg)
+
+![H — CARD DESIGN 11](./h-card-design-11.jpg)
+
+![H — CARD DESIGN 12](./h-card-design-12.jpg)
+
+</div>
+<!-- /auto:images -->
+
+## I — GAME ASSETS
+
+### I.1 — CHARACTER SHEETS
+
+### I.2 — SYMBOLS & ICONS
+
+### I.3 — UI & INTERFACE
