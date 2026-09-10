@@ -12,18 +12,9 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
 <Base>
 
-  <!-- ==================== 首屏：红线帘 ==================== -->
+  <!-- ==================== 首屏：细胞场 ==================== -->
   <section class="hero">
-    <canvas class="curtain" data-curtain aria-hidden="true"></canvas>
-
-    <!-- 九根挂作品的线。真链接，JS 只负责让它们跟着珠子走。 -->
-    <nav class="labels" data-labels aria-label="Work, hanging on the threads">
-      {all.map((p) => (
-        <a class="tlabel" href={`/work/${p.id}`} data-label>
-          <span class="tlabel-text">{p.data.title}</span>
-        </a>
-      ))}
-    </nav>
+    <canvas class="tissue" data-cells aria-hidden="true"></canvas>
 
     <div class="wrap hero-inner">
       <p class="hero-eyebrow mono">MULTIDISCIPLINARY ARTIST &amp; DESIGNER · BOSTON</p>
@@ -39,9 +30,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
       </p>
     </div>
 
-    <p class="hero-hint mono">
-      brush through the threads &mdash; {all.length} of them carry work
-    </p>
+    <p class="hero-hint mono">drag to disturb the culture &mdash; let go and it settles</p>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
       SCROLL <span class="cue-arrow">↓</span>
@@ -92,20 +81,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 </Base>
 
 <script>
-  import { initThreadCurtain } from '../scripts/thread-curtain.js';
+  import { initCellField } from '../scripts/cell-field.js';
 
-  const canvas = document.querySelector('[data-curtain]');
-  const wrap = document.querySelector('[data-labels]');
-
-  if (canvas && wrap) {
-    const links = [...wrap.querySelectorAll<HTMLAnchorElement>('[data-label]')].map((el) => ({
-      el,
-      href: el.getAttribute('href') ?? '/work',
-    }));
-
-    wrap.setAttribute('data-ready', '');
-    initThreadCurtain(canvas as HTMLCanvasElement, links);
-  }
+  const canvas = document.querySelector('[data-cells]');
+  if (canvas) initCellField(canvas as HTMLCanvasElement);
 </script>
 
 <style>
@@ -120,62 +99,14 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     overflow: hidden;
   }
 
-  .curtain {
+  .tissue {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-  }
-
-  /* --- 挂在线上的作品标签 --- */
-
-  .labels {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  /* JS 接管之前先藏起来，避免所有标签堆在左上角 */
-  .labels:not([data-ready]) .tlabel { visibility: hidden; }
-
-  .tlabel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: auto;
-    /* 珠子画在 canvas 上，文字从珠子右侧展开 */
-    padding: 0.35em 0.7em 0.35em 1.1em;
-    white-space: nowrap;
-    font-family: var(--font-mono);
-    font-size: var(--step--1);
-    letter-spacing: 0.06em;
-    color: var(--ink);
-    background: color-mix(in srgb, var(--paper) 88%, transparent);
-    border: 1px solid var(--line);
-    backdrop-filter: blur(3px);
-    opacity: 0;
-    transition: opacity 0.28s var(--ease);
-  }
-
-  .tlabel.is-on,
-  .tlabel:focus-visible { opacity: 1; }
-
-  /* 靠右的标签往左展开（位移由 JS 按实际宽度算，这里只管内边距和对齐） */
-  .tlabel.flip {
-    padding: 0.35em 1.1em 0.35em 0.7em;
-    text-align: right;
-  }
-
-  /* 标签最长不超过半屏，长标题自己截断 */
-  .tlabel-text {
-    display: inline-block;
-    max-width: min(46vw, 20rem);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: bottom;
+    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着拨才扰动细胞 */
+    cursor: crosshair;
   }
 
   /* --- 文案 --- */
@@ -184,7 +115,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     position: relative;
     z-index: 1;
     padding-top: 4rem;
-    pointer-events: none;   /* 让光标能穿过文字去拨线 */
+    pointer-events: none;   /* 光标要能穿过文字去拨细胞 */
   }
 
   /* 文字后面垫一层纸色，压住背后的线保证可读 */
@@ -194,10 +125,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     inset: -8% -12% -14% -6%;
     z-index: -1;
     background: radial-gradient(
-      70% 60% at 24% 50%,
-      color-mix(in srgb, var(--paper) 94%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 78%, transparent) 42%,
-      transparent 78%
+      58% 52% at 20% 50%,
+      color-mix(in srgb, var(--paper) 92%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 70%, transparent) 46%,
+      transparent 76%
     );
   }
 
@@ -211,9 +142,11 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     font-family: var(--font-display);
     font-weight: 700;
     /* step-4 是留给单行巨号编号的，五行的句子用它会高过一整屏 */
-    font-size: clamp(2.4rem, 0.9rem + 6.6vw, 7rem);
-    line-height: 0.98;
-    letter-spacing: -0.035em;
+    /* 主体是细胞，字退一步 */
+    font-size: clamp(2rem, 0.9rem + 4.4vw, 4.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
     text-wrap: balance;
   }
 
@@ -264,9 +197,11 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     50%      { transform: translateY(5px); opacity: 1; }
   }
 
-  /* 触屏上帘子只是装饰（没有 hover 就没法预览作品名），提示语也就没意义了 */
+  /* 触屏上换个说法 —— 没有「拖拽」只有「按」 */
   @media (hover: none), (pointer: coarse) {
-    .hero-hint { display: none; }
+    .hero-hint::before { content: 'touch to disturb the culture — let go and it settles'; }
+    .hero-hint { font-size: 0; letter-spacing: 0; }
+    .hero-hint::before { font-size: var(--step--1); letter-spacing: 0.06em; }
   }
 
   @media (max-width: 640px) {
