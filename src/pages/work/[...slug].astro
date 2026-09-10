@@ -190,10 +190,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     strip.append(...items);
     strip.querySelectorAll('.strip-col').forEach((c) => c.remove());
 
+    /* 图和视频都要认 —— 只找 img 的话，混排的视频会让整段崩掉 */
     const ratio = items.map((p) => {
-      const img = p.querySelector('img')!;
-      const w = Number(img.getAttribute('width')) || img.naturalWidth || 1;
-      const h = Number(img.getAttribute('height')) || img.naturalHeight || 1;
+      const el = p.querySelector<HTMLImageElement | HTMLVideoElement>('img, video');
+      if (!el) return 1;
+      const w = Number(el.getAttribute('width'))
+        || (el as HTMLImageElement).naturalWidth
+        || (el as HTMLVideoElement).videoWidth
+        || 1;
+      const h = Number(el.getAttribute('height'))
+        || (el as HTMLImageElement).naturalHeight
+        || (el as HTMLVideoElement).videoHeight
+        || 1;
       return w / h;
     });
 
@@ -715,6 +723,16 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.full p) { margin: 0; }
 
+  /* 一节里有多张超宽图时，彼此之间留一道间距 */
+  .prose-body :global(.full p + p) { margin-top: clamp(1rem, 2.5vw, 2rem); }
+
+  .prose-body :global(.full video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: var(--ink);
+  }
+
   .prose-body :global(.full img) {
     margin: 0;
     border-inline: 0;
@@ -727,7 +745,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin-inline: calc(50% - 50vw);
     margin-block: clamp(2.5rem, 6vw, 4.5rem);
     padding-inline: clamp(0.75rem, 3vw, 3rem);
-    column-count: 2;
+    column-width: 640px;
     column-gap: clamp(0.75rem, 2vw, 1.5rem);
   }
 
@@ -745,13 +763,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 只有一张成品时不分栏，居中放到最大 */
   .prose-body :global(.showcase:has(> p:only-child)) {
+    column-width: auto;
     column-count: 1;
     max-width: 1100px;
     margin-inline: auto;
   }
 
   @media (max-width: 760px) {
-    .prose-body :global(.showcase) { column-count: 1; }
+    .prose-body :global(.showcase) { column-width: auto; column-count: 1; }
   }
 
   /* ---- 瀑布流：一批成品 ----
@@ -763,7 +782,9 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin-inline: calc(50% - 50vw);
     margin-block: clamp(2rem, 5vw, 3.5rem);
     padding-inline: clamp(0.5rem, 2vw, 2rem);
-    column-count: 3;
+    /* 用 column-width 而不是固定列数：屏幕越宽自动多排一栏，
+       每格宽度稳定在 ~400px，不会在大屏上撑成巨图 */
+    column-width: 400px;
     column-gap: clamp(0.4rem, 1vw, 0.75rem);
   }
 
@@ -779,12 +800,12 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     height: auto;
   }
 
-  @media (max-width: 1000px) {
-    .prose-body :global(.flow) { column-count: 2; }
+  @media (max-width: 900px) {
+    .prose-body :global(.flow) { column-width: 300px; }
   }
 
   @media (max-width: 560px) {
-    .prose-body :global(.flow) { column-count: 1; }
+    .prose-body :global(.flow) { column-width: auto; column-count: 1; }
   }
 
   /* ---- 过程：横向接触表 ----

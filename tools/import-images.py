@@ -164,6 +164,24 @@ def video_size(path: Path):
         return (16, 9)
 
 
+def media_ratio(path: Path) -> float:
+    """宽高比。图用 sips，视频用 ffprobe，读不出来就当 1。"""
+    if path.suffix.lower() in VIDEO:
+        w, h = video_size(path)
+        return w / h if h else 1.0
+    r = subprocess.run(["sips", "-g", "pixelWidth", "-g", "pixelHeight", str(path)],
+                       capture_output=True, text=True)
+    w = h = 0
+    for line in r.stdout.splitlines():
+        if "pixelWidth:" in line:  w = int(line.split(":")[1])
+        if "pixelHeight:" in line: h = int(line.split(":")[1])
+    return w / h if w and h else 1.0
+
+
+# 超过这个比例就算「超宽」—— 流程图、时间轴这类，并排就看不清标签了
+WIDE_RATIO = 1.9
+
+
 # 这些章节放的是成品，不管几张都要大图 —— 只按数量排会把主作品压成缩略图
 FINISHED = ("FINAL", "OUTPUT", "OUTCOME", "STILL", "PRINT", "POSTER",
             "IMPLEMENTATION",
@@ -207,13 +225,13 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
     return "strip"
 
 
-def block(items, alt_base: str, is_sub: bool = False) -> str:
+def block(items, alt_base: str, is_sub: bool = False, force: str | None = None) -> str:
     """items 是 ('img', 文件名) 和 ('vid', 路径, 宽, 高) 混在一起的有序列表。
 
     视频包一层 <p>，跟图片渲染出来的结构完全一致 —— 这样瀑布流、
     接触表、网格都不用为视频写特例。
     """
-    cls = layout_for(len(items), alt_base, is_sub)
+    cls = force or layout_for(len(items), alt_base, is_sub)
     solo = len(items) == 1
     out = []
     for i, it in enumerate(items):
@@ -418,7 +436,14 @@ def process(project_dir: Path) -> str | None:
         if not items:
             continue
 
-        payload = block(items, title, is_sub)
+        # 超宽的流程图/时间轴并排会把标签压得看不清 —— 数量不多时各占一行
+        force = None
+        if not is_sub and 2 <= len(media) <= 4:
+            ratios = [media_ratio(f) for _, f in media]
+            if min(ratios) >= WIDE_RATIO:
+                force = "full"
+
+        payload = block(items, title, is_sub, force)
 
         end = heads[idx + 1][0] if idx + 1 < len(heads) else len(lines)
         chunk = strip_auto("\n".join(lines[ln + 1:end]))

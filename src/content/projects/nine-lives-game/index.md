@@ -167,7 +167,7 @@ and immersive.
 
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="full">
 
 <p><video src="/media/nine-lives-game/g-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — PRODUCTION FLOW 01"></video></p>
 
