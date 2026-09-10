@@ -1056,6 +1056,61 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.dg-frac > span:last-child) { padding: 0.1em 0.4em 0; }
 
+  /* --- 规格表：三栏，逐行发丝线，跟卷宗表同一种读法 --- */
+  .prose-body :global(.dg-tbl) {
+    display: grid;
+    grid-template-columns: minmax(0, 11rem) minmax(0, 1fr) minmax(0, 1.6fr);
+    column-gap: clamp(0.75rem, 2vw, 2rem);
+  }
+
+  .prose-body :global(.dg-tbl > *) {
+    padding-block: 0.7rem;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--step--1);
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* 表头 */
+  .prose-body :global(.dg-tbl > .dg-th) {
+    padding-top: 0;
+    padding-bottom: 0.4rem;
+    border-bottom-color: var(--ink);
+    font-family: var(--font-display);
+    font-size: var(--step--2);
+    font-stretch: var(--cond);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  /* 第一列：阶段名 */
+  .prose-body :global(.dg-tbl > .dg-stage) {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+
+  .prose-body :global(.dg-tbl > .dg-stage b) {
+    display: block;
+    color: var(--red);
+    font-weight: 400;
+  }
+
+  @media (max-width: 760px) {
+    .prose-body :global(.dg-tbl) { grid-template-columns: minmax(0, 1fr); }
+    .prose-body :global(.dg-tbl > *) { border-bottom: 0; padding-block: 0.15rem; }
+    .prose-body :global(.dg-tbl > .dg-th) { display: none; }
+    .prose-body :global(.dg-tbl > .dg-stage) {
+      margin-top: 1rem;
+      padding-top: 0.6rem;
+      border-top: 1px solid var(--line);
+    }
+  }
+
   /* --- 分层架构：左边层名，右边一排盒子 --- */
   .prose-body :global(.dg-layer) {
     display: grid;
