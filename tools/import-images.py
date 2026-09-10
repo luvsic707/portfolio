@@ -296,14 +296,34 @@ def process(project_dir: Path) -> str | None:
     front = drop_block(front, "gallery")
 
     if cover_dir.is_dir():
+        pool = [f for f in cover_dir.iterdir()
+                if f.is_file() and not f.name.startswith(".")
+                and f.suffix.lower() in (RASTER | VIDEO)]
+
+        # 文件名以 card / 卡片 开头的，只当列表页缩略图，不进开屏画廊。
+        # 卡片是 4:3 裁切的，开屏是完整不裁的，两者要的往往不是同一张。
+        card_src = next(
+            (f for f in sorted(pool, key=lambda p: p.name.lower())
+             if f.stem.lower().startswith("card") or f.stem.startswith("卡片")),
+            None,
+        )
+
         media = sorted(
-            [f for f in cover_dir.iterdir()
-             if f.is_file() and not f.name.startswith(".")
-             and f.suffix.lower() in (RASTER | VIDEO)],
+            [f for f in pool if f is not card_src],
             key=lambda p: p.name.lower(),
         )
 
         entries, first_img, n_img, n_vid = [], None, 0, 0
+
+        # 指定了卡片封面就先做出来，后面的自动逻辑不再覆盖它
+        if card_src is not None:
+            if card_src.suffix.lower() in VIDEO:
+                if poster_from_video(card_src, target / "card.jpg"):
+                    first_img = "card.jpg"
+            elif convert(card_src, target / "card.jpg", MAX_EDGE_FULL):
+                first_img = "card.jpg"
+            if first_img:
+                generated.append(first_img)
         # 记下封面用过的源文件名，正文里遇到同名的就跳过
         for f in media:
             if f.suffix.lower() in VIDEO:
@@ -323,7 +343,7 @@ def process(project_dir: Path) -> str | None:
                 out = f"hero-{n_img:02d}.jpg"
                 if convert(f, target / out, MAX_EDGE_FULL):
                     generated.append(out)
-                    first_img = first_img or out
+                    first_img = first_img or out   # card.jpg 存在时不覆盖
                     entries.append(f'  - image: ./{out}\n'
                                    f'    alt: {proj_title} {n_img:02d}')
 
