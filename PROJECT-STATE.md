@@ -19,29 +19,38 @@ npm run build                              # 构建检查
 
 ## 内容填充状态
 
-最后核对：2026-09-08
+最后核对：2026-09-10
 
 | 项目 | 正文图 | 视频 | 开屏 | 卡片封面 | 备注 |
 |---|---:|---:|---:|:--:|---|
-| eden-of-east | 106 | 0 | 12 | ✓ | 完成 |
-| love-borderline | 92 | 0 | 32 | ✓ | 完成，**开屏偏长，待议** |
-| otaku-culture-dish | 80 | 0 | 12 | ✓ | F — DETAIL 待放图 |
-| waiting-for-godot | 19 | 2 | 1 | ✓ | 完成 |
-| contours-hidden-pain | 18 | 3 | 1 | ✓ | 完成 |
-| tattoo-collection | 18 | 3 | 0 | ✓ | 封面是正文首图兜底，**作者要自己挑** |
-| nine-lives-intro | 17 | 4 | 1 | ✓ | 完成 |
+| eden-of-east | 106 | 0 | 12 | card | 完成 |
+| love-borderline | 92 | 0 | 32 | card | 完成，**开屏偏长，待议** |
+| otaku-culture-dish | 80 | 0 | 12 | card | F — DETAIL 待放图 |
+| waiting-for-godot | 19 | 2 | 1 | card | 完成 |
+| contours-hidden-pain | 18 | 3 | 1 | card | 完成 |
+| tattoo-collection | 18 | 3 | **无** | card | 作者要的就是没开屏，进去直接瀑布流 |
+| nine-lives-intro | 17 | 4 | 1 | card | 完成 |
 | the-last-compact | 0 | 0 | 0 | ✗ | **待填图** |
 | nine-lives-game | 0 | 0 | 0 | ✗ | **待填图** |
 
-封面规则：`00 封面` 里第一张图 → 卡片封面；只有视频就抽第 1 秒的帧
-（`hero-poster.jpg`）；整个空着就用正文第一张兜底。所以卡片永远不会空。
+## 封面机制（两件事，彻底分开）
+
+```
+00 封面/
+├── card.jpg / 卡片.png   ← 只做 Work 列表的 4:3 缩略图，不进开屏
+├── 01_xxx.jpg            ← 开屏画廊第 1 张
+└── 02_xxx.mp4            ← 开屏画廊第 2 张（视频也行）
+```
+
+- **卡片**：优先用 `card*` / `卡片*`；没有就用画廊第一张图；画廊只有视频就
+  ffmpeg 抽第 1 秒的帧；`00 封面` 整个空着就用正文第一张兜底。卡片永远不会空。
+- **开屏**：只认画廊图。**没放画廊图就没有开屏**（tattoo 就是这样）。
+  不要再让 cover 兜底顶成满屏首图 —— 卡片是按 4:3 裁切挑的，撑满屏不合适。
 
 ## 待办 / 待议（作者说「最后一起调整」）
 
 - **BPD 开屏 32 张，一轮 112 秒太长**。三个选项：砍到 8–10 张精选 / 加快到 2 秒一张 /
   保持不动。作者要等内容都齐了再定。
-- **作者要自己挑各项目的封面**（放进 `00 封面`，文件名前加 `01_` `02_` 控顺序）。
-  当前 tattoo 用的是兜底图，其他项目是作者早先放的。
 - Otaku `F — DETAIL` 只有文案没有图
 - `the-last-compact` / `nine-lives-game` 两个项目一张图都没有（章节文件夹已建好）
 - 首页文案还是 "I'm Red Thread. I design, paint, tattoo, and make games."，
