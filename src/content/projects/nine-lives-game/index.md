@@ -165,6 +165,17 @@ and immersive.
 
 ## G — PRODUCTION FLOW
 
+
+<!-- auto:images -->
+<div class="grid-2">
+
+<p><video src="/media/nine-lives-game/g-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — PRODUCTION FLOW 01"></video></p>
+
+<p><video src="/media/nine-lives-game/g-production-flow-02.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — PRODUCTION FLOW 02"></video></p>
+
+</div>
+<!-- /auto:images -->
+
 ## H — CARD DESIGN
 
 
@@ -201,6 +212,27 @@ and immersive.
 ## I — GAME ASSETS
 
 ### I.1 — CHARACTER SHEETS
+
+
+<!-- auto:images -->
+<div class="strip">
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 01"></video></p>
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 02"></video></p>
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 03"></video></p>
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 04"></video></p>
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 05"></video></p>
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 06"></video></p>
+
+<p><video src="/media/nine-lives-game/i-1-character-sheets-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 07"></video></p>
+
+</div>
+<!-- /auto:images -->
 
 ### I.2 — SYMBOLS & ICONS
 
