@@ -162,3 +162,13 @@ and immersive.
 
 </div>
 <!-- /auto:images -->
+
+## G — CARD DESIGN
+
+## H — GAME ASSETS
+
+### H.1 — CHARACTER SHEETS
+
+### H.2 — SYMBOLS & ICONS
+
+### H.3 — UI & INTERFACE
