@@ -42,7 +42,7 @@ desaturated colour, decaying feedback, muffled sound — across six stages.
 <span>A first-person hand reaches for a banana — immediate, frictionless grasp and release. The first voluntary reach toward a stimulus.</span>
 
 <span class="dg-stage"><b>02</b>Blind faith</span>
-<span>The passive erosion of spiritual foundations</span>
+<span>Nietzsche's death of God — the passive erosion of spiritual foundations</span>
 <span>In a prayer scene, the sacred object at the centre of devotion deforms and melts through a Dalí-like vertex deformation.</span>
 
 <span class="dg-stage"><b>03</b>Sisyphus loop</span>
