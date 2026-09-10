@@ -123,9 +123,16 @@ and immersive.
 
 ## F — PRODUCTION FLOW
 
+I handled the core loop, card system, storytelling visuals, early character concept, and
+user testing.
+
+The storytelling workflow stayed simple: script and rough storyboards → thumbnails to fix
+the visual tone → AI for the initial motion → After Effects and TouchDesigner for effects
+and refinement → sound and voiceover last. Detailed narrative art takes a lot of time, so
+the storytelling here leans abstract and expressive.
 
 <!-- auto:images -->
-<div class="full">
+<div class="slider">
 
 <p><video src="/media/nine-lives-game/f-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="F — PRODUCTION FLOW 01"></video></p>
 
