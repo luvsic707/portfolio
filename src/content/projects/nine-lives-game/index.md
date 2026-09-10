@@ -12,6 +12,8 @@ meta:
 links:
   - label: Source code
     href: https://github.com/Gary977/fengshen1
+  - label: World-building map
+    href: https://whimsical.com/intro-of-wod-GfwM5K2eucEkNBHchJLHC7
 gallery:
   - video: /media/nine-lives-game/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — video 01
