@@ -54,6 +54,10 @@ const projects = defineCollection({
       /* 作品页顶部那块等宽元信息，想写几行写几行，左边的名字随便取 */
       meta: z.record(z.string()).optional(),
 
+      /* 进行中的项目在页眉横栏标一个状态。
+         卷宗本来就有状态字段 —— 与其假装做完了，不如明写。 */
+      status: z.string().optional(),        // 'ONGOING' / 'PROTOTYPE' / 'ARCHIVED'
+
       /* 外部链接：源码仓库、在线 demo、设计文档之类。
          渲染在检验表下面，新标签页打开。
          只放公开可访问的地址 —— 私有链接点进去是登录墙，比不放更糟。 */

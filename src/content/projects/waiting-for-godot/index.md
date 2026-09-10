@@ -3,7 +3,7 @@ title: Waiting for Godot
 year: '2023'
 categories: ['Animation', 'Graphic']
 featured: false
-order: 7
+order: 8
 summary: A 1min47s stop-motion adaptation of Beckett — a nihilistic comedy shot in a photography classroom with an iPhone and a few fill lights.
 meta:
   date: 2023.05 – 2023.07

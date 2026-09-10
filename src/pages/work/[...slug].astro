@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next } = Astro.props;
-const { title, year, categories, summary, cover, coverAlt, meta, gallery, links } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status } = project.data;
 const { Content, headings } = await render(project);
 
 /* 章节索引：只取 ## 这一级，长案例才值得放 */
@@ -67,6 +67,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
           <a href="/work" class="rail-cell back">← RETURN</a>
           <span class="rail-cell">CASE FILE</span>
           <span class="rail-cell">{categories.join(' / ')}</span>
+          {status && <span class="rail-cell is-status">STATUS: {status}</span>}
           <span class="rail-cell rail-end">{span}</span>
         </div>
 
@@ -429,6 +430,9 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .rail-top { border-bottom-width: 0; }
 
   .rail-end { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+  /* 进行中的项目：状态是全栏唯一的红字 */
+  .is-status { color: var(--red); }
 
   a.rail-cell {
     color: var(--ink-faint);

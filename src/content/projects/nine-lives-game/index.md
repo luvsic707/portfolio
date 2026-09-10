@@ -3,7 +3,7 @@ title: Nine Lives to Ruin a Kingdom — Narrative Card Game
 year: '2025'
 categories: ['Game', 'Illustration']
 featured: false
-order: 3
+order: 4
 summary: A story-driven card game staged as a psychological duel between fate and freedom — every card is a moral event, and four hidden attributes decide which ending you reach.
 meta:
   date: 2025.05 – 2025.06 (Phase I) · 2025.10 – 2025.12 (Phase II)

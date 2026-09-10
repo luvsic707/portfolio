@@ -3,7 +3,7 @@ title: The Person in a Culture Dish — Otaku
 year: '2023'
 categories: ['Illustration', 'Graphic']
 featured: false
-order: 6
+order: 7
 summary: Nine types of contemporary otaku distilled into nine symbols, each sealed in resin like a specimen — small enclosed worlds that grow and change on their own.
 meta:
   date: 2023.08 – 2023.11

@@ -3,7 +3,7 @@ title: EDEN OF EAST
 year: '2021–2022'
 categories: ['Illustration', 'Graphic']
 featured: true
-order: 9
+order: 10
 summary: A twelve-piece illustration series using the baimiao line method of Chinese ink painting crossed with geometric structure, on the state of traditional culture in the present day.
 meta:
   date: 2021.09 – 2022.02
