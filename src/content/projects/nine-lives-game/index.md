@@ -159,7 +159,7 @@ the storytelling here leans abstract and expressive.
 
 ![G — CARD DESIGN 06](./g-card-design-06.jpg)
 
-<p><video src="/media/nine-lives-game/g-card-design-07.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — CARD DESIGN 07"></video></p>
+![G — CARD DESIGN 07](./g-card-design-07.jpg)
 
 ![G — CARD DESIGN 08](./g-card-design-08.jpg)
 
@@ -169,7 +169,7 @@ the storytelling here leans abstract and expressive.
 
 ![G — CARD DESIGN 11](./g-card-design-11.jpg)
 
-![G — CARD DESIGN 12](./g-card-design-12.jpg)
+<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — CARD DESIGN 12"></video></p>
 
 </div>
 <!-- /auto:images -->

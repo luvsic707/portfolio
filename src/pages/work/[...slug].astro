@@ -857,23 +857,39 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   /* ---- 卡牌阵：手排的整齐方阵 ----
-     用 grid 不用多栏，因为要的是「每排正好几张」，
-     多栏是按高度分的，做不到浅底一排、深底一排。 */
+     左边 5 栏 × 2 排放十张牌，右边两格（牌背和视频）各占满两排高、更大。
+     用 grid 不用多栏，因为要的是「每排正好五张」，多栏是按高度分的。 */
   .prose-body :global(.cards) {
     width: 100vw;
     margin-inline: calc(50% - 50vw);
     margin-block: clamp(2rem, 5vw, 3.5rem);
     padding-inline: clamp(0.75rem, 3vw, 3rem);
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr)) repeat(2, minmax(0, 1.32fr));
     gap: clamp(0.5rem, 1.4vw, 1rem);
     align-items: start;
+    /* 窄屏放不下就左右滑，不硬挤 */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
   }
 
   .prose-body :global(.cards p) { margin: 0; max-width: none; }
 
-  /* 视频是横的，卡牌是竖的 —— 让视频在自己那格里居中，别吊在顶上 */
-  .prose-body :global(.cards p:has(video)) { align-self: center; }
+  /* 最后两格钉死在右边两栏、各占满两排高。
+     它们先被显式放置，剩下的十张牌就自动流进左边 5×2 的格子里。 */
+  .prose-body :global(.cards p:nth-last-child(2)) {
+    grid-column: 6;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
+
+  .prose-body :global(.cards p:last-child) {
+    grid-column: 7;
+    grid-row: 1 / span 2;
+    align-self: center;
+  }
 
   .prose-body :global(.cards img),
   .prose-body :global(.cards video) {
@@ -884,11 +900,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   @media (max-width: 1100px) {
-    .prose-body :global(.cards) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  }
-
-  @media (max-width: 620px) {
-    .prose-body :global(.cards) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    /* 窄屏保持同一套结构，靠横向滑动看全 */
+    .prose-body :global(.cards) {
+      grid-template-columns: repeat(5, minmax(150px, 1fr)) repeat(2, minmax(200px, 1.32fr));
+    }
   }
 
   /* ---- 瀑布流：一批成品 ----
