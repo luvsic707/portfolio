@@ -31,13 +31,10 @@ const { Content, headings } = await render(project);
 /* 章节索引：只取 ## 这一级，长案例才值得放 */
 const sections = headings.filter((h) => h.depth === 2);
 
-/* 画廊优先；只给了单张 cover 时把它当成只有一格的画廊 */
-const slides =
-  gallery && gallery.length > 0
-    ? gallery
-    : cover
-      ? [{ image: cover, alt: coverAlt }]
-      : [];
+/* 开屏只认「00 封面」里的画廊图。
+   cover 是列表页的缩略图，尺寸和构图都是按 4:3 卡片挑的，
+   拿它顶一张满屏开屏并不合适 —— 没放画廊图就干脆不要开屏。 */
+const slides = gallery ?? [];
 
 /* 分享预览图：画廊里第一张图 */
 const shareImage = cover?.src ?? gallery?.find((s) => s.image)?.image?.src;
