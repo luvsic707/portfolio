@@ -143,6 +143,18 @@ the storytelling here leans abstract and expressive.
 
 ## G — CARD DESIGN
 
+Three card types are planned — Fate, Element and Artifact. Fate and Artifact are still
+conceptual; **Element Cards** are the only fully implemented system, and they carry the
+core of combat.
+
+In Taoist philosophy each of the Five Elements has a Yin and a Yang form, so every element
+here has two personalities, drawn as simple totem-like symbols. Yang Earth is an
+unbreakable wall, Yin Earth is moist soil that nurtures life. Yang Metal is a rough battle
+axe; Yin Metal a precise ornamental hairpin. Yang Fire explodes; Yin Fire glows quietly
+like a ritual flame.
+
+The visuals stay lightweight — easy to read, easy to tell apart, and efficient to produce
+at this stage.
 
 <!-- auto:images -->
 <div class="cards">
@@ -169,7 +181,7 @@ the storytelling here leans abstract and expressive.
 
 ![G — CARD DESIGN 11](./g-card-design-11.jpg)
 
-<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — CARD DESIGN 12"></video></p>
+<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="800" height="1066" muted loop playsinline preload="metadata" data-autoplay aria-label="G — CARD DESIGN 12"></video></p>
 
 </div>
 <!-- /auto:images -->
