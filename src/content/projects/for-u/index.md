@@ -54,7 +54,7 @@ desaturated colour, decaying feedback, muffled sound — across six stages.
 <span>Mechanised keystrokes pile up office text. Under self-imposed pressure the participant accelerates until the environment physically collapses.</span>
 
 <span class="dg-stage"><b>05</b>Algorithmic feed</span>
-<span>The erosion of deep attention, information overload</span>
+<span>Han's hyperattention — deep attention eroded by information overload</span>
 <span>A corridor. As the addiction parameter climbs, wall imagery distorts and colour drains toward monochrome; audio degrades into ambient noise, then cuts to silence at a narrative threshold.</span>
 
 <span class="dg-stage"><b>06</b>Data reckoning</span>
