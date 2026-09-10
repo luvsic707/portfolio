@@ -300,16 +300,19 @@ def process(project_dir: Path) -> str | None:
                 if f.is_file() and not f.name.startswith(".")
                 and f.suffix.lower() in (RASTER | VIDEO)]
 
-        # 文件名以 card / 卡片 开头的，只当列表页缩略图，不进开屏画廊。
+        # 文件名以 card / 卡片 开头的，只当列表页缩略图，一律不进开屏画廊。
         # 卡片是 4:3 裁切的，开屏是完整不裁的，两者要的往往不是同一张。
-        card_src = next(
-            (f for f in sorted(pool, key=lambda p: p.name.lower())
-             if f.stem.lower().startswith("card") or f.stem.startswith("卡片")),
-            None,
-        )
+        def is_card(f: Path) -> bool:
+            n = f.stem.lower()
+            return n.startswith("card") or f.stem.startswith("卡片")
+
+        cards = sorted([f for f in pool if is_card(f)], key=lambda p: p.name.lower())
+        # 同时放了图和视频就用图 —— 静帧本来就是缩略图，不用再抽帧
+        card_src = next((f for f in cards if f.suffix.lower() in RASTER), None) \
+            or (cards[0] if cards else None)
 
         media = sorted(
-            [f for f in pool if f is not card_src],
+            [f for f in pool if not is_card(f)],
             key=lambda p: p.name.lower(),
         )
 

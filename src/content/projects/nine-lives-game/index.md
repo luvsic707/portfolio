@@ -9,6 +9,10 @@ meta:
   date: 2025.05 – 2025.06 (Phase I) · 2025.10 – 2025.12 (Phase II)
   dimension: 1920×1080
   media: Unity / C# / Photoshop / Illustrator / Hand-drawn Assets
+gallery:
+  - video: /media/nine-lives-game/hero-01.mp4
+    alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — video 01
+cover: ./card.jpg
 ---
 
 ## A — WORLD-BUILDING
@@ -27,6 +31,14 @@ The main goal of this stage was to establish a solid foundation for the interact
 storytelling system, ensuring the game world has both internal logic and long-term
 scalability.
 
+<!-- auto:images -->
+<div class="full">
+
+![A — WORLD-BUILDING 01](./a-world-building-01.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## B — CHARACTER CONCEPT EXPLORATION
 
 I intentionally stayed away from detailed rendering or finalized shapes. Instead, the focus
@@ -41,6 +53,14 @@ contours are more suited for allure, restraint, or hidden strength.
 These sketches remain part of the early exploration phase, not final designs. However, they
 form an essential foundation for refining the visual style, establishing transformation
 logic, and developing a coherent character system in later stages.
+
+<!-- auto:images -->
+<div class="full">
+
+![B — CHARACTER CONCEPT EXPLORATION 01](./b-character-concept-exploration-01.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## C — CHARACTER RELATIONSHIP OVERVIEW
 
@@ -62,6 +82,14 @@ through his own rage and defiance.
 The three are bound yet divided — their tensions drive the collapse of a dynasty and
 determine the course of fate.
 
+<!-- auto:images -->
+<div class="full">
+
+![C — CHARACTER RELATIONSHIP OVERVIEW 01](./c-character-relationship-overview-01.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## D — ESTABLISHING GAME TONE & STORY STYLE
 
 In defining the game's tone and narrative style, I wanted it to be more than just a
@@ -76,6 +104,16 @@ a touch of black humour and cruel irony.
 
 This phase of scriptwriting and documentation established the game's overall narrative tone
 and emotional direction for future levels and gameplay systems.
+
+<!-- auto:images -->
+<div class="grid-2">
+
+<p><video src="/media/nine-lives-game/d-establishing-game-tone-story-style-01.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="D — ESTABLISHING GAME TONE & STORY STYLE 01"></video></p>
+
+<p><video src="/media/nine-lives-game/d-establishing-game-tone-story-style-02.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="D — ESTABLISHING GAME TONE & STORY STYLE 02"></video></p>
+
+</div>
+<!-- /auto:images -->
 
 ## E — GAME CORE LOOP
 
@@ -95,6 +133,16 @@ conditions, forming a dynamic structure that supports replayability and moral co
 To enrich the overall player experience, I also integrated mini-games into key decision
 points, adding emotional tension and interactivity to the narrative flow.
 
+<!-- auto:images -->
+<div class="grid-2">
+
+<p><video src="/media/nine-lives-game/e-game-core-loop-01.mp4" width="2628" height="1788" muted loop playsinline preload="metadata" data-autoplay aria-label="E — GAME CORE LOOP 01"></video></p>
+
+![E — GAME CORE LOOP 02](./e-game-core-loop-02.jpg)
+
+</div>
+<!-- /auto:images -->
+
 ## F — FIRST PROTOTYPE
 
 In less than two weeks, I completed a quick playable prototype to test the feasibility of
@@ -106,3 +154,11 @@ concept but lacked emotional investment in the story.
 Through this test, I realized that the core loop lacked strong appeal and rewarding
 feedback, and that future iterations should focus on making the interaction more dynamic
 and immersive.
+
+<!-- auto:images -->
+<div class="full">
+
+<p><video src="/media/nine-lives-game/f-first-prototype-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="F — FIRST PROTOTYPE 01"></video></p>
+
+</div>
+<!-- /auto:images -->
