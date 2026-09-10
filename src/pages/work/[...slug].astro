@@ -268,18 +268,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
   };
 
-  document.querySelectorAll<HTMLElement>('.strip').forEach((strip) => {
+  document.querySelectorAll<HTMLElement>('.strip, .slider').forEach((strip) => {
     const n = strip.querySelectorAll('img').length;
     strip.tabIndex = 0;
     strip.setAttribute('role', 'group');
     strip.setAttribute('aria-label', `${n} images, scroll sideways`);
 
-    layoutStrip(strip);
+    const isSlider = strip.classList.contains('slider');
+    if (!isSlider) layoutStrip(strip);
 
     let t = 0;
     const relayout = () => {
       clearTimeout(t);
-      t = window.setTimeout(() => layoutStrip(strip), 150);
+      if (!isSlider) t = window.setTimeout(() => layoutStrip(strip), 150);
     };
     addEventListener('resize', relayout);
     /* 从后台切回前台时视口尺寸才真正确定，补排一次 */
@@ -820,6 +821,39 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   @media (max-width: 760px) {
     .prose-body :global(.showcase) { column-width: auto; column-count: 1; }
+  }
+
+  /* ---- 滑动组：每张占满一屏宽，左右滑着看 ----
+     用在「两三张都想给到通栏尺寸，但不想让页面变得很长」的时候。 */
+  .prose-body :global(.slider) {
+    width: 100vw;
+    margin-inline: calc(50% - 50vw);
+    margin-block: clamp(2rem, 5vw, 3.5rem);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+    cursor: grab;
+  }
+
+  .prose-body :global(.slider.is-dragging) { cursor: grabbing; scroll-snap-type: none; }
+
+  .prose-body :global(.slider > p) {
+    margin: 0;
+    max-width: none;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
+
+  .prose-body :global(.slider img),
+  .prose-body :global(.slider video) {
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   /* ---- 卡牌阵：手排的整齐方阵 ----

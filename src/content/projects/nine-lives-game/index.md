@@ -44,201 +44,154 @@ scalability.
 </div>
 <!-- /auto:images -->
 
-## B — CHARACTER CONCEPT EXPLORATION
+## B — CHARACTER & RELATIONSHIPS
 
-I intentionally stayed away from detailed rendering or finalized shapes. Instead, the focus
-was on open-ended visual exploration, using large colour blocks, shape language, and
-silhouette rhythms to experiment with the characters' personalities and emotional tones.
+Early exploration stayed deliberately loose — colour blocks, silhouettes and proportion
+tests rather than finished designs. Sharp, angular forms read as danger; flowing contours
+read as allure and hidden strength.
 
-By repeatedly testing different body proportions, volume distribution, and colour weight,
-I gradually identified how each character expresses power, mystery, or emotional tension.
-Sharp and angular forms tend to communicate danger and aggression, while smoother, flowing
-contours are more suited for allure, restraint, or hidden strength.
-
-These sketches remain part of the early exploration phase, not final designs. However, they
-form an essential foundation for refining the visual style, establishing transformation
-logic, and developing a coherent character system in later stages.
+The story turns on three figures. Nüwa issues the divine command but never strikes
+directly. Daji, a nine-tailed fox in human form, is sent into the Shang court to bring
+King Zhou down — and begins to waver between obedience and her own will. King Zhou,
+blinded by pride, resists both the gods and Daji, and destroys himself through his own
+defiance.
 
 <!-- auto:images -->
-<div class="full">
+<div class="slider">
 
-![B — CHARACTER CONCEPT EXPLORATION 01](./b-character-concept-exploration-01.jpg)
+![B — CHARACTER & RELATIONSHIPS 01](./b-character-relationships-01.jpg)
+
+![B — CHARACTER & RELATIONSHIPS 02](./b-character-relationships-02.jpg)
 
 </div>
 <!-- /auto:images -->
 
-## C — CHARACTER RELATIONSHIP OVERVIEW
+## C — ESTABLISHING GAME TONE & STORY STYLE
 
-The story centers on three key figures: **King Zhou**, **Daji**, and **Nüwa**. Together,
-they form a core dynamic shaped by fate, corruption, and rebellion.
-
-Nüwa issues a divine command, sending Daji into the Shang court to seduce and manipulate
-King Zhou, guiding him toward his own downfall. She does not strike directly — destiny does
-the work for her.
-
-Daji, a nine-tailed fox in human form, becomes the instrument of this mission. As she
-infiltrates the palace, she begins to waver, torn between obedience to the goddess and the
-desire to choose her own path.
-
-King Zhou, blinded by pride and marked for heaven's punishment, refuses to yield. He resists
-the will of the gods and pushes back against Daji's influence, spiraling toward destruction
-through his own rage and defiance.
-
-The three are bound yet divided — their tensions drive the collapse of a dynasty and
-determine the course of fate.
-
-<!-- auto:images -->
-<div class="full">
-
-![C — CHARACTER RELATIONSHIP OVERVIEW 01](./c-character-relationship-overview-01.jpg)
-
-</div>
-<!-- /auto:images -->
-
-## D — ESTABLISHING GAME TONE & STORY STYLE
-
-In defining the game's tone and narrative style, I wanted it to be more than just a
-story-driven card game — it is a psychological duel filled with tension and symbolism.
-The story revolves around the conflicts between fate and freedom, divinity and desire,
-aiming for a balance where events feel both logical and unexpected.
-
-The overall tone carries a dark and absurd religious atmosphere — combining the solemnity
-of an epic myth with a cold reflection on faith, destiny, and human nature. Both the visual
-and narrative language emphasize psychological tension and symbolic structure, infused with
-a touch of black humour and cruel irony.
-
-This phase of scriptwriting and documentation established the game's overall narrative tone
-and emotional direction for future levels and gameplay systems.
+Not just a story-driven card game — a psychological duel between fate and freedom,
+divinity and desire. The tone is dark and absurd: the solemnity of epic myth crossed with
+a cold reading of faith and human nature, carried by black humour and cruel irony.
 
 <!-- auto:images -->
 <div class="grid-2">
 
-<p><video src="/media/nine-lives-game/d-establishing-game-tone-story-style-01.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="D — ESTABLISHING GAME TONE & STORY STYLE 01"></video></p>
+<p><video src="/media/nine-lives-game/c-establishing-game-tone-story-style-01.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="C — ESTABLISHING GAME TONE & STORY STYLE 01"></video></p>
 
-<p><video src="/media/nine-lives-game/d-establishing-game-tone-story-style-02.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="D — ESTABLISHING GAME TONE & STORY STYLE 02"></video></p>
+<p><video src="/media/nine-lives-game/c-establishing-game-tone-story-style-02.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="C — ESTABLISHING GAME TONE & STORY STYLE 02"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-## E — GAME CORE LOOP
+## D — GAME CORE LOOP
 
-In this phase, I focused on building the core gameplay loop and branching logic system of
-the game. The loop centers around three key actions:
+**Draw a Card → Make a Decision → Change Stats.**
 
-> Draw a Card → Make a Decision → Change Stats
-
-Each card represents a moral or narrative event. Every decision the player makes alters
-four main attributes — **Love**, **Corruption**, **Divine Favor**, and **Freedom** — which
-together determine future story paths and possible endings.
-
-The Figma prototype visualizes how these branching outcomes evolve across multiple layers
-of interaction. Each branch connects dialogue choices, stat variations, and reward
-conditions, forming a dynamic structure that supports replayability and moral complexity.
-
-To enrich the overall player experience, I also integrated mini-games into key decision
-points, adding emotional tension and interactivity to the narrative flow.
+Every card is a moral event. Each choice shifts four attributes — Love, Corruption,
+Divine Favour, Freedom — which decide the branches and endings you reach. Mini-games sit
+at key decision points to raise the emotional stakes.
 
 <!-- auto:images -->
 <div class="grid-2">
 
-<p><video src="/media/nine-lives-game/e-game-core-loop-01.mp4" width="2628" height="1788" muted loop playsinline preload="metadata" data-autoplay aria-label="E — GAME CORE LOOP 01"></video></p>
+<p><video src="/media/nine-lives-game/d-game-core-loop-01.mp4" width="2628" height="1788" muted loop playsinline preload="metadata" data-autoplay aria-label="D — GAME CORE LOOP 01"></video></p>
 
-![E — GAME CORE LOOP 02](./e-game-core-loop-02.jpg)
+![D — GAME CORE LOOP 02](./d-game-core-loop-02.jpg)
 
 </div>
 <!-- /auto:images -->
 
-## F — FIRST PROTOTYPE
+## E — FIRST PROTOTYPE
 
 In less than two weeks, I completed a quick playable prototype to test the feasibility of
-the narrative flow and interaction system. Although the demo had a fairly complete
-structure — allowing players to experience dialogue choices, branching paths, and the core
-gameplay loop — user feedback showed only moderate engagement. Players understood the
-concept but lacked emotional investment in the story.
+the narrative flow and interaction system.
 
-Through this test, I realized that the core loop lacked strong appeal and rewarding
+Although the demo had a fairly complete structure — allowing players to experience dialogue
+choices, branching paths, and the core gameplay loop — user feedback showed only moderate
+engagement. Players understood the concept but lacked emotional investment in the story.
+
+Through this test, I realised that the core loop lacked strong appeal and rewarding
 feedback, and that future iterations should focus on making the interaction more dynamic
 and immersive.
 
 <!-- auto:images -->
 <div class="full">
 
-<p><video src="/media/nine-lives-game/f-first-prototype-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="F — FIRST PROTOTYPE 01"></video></p>
+<p><video src="/media/nine-lives-game/e-first-prototype-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="E — FIRST PROTOTYPE 01"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-## G — PRODUCTION FLOW
+## F — PRODUCTION FLOW
 
 
 <!-- auto:images -->
 <div class="full">
 
-<p><video src="/media/nine-lives-game/g-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — PRODUCTION FLOW 01"></video></p>
+<p><video src="/media/nine-lives-game/f-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="F — PRODUCTION FLOW 01"></video></p>
 
-<p><video src="/media/nine-lives-game/g-production-flow-02.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — PRODUCTION FLOW 02"></video></p>
+<p><video src="/media/nine-lives-game/f-production-flow-02.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="F — PRODUCTION FLOW 02"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-## H — CARD DESIGN
+## G — CARD DESIGN
 
 
 <!-- auto:images -->
 <div class="cards">
 
-![H — CARD DESIGN 01](./h-card-design-01.jpg)
+![G — CARD DESIGN 01](./g-card-design-01.jpg)
 
-![H — CARD DESIGN 02](./h-card-design-02.jpg)
+![G — CARD DESIGN 02](./g-card-design-02.jpg)
 
-![H — CARD DESIGN 03](./h-card-design-03.jpg)
+![G — CARD DESIGN 03](./g-card-design-03.jpg)
 
-![H — CARD DESIGN 04](./h-card-design-04.jpg)
+![G — CARD DESIGN 04](./g-card-design-04.jpg)
 
-![H — CARD DESIGN 05](./h-card-design-05.jpg)
+![G — CARD DESIGN 05](./g-card-design-05.jpg)
 
-![H — CARD DESIGN 06](./h-card-design-06.jpg)
+![G — CARD DESIGN 06](./g-card-design-06.jpg)
 
-<p><video src="/media/nine-lives-game/h-card-design-07.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="H — CARD DESIGN 07"></video></p>
+<p><video src="/media/nine-lives-game/g-card-design-07.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="G — CARD DESIGN 07"></video></p>
 
-![H — CARD DESIGN 08](./h-card-design-08.jpg)
+![G — CARD DESIGN 08](./g-card-design-08.jpg)
 
-![H — CARD DESIGN 09](./h-card-design-09.jpg)
+![G — CARD DESIGN 09](./g-card-design-09.jpg)
 
-![H — CARD DESIGN 10](./h-card-design-10.jpg)
+![G — CARD DESIGN 10](./g-card-design-10.jpg)
 
-![H — CARD DESIGN 11](./h-card-design-11.jpg)
+![G — CARD DESIGN 11](./g-card-design-11.jpg)
 
-![H — CARD DESIGN 12](./h-card-design-12.jpg)
+![G — CARD DESIGN 12](./g-card-design-12.jpg)
 
 </div>
 <!-- /auto:images -->
 
-## I — GAME ASSETS
+## H — GAME ASSETS
 
-### I.1 — CHARACTER SHEETS
+### H.1 — CHARACTER SHEETS
 
 
 <!-- auto:images -->
 <div class="strip">
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 01"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 01"></video></p>
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 02"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 02"></video></p>
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 03"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 03"></video></p>
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 04"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 04"></video></p>
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 05"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 05"></video></p>
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 06"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 06"></video></p>
 
-<p><video src="/media/nine-lives-game/i-1-character-sheets-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="I.1 — CHARACTER SHEETS 07"></video></p>
+<p><video src="/media/nine-lives-game/h-1-character-sheets-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 07"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-### I.2 — SYMBOLS & ICONS
+### H.2 — SYMBOLS & ICONS
 
-### I.3 — UI & INTERFACE
+### H.3 — UI & INTERFACE
