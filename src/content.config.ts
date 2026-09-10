@@ -54,6 +54,18 @@ const projects = defineCollection({
       /* 作品页顶部那块等宽元信息，想写几行写几行，左边的名字随便取 */
       meta: z.record(z.string()).optional(),
 
+      /* 外部链接：源码仓库、在线 demo、设计文档之类。
+         渲染在检验表下面，新标签页打开。
+         只放公开可访问的地址 —— 私有链接点进去是登录墙，比不放更糟。 */
+      links: z
+        .array(
+          z.object({
+            label: z.string(),             // 'Source code' / 'Play demo'
+            href: z.string().url(),
+          })
+        )
+        .optional(),
+
       /* 排序：数字越小越靠前；不写就排到最后，同序按年份倒序 */
       order: z.number().optional(),
       featured: z.boolean().default(false),

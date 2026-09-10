@@ -9,6 +9,9 @@ meta:
   date: 2025.05 – 2025.06 (Phase I) · 2025.10 – 2025.12 (Phase II)
   dimension: 1920×1080
   media: Unity / C# / Photoshop / Illustrator / Hand-drawn Assets
+links:
+  - label: Source code
+    href: https://github.com/Gary977/fengshen1
 gallery:
   - video: /media/nine-lives-game/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — video 01
