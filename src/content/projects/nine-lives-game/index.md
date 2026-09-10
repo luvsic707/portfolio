@@ -188,25 +188,25 @@ at this stage.
 
 ## H — GAME ASSETS
 
-### H.1 — CHARACTER SHEETS
+### H.1 — NARRATIVE SEQUENCES
 
 
 <!-- auto:images -->
 <div class="strip">
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 01"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 01"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 02"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 02"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 03"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 03"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 04"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 04"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 05"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 05"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 06"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 06"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-character-sheets-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — CHARACTER SHEETS 07"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="H.1 — NARRATIVE SEQUENCES 07"></video></p>
 
 </div>
 <!-- /auto:images -->
