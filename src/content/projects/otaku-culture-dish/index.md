@@ -34,7 +34,7 @@ gallery:
     alt: The Person in a Culture Dish — Otaku 11
   - image: ./hero-12.jpg
     alt: The Person in a Culture Dish — Otaku 12
-cover: ./hero-01.jpg
+cover: ./card.jpg
 ---
 
 ## A — INSPIRATION

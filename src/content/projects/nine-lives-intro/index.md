@@ -12,7 +12,7 @@ meta:
 gallery:
   - video: /media/nine-lives-intro/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Intro Animation — video 01
-cover: ./hero-poster.jpg
+cover: ./card.jpg
 ---
 
 ## A — INSPIRATION

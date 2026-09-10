@@ -35,7 +35,7 @@ gallery:
     alt: EDEN OF EAST 11
   - image: ./hero-12.jpg
     alt: EDEN OF EAST 12
-cover: ./hero-01.jpg
+cover: ./card.jpg
 ---
 
 I've lived in China for 22 years since it is my homeland. Although these two decades

@@ -12,7 +12,7 @@ meta:
 gallery:
   - video: /media/waiting-for-godot/hero-01.mp4
     alt: Waiting for Godot — video 01
-cover: ./hero-poster.jpg
+cover: ./card.jpg
 ---
 
 ## A — INSPIRATION

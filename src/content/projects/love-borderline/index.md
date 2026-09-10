@@ -74,7 +74,7 @@ gallery:
     alt: Love in the Time of Borderline 31
   - image: ./hero-32.jpg
     alt: Love in the Time of Borderline 32
-cover: ./hero-01.jpg
+cover: ./card.jpg
 ---
 
 ## A — INSPIRATION AND RESEARCH
