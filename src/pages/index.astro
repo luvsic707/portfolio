@@ -81,10 +81,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 </Base>
 
 <script>
-  import { initExamTable } from '../scripts/exam-table.js';
+  import { initHairline } from '../scripts/hairline.js';
 
   const canvas = document.querySelector('[data-table]');
-  if (canvas) initExamTable(canvas as HTMLCanvasElement);
+  if (canvas) initHairline(canvas as HTMLCanvasElement);
 </script>
 
 <style>
