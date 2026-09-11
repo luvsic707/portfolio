@@ -14,9 +14,21 @@ const capabilities = [
 
 const tools = ['Procreate', 'Photoshop', 'Illustrator', 'Unity', 'Blender', 'Figma', 'After Effects'];
 
+/* 学历和经历混在一条时间线上，按开始年份倒序。
+   学位名和学校分两行 —— 挤在一行里读起来像一串逗号，
+   分开之后眼睛先扫到学位，再落到学校，和简历上的读法一致。 */
 const timeline = [
-  { year: '2024—', text: 'M.S. Digital Media, Northeastern University' },
-  { year: '2021—', text: 'Freelance: brand, illustration, tattoo design' },
+  {
+    year: '2024 — 2026',
+    text: 'Master of Digital Media',
+    at: 'Northeastern University',
+  },
+  { year: '2021 —', text: 'Freelance: brand, illustration, tattoo design' },
+  {
+    year: '2019 — 2023',
+    text: 'Bachelor of Fine Arts in Visual Communication',
+    at: 'Communication University of Zhejiang',
+  },
 ];
 
 const revised = new Date().toISOString().slice(0, 10);
@@ -99,7 +111,10 @@ const revised = new Date().toISOString().slice(0, 10);
             {timeline.map((t) => (
               <div>
                 <dt class="ledger-n">{t.year}</dt>
-                <dd>{t.text}</dd>
+                <dd>
+                  {t.text}
+                  {t.at && <span class="ledger-at">{t.at}</span>}
+                </dd>
               </div>
             ))}
           </dl>
@@ -178,7 +193,7 @@ const revised = new Date().toISOString().slice(0, 10);
   .ledger li,
   .ledger > div {
     display: grid;
-    grid-template-columns: 4.5rem minmax(0, 1fr);
+    grid-template-columns: 6.6rem minmax(0, 1fr);   /* 放得下 2024 — 2026 */
     gap: 0.8rem;
     padding-block: 0.4rem;
     border-bottom: 1px solid var(--line);
@@ -195,6 +210,14 @@ const revised = new Date().toISOString().slice(0, 10);
 
   .ledger dd { margin: 0; }
 
+  /* 学校名压一档，学位才是这一行的主语 */
+  .ledger-at {
+    display: block;
+    margin-top: 0.15em;
+    color: var(--ink-soft);
+    font-size: var(--step--2);
+  }
+
   .ledger > div:first-child .ledger-n,
   .ledger li:first-child .ledger-n { color: var(--red); }
 
@@ -206,7 +229,10 @@ const revised = new Date().toISOString().slice(0, 10);
 
   @media (max-width: 480px) {
     .ledger li,
-    .ledger > div { grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.5rem; }
+    /* 能力和工具是两位数编号，3.2rem 就够；
+       时间线是「2024 — 2026」，得单独留宽一点，不然年份会折行。 */
+    .ledger > div { grid-template-columns: 5.6rem minmax(0, 1fr); gap: 0.5rem; }
+    .ledger li { grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.5rem; }
   }
 
 </style>
