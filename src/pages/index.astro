@@ -33,23 +33,24 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
       </filter>
     </svg>
 
+    <!-- 文案整段渲染在这里，脚本再清空重敲 ——
+         这样源码和读屏器拿到的是完整的句子，不是空壳。 -->
     <div class="wrap hero-inner">
-      <p class="hero-eyebrow mono">MULTIDISCIPLINARY ARTIST &amp; DESIGNER · BOSTON</p>
+      <div class="term" data-term>
+        <p class="t-line t-dim" data-line><span class="t-mark">&gt;</span> MULTIDISCIPLINARY ARTIST &amp; DESIGNER &middot; BOSTON</p>
 
-      <h1 class="hero-title">
-        I&rsquo;m <span class="hl">Red&nbsp;Thread</span>.<br />
-        I design, paint, tattoo,<br />
-        and make games.
-      </h1>
+        <h1 class="t-h">
+          <span class="t-line" data-line><span class="t-mark">&gt;</span> I&rsquo;m <span class="hl">Red&nbsp;Thread</span>.</span>
+          <span class="t-line" data-line><span class="t-mark">&gt;</span> I design, paint, tattoo, and make games.</span>
+        </h1>
 
-      <p class="hero-tail mono">
-        ____&gt; a multi-hyphenate by passion &gt;&gt;__and&nbsp;by&nbsp;self-proclamation
-      </p>
+        <p class="t-line t-dim" data-line>____&gt; a multi-hyphenate by passion &gt;&gt;__and&nbsp;by&nbsp;self-proclamation</p>
+
+        <p class="t-line t-faint" data-line><span class="t-mark">&gt;</span> move to wipe the glass &middot; drag to rotate the specimen</p>
+      </div>
     </div>
 
-    <pre class="telemetry mono" data-telemetry aria-hidden="true"></pre>
-
-    <p class="hero-hint mono">move to wipe the glass &middot; drag to rotate the specimen</p>
+    <pre class="telemetry" data-telemetry aria-hidden="true"></pre>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
       SCROLL <span class="cue-arrow">↓</span>
@@ -101,12 +102,15 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
 <script>
   import { initVascularWindow } from '../scripts/vascular-window.js';
+  import { typeTerminal } from '../scripts/typeline.js';
 
   const spec = document.querySelector('[data-spec]') as HTMLCanvasElement | null;
   const glass = document.querySelector('[data-glass]') as HTMLCanvasElement | null;
   const tool = document.querySelector('[data-tool]') as HTMLCanvasElement | null;
   const tel = document.querySelector('[data-telemetry]') as HTMLElement | null;
   if (spec && glass && tool) initVascularWindow(spec, glass, tool, tel);
+
+  typeTerminal(document.querySelector('[data-term]'));
 </script>
 
 <style>
@@ -185,38 +189,68 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     );
   }
 
-  .hero-eyebrow {
-    color: var(--ink-soft);
-    letter-spacing: 0.16em;
+  /* --- 终端文案 ---
+     参考的两个站，文案都是小号等宽的终端腔，不是粗黑大标题。
+     主视觉是标本，字退到一边去 —— 一个 4.5rem 的粗黑标题
+     会把画面从「卷宗」拉回「模板」。 */
+
+  .term {
+    /* 注意：全站的 .mono 是「压缩大写标签」那套，并不设等宽字体，
+       真正给等宽的是 .data。这里要的是终端腔，所以直接指定。 */
+    font-family: var(--font-mono);
+    font-size: clamp(0.8125rem, 0.62rem + 0.5vw, 1.0625rem);
+    line-height: 1.95;
+    letter-spacing: 0.015em;
+    text-transform: none;
+    color: var(--ink);
   }
 
-  .hero-title {
-    margin-top: clamp(1.5rem, 4vw, 2.75rem);
-    font-family: var(--font-display);
-    font-weight: 700;
-    /* step-4 是留给单行巨号编号的，五行的句子用它会高过一整屏 */
-    /* 主体是细胞，字退一步 */
-    font-size: clamp(2rem, 0.9rem + 4.4vw, 4.5rem);
-    line-height: 1.02;
-    letter-spacing: -0.03em;
-    max-width: 16ch;
-    text-wrap: balance;
+  .t-h {
+    font: inherit;
+    margin: 0;
+    display: block;
   }
+
+  .t-line { display: block; }
+
+  .t-mark { color: var(--red); }
+  .t-dim { color: var(--ink-soft); }
+  .t-faint { color: var(--ink-faint); }
 
   .hl { color: var(--red); }
 
-  .hero-tail {
-    margin-top: clamp(1.5rem, 4vw, 2.5rem);
-    color: var(--ink-faint);
-    letter-spacing: 0.04em;
-    text-transform: none;
+  /* 光标。只挂在正在敲的那一行，敲完停在最后一行继续闪。 */
+  /* 必须是直接子元素：.t-line:last-child 会把 <h1> 里的最后一行
+     也算成「最后一行」，于是画面上同时有两个光标。 */
+  .t-line.is-caret::after,
+  .is-done > .t-line:last-child::after {
+    content: '';
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    margin-left: 0.12em;
+    background: var(--red);
+    vertical-align: -0.14em;
+    animation: caret 1.05s steps(1) infinite;
   }
 
-  /* --- 提示与滚动指示 --- */
+  @keyframes caret {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+
+  /* 打字过程中最后一行不该同时出现两个光标 */
+  .is-typing:not(.is-done) > .t-line:last-child:not(.is-caret)::after { content: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .t-line.is-caret::after,
+    .is-done > .t-line:last-child::after { animation: none; }
+  }
 
   /* 读数栏。卷宗有读数栏，所以它不是装饰 —— 而且一直在跳的数字
      是画面「活着」的一部分，静止的构图靠它有了脉搏。 */
   .telemetry {
+    font-family: var(--font-mono);   /* <pre> 的默认等宽不是 Fragment Mono */
     position: absolute;
     z-index: 4;
     right: var(--gutter);
@@ -231,16 +265,6 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     text-transform: none;
   }
 
-  .hero-hint {
-    position: absolute;
-    z-index: 4;
-    left: var(--gutter);
-    bottom: 4.5rem;
-    color: var(--ink-faint);
-    letter-spacing: 0.06em;
-    text-transform: none;
-    pointer-events: none;
-  }
 
   .hero-cue {
     position: absolute;
@@ -267,33 +291,13 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     50%      { transform: translateY(5px); opacity: 1; }
   }
 
-  /* 触屏上换个说法 —— 没有「拖拽」只有「按」 */
-  @media (hover: none), (pointer: coarse) {
-    .hero-hint::before { content: 'drag to rotate the specimen · the fog comes back'; }
-    .hero-hint { font-size: 0; letter-spacing: 0; }
-    .hero-hint::before { font-size: var(--step--1); letter-spacing: 0.06em; }
-  }
-
   @media (max-width: 640px) {
-    .hero-hint { display: none; }
-
-    /* 竖屏放不下，读数栏只留前三行的位置 —— 与其挤成一坨不如不要 */
+    /* 竖屏放不下，读数栏与其挤成一坨不如不要 */
     .telemetry { display: none; }
-
-    /* 手机上标题别把整屏吃满，留出帘子透气的地方 */
-    .hero-title { line-height: 1.04; }
 
     .hero-inner { padding-top: 3rem; }
 
-    .hero-eyebrow {
-      font-size: 0.6875rem;
-      letter-spacing: 0.12em;
-    }
-
-    .hero-tail {
-      font-size: 0.6875rem;
-      margin-top: 1.25rem;
-    }
+    .term { line-height: 1.85; }
 
     /* 竖屏时纸色蒙版要更实，否则线会穿过字 */
     .hero-inner::before {
