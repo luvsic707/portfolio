@@ -125,6 +125,9 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
   const ptr = { x: -1e4, y: -1e4, px: -1e4, py: -1e4, down: false, active: false };
   let lastMove = -1e9;
   let live = 0;
+  /* 光标本身的显隐。和 live 分开：量距离的线在拖拽时要退下去，
+     但光标不能跟着消失 —— 系统箭头已经藏了，它是唯一的光标。 */
+  let hover = 0;
   let yaw = 0.35, pitch = -0.2, vyaw = 0, vpitch = 0;
   let dragX = 0, dragY = 0;
   let raf = 0;
@@ -663,6 +666,30 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
      读数用三维真距，不是屏幕上的投影长度：转一圈数字不该跟着变。 */
   const drawTool = () => {
     tool.clearRect(0, 0, W, H);
+
+    /* ---- 光标 ----
+       系统箭头在初始化成功后被藏掉了，所以这个准星就是光标本身。
+       它必须一直跟着指针，包括按住拖的时候 —— 不然拖起来手里没东西。
+       按下时环张开、十字转成叉，用形状区分「量」和「转」两种状态。 */
+    if (hover > 0.02) {
+      const down = ptr.down ? 1 : 0;
+      const rr = BRUSH_R * (0.3 + down * 0.08);
+      const a = Math.PI / 4 * down;
+      tool.strokeStyle = `rgba(${RED},${0.85 * hover})`;
+      tool.lineWidth = 1;
+      tool.beginPath(); tool.arc(ptr.x, ptr.y, rr, 0, 6.283); tool.stroke();
+      tool.save();
+      tool.translate(ptr.x, ptr.y);
+      tool.rotate(a);
+      tool.beginPath();
+      tool.moveTo(-7, 0); tool.lineTo(7, 0);
+      tool.moveTo(0, -7); tool.lineTo(0, 7);
+      tool.stroke();
+      tool.restore();
+    }
+
+    /* 血管还没长完就没有地标可量，但光标上面已经画了 —— 
+       放在提前返回之前，否则开屏那几秒是「系统箭头藏了、准星也没有」。 */
     if (growing) return;
 
     const vis = [];
@@ -699,14 +726,6 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
     }
 
     if (live > 0.02) {
-      tool.strokeStyle = `rgba(${RED},${0.85 * live})`;
-      tool.lineWidth = 1;
-      tool.beginPath(); tool.arc(ptr.x, ptr.y, BRUSH_R * 0.3, 0, 6.283); tool.stroke();
-      tool.beginPath();
-      tool.moveTo(ptr.x - 7, ptr.y); tool.lineTo(ptr.x + 7, ptr.y);
-      tool.moveTo(ptr.x, ptr.y - 7); tool.lineTo(ptr.x, ptr.y + 7);
-      tool.stroke();
-
       const near = vis
         .map((v) => ({ v, d: Math.hypot(px[v.i] - ptr.x, py[v.i] - ptr.y) }))
         .sort((a, b) => a.d - b.d)
@@ -819,6 +838,7 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
 
     const calm = now - lastMove > CALM_DELAY;
     live += ((ptr.active && !calm && !ptr.down ? 1 : 0) - live) * 0.1;
+    hover += ((ptr.active ? 1 : 0) - hover) * 0.16;
 
     /* 按住拖 = 转标本；只是移动 = 擦玻璃。
        一个手势干两件事会打架，分开给最省解释。 */
@@ -883,10 +903,9 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
     ptr.px = ptr.x; ptr.py = ptr.y;
     ptr.down = true; ptr.active = true;
     lastMove = performance.now();
-    elTool.style.cursor = 'grabbing';
     elTool.setPointerCapture?.(e.pointerId);
   });
-  const release = () => { ptr.down = false; elTool.style.cursor = ''; };
+  const release = () => { ptr.down = false; };
   elTool.addEventListener('pointerup', release);
   elTool.addEventListener('pointercancel', release);
   elTool.addEventListener('pointerleave', () => { release(); ptr.active = false; });
@@ -906,6 +925,9 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
       raf = requestAnimationFrame(frame);
     }
     started = true;
+    /* 藏系统箭头。放在这里而不是 CSS 里：万一这段脚本没跑起来，
+       CSS 的 grab 还在，不至于让读者在首屏上完全找不到光标。 */
+    if (!reduced) elTool.style.cursor = 'none';
   };
 
   start();
