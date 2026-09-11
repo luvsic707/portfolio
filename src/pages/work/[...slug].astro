@@ -629,7 +629,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     text-transform: uppercase;
     color: var(--ink-faint);
     border: 1px solid transparent;
-    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+    /* 放大走 scale 而不是 font-size：字号一变，这一条的宽度跟着变，
+       后面所有项都会横向跳一下，滚着页面看就是一路抽搐。
+       scale 不影响布局，旁边的项纹丝不动。 */
+    transform-origin: left center;
+    transition: color 0.2s var(--ease),
+                border-color 0.2s var(--ease),
+                scale 0.25s var(--ease);
   }
 
   .sec-link:hover { color: var(--ink); }
@@ -637,6 +643,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .sec-link.is-on {
     color: var(--red);
     border-color: var(--red);
+    scale: 1.22;
+  }
+
+  /* 放大之后它会往右压到下一项，给它留出这部分宽度 */
+  .sec-list li:has(.is-on) { padding-right: 1.1rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sec-link { transition: color 0.2s var(--ease), border-color 0.2s var(--ease); }
   }
 
   /* ==================== 正文 ==================== */
@@ -705,12 +719,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     position: relative;
     counter-increment: sheet;
     margin-top: clamp(3.5rem, 8vw, 6rem);
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--ink);
-    font-size: var(--step--2);
+    /* 章节标题是正文的路标，之前比正文还小一档，
+       扫页面时根本抓不住。字距随字号变大要收一点，
+       不然拉开的字母会把这一行读散。 */
+    font-size: var(--step-1);
     font-stretch: var(--cond);
     font-weight: 600;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink);
   }
