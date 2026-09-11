@@ -46,20 +46,31 @@ const isInfo = path.startsWith('/info');
 </script>
 
 <style>
+  /* 页头在最顶上时是完全透明的，标本从它底下穿过去 ——
+     首屏是一整块，不该在顶上被一条底色带切一刀。
+     一滚起来才浮出纸色和发丝线，那时候底下是正文，需要可读性。 */
   .nav {
     position: fixed;
     inset: 0 0 auto 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--paper) 80%, transparent);
-    backdrop-filter: blur(10px);
+    background: transparent;
     border-bottom: 1px solid transparent;
-    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+    transition: border-color 0.3s var(--ease),
+                background 0.3s var(--ease),
+                backdrop-filter 0.3s var(--ease);
+    /* 整条不接事件，只有下面的品牌和链接接 ——
+       这样首屏的互动范围真的是整屏，页头底下也能擦、也能转。 */
+    pointer-events: none;
   }
 
   .nav.is-stuck {
     border-bottom-color: var(--line);
     background: color-mix(in srgb, var(--paper) 94%, transparent);
+    backdrop-filter: blur(10px);
   }
+
+  .brand,
+  .links { pointer-events: auto; }
 
   .nav-inner {
     display: flex;
