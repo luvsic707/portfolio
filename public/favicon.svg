@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- 纸色底 + 一个实心红点，和导航栏的品牌标记同一个形。
+       半径 9 是在 32 见方里能撑住、缩到 16px 仍然认得出的大小；
+       再大就贴边，再小在标签页里只剩一粒渣。 -->
   <rect width="32" height="32" fill="#F7F8F7"/>
-  <rect x="4" y="15" width="24" height="2.5" rx="1.25" fill="#C4122F"/>
+  <circle cx="16" cy="16" r="9" fill="#C4122F"/>
 </svg>
