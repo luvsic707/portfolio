@@ -14,7 +14,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   <!-- ==================== 首屏：细胞场 ==================== -->
   <section class="hero">
-    <canvas class="tissue" data-cells aria-hidden="true"></canvas>
+    <canvas class="field" data-table aria-hidden="true"></canvas>
 
     <div class="wrap hero-inner">
       <p class="hero-eyebrow mono">MULTIDISCIPLINARY ARTIST &amp; DESIGNER · BOSTON</p>
@@ -30,7 +30,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
       </p>
     </div>
 
-    <p class="hero-hint mono">drag to disturb the culture &mdash; let go and it settles</p>
+    <p class="hero-hint mono">move to measure &mdash; let go and the table re-settles</p>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
       SCROLL <span class="cue-arrow">↓</span>
@@ -81,10 +81,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 </Base>
 
 <script>
-  import { initCellField } from '../scripts/cell-field.js';
+  import { initExamTable } from '../scripts/exam-table.js';
 
-  const canvas = document.querySelector('[data-cells]');
-  if (canvas) initCellField(canvas as HTMLCanvasElement);
+  const canvas = document.querySelector('[data-table]');
+  if (canvas) initExamTable(canvas as HTMLCanvasElement);
 </script>
 
 <style>
@@ -99,26 +99,41 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     overflow: hidden;
   }
 
-  .tissue {
+  .field {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     z-index: 0;
-    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着拨才扰动细胞 */
+    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着划才在台面上推 */
     cursor: crosshair;
+  }
+
+  /* 磨砂的颗粒。铺整个首屏，标本和纸面吃同一层噪点，
+     两者才像在同一张照片里 —— 只给标本加颗粒就会像贴上去的。
+     静态的东西不该每帧在 canvas 里重画，所以放在 CSS 上。 */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.42;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
   }
 
   /* --- 文案 --- */
 
   .hero-inner {
     position: relative;
-    z-index: 1;
+    z-index: 3;
     padding-top: 4rem;
-    pointer-events: none;   /* 光标要能穿过文字去拨细胞 */
+    pointer-events: none;   /* 光标要能穿过文字去量台面 */
   }
 
-  /* 文字后面垫一层纸色，压住背后的线保证可读 */
+  /* 文字后面垫一层纸色。标本现在满屏跑，标题底下随时可能压上一件，
+     但只能垫得很淡 —— 垫实了就在整屏上开了一个白洞。 */
   .hero-inner::before {
     content: '';
     position: absolute;
@@ -126,9 +141,9 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     z-index: -1;
     background: radial-gradient(
       58% 52% at 20% 50%,
-      color-mix(in srgb, var(--paper) 92%, transparent) 0%,
-      color-mix(in srgb, var(--paper) 70%, transparent) 46%,
-      transparent 76%
+      color-mix(in srgb, var(--paper) 82%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 52%, transparent) 48%,
+      transparent 78%
     );
   }
 
@@ -163,7 +178,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-hint {
     position: absolute;
-    z-index: 1;
+    z-index: 3;
     left: var(--gutter);
     bottom: 4.5rem;
     color: var(--ink-faint);
@@ -174,7 +189,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-cue {
     position: absolute;
-    z-index: 3;
+    z-index: 4;
     left: var(--gutter);
     bottom: 2rem;
     display: inline-flex;
@@ -199,7 +214,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   /* 触屏上换个说法 —— 没有「拖拽」只有「按」 */
   @media (hover: none), (pointer: coarse) {
-    .hero-hint::before { content: 'touch to disturb the culture — let go and it settles'; }
+    .hero-hint::before { content: 'touch to measure — let go and the table re-settles'; }
     .hero-hint { font-size: 0; letter-spacing: 0; }
     .hero-hint::before { font-size: var(--step--1); letter-spacing: 0.06em; }
   }
