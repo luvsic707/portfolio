@@ -81,6 +81,12 @@ def file_hash(path: Path) -> str:
     return h.hexdigest()
 
 
+# 静态托管普遍有单文件上限：Cloudflare Pages 是 25 MiB。
+# 超了不是变慢，是这个文件根本传不上去、线上直接 404。
+# 留一点余量按 24 MiB 卡。
+MAX_VIDEO_BYTES = 24 * 1024 * 1024
+
+
 def compress_video(src: Path, dst: Path) -> bool:
     """压成网页规格的 mp4。
 
@@ -88,21 +94,32 @@ def compress_video(src: Path, dst: Path) -> bool:
       H.264 + yuv420p  —— 兼容性最好，各浏览器都认
       CRF 24           —— 画质/体积的甜点，网页尺寸下看不出损失
       宽度封顶 1920    —— 再大对网页没意义
-      +faststart       —— 把索引move到文件头，不用下完就能起播（很重要）
+      +faststart       —— 把索引移到文件头，不用下完就能起播（很重要）
+
+    压完还超上限就逐档加 CRF 重来。长视频用 24 压出来经常三十几兆，
+    直接上传会失败 —— 宁可这一段糊一点，也不能线上点开是 404。
     """
     if not has_ffmpeg():
         return False          # 没装 ffmpeg 就跳过视频，图片照常导入
     dst.parent.mkdir(parents=True, exist_ok=True)
-    r = subprocess.run(
-        ["ffmpeg", "-y", "-i", str(src),
-         "-vf", "scale='min(1920,iw)':-2",
-         "-c:v", "libx264", "-crf", "24", "-preset", "medium", "-pix_fmt", "yuv420p",
-         "-c:a", "aac", "-b:a", "128k",
-         "-movflags", "+faststart",
-         str(dst)],
-        capture_output=True,
-    )
-    return r.returncode == 0 and dst.exists()
+    for crf in (24, 28, 31, 34):
+        r = subprocess.run(
+            ["ffmpeg", "-y", "-i", str(src),
+             "-vf", "scale='min(1920,iw)':-2",
+             "-c:v", "libx264", "-crf", str(crf), "-preset", "medium", "-pix_fmt", "yuv420p",
+             "-c:a", "aac", "-b:a", "128k",
+             "-movflags", "+faststart",
+             str(dst)],
+            capture_output=True,
+        )
+        if r.returncode != 0 or not dst.exists():
+            return False
+        if dst.stat().st_size <= MAX_VIDEO_BYTES:
+            if crf != 24:
+                print(f"     ↓ {dst.name} 用 CRF {crf} 才压到上限内"
+                      f"（{dst.stat().st_size / 1048576:.1f}MB）")
+            return True
+    return True               # 试到最高档还超，也先留着，让构建时的检查报出来
 
 
 def video_block(rel_paths, alt_base: str) -> str:
