@@ -102,7 +102,7 @@ def compress_video(src: Path, dst: Path) -> bool:
     if not has_ffmpeg():
         return False          # 没装 ffmpeg 就跳过视频，图片照常导入
     dst.parent.mkdir(parents=True, exist_ok=True)
-    for crf in (24, 28, 31, 34):
+    for crf in (24, 28):
         r = subprocess.run(
             ["ffmpeg", "-y", "-i", str(src),
              "-vf", "scale='min(1920,iw)':-2",
@@ -119,7 +119,66 @@ def compress_video(src: Path, dst: Path) -> bool:
                 print(f"     ↓ {dst.name} 用 CRF {crf} 才压到上限内"
                       f"（{dst.stat().st_size / 1048576:.1f}MB）")
             return True
-    return True               # 试到最高档还超，也先留着，让构建时的检查报出来
+
+    # CRF 是「定质量不定体积」，长视频怎么调档都可能超上限
+    # —— 四分半的 1080p 就是这样。这时候只能反过来：
+    # 按时长算出能塞进上限的码率，定码率两遍编码去命中它。
+    return fit_video(src, dst)
+
+
+def probe_duration(path: Path) -> float:
+    r = subprocess.run(
+        ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+         "-of", "default=nw=1:nk=1", str(path)],
+        capture_output=True, text=True,
+    )
+    try:
+        return float(r.stdout.strip())
+    except ValueError:
+        return 0.0
+
+
+def fit_video(src: Path, dst: Path) -> bool:
+    """定码率两遍编码，把体积压到上限以内。
+
+    两遍是必须的：一遍编码命中不了目标码率，误差能有百分之几十，
+    正好卡在上限附近的时候就会翻车。
+    码率低到一定程度还硬撑 1080p 只会满屏色块，所以同时降分辨率。
+    """
+    dur = probe_duration(src)
+    if dur < 1:
+        return dst.exists()
+
+    a_kbps = 96
+    # 留 6% 余量给容器和索引的开销
+    total = (MAX_VIDEO_BYTES * 8 / dur) / 1000 * 0.94
+    v_kbps = max(220, int(total - a_kbps))
+    # 每像素分到的码率太少就先降分辨率，糊成色块比降分辨率难看得多
+    width = 1920 if v_kbps >= 1800 else 1600 if v_kbps >= 1100 else 1280
+    log = dst.with_suffix(".ffpass")
+
+    base = ["ffmpeg", "-y", "-i", str(src),
+            "-vf", f"scale='min({width},iw)':-2",
+            "-c:v", "libx264", "-b:v", f"{v_kbps}k",
+            "-maxrate", f"{int(v_kbps * 1.4)}k", "-bufsize", f"{v_kbps * 2}k",
+            "-preset", "medium", "-pix_fmt", "yuv420p",
+            "-passlogfile", str(log)]
+
+    p1 = subprocess.run(base + ["-pass", "1", "-an", "-f", "mp4", "/dev/null"],
+                        capture_output=True)
+    if p1.returncode != 0:
+        return False
+    p2 = subprocess.run(base + ["-pass", "2",
+                                "-c:a", "aac", "-b:a", f"{a_kbps}k",
+                                "-movflags", "+faststart", str(dst)],
+                        capture_output=True)
+    for f in log.parent.glob(log.name + "*"):
+        f.unlink(missing_ok=True)
+    if p2.returncode != 0 or not dst.exists():
+        return False
+    print(f"     ↓ {dst.name} 时长 {dur:.0f}s，改用定码率 {v_kbps}k@{width}w"
+          f"（{dst.stat().st_size / 1048576:.1f}MB）")
+    return True
 
 
 def video_block(rel_paths, alt_base: str) -> str:

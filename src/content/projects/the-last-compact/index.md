@@ -11,6 +11,10 @@ meta:
   dimension: 1920×1080
   media: Unity / C# / Photoshop / Illustrator / Blender
   subtitle: First-Person Narrative Exploration
+gallery:
+  - video: /media/the-last-compact/hero-01.mp4
+    alt: The Last Compact — video 01
+cover: ./card.jpg
 ---
 
 ## A — PROJECT OVERVIEW
@@ -20,6 +24,20 @@ memory, debt, and entropy. Developed in Unity with the URP pipeline, the experie
 players through an infinite corridor of interconnected memory chambers, where the narrative
 path and final outcome are dynamically driven by a mathematical model of the protagonist's
 psychological state.
+
+<!-- auto:images -->
+<div class="full">
+
+![A — PROJECT OVERVIEW 01](./a-project-overview-01.jpg)
+
+![A — PROJECT OVERVIEW 02](./a-project-overview-02.jpg)
+
+![A — PROJECT OVERVIEW 03](./a-project-overview-03.jpg)
+
+![A — PROJECT OVERVIEW 04](./a-project-overview-04.jpg)
+
+</div>
+<!-- /auto:images -->
 
 ## B — GAMEPLAY FLOW
 

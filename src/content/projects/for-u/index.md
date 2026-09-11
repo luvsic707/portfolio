@@ -11,6 +11,10 @@ meta:
   dimension: 1920×1080
   media: Unity / C# / MCP-assisted development
   role: Solo concept-to-production designer & technical artist
+gallery:
+  - video: /media/for-u/hero-01.mp4
+    alt: For U — video 01
+cover: ./hero-poster.jpg
 ---
 
 ## A — PREMISE
