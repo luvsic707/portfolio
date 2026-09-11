@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://redthreadcreative.me/sitemap-index.xml
