@@ -1025,6 +1025,9 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     height: 100%;
     border: 0;
     display: block;
+    /* 正文里的图有外边距做行距，而外边距对绝对定位的元素照样生效 ——
+       不清掉的话缩略图会被往下推，盒子顶上露一条底色。 */
+    margin: 0;
   }
 
   .prose-body :global(.tube img) { object-fit: cover; }
