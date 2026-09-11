@@ -32,7 +32,9 @@ const ogImage = image ? new URL(image, Astro.site) : undefined;
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <!-- 带版本号：浏览器对 favicon 的缓存格外顽固，硬刷新都未必更新。
+       换了图标就把这个数字 +1，所有人下次访问才会重新拉。 -->
+  <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
   <link rel="sitemap" href="/sitemap-index.xml" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
