@@ -49,7 +49,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
     <pre class="telemetry mono" data-telemetry aria-hidden="true"></pre>
 
-    <p class="hero-hint mono">wipe the glass to see the specimen &mdash; the fog comes back</p>
+    <p class="hero-hint mono">move to wipe the glass &middot; drag to rotate the specimen</p>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
       SCROLL <span class="cue-arrow">↓</span>
@@ -136,8 +136,8 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
   .lyr-tool {
     z-index: 2;
     pointer-events: auto;
-    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着划才擦玻璃 */
-    cursor: crosshair;
+    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着划才转标本 */
+    cursor: grab;
   }
 
   .filters {
@@ -269,7 +269,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   /* 触屏上换个说法 —— 没有「拖拽」只有「按」 */
   @media (hover: none), (pointer: coarse) {
-    .hero-hint::before { content: 'wipe the glass to see the specimen — the fog comes back'; }
+    .hero-hint::before { content: 'drag to rotate the specimen · the fog comes back'; }
     .hero-hint { font-size: 0; letter-spacing: 0; }
     .hero-hint::before { font-size: var(--step--1); letter-spacing: 0.06em; }
   }
