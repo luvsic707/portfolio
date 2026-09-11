@@ -137,7 +137,7 @@ spontaneous quality.
 <!-- auto:images -->
 <div class="full">
 
-<p><video src="/media/waiting-for-godot/e-final-outcome-01.mp4" width="3840" height="2160" controls preload="metadata" aria-label="E — FINAL OUTCOME 01"></video></p>
+<p><video src="/media/waiting-for-godot/hero-01.mp4" width="3840" height="2160" controls preload="metadata" aria-label="E — FINAL OUTCOME 01"></video></p>
 
 </div>
 <!-- /auto:images -->

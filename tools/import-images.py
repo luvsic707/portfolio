@@ -29,6 +29,7 @@
 """
 
 import os, re, subprocess, sys, shutil
+import hashlib
 from pathlib import Path
 
 HOME = Path.home()
@@ -67,6 +68,17 @@ def convert(src: Path, dst: Path, max_edge: int) -> bool:
 
 def has_ffmpeg() -> bool:
     return shutil.which("ffmpeg") is not None
+
+
+def file_hash(path: Path) -> str:
+    """源文件的内容指纹。同一个视频常常既放在 00封面 里当开屏，
+    又放在某个章节里当正文 —— 不查重的话会压出两个字节相同的 mp4，
+    挂在两个 URL 上，浏览器缓存对不上，访客把同一段下两遍。"""
+    h = hashlib.md5()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def compress_video(src: Path, dst: Path) -> bool:
@@ -282,6 +294,9 @@ def process(project_dir: Path) -> str | None:
         return None
     slug = slug_file.read_text().strip()
     target = PROJECTS / slug
+    # 这个项目里已经压过的视频：内容指纹 → 它的地址。
+    # 同一段素材在别处再出现就复用地址，不再压第二份。
+    vid_by_hash: dict[str, str] = {}
     md_path = target / "index.md"
     if not md_path.exists():
         print(f"  ⚠️  找不到 {md_path}")
@@ -349,14 +364,20 @@ def process(project_dir: Path) -> str | None:
         for f in media:
             if f.suffix.lower() in VIDEO:
                 # 视频不走 Astro 图片管线，放 public 里直接引用
-                n_vid += 1
                 vdir = PUBLIC / "media" / slug
                 vdir.mkdir(parents=True, exist_ok=True)
+                key = file_hash(f)
+                if key in vid_by_hash:
+                    entries.append(f'  - video: {vid_by_hash[key]}\n'
+                                   f'    alt: {proj_title} — video')
+                    continue
+                n_vid += 1
                 vname = f"hero-{n_vid:02d}.mp4"
                 if not compress_video(f, vdir / vname):
                     print(f"     ⚠️  视频压缩失败，跳过：{f.name}")
                     n_vid -= 1
                     continue
+                vid_by_hash[key] = f"/media/{slug}/{vname}"
                 entries.append(f'  - video: /media/{slug}/{vname}\n'
                                f'    alt: {proj_title} — video {n_vid:02d}')
             else:
@@ -425,9 +446,17 @@ def process(project_dir: Path) -> str | None:
                     items.append(("img", out))
                     generated.append(out)
             else:
+                key = file_hash(f)
+                if key in vid_by_hash:
+                    # 开屏已经压过同一段了，直接复用那个地址：
+                    # 一个 URL 一次下载，顺带省掉一次 ffmpeg
+                    w, h = video_size(f)
+                    items.append(("vid", vid_by_hash[key], w, h))
+                    continue
                 vname = f"{base}-{i+1:02d}.mp4"
                 if compress_video(f, vdir / vname):
                     w, h = video_size(f)
+                    vid_by_hash[key] = f"/media/{slug}/{vname}"
                     items.append(("vid", f"/media/{slug}/{vname}", w, h))
                     generated.append(vname)
                 else:

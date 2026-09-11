@@ -191,6 +191,20 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
   }
 
+  /* ---- 1b. 还没有素材的小节 ----
+     空标题后面跟一片空白，读起来像页面坏了。
+     卷宗里这种情况本来就有写法 —— 封面缺图时写 NO PLATE ON FILE，
+     这里沿用同一句式：与其假装没有这一节，不如写明在等素材。
+     文件夹里一丢进图，import 脚本填上内容，这行自己就没了。 */
+  body?.querySelectorAll<HTMLElement>('.sub').forEach((sub) => {
+    const main = sub.querySelector<HTMLElement>('.sub-main');
+    if (!main || main.children.length) return;
+    const note = document.createElement('p');
+    note.className = 'sub-pending mono';
+    note.textContent = 'NO MATERIAL ON FILE';
+    main.append(note);
+  });
+
   /* ---- 2. 过程图的横向滑动带 ----
      鼠标可以直接按住拖，触控板/触屏本来就能横滑。 */
   /* 按原始比例把图分栏：同一栏统一宽度、竖着摞满整条高度，
@@ -1290,6 +1304,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   .prose-body :global(.sub-main > :first-child) { margin-top: 0; }
+
+  /* 等素材的小节。和封面缺图时的 NO PLATE ON FILE 同一套写法。 */
+  .prose-body :global(.sub-pending) {
+    margin: 0;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+    letter-spacing: 0.16em;
+  }
 
   .prose-body :global(.sub-main [class^='grid-']),
   .prose-body :global(.sub-main .clamp) { width: 100%; }

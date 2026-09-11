@@ -116,7 +116,7 @@ and immersive.
 <!-- auto:images -->
 <div class="full">
 
-<p><video src="/media/nine-lives-game/e-first-prototype-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="E — FIRST PROTOTYPE 01"></video></p>
+<p><video src="/media/nine-lives-game/hero-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="E — FIRST PROTOTYPE 01"></video></p>
 
 </div>
 <!-- /auto:images -->
