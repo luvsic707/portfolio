@@ -347,6 +347,37 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* ---- 2b. 混排的视频：进视野才播，离开就停 ----
      不这么做的话一页几十个视频会同时解码，手机直接卡死。
      点一下切声音 —— 浏览器不允许带声自播，所以默认静音。 */
+  /* ---- YouTube 外链片子 ----
+     先只放一张缩略图和一个播放标记，点了才把播放器塞进来。
+     一进页面就挂 iframe 的话，YouTube 的脚本、cookie 和几百 KB
+     会跟着整页一起加载 —— 一节里放两个就够让页面卡一下。
+     域名用 youtube-nocookie，点播放之前不写跟踪 cookie。 */
+  document.querySelectorAll<HTMLElement>('[data-tube]').forEach((box) => {
+    const id = box.dataset.tube;
+    if (!id) return;
+    const poster = document.createElement('img');
+    poster.src = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+    poster.alt = '';
+    poster.loading = 'lazy';
+    poster.decoding = 'async';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'tube-play';
+    btn.setAttribute('aria-label', box.dataset.tubeLabel || 'Play video');
+    box.prepend(poster, btn);
+
+    const open = () => {
+      const f = document.createElement('iframe');
+      f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&modestbranding=1`;
+      f.title = box.dataset.tubeLabel || 'Video';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture';
+      f.allowFullscreen = true;
+      box.textContent = '';
+      box.append(f);
+    };
+    btn.addEventListener('click', open);
+  });
+
   const inlineVideos = document.querySelectorAll<HTMLVideoElement>('video[data-autoplay]');
 
   if (inlineVideos.length) {
@@ -971,6 +1002,75 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   /* --- 竖向流程：节点之间用一根竖线连 --- */
+  /* ---- YouTube 外链片子 ----
+     开屏用自托管的短剪辑（有 25MiB 的单文件上限），
+     完整的长片放这里 —— 十分钟的东西塞进 25MiB 只能是色块，
+     那种长度交给 YouTube 的自适应码流是对的。 */
+  .prose-body :global(.tube) {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 0;
+    overflow: hidden;
+    background: var(--paper-sunk);
+    border: 1px solid var(--line);
+  }
+
+  .prose-body :global(.tube img),
+  .prose-body :global(.tube iframe) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .prose-body :global(.tube img) { object-fit: cover; }
+
+  /* 播放标记：和导航栏一样的实心红点，中间一个纸色三角 */
+  .prose-body :global(.tube-play) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    background: color-mix(in srgb, var(--paper) 22%, transparent);
+    cursor: pointer;
+    transition: background 0.3s var(--ease);
+  }
+
+  .prose-body :global(.tube-play::before) {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    translate: -50% -50%;
+    width: 4.2rem;
+    height: 4.2rem;
+    border-radius: 50%;
+    background: var(--red);
+    transition: scale 0.3s var(--ease);
+  }
+
+  .prose-body :global(.tube-play::after) {
+    content: '';
+    position: absolute;
+    inset: 50% auto auto 50%;
+    /* 三角形的视觉重心偏左，按几何中心摆会看着靠左，往右挪一点 */
+    translate: -38% -50%;
+    border-style: solid;
+    border-width: 0.72rem 0 0.72rem 1.18rem;
+    border-color: transparent transparent transparent var(--paper);
+  }
+
+  .prose-body :global(.tube-play:hover) {
+    background: color-mix(in srgb, var(--paper) 6%, transparent);
+  }
+
+  .prose-body :global(.tube-play:hover::before) { scale: 1.08; }
+
   .prose-body :global(.dg-flow) {
     display: grid;
     justify-items: center;

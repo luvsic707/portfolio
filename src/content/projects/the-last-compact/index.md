@@ -184,3 +184,9 @@ testable, swappable, and debuggable.
 
 Words and diagrams can only show so much. Watch the full walkthrough to see how it all
 comes together.
+
+<!-- 完整长片放 YouTube：十分钟的东西塞进自托管的 25MiB 上限只能是色块。
+     把下面这行的 data-tube 换成视频 ID（youtu.be/ 后面那一段，
+     或者 watch?v= 后面那一段），去掉这段注释就生效。
+<div class="tube" data-tube="视频ID" data-tube-label="The Last Compact — full walkthrough"></div>
+-->
