@@ -19,19 +19,17 @@ cover: ./hero-poster.jpg
 
 ## A — PREMISE
 
-Short-video feeds run on borrowed pleasure. The reward lands inside a stimulus–response
-loop measured in seconds; the debt is repaid, with interest, as emptiness the moment you
-stop. Byung-Chul Han names the cost as the erosion of deep attention; Anna Lembke
-describes the same drift neurologically, as a pleasure–pain balance that keeps sliding
-toward pain.
+Short-video feeds run on borrowed pleasure. The reward lands inside a stimulus–response loop
+measured in seconds; the debt comes back, with interest, as emptiness the moment you stop.
+Byung-Chul Han calls it the erosion of deep attention; Anna Lembke describes the same drift
+as a pleasure–pain balance sliding toward pain.
 
-Most anti-addiction messaging casts the user as an innocent victim. This work does not.
-The mechanism functions precisely because you feed it — voluntarily, swipe by swipe. The
-experience is built to bring you to a Sartrean position: *I could have not scrolled.*
-Victim and accomplice at once.
+Most anti-addiction work casts the user as a victim. This does not. The mechanism works
+because you feed it, swipe by swipe. It is built to put you in a Sartrean position:
+*I could have not scrolled.*
 
-It deliberately avoids the high-arousal vocabulary of horror. The language is evacuation —
-desaturated colour, decaying feedback, muffled sound — across six stages.
+No horror vocabulary. The language is evacuation — desaturated colour, decaying feedback,
+muffled sound.
 
 ## B — THE SIX STAGES
 
@@ -71,19 +69,14 @@ desaturated colour, decaying feedback, muffled sound — across six stages.
 
 Stage 6 shows you the residue of your own behaviour. That only works if the data is real.
 
-The first implementation — produced in an MCP-linked workflow between a language model and
-the Unity editor — looked visually complete and was populated by a random number generator
-entirely disconnected from the participant's interaction history. Decorative placebo data.
-At the narrative climax of a work whose whole argument rests on confronting an authentic
-trace of yourself, fabricated numbers would have hollowed out the thesis.
+The first implementation — built in an MCP-linked workflow between a language model and the
+Unity editor — looked finished and was fed by a random number generator with no connection
+to anything the participant had done. Placebo data, at the climax of a work whose whole
+argument is confronting an authentic trace of yourself.
 
-I rejected that implementation and directed a redesign of the behavioural-data pipeline, so
-the visualisation reads, normalises and displays the participant's actual interaction
-frequencies from the preceding stages.
-
-The point generalises beyond this one fix: in human–AI co-creation the designer's value
-lies not in accepting generated code, but in remaining the final arbiter of the work's
-meaning-making logic and its ethical boundaries.
+I rejected it and redirected the pipeline to read the actual interaction frequencies from the
+preceding stages. In human–AI co-creation the designer's job is not accepting generated
+code; it is staying the final arbiter of what the work means.
 
 ## D — SEE IT IN ACTION
 

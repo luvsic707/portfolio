@@ -22,19 +22,12 @@ cover: ./card.jpg
 
 ## A — WORLD-BUILDING
 
-Before starting the game design, I focused on organizing and defining the overall narrative
-system and world framework of the project. Using the World-building Map, I outlined the
-structural relationships and intertwined destinies among gods, humans, and demons. At the
-same time, I created a Character Mood Board to visually define each main character's
-personality, colour palette, and symbolic meaning.
+Before any game design, the world had to hold together. A world-building map laid out how
+gods, humans and demons are tied to each other; a character mood board fixed each figure's
+personality, palette and symbol.
 
-On the narrative side, I integrated the Intro Animation with the Main Game Story to ensure
-a smooth transition between the two mediums. To make the story more traceable and coherent,
-I designed a Branching Story Map that clearly marks all key decisions and their outcomes.
-
-The main goal of this stage was to establish a solid foundation for the interactive
-storytelling system, ensuring the game world has both internal logic and long-term
-scalability.
+The intro animation and the main game story were written to meet, and a branching story map
+marks every key decision and where it leads.
 
 <!-- auto:images -->
 <div class="full">
@@ -46,15 +39,12 @@ scalability.
 
 ## B — CHARACTER & RELATIONSHIPS
 
-Early exploration stayed deliberately loose — colour blocks, silhouettes and proportion
-tests rather than finished designs. Sharp, angular forms read as danger; flowing contours
-read as allure and hidden strength.
+Early exploration stayed loose — colour blocks, silhouettes, proportion tests. Sharp angular
+forms read as danger; flowing contours read as allure.
 
-The story turns on three figures. Nüwa issues the divine command but never strikes
-directly. Daji, a nine-tailed fox in human form, is sent into the Shang court to bring
-King Zhou down — and begins to waver between obedience and her own will. King Zhou,
-blinded by pride, resists both the gods and Daji, and destroys himself through his own
-defiance.
+Three figures carry it. Nüwa issues the divine command but never strikes. Daji, a
+nine-tailed fox in human form, is sent to bring King Zhou down and begins to waver. King Zhou
+resists both the gods and Daji, and destroys himself doing it.
 
 <!-- auto:images -->
 <div class="slider">
@@ -102,16 +92,12 @@ at key decision points to raise the emotional stakes.
 
 ## E — FIRST PROTOTYPE
 
-In less than two weeks, I completed a quick playable prototype to test the feasibility of
-the narrative flow and interaction system.
+A playable prototype in under two weeks, to test whether the narrative flow and the
+interaction held up.
 
-Although the demo had a fairly complete structure — allowing players to experience dialogue
-choices, branching paths, and the core gameplay loop — user feedback showed only moderate
-engagement. Players understood the concept but lacked emotional investment in the story.
-
-Through this test, I realised that the core loop lacked strong appeal and rewarding
-feedback, and that future iterations should focus on making the interaction more dynamic
-and immersive.
+The structure was fairly complete — dialogue choices, branching, the core loop — but testers
+were only moderately engaged. They understood the concept and did not care about the story.
+The loop lacked appeal and reward; the next iteration has to be more dynamic.
 
 <!-- auto:images -->
 <div class="full">
@@ -123,13 +109,12 @@ and immersive.
 
 ## F — PRODUCTION FLOW
 
-I handled the core loop, card system, storytelling visuals, early character concept, and
-user testing.
+I handled the core loop, card system, storytelling visuals, early character concept and user
+testing.
 
-The storytelling workflow stayed simple: script and rough storyboards → thumbnails to fix
-the visual tone → AI for the initial motion → After Effects and TouchDesigner for effects
-and refinement → sound and voiceover last. Detailed narrative art takes a lot of time, so
-the storytelling here leans abstract and expressive.
+The workflow stayed simple: script and rough boards → thumbnails to fix the tone → AI for
+initial motion → After Effects and TouchDesigner → sound last. Detailed narrative art takes
+a lot of time, so the storytelling leans abstract.
 
 <!-- auto:images -->
 <div class="slider">
@@ -143,18 +128,13 @@ the storytelling here leans abstract and expressive.
 
 ## G — CARD DESIGN
 
-Three card types are planned — Fate, Element and Artifact. Fate and Artifact are still
-conceptual; **Element Cards** are the only fully implemented system, and they carry the
-core of combat.
+Three card types are planned — Fate, Element and Artifact. Only **Element Cards** are fully
+implemented, and they carry combat.
 
 In Taoist philosophy each of the Five Elements has a Yin and a Yang form, so every element
-here has two personalities, drawn as simple totem-like symbols. Yang Earth is an
-unbreakable wall, Yin Earth is moist soil that nurtures life. Yang Metal is a rough battle
-axe; Yin Metal a precise ornamental hairpin. Yang Fire explodes; Yin Fire glows quietly
-like a ritual flame.
-
-The visuals stay lightweight — easy to read, easy to tell apart, and efficient to produce
-at this stage.
+here has two personalities, drawn as totems. Yang Earth is an unbreakable wall, Yin Earth is
+soil that feeds. Yang Metal a battle axe, Yin Metal an ornamental hairpin. Yang Fire
+explodes; Yin Fire glows like a ritual flame.
 
 <!-- auto:images -->
 <div class="cards">

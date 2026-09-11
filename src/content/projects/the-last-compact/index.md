@@ -19,11 +19,9 @@ cover: ./card.jpg
 
 ## A — PROJECT OVERVIEW
 
-The Last Compact is a first-person interactive narrative installation exploring themes of
-memory, debt, and entropy. Developed in Unity with the URP pipeline, the experience guides
-players through an infinite corridor of interconnected memory chambers, where the narrative
-path and final outcome are dynamically driven by a mathematical model of the protagonist's
-psychological state.
+A first-person narrative installation on memory, debt and entropy. Built in Unity with URP:
+an infinite corridor of memory chambers where the path and the ending are driven by a
+mathematical model of the protagonist's psychological state.
 
 <!-- auto:images -->
 <div class="full">
@@ -41,11 +39,9 @@ psychological state.
 
 ## B — GAMEPLAY FLOW
 
-The experience begins with a prologue, leading the player into an infinite corridor.
-Players navigate through six distinct memory chambers across two phases, collecting
-fragments to progress toward a final judgment, culminating in one of three possible
-endings: **Stable**, **Unstable**, or **Collapse**.
-
+A prologue leads into the corridor. Six memory chambers across two phases, fragments
+collected toward a final judgment, ending in one of three states: **Stable**, **Unstable**,
+**Collapse**.
 
 <div class="dg dg-flow">
 
@@ -114,11 +110,9 @@ endings: **Stable**, **Unstable**, or **Collapse**.
 
 ## C — TECHNICAL BREAKDOWN
 
-The entire project follows a layered, event-driven architecture. All game data lives in
-ScriptableObject assets — zero hardcoding. Systems communicate through a static event bus,
-meaning no script directly references another. This makes every component independently
-testable, swappable, and debuggable.
-
+Layered and event-driven. All game data lives in ScriptableObject assets — no hardcoding.
+Systems talk through a static event bus, so no script references another directly, and every
+component stays independently testable and swappable.
 
 <div class="dg">
 

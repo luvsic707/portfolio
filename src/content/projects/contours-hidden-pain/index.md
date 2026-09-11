@@ -18,13 +18,9 @@ cover: ./card.jpg
 
 ## A — RESEARCH
 
-This research explores the relationship between childhood trauma and spinal development.
-Through literature review, somatic observation, and cross-disciplinary synthesis, it
-examines how early psychological trauma may affect spinal health via physiological,
-psychological, and behavioral pathways. The findings suggest that trauma can manifest as
-"frozen memories" within the body, altering posture and muscle tension. The project
-emphasizes the spine as a living archive of emotional experience and advocates for
-trauma-informed perspectives in physical and mental health care.
+How childhood trauma settles into the spine. Reading across clinical literature and somatic
+practice, one idea kept returning: trauma becomes a frozen memory in the body, held as
+posture and muscle tension. The spine as a living archive of what happened to you.
 
 ### References
 
@@ -47,18 +43,11 @@ trauma-informed perspectives in physical and mental health care.
 
 ## B — STORYBOARD AND SKETCH
 
-At this stage, I first established the overall narrative logic and viewing path of the
-project. By creating a storyboard, I clarified how the audience would interact with and
-experience the work. The exhibition setting is designed for a public space, where viewers
-can scan the poster with their phones to enter the AR animation experience.
+The storyboard set the viewing path: a poster in a public space, scanned with a phone,
+opening into AR. What I wanted was the transition — physical to psychological, body to mind.
 
-I hope the audience can feel the emotional transition from the physical to the psychological
-during the viewing process, recognizing the connection between the body and the mind in
-trauma, and becoming more aware of mental and physical health issues.
-
-In the visual development phase, I used quick sketches and experimental drawings to explore
-the language of biological forms in AR animation, searching for a balance between
-abstraction and representation through variations in line, structure, and movement.
+Quick sketches worked out the biological vocabulary, looking for the point where line and
+structure have stopped being a diagram and are not yet an illustration.
 
 <!-- auto:images -->
 <div class="grid-3">
@@ -74,12 +63,10 @@ abstraction and representation through variations in line, structure, and moveme
 
 ## C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM
 
-To save time and focus on learning Unity AR technology, I used the simplest and most
-familiar method — hand drawing first, then converting the sketches into 3D models with
-Tripo AI. This approach keeps the natural expression of hand drawing while allowing
-efficient testing of forms in 3D space. From dozens of generated models, I selected the ones
-that best matched the theme and my personal aesthetic as the main basis for further visual
-development.
+To spend the time on learning Unity AR rather than on modelling, I drew by hand and
+converted the sketches with Tripo AI. Hand drawing keeps its own expression; the conversion
+lets me test forms in 3D quickly. Of dozens of generated models I kept the few that matched
+the theme.
 
 <!-- auto:images -->
 <div class="flow">
@@ -111,10 +98,8 @@ development.
 
 ## D — POSTER COMPOSITION
 
-This stage focused on creating the poster. To save time, I quickly extracted visual elements
-from the moodboard and combined them with 3D modeling materials. The process was mainly
-based on graphic design, integrating spatial composition and visual experimentation to
-complete the work efficiently.
+Elements pulled straight from the moodboard and combined with the 3D material. Mostly
+graphic design — spatial composition and visual experiment, done fast.
 
 <!-- auto:images -->
 <div class="showcase">
@@ -128,13 +113,11 @@ complete the work efficiently.
 
 ## E — FINAL AR IMPLEMENTATION AND VIDEO PRESENTATION
 
-This part presents the video demonstration of the project. The audio was generated using
-Suno AI, combining two soundtracks with added distortion effects to create a quiet yet
-unsettling atmosphere. The animation and AR effects were implemented in Unity using the
-Vuforia plugin.
+Audio generated with Suno AI: two tracks layered and distorted into something quiet and
+unsettling. Animation and AR built in Unity with Vuforia.
 
-More than half of the project time was spent learning new software and technical skills.
-I hope to further refine this demo in the future as my technical abilities continue to grow.
+More than half the project time went into learning the software. I'd like to refine this
+demo as my technical ability catches up.
 
 <!-- auto:images -->
 <div class="full">

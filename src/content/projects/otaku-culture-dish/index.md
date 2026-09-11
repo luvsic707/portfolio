@@ -39,18 +39,13 @@ cover: ./card.jpg
 
 ## A — INSPIRATION
 
-The term "Otaku" originated in Japan in the 1970s and has become an enduring part of East
-Asian culture. It generally refers to people who are deeply passionate about subcultures —
-especially anime, manga, and video games. Today, "otaku" is seen as a neutral identity,
-embraced by many in Japan.
+"Otaku" comes from 1970s Japan and has stayed in East Asian culture ever since — people
+deeply into a subculture, mostly anime, manga and games. In Japan it now reads as a neutral
+identity.
 
-Otaku culture has many branches, such as ACG fans, idol enthusiasts, "rotting girls" who
-enjoy BL content, and niche groups like railroad or car otaku. Some are also defined by
-lifestyle, such as NEETs (Not in Education, Employment, or Training).
-
-Despite their diversity, otaku share a tendency to stay within their own worlds, building
-small spaces shaped by personal interests. To me, this state is like a *culture dish* — an
-enclosed environment that grows and changes on its own.
+It has branches: ACG fans, idol fans, *fujoshi*, railway and car otaku, and lifestyle
+categories like NEET. What they share is staying inside a world of their own making. That is
+the culture dish — a closed environment growing on its own terms.
 
 <!-- auto:images -->
 <div class="grid-2">
@@ -64,12 +59,10 @@ enclosed environment that grows and changes on its own.
 
 ## B — PROCESS
 
-First, I distinguished nine types of contemporary otaku with distinctive characteristics and
-extracted their figurative features to form a collection. In this process the representative
-colours, materials, and objects of each type become apparent, and create the basis for the
-subsequent installation. The figurative representations are then distilled into simple moving
-shapes, made even more mysterious by the flow of ink and the symmetry of origami, and
-finally overlaid with corresponding colours to form unique symbols.
+Nine types of contemporary otaku, each with its figurative features pulled out into a
+collection — the representative colours, materials and objects surface here and become the
+basis for the installation. Those figures are then distilled into simple moving shapes, run
+through ink flow and origami symmetry, and overlaid with colour to become symbols.
 
 ### Type No.1 — Military Otaku
 
@@ -245,11 +238,9 @@ Japanese school uniforms, and punk fashion. Image extraction: Rococo corset, rib
 
 ## C — BOOK DESIGN
 
-In the book design, the content takes the form of haiku — a short classical Japanese poem —
-using phrases and words to poetically summarize the qualities of each type of otaku.
-
-In the typographic process, graphics and text are seen as part of the symbol, linked
-together with flowing lines that reflect the wholeness and rhythm of the composition.
+The content is haiku — short classical Japanese poems summarising each type. In the
+typography, graphics and text are treated as one symbol, linked by flowing lines that carry
+the rhythm of the composition.
 
 <!-- auto:images -->
 <div class="flow">
@@ -277,10 +268,8 @@ together with flowing lines that reflect the wholeness and rhythm of the composi
 
 ## D — OUTCOME 1: PRINT
 
-Instead of traditional paper, the material is weighted transparent acrylic, which is
-designed to allow readers to experience the various effects of the work in different
-combinations, in different environments, and under different lights. It makes the process
-of reading no longer boring, but as much fun as exploring.
+Weighted transparent acrylic instead of paper, so the work changes with how you stack it,
+where you are, and what light is on it. Reading becomes something closer to exploring.
 
 <!-- auto:images -->
 <div class="showcase">
@@ -314,10 +303,8 @@ of reading no longer boring, but as much fun as exploring.
 
 ## E — OUTCOME 2: INSTALLATION
 
-A small interactive installation was developed to echo the theme *The Person in a Culture
-Dish — Otaku*. Using traditional craft techniques such as acrylic fluid painting, felt work,
-and clay modeling, it recreates a miniature ecological environment that quickly visualizes
-the persona of this social group.
+A small interactive installation echoing the title. Acrylic fluid painting, felt work and
+clay modelling build a miniature ecology — the persona of the group, visible at a glance.
 
 <!-- auto:images -->
 <div class="showcase">
@@ -345,10 +332,9 @@ the persona of this social group.
 
 ## F — DETAIL
 
-In order to simulate the growing state of the fungus in the installation, clay was used to
-pinch out the different forms of fungus, then fluid acrylic and silicone oil were used to
-colour the texture of the cellular form — the same with the bottom surface of the petri dish.
-Lastly, a layer of UV adhesive was applied to fix the colour and enhance the brightness.
+Clay pinched into the different forms of fungus, then fluid acrylic and silicone oil for the
+cellular texture — the same treatment on the base of the petri dish. A layer of UV adhesive
+fixes the colour and lifts the brightness.
 
-The fungus is also made in the form of mycelium using wool felt with miniature models that
-can represent the fixed characteristics, to make it more vivid.
+The mycelium is wool felt, with miniature models set into it to carry the fixed
+characteristics.

@@ -51,18 +51,12 @@ Being through these things, I decided to explore the sense of **contradiction** 
 
 ## A — SKETCHES
 
-To start with, I communicated with people of different ages and careers, and the
-answers they gave shocked me quite a lot. I not only realized some specific events,
-but also searched particular references that could explain all of the events and
-support my ideas.
+I talked to people of different ages and trades, and their answers shocked me. Some truths
+in this region have been neglected for a long time; accepting the scars is painful, but
+facing them matters more.
 
-Finally, I figured out there are a number of truths that we've neglected for a long
-time. It is painful to accept all the scars in this region, but the most important
-thing is facing them.
-
-Part of the inspiration comes from Fei Xiaotong's *From the Soil*, which reflects on
-the structure of local societies and the order of human relationships in traditional
-China.
+Part of the inspiration is Fei Xiaotong's *From the Soil*, on the structure of local society
+and the order of human relationships in traditional China.
 
 <!-- auto:images -->
 <div class="strip">
@@ -112,12 +106,9 @@ China.
 
 ## B — MATERIAL EXPERIMENT
 
-These works are made with traditional Chinese tools such as black ink, golden dust,
-and handmade art paper.
-
-While working with watercolor, I experimented with various traditional painting
-techniques, including salt scattering, foam texture, and different brush movements,
-to explore new possibilities within this ordinary medium.
+Made with black ink, golden dust and handmade paper. In the watercolour work I tried
+traditional techniques — salt scattering, foam texture, different brush movements — looking
+for what an ordinary medium can still do.
 
 <!-- auto:images -->
 <div class="strip">
@@ -175,10 +166,8 @@ to explore new possibilities within this ordinary medium.
 
 ## C — PHOTOGRAPHY
 
-The photographs were taken during my trip to Inner Mongolia, a region in northern
-China that preserves a more traditional lifestyle and landscape. The vast land, harsh
-wind, and rough textures there deeply reflect the essence of Chinese character and
-culture.
+Taken on a trip to Inner Mongolia, where the lifestyle and the landscape stay closer to
+tradition. Vast land, harsh wind, rough texture.
 
 <!-- auto:images -->
 <div class="strip">
@@ -220,21 +209,13 @@ culture.
 
 ## D — FINAL OUTPUT
 
-This illustration series consists of twelve main pieces along with several supporting
-graphics. The compositions are guided by an overarching concept — each piece reflects,
-from my own perspective, a state of traditional Chinese culture in the present day.
-Rather than conveying meaning directly, the works focus on structural and cultural
-elements, inviting the viewer to reflect and interpret.
+Twelve main pieces and several supporting graphics. Each one is a state of traditional
+Chinese culture as it stands now, seen from where I stand. The work holds to structure and
+cultural element rather than stating meaning, and leaves the reading to you.
 
-In terms of technique, after confirming the basic composition, I used the traditional
-*baimiao* (fine-line) method from Chinese ink painting for modeling. However, I broke
-away from the conventional *xieyi* (freehand) ink style, introducing geometric forms
-to enhance visual structure. The drawings were created in Procreate, where I matched
-shapes and colors using textures sampled from traditional crafts, and then finalized
-the overall color harmony in Photoshop.
-
-The series seeks to merge traditional craftsmanship, critical reflection, and
-contemporary formal innovation.
+Modelling uses *baimiao*, the fine-line method from ink painting, but drops the *xieyi*
+freehand style for geometric form. Drawn in Procreate with textures sampled from traditional
+crafts, colour finalised in Photoshop.
 
 <!-- auto:images -->
 <div class="showcase">
@@ -276,9 +257,8 @@ contemporary formal innovation.
 
 ## E — TEST BOARD 06
 
-This book is made by the traditional Chinese way of binding and layout, which means that I
-use simple cotton thread to connect every page. Then I set the proportion of the book as a
-total square, and in this way I can show more sense of form and decoration.
+Bound the traditional Chinese way, cotton thread through every page. The proportions are a
+square, which gives the object more form and more decoration.
 
 <!-- auto:images -->
 <div class="strip">

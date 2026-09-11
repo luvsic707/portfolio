@@ -17,17 +17,14 @@ cover: ./card.jpg
 
 ## A — INSPIRATION
 
-The existential crisis has accompanied me like a shadow throughout my not-so-long life, and
-for as long as I can remember I have been at a loss when confronted with the established
-facts of life — "death," "freedom," "loneliness," and, most frighteningly,
-"meaninglessness." Self-salvation is nothing more than reading.
+The existential crisis has followed me like a shadow. Death, freedom, loneliness, and worst
+of all meaninglessness — I have never known what to do with any of it. Self-salvation is
+nothing more than reading.
 
-Sartre said that human existence precedes essence, so we have to find meaning on our own;
-Camus said that life is destined to be meaningless, so we just have to face everything with
-contempt and enjoy the moment. Yet I still can't decide how I want to live, nor can I know
-the meaning of my life. I am still the peasant waiting for Godot under the withered tree in
-Beckett's book, looking repeatedly and never coming to fruition. But I wanted to show this
-nihilistic comedy in a light-hearted way, and so a stop-motion animation was born.
+Sartre: existence precedes essence, so find your own meaning. Camus: it is meaningless, so
+hold it in contempt and enjoy the moment. I still can't decide how to live. I'm the peasant
+under the withered tree, still waiting. I wanted that nihilistic comedy to be light, so:
+stop motion.
 
 <!-- auto:images -->
 <div class="full">
@@ -39,16 +36,13 @@ nihilistic comedy in a light-hearted way, and so a stop-motion animation was bor
 
 ## B — SCRIPT, STORYBOARD AND CONFIGURATION
 
-The original *Waiting for Godot* was itself a two-act tragicomedy, so the animation follows
-the same structure as before. However, due to the nature of stop-motion animation and the
-limitations of video length, the plot was highly distilled, with all of the ink devoted to
-describing the state of the protagonist, as a side note to the passing of people and the
-loss of time.
+*Waiting for Godot* is a two-act tragicomedy and the animation keeps that structure. Stop
+motion and length forced the plot down to almost nothing, so all of it goes to the
+protagonists' state — a footnote on people passing and time going.
 
-Considering the style of the original script, the stage design and character design were
-kept simple, with a dead tree with scattered branches and leaves standing under a black
-curtain. The basic character of both protagonists is the not-so-smart farmer, but the
-difference is made in terms of height, weight, and skin colour and clothing.
+The set stays simple: a dead tree, scattered branches and leaves, a black curtain. Both
+protagonists are the same not-so-smart farmer, separated only by height, weight, skin and
+clothes.
 
 <!-- auto:images -->
 <div class="grid-3">
@@ -64,10 +58,9 @@ difference is made in terms of height, weight, and skin colour and clothing.
 
 ## C — PROP MAKING
 
-First of all, make the skeleton of the figure, summarize the general shape, and finally
-shape the details of the face and hands. The dead tree is shaped with wire and clay, then
-textured with a spatula and finally coloured with acrylics. Leaves and stones are made of
-paper and foam glue respectively.
+Skeleton first, then the general shape, then the face and hands. The dead tree is wire and
+clay, textured with a spatula and coloured with acrylic. Leaves are paper; stones are foam
+glue.
 
 <!-- auto:images -->
 <div class="grid-4">
@@ -85,12 +78,10 @@ paper and foam glue respectively.
 
 ## D — FILM STILLS
 
-Here are several film stills that suggest the main narrative loop. From opening to closing,
-they sigh helplessly, scratch and fidget, question passersby, and wait for Godot. After
-despair sets in, they attempt to end their lives but fail.
+The loop, from open to close: they sigh, scratch and fidget, question passersby, wait for
+Godot. Despair arrives, they try to end it, they fail.
 
-This cycle repeats twice — but we know they will go on like this forever, just like you and
-me in front of the screen.
+It repeats twice. We know it goes on forever — them, and you and me in front of the screen.
 
 <!-- auto:images -->
 <div class="showcase">
@@ -120,19 +111,13 @@ me in front of the screen.
 
 ## E — FINAL OUTCOME
 
-After watching multiple stage versions of *Waiting for Godot*, I realized that expressing
-emotions such as joy, anger, sorrow, and pleasure through clay is never simple. Later, I
-discovered that early black-and-white silent films offered an insightful reference — Charlie
-Chaplin, for example, almost transformed himself into a pure symbol of emotion and
-perception. His physical performance was not merely part of the narrative; it was the
-embodiment of emotion itself.
+Clay is not good at joy, anger, sorrow. Early black-and-white silent film turned out to be
+the reference — Chaplin became almost a pure symbol of feeling, his body not part of the
+narrative but the emotion itself.
 
-Those minimalist sets relied entirely on performance to imply context, and clay functions in
-a similar way — it externalizes feeling through form, rhythm, and texture. Throughout this
-process, I tried to return my thinking to a simple, instinctive state, approaching creation
-with a childlike mindset. The stop-motion animation was filmed in a photography classroom
-using only an iPhone and a few fill lights, preserving the work's handcrafted, tactile, and
-spontaneous quality.
+Those minimal sets leaned entirely on performance to imply context, and clay works the same
+way: feeling externalised as form, rhythm and texture. I tried to think the way a child does.
+Shot in a photography classroom with an iPhone and a few fill lights.
 
 <!-- auto:images -->
 <div class="full">
