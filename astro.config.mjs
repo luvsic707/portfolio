@@ -13,11 +13,21 @@ import sitemap from '@astrojs/sitemap';
      CF_PAGES_URL                     Cloudflare Pages 的部署地址
      最后才回落到正式域名，本地开发也走这条。
      两家的变量都认，是因为换托管商不该需要改代码。 */
+
+/* Cloudflare 的 CF_PAGES_URL 是「这一次部署」的地址，前面挂着一段哈希
+   （https://2413b43b.redthreadrehab.pages.dev），每次部署都不一样。
+   canonical 和分享卡片指向一个会过期的地址是错的，所以生产分支上
+   把那一段去掉，得到稳定的项目域名；预览分支保留哈希，那本来就该各自独立。 */
+const cf = process.env.CF_PAGES_URL;
+const cfSite = cf && process.env.CF_PAGES_BRANCH === 'main'
+  ? cf.replace(/^https:\/\/[0-9a-f]{6,12}\./, 'https://')
+  : cf;
+
 const site =
   process.env.PUBLIC_SITE_URL
   || (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
   || (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`)
-  || process.env.CF_PAGES_URL
+  || cfSite
   || 'https://redthreadcreative.me';
 
 export default defineConfig({
