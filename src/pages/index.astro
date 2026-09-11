@@ -14,9 +14,14 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   <!-- ==================== 首屏：观察窗 ==================== -->
   <section class="hero">
-    <!-- 标本 / 玻璃 / 仪器。分三块是因为它们该被区别对待：
-         只有玻璃层挂折射滤镜，仪器层永远清楚。 -->
+    <!-- 标本 / 雾罩 / 玻璃 / 仪器。分四块，各管一件事：
+         雾罩是不透明的纸色，负责把清晰层彻底挡住 ——
+         它如果是半透明的，清晰层就会原样透上来，
+         折射只作用在一份很淡的副本上，滤镜等于白挂。
+         玻璃层是「透过雾看到的那一份标本」，只有它挂折射滤镜。
+         仪器层画在玻璃这一面，所以永远清楚。 -->
     <canvas class="lyr lyr-spec" data-spec aria-hidden="true"></canvas>
+    <canvas class="lyr lyr-veil" data-veil aria-hidden="true"></canvas>
     <canvas class="lyr lyr-glass" data-glass aria-hidden="true"></canvas>
     <canvas class="lyr lyr-tool" data-tool aria-hidden="true"></canvas>
 
@@ -25,11 +30,13 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     <svg class="filters" aria-hidden="true" focusable="false">
       <filter id="frost" x="-6%" y="-6%" width="112%" height="112%"
               color-interpolation-filters="sRGB">
-        <feTurbulence type="fractalNoise" baseFrequency="0.016 0.021"
-                      numOctaves="4" seed="11" result="n" />
-        <feDisplacementMap in="SourceGraphic" in2="n" scale="34"
+        <!-- 频率高、位移小 = 磨砂的细颗粒散射。
+             频率低、位移大读起来是「一块厚的波浪玻璃」，不是磨砂。 -->
+        <feTurbulence type="fractalNoise" baseFrequency="0.055 0.07"
+                      numOctaves="3" seed="11" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="22"
                            xChannelSelector="R" yChannelSelector="G" result="d" />
-        <feGaussianBlur in="d" stdDeviation="1.4" />
+        <feGaussianBlur in="d" stdDeviation="1.1" />
       </filter>
     </svg>
 
@@ -106,9 +113,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   const spec = document.querySelector('[data-spec]') as HTMLCanvasElement | null;
   const glass = document.querySelector('[data-glass]') as HTMLCanvasElement | null;
+  const veil = document.querySelector('[data-veil]') as HTMLCanvasElement | null;
   const tool = document.querySelector('[data-tool]') as HTMLCanvasElement | null;
   const tel = document.querySelector('[data-telemetry]') as HTMLElement | null;
-  if (spec && glass && tool) initVascularWindow(spec, glass, tool, tel);
+  if (spec && veil && glass && tool) initVascularWindow(spec, veil, glass, tool, tel);
 
   typeTerminal(document.querySelector('[data-term]'));
 </script>
@@ -134,11 +142,20 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
   }
 
   .lyr-spec  { z-index: 0; }
-  .lyr-glass { z-index: 1; filter: url(#frost); }
+  .lyr-veil  { z-index: 1; }
+
+  /* 只有这一层挂折射。附带的好处是擦出来的洞口边缘
+     也被同一个湍流打碎，所以擦痕是毛的、是湿的，不是一个圆。
+     multiply 让这份标本压在雾上，像悬在雾里的色素，而不是贴在雾上。 */
+  .lyr-glass {
+    z-index: 2;
+    filter: url(#frost);
+    mix-blend-mode: multiply;
+  }
 
   /* 仪器层在最上面，也是唯一接事件的那层 —— 整屏都是活动范围 */
   .lyr-tool {
-    z-index: 2;
+    z-index: 3;
     pointer-events: auto;
     touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着划才转标本 */
     cursor: grab;
@@ -158,7 +175,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 3;
+    z-index: 4;
     pointer-events: none;
     opacity: 0.42;
     mix-blend-mode: multiply;
@@ -169,7 +186,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-inner {
     position: relative;
-    z-index: 4;
+    z-index: 5;
     padding-top: 4rem;
     pointer-events: none;   /* 光标要能穿过文字去量台面 */
   }
@@ -252,7 +269,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
   .telemetry {
     font-family: var(--font-mono);   /* <pre> 的默认等宽不是 Fragment Mono */
     position: absolute;
-    z-index: 4;
+    z-index: 5;
     right: var(--gutter);
     bottom: 2rem;
     margin: 0;
@@ -268,7 +285,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-cue {
     position: absolute;
-    z-index: 5;
+    z-index: 6;
     left: var(--gutter);
     bottom: 2rem;
     display: inline-flex;

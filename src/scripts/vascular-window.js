@@ -89,8 +89,9 @@ const vnoise = (x, y, z, s) => {
   return a0 + (a1 - a0) * w;
 };
 
-export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
+export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
   const spec = elSpec.getContext('2d');
+  const veil = elVeil.getContext('2d');
   const glass = elGlass.getContext('2d');
   const tool = elTool.getContext('2d');
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -454,8 +455,8 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     if (r.width < 2 || r.height < 2) return false;
     W = r.width; H = r.height;
     const pw = Math.round(W * dpr), ph = Math.round(H * dpr);
-    for (const el of [elSpec, elGlass, elTool]) { el.width = pw; el.height = ph; }
-    for (const g of [spec, glass, tool]) {
+    for (const el of [elSpec, elVeil, elGlass, elTool]) { el.width = pw; el.height = ph; }
+    for (const g of [spec, veil, glass, tool]) {
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.lineCap = 'round'; g.lineJoin = 'round';
     }
@@ -724,24 +725,36 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
 
   /* ---------- 玻璃 ---------- */
 
-  const drawGlass = () => {
+  /* 按遮罩在一层上挖洞。只在擦过的包围盒里做，开销不随屏幕大小涨。 */
+  const punch = (g) => {
+    if (!rev || maxClear <= 0.02) return;
+    const x0 = Math.max(0, rev.x0), y0 = Math.max(0, rev.y0);
+    const x1 = Math.min(W, rev.x1), y1 = Math.min(H, rev.y1);
+    if (x1 - x0 < 1 || y1 - y0 < 1) return;
+    g.globalCompositeOperation = 'destination-out';
+    g.drawImage(mask, x0 * dpr, y0 * dpr, (x1 - x0) * dpr, (y1 - y0) * dpr,
+                x0, y0, x1 - x0, y1 - y0);
+    g.globalCompositeOperation = 'source-over';
+  };
+
+  const drawFog = () => {
+    /* 雾罩：完全不透明的纸色。它唯一的工作是把清晰层挡死 ——
+       半透明的话清晰层会原样透上来，你看到的就主要是没被折射的原图，
+       折射层再怎么调也「不明显」。 */
+    veil.globalCompositeOperation = 'source-over';
+    veil.clearRect(0, 0, W, H);
+    veil.fillStyle = 'rgb(247,248,247)';
+    veil.fillRect(0, 0, W, H);
+    punch(veil);
+
+    /* 玻璃：透过雾看到的那一份标本。整层交给 CSS 上的湍流位移滤镜，
+       所以雾态下你看到的每一根血管都是被推歪、被打散过的。 */
     glass.globalCompositeOperation = 'source-over';
     glass.clearRect(0, 0, W, H);
-    /* 雾要够厚，擦开才有反差；但不能厚到雾态是一片空白 ——
-       没擦的地方也要看得见标本的影子。 */
-    glass.fillStyle = 'rgba(247,248,247,0.83)';
-    glass.fillRect(0, 0, W, H);
-    glass.globalAlpha = 0.52;
+    glass.globalAlpha = 0.62;
     glass.drawImage(elSpec, 0, 0, W, H);
     glass.globalAlpha = 1;
-    if (rev && maxClear > 0.02) {
-      const x0 = Math.max(0, rev.x0), y0 = Math.max(0, rev.y0);
-      const x1 = Math.min(W, rev.x1), y1 = Math.min(H, rev.y1);
-      glass.globalCompositeOperation = 'destination-out';
-      glass.drawImage(mask, x0 * dpr, y0 * dpr, (x1 - x0) * dpr, (y1 - y0) * dpr,
-                      x0, y0, x1 - x0, y1 - y0);
-      glass.globalCompositeOperation = 'source-over';
-    }
+    punch(glass);
   };
 
   /* ---------- 读数 ----------
@@ -827,7 +840,7 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     if (growing) for (let i = 0; i < GROW_PER_FRAME && growing; i++) growStep();
     projectAll();
     drawSpecimen();
-    drawGlass();
+    drawFog();
     drawTool();
     telemetry(now);
     raf = requestAnimationFrame(frame);
@@ -870,7 +883,7 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     if (reduced) {
       /* 尊重系统设置：长完、画一张静止的，不转也不搏动 */
       while (growing) growStep();
-      projectAll(); drawSpecimen(); drawGlass(); drawTool();
+      projectAll(); drawSpecimen(); drawFog(); drawTool();
     } else if (!raf) {
       raf = requestAnimationFrame(frame);
     }
@@ -890,7 +903,7 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
       setCam();
       if (reduced) {
         while (growing) growStep();
-        projectAll(); drawSpecimen(); drawGlass(); drawTool();
+        projectAll(); drawSpecimen(); drawFog(); drawTool();
       }
     }, 220);
   });
