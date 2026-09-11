@@ -47,6 +47,8 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
       </p>
     </div>
 
+    <pre class="telemetry mono" data-telemetry aria-hidden="true"></pre>
+
     <p class="hero-hint mono">wipe the glass to see the specimen &mdash; the fog comes back</p>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
@@ -103,7 +105,8 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
   const spec = document.querySelector('[data-spec]') as HTMLCanvasElement | null;
   const glass = document.querySelector('[data-glass]') as HTMLCanvasElement | null;
   const tool = document.querySelector('[data-tool]') as HTMLCanvasElement | null;
-  if (spec && glass && tool) initVascularWindow(spec, glass, tool);
+  const tel = document.querySelector('[data-telemetry]') as HTMLElement | null;
+  if (spec && glass && tool) initVascularWindow(spec, glass, tool, tel);
 </script>
 
 <style>
@@ -211,6 +214,23 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   /* --- 提示与滚动指示 --- */
 
+  /* 读数栏。卷宗有读数栏，所以它不是装饰 —— 而且一直在跳的数字
+     是画面「活着」的一部分，静止的构图靠它有了脉搏。 */
+  .telemetry {
+    position: absolute;
+    z-index: 4;
+    right: var(--gutter);
+    bottom: 2rem;
+    margin: 0;
+    font-size: 0.625rem;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+    white-space: pre;
+    pointer-events: none;
+    text-transform: none;
+  }
+
   .hero-hint {
     position: absolute;
     z-index: 4;
@@ -256,6 +276,9 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   @media (max-width: 640px) {
     .hero-hint { display: none; }
+
+    /* 竖屏放不下，读数栏只留前三行的位置 —— 与其挤成一坨不如不要 */
+    .telemetry { display: none; }
 
     /* 手机上标题别把整屏吃满，留出帘子透气的地方 */
     .hero-title { line-height: 1.04; }
