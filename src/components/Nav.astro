@@ -77,15 +77,18 @@ const isInfo = path.startsWith('/info');
     gap: 0.6rem;
   }
 
-  /* 品牌前的那道红线 —— 名字本身就是这个意思 */
+  /* 品牌标记：一个实心红点。
+     用 em 而不是 rem，这样它跟着字号走 —— 换字号时不用再调它。 */
   .brand-mark {
-    width: 1.4rem;
-    height: 2px;
+    width: 0.62em;
+    height: 0.62em;
+    border-radius: 50%;
     background: var(--red);
-    transition: width 0.35s var(--ease);
+    flex: none;                      /* 别被 flex 压扁成椭圆 */
+    transition: transform 0.35s var(--ease);
   }
 
-  .brand:hover .brand-mark { width: 2.2rem; }
+  .brand:hover .brand-mark { transform: scale(1.25); }
 
   .brand-name {
     font-family: var(--font-display);
