@@ -171,15 +171,6 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     pointer-events: none;
   }
 
-  /* 提示语按输入方式二选一。打字机脚本会逐行打出来，
-     所以不能靠 ::before 换内容 —— 那样打出来的还是原句。 */
-  .hint-touch { display: none; }
-
-  @media (hover: none), (pointer: coarse) {
-    .hint-hover { display: none; }
-    .hint-touch { display: block; }
-  }
-
   /* 磨砂的颗粒。铺整个首屏，标本和纸面吃同一层噪点，
      两者才像在同一张照片里 —— 只给标本加颗粒就会像贴上去的。
      静态的东西不该每帧在 canvas 里重画，所以放在 CSS 上。 */
@@ -241,6 +232,19 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
   }
 
   .t-line { display: block; }
+
+  /* 提示语按输入方式二选一。打字机脚本会逐行打出来，
+     所以不能靠 ::before 换内容 —— 那样打出来的还是原句。
+
+     必须写在 .t-line 之后、而且带上 .t-line：两条规则特异性一样时
+     后写的赢，之前放在前面，display:block 把 display:none 盖掉了，
+     于是两句同时出现。 */
+  .t-line.hint-touch { display: none; }
+
+  @media (hover: none), (pointer: coarse) {
+    .t-line.hint-hover { display: none; }
+    .t-line.hint-touch { display: block; }
+  }
 
   .t-mark { color: var(--red); }
   .t-dim { color: var(--ink-soft); }

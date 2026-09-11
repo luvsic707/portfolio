@@ -64,7 +64,9 @@ const REFOG = 0.0055;
 const LANDMARKS = 12;
 const PX_PER_CM = 5.2;
 const CALM_DELAY = 900;
-const SPIN = 0.0022;            // 闲置时的自转
+/* 闲置自转，弧度/帧。60fps 下 0.0011 约等于 90 秒转一圈 ——
+   能看出来在动，又不至于晃眼。 */
+const SPIN = 0.0011;
 
 const GX = 52, GY = 32;
 const BANDS = 4;                // 深度分层。近实远虚，空气透视
@@ -827,7 +829,12 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
       pitch = Math.max(-1.15, Math.min(1.15, pitch + vpitch));
       dragX = 0; dragY = 0;
     } else {
-      yaw += vyaw + SPIN * 0.016;     // 松手后接着滑，然后落到匀速自转
+      /* 松手后接着滑，然后落到匀速自转。
+         之前这里还乘了 0.016，转一圈要将近一小时，等于没转。 */
+      yaw += vyaw + SPIN;
+      /* 再叠一点极缓的俯仰摆动。只绕一个轴转的话，
+         读起来像转盘；带一点点点头，才像一件浮在液体里的东西。 */
+      pitch += Math.sin(now * 0.00011) * 0.0004;
       pitch = Math.max(-1.15, Math.min(1.15, pitch + vpitch));
       vyaw *= 0.94; vpitch *= 0.94;
       if (ptr.active && !calm) wipe();
