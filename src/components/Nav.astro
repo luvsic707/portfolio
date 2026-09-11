@@ -88,14 +88,16 @@ const isInfo = path.startsWith('/info');
     gap: 0.6rem;
   }
 
-  /* 品牌标记：一个实心红点。
-     用 em 而不是 rem，这样它跟着字号走 —— 换字号时不用再调它。 */
+  /* 品牌标记：一个中空的红圈。
+     用 em 而不是 rem，这样它跟着字号走 —— 换字号时不用再调它。
+     描边也用 em：圆变大时线跟着变粗，比例才不走形。 */
   .brand-mark {
     width: 0.86em;
     height: 0.86em;
+    border: 0.16em solid var(--red);
     border-radius: 50%;
-    background: var(--red);
     flex: none;                      /* 别被 flex 压扁成椭圆 */
+    box-sizing: border-box;          /* 描边算在尺寸里，否则会比实心那版大一圈 */
     transition: transform 0.35s var(--ease);
   }
 
