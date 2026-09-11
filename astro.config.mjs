@@ -9,12 +9,15 @@ import sitemap from '@astrojs/sitemap';
      PUBLIC_SITE_URL                  手动指定，最高优先
      VERCEL_PROJECT_PRODUCTION_URL    Vercel 上稳定的生产域名
                                       （之后绑了自定义域名，这里会自动变成它）
-     VERCEL_URL                       单次预览部署的地址
-     最后才回落到正式域名，本地开发也走这条 */
+     VERCEL_URL                       Vercel 单次部署的地址
+     CF_PAGES_URL                     Cloudflare Pages 的部署地址
+     最后才回落到正式域名，本地开发也走这条。
+     两家的变量都认，是因为换托管商不该需要改代码。 */
 const site =
   process.env.PUBLIC_SITE_URL
   || (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
   || (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`)
+  || process.env.CF_PAGES_URL
   || 'https://redthreadcreative.me';
 
 export default defineConfig({
