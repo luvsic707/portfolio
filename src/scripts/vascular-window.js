@@ -38,7 +38,11 @@ const RED = '196,22,50';
 const DEEP = '150,16,42';
 const DARK = '92,10,28';
 
-const ATTRACTORS = 8500;
+/* 规模按设备定。手机的 GPU 和内存带宽跟笔记本差一个数量级，
+   照桌面的量长，一帧要投影四万多个点，帧率掉到个位数 ——
+   而且生长本身就要跑很久，那段时间屏幕上什么都没有。 */
+const SMALL = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+const ATTRACTORS = SMALL ? 3200 : 8500;
 const ATTRACT_D = 88;
 const KILL_BASE = 10;
 
@@ -48,11 +52,11 @@ const AX = 1.25, AY = 0.95, AZ = 0.55;
 /* 每节的长度。短了更细腻，但节点预算会在铺满整个椭球之前用完，
    于是两头有东西、中间一个大洞 —— 覆盖比细腻重要。 */
 const SEG = 6.4;
-const MAX_NODES = 18000;
-const GROW_PER_FRAME = 14;
+const MAX_NODES = SMALL ? 6500 : 18000;
+const GROW_PER_FRAME = SMALL ? 26 : 14;
 
-const STIPPLE = 24000;          // 点云。每帧跟着相机重新投影
-const PULSES = 100;
+const STIPPLE = SMALL ? 7000 : 24000;   // 点云。每帧跟着相机重新投影
+const PULSES = SMALL ? 45 : 100;
 const PULSE_SPEED = 2.1;
 
 const BRUSH_R = 104;
@@ -541,11 +545,15 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
 
   const drawSpecimen = () => {
     spec.clearRect(0, 0, W, H);
-    if (growing || !dots) return;
+    if (count < 2) return;
+    /* 长的过程中也要画。以前这里是「还在长就直接 return」，
+       桌面上一两秒看不出来，手机上要好几秒 —— 那几秒屏幕全白，
+       看着就是坏了。边长边画，进场就有东西，而且能看着它长出来。 */
     spec.globalCompositeOperation = 'multiply';
 
     /* 点云。按深度分四层，近的实远的虚 —— 空气透视，
        这是三维读起来有前后的关键，比任何描边都管用。 */
+    if (dots) {
     const dp = [];
     for (let b = 0; b < BANDS * 2; b++) dp.push(new Path2D());
     for (let d = 0; d < dotN; d++) {
@@ -561,6 +569,7 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
       spec.fill(dp[b * 2]);
       spec.fillStyle = `rgba(${RED},${0.11 * k})`;
       spec.fill(dp[b * 2 + 1]);
+    }
     }
 
     /* 血管。深度 × 粗细分组，每组一次 stroke ——
@@ -590,6 +599,7 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
     }
 
     /* 血 */
+    if (!growing) {
     stepPulses();
     const a = [0, 0, 0];
     for (const p of pulses) {
@@ -603,6 +613,7 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
       spec.beginPath();
       spec.moveTo(a[0], a[1]); spec.lineTo(one[0], one[1]);
       spec.stroke();
+    }
     }
     spec.globalCompositeOperation = 'source-over';
   };

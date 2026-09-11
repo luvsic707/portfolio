@@ -53,7 +53,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
         <p class="t-line t-dim" data-line>____&gt; a multi-hyphenate by passion &gt;&gt;__and&nbsp;by&nbsp;self-proclamation</p>
 
-        <p class="t-line t-faint" data-line><span class="t-mark">&gt;</span> move to wipe the glass &middot; drag to rotate the specimen</p>
+        <!-- 触屏没有悬停，「移动光标」这句在手机上是假的。
+             两句都写进来，用 CSS 按输入方式留一句。 -->
+        <p class="t-line t-faint hint-hover" data-line><span class="t-mark">&gt;</span> move to wipe the glass &middot; drag to rotate the specimen</p>
+        <p class="t-line t-faint hint-touch" data-line><span class="t-mark">&gt;</span> drag to rotate the specimen &middot; swipe to wipe the glass</p>
       </div>
     </div>
 
@@ -166,6 +169,15 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     width: 0;
     height: 0;
     pointer-events: none;
+  }
+
+  /* 提示语按输入方式二选一。打字机脚本会逐行打出来，
+     所以不能靠 ::before 换内容 —— 那样打出来的还是原句。 */
+  .hint-touch { display: none; }
+
+  @media (hover: none), (pointer: coarse) {
+    .hint-hover { display: none; }
+    .hint-touch { display: block; }
   }
 
   /* 磨砂的颗粒。铺整个首屏，标本和纸面吃同一层噪点，
