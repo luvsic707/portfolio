@@ -12,7 +12,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
 <Base>
 
-  <!-- ==================== 首屏：细胞场 ==================== -->
+  <!-- ==================== 首屏：观察窗 ==================== -->
   <section class="hero">
     <canvas class="field" data-table aria-hidden="true"></canvas>
 
@@ -30,7 +30,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
       </p>
     </div>
 
-    <p class="hero-hint mono">move to measure &mdash; let go and the table re-settles</p>
+    <p class="hero-hint mono">wipe the glass to see the specimen &mdash; the fog comes back</p>
 
     <a href="#work" class="hero-cue mono" aria-label="Scroll to work">
       SCROLL <span class="cue-arrow">↓</span>
@@ -81,10 +81,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 </Base>
 
 <script>
-  import { initHairline } from '../scripts/hairline.js';
+  import { initObservationWindow } from '../scripts/observation-window.js';
 
   const canvas = document.querySelector('[data-table]');
-  if (canvas) initHairline(canvas as HTMLCanvasElement);
+  if (canvas) initObservationWindow(canvas as HTMLCanvasElement);
 </script>
 
 <style>
@@ -214,7 +214,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   /* 触屏上换个说法 —— 没有「拖拽」只有「按」 */
   @media (hover: none), (pointer: coarse) {
-    .hero-hint::before { content: 'touch to measure — let go and the table re-settles'; }
+    .hero-hint::before { content: 'wipe the glass to see the specimen — the fog comes back'; }
     .hero-hint { font-size: 0; letter-spacing: 0; }
     .hero-hint::before { font-size: var(--step--1); letter-spacing: 0.06em; }
   }
