@@ -48,10 +48,10 @@ const AX = 1.25, AY = 0.95, AZ = 0.55;
 /* 每节的长度。短了更细腻，但节点预算会在铺满整个椭球之前用完，
    于是两头有东西、中间一个大洞 —— 覆盖比细腻重要。 */
 const SEG = 6.4;
-const MAX_NODES = 16000;
+const MAX_NODES = 18000;
 const GROW_PER_FRAME = 14;
 
-const STIPPLE = 20000;          // 点云。每帧跟着相机重新投影
+const STIPPLE = 24000;          // 点云。每帧跟着相机重新投影
 const PULSES = 100;
 const PULSE_SPEED = 2.1;
 
@@ -304,8 +304,10 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     for (let i = count - 1; i >= 0; i--) {
       if (kids[i].length) {
         let s = 0;
-        for (const k of kids[i]) s += Math.pow(nw[k], 2.4);
-        nw[i] = Math.pow(s, 1 / 2.4);
+        /* 指数越小，父枝相对子枝越粗。2.4 是生理上偏准的值，
+           但画面上主干和末梢拉不开；2.05 让少数主干真正粗壮起来。 */
+        for (const k of kids[i]) s += Math.pow(nw[k], 2.05);
+        nw[i] = Math.pow(s, 1 / 2.05);
       }
       if (nw[i] === 0) nw[i] = 0.5;
     }
@@ -321,12 +323,28 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     const segs = [];
     for (let i = 0; i < count; i++) if (npar[i] >= 0) segs.push(i);
     if (!segs.length) return;
+
+    /* 按粗细加权抽样。均匀抽的话点会平摊在几万根毛细血管上，
+       主干周围反而没有肉 —— 量感就出不来。 */
+    const cum = new Float64Array(segs.length);
+    let tot = 0;
+    for (let k = 0; k < segs.length; k++) {
+      tot += Math.pow(Math.min(9, nw[segs[k]]), 1.7);
+      cum[k] = tot;
+    }
+    const pickSeg = () => {
+      const r = Math.random() * tot;
+      let lo = 0, hi = segs.length - 1;
+      while (lo < hi) { const m = (lo + hi) >> 1; if (cum[m] < r) lo = m + 1; else hi = m; }
+      return segs[lo];
+    };
+
     dotN = Math.min(STIPPLE, segs.length * 5);
     dots = new Float32Array(dotN * 4);
     for (let d = 0; d < dotN; d++) {
-      const i = segs[(Math.random() * segs.length) | 0];
+      const i = pickSeg();
       const p = npar[i];
-      const w = Math.min(5.4, nw[i]);
+      const w = Math.min(9, nw[i]);
       const t = Math.random();
       /* 两层：紧贴血管的一层，和向外弥散的一层组织雾 */
       const wide = Math.random() < 0.36;
@@ -449,7 +467,7 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
        也就是四边都出血，主视觉铺满整屏。 */
     R = Math.max(W, H) * 0.42;
     FOV = R * 2.3;
-    ZOOM = 1.3;
+    ZOOM = 1.46;
 
     [mask, kctx] = mk(pw, ph);
     clarity = new Float32Array(GX * GY);
@@ -711,9 +729,9 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     glass.clearRect(0, 0, W, H);
     /* 雾要够厚，擦开才有反差；但不能厚到雾态是一片空白 ——
        没擦的地方也要看得见标本的影子。 */
-    glass.fillStyle = 'rgba(247,248,247,0.86)';
+    glass.fillStyle = 'rgba(247,248,247,0.83)';
     glass.fillRect(0, 0, W, H);
-    glass.globalAlpha = 0.42;
+    glass.globalAlpha = 0.52;
     glass.drawImage(elSpec, 0, 0, W, H);
     glass.globalAlpha = 1;
     if (rev && maxClear > 0.02) {
