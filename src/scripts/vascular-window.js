@@ -38,16 +38,20 @@ const RED = '196,22,50';
 const DEEP = '150,16,42';
 const DARK = '92,10,28';
 
-const ATTRACTORS = 7000;
+const ATTRACTORS = 8500;
 const ATTRACT_D = 88;
-const KILL_BASE = 11;
+const KILL_BASE = 10;
+
+/* 体积的长宽高比。横屏里长一个正球，上下会被裁掉一大截、
+   左右又空着 —— 节点都长在看不见的地方。按画面的比例配。 */
+const AX = 1.25, AY = 0.95, AZ = 0.55;
 /* 每节的长度。短了更细腻，但节点预算会在铺满整个椭球之前用完，
    于是两头有东西、中间一个大洞 —— 覆盖比细腻重要。 */
-const SEG = 6.8;
-const MAX_NODES = 13000;
+const SEG = 6.4;
+const MAX_NODES = 16000;
 const GROW_PER_FRAME = 14;
 
-const STIPPLE = 12000;          // 点云。每帧跟着相机重新投影
+const STIPPLE = 20000;          // 点云。每帧跟着相机重新投影
 const PULSES = 100;
 const PULSE_SPEED = 2.1;
 
@@ -189,10 +193,10 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
     let guard = 0;
     while (attr.length < ATTRACTORS * 3 && guard < ATTRACTORS * 30) {
       guard++;
-      const x = rand(-R * 1.2, R * 1.2);
-      const y = rand(-R * 1.2, R * 1.2);
-      const z = rand(-R * 0.62, R * 0.62);
-      const r = Math.hypot(x, y, z * 1.6) / R;
+      const x = rand(-R * AX * 1.2, R * AX * 1.2);
+      const y = rand(-R * AY * 1.2, R * AY * 1.2);
+      const z = rand(-R * AZ * 1.2, R * AZ * 1.2);
+      const r = Math.hypot(x / AX, y / AY, z / AZ) / R;
       if (r > shell(Math.atan2(y, x), Math.atan2(z, Math.hypot(x, y)))) continue;
       if (Math.random() > density(x, y, z) * 1.25) continue;
       attr.push(x, y, z);
@@ -204,10 +208,10 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
        根的位置必须从生长素里反推 —— 直接按比例摆在椭球外面，
        它离最近的生长素有几百像素，而吸引半径只有九十几，
        于是一个生长素也召唤不到它，第一步就停了。 */
-    /* 只留一个门。真血管就是从一个点进器官的（肺门、肾门），
-       而且单根的树会自己把整个体积填匀 ——
-       两个根各长各的，预算一半一半，中间那块谁也长不到。 */
-    const tx = 0, ty = R * 0.36, tz = 0;
+    /* 只留一个门 —— 两个根各长各的，预算一半一半，中间那块谁也长不到。
+       门放在体积中心偏上：放在底边的话树呈扇形往上散，
+       四个角永远是空的，铺不满整屏。从中心出发才会朝各个方向铺开。 */
+    const tx = 0, ty = -R * AY * 0.12, tz = 0;
     let best = -1, bd = Infinity;
     for (let a = 0; a < attr.length; a += 3) {
       const d = (attr[a] - tx) ** 2 + (attr[a + 1] - ty) ** 2 + (attr[a + 2] - tz) ** 2;
@@ -326,7 +330,7 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
       const t = Math.random();
       /* 两层：紧贴血管的一层，和向外弥散的一层组织雾 */
       const wide = Math.random() < 0.36;
-      const sd = wide ? 7 + w * 7 : 0.6 + w * 1.3;
+      const sd = wide ? 9 + w * 8 : 0.6 + w * 1.3;
       const g = () => (Math.random() + Math.random() + Math.random() - 1.5) * sd;
       dots[d * 4] = nx[p] + (nx[i] - nx[p]) * t + g();
       dots[d * 4 + 1] = ny[p] + (ny[i] - ny[p]) * t + g();
@@ -437,13 +441,15 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.lineCap = 'round'; g.lineJoin = 'round';
     }
-    vx0 = W * (W < 760 ? 0.5 : 0.58);
-    vy0 = H * 0.5;
-    /* 椭球的体积按 R³ 涨。R 定得太大，一万三千节铺不满，
-       结果就是长了一半停在那儿。宁可小一点、长满。 */
-    R = Math.max(W, H) * 0.4;
+    vx0 = W * (W < 760 ? 0.5 : 0.56);
+    vy0 = H * 0.48;
+    /* 椭球的体积按 R³ 涨。R 定得太大，节点预算铺不满，
+       结果就是长了一半停在那儿。宁可小一点、长满。
+       配合 AX/AY/AZ 和 ZOOM，投影出来横向半径约 0.6 个画面宽 ——
+       也就是四边都出血，主视觉铺满整屏。 */
+    R = Math.max(W, H) * 0.42;
     FOV = R * 2.3;
-    ZOOM = 1.12;
+    ZOOM = 1.3;
 
     [mask, kctx] = mk(pw, ph);
     clarity = new Float32Array(GX * GY);
@@ -534,7 +540,7 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
       const k = 0.28 + b * 0.28;
       spec.fillStyle = `rgba(${DARK},${0.2 * k})`;
       spec.fill(dp[b * 2]);
-      spec.fillStyle = `rgba(${RED},${0.09 * k})`;
+      spec.fillStyle = `rgba(${RED},${0.11 * k})`;
       spec.fill(dp[b * 2 + 1]);
     }
 
@@ -757,9 +763,13 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
   let fpsAvg = 16, lastNow = 0, degraded = false;
 
   const frame = (now) => {
-    if (lastNow) {
-      fpsAvg += (Math.min(60, now - lastNow) - fpsAvg) * 0.05;
-      if (!degraded && fpsAvg > 27 && now > 4000) { degraded = true; dotN = (dotN / 2) | 0; }
+    /* 被浏览器挂起（切后台、面板隐藏）时帧间隔会到几百毫秒。
+       那种帧不能计入平均，否则假卡顿会把画质降下去再也不升回来。
+       真卡顿在 20–40ms 这一档，50ms 以上一律当成挂起丢掉。 */
+    const dt = now - lastNow;
+    if (lastNow && dt > 0 && dt < 50) {
+      fpsAvg += (dt - fpsAvg) * 0.05;
+      if (!degraded && fpsAvg > 26 && now > 5000) { degraded = true; dotN = (dotN / 2) | 0; }
     }
     lastNow = now;
 
@@ -871,6 +881,6 @@ export function initVascularWindow(elSpec, elGlass, elTool, elTel) {
   document.addEventListener('visibilitychange', () => {
     if (reduced) return;
     if (document.hidden) { cancelAnimationFrame(raf); raf = 0; }
-    else if (!raf) raf = requestAnimationFrame(frame);
+    else if (!raf) { lastNow = 0; raf = requestAnimationFrame(frame); }
   });
 }
