@@ -2,33 +2,34 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 /* site 用来生成 canonical、sitemap 和分享卡片里的绝对图片地址。
-   写死域名的话，在 vercel.app 上线期间分享出去的卡片
-   会把图片指向 redthreadcreative.me —— 那上面还是旧的 Cargo 站，
-   没有这些文件，于是预览图是坏的。所以跟着实际部署走：
 
-     PUBLIC_SITE_URL                  手动指定，最高优先
-     VERCEL_PROJECT_PRODUCTION_URL    Vercel 上稳定的生产域名
-                                      （之后绑了自定义域名，这里会自动变成它）
-     VERCEL_URL                       Vercel 单次部署的地址
-     CF_PAGES_URL                     Cloudflare Pages 的部署地址
-     最后才回落到正式域名，本地开发也走这条。
-     两家的变量都认，是因为换托管商不该需要改代码。 */
+   自定义域名接上之后，生产部署必须用正式域名 —— 再用 pages.dev 的话，
+   同一份内容挂在两个地址上，搜索引擎会各自收录，
+   分享卡片也会显示一个临时地址。所以正式域名的优先级要在
+   Cloudflare / Vercel 给的部署地址之上。
 
-/* Cloudflare 的 CF_PAGES_URL 是「这一次部署」的地址，前面挂着一段哈希
-   （https://2413b43b.redthreadrehab.pages.dev），每次部署都不一样。
-   canonical 和分享卡片指向一个会过期的地址是错的，所以生产分支上
-   把那一段去掉，得到稳定的项目域名；预览分支保留哈希，那本来就该各自独立。 */
-const cf = process.env.CF_PAGES_URL;
-const cfSite = cf && process.env.CF_PAGES_BRANCH === 'main'
-  ? cf.replace(/^https:\/\/[0-9a-f]{6,12}\./, 'https://')
-  : cf;
+   预览分支反过来：它该描述自己，不该冒充生产环境。
+
+     PUBLIC_SITE_URL   手动覆盖，最高优先
+     生产分支          正式域名
+     预览部署          它自己那次部署的地址
+     本地开发          正式域名（本地的 canonical 无所谓） */
+const PRODUCTION = 'https://www.redthreadcreative.me';
+
+const onProdBranch =
+  process.env.CF_PAGES_BRANCH === 'main' ||
+  process.env.VERCEL_ENV === 'production';
+
+const previewUrl =
+  (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`) ||
+  process.env.CF_PAGES_URL ||
+  null;
 
 const site =
   process.env.PUBLIC_SITE_URL
-  || (process.env.VERCEL_PROJECT_PRODUCTION_URL && `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`)
-  || (process.env.VERCEL_URL && `https://${process.env.VERCEL_URL}`)
-  || cfSite
-  || 'https://redthreadcreative.me';
+  || (onProdBranch ? PRODUCTION : null)
+  || previewUrl
+  || PRODUCTION;
 
 export default defineConfig({
   site,
