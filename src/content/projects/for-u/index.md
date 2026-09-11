@@ -84,3 +84,9 @@ frequencies from the preceding stages.
 The point generalises beyond this one fix: in human–AI co-creation the designer's value
 lies not in accepting generated code, but in remaining the final arbiter of the work's
 meaning-making logic and its ethical boundaries.
+
+## D — SEE IT IN ACTION
+
+The full walkthrough, all six stages end to end.
+
+<div class="tube" data-tube="uL9cSwGb98E" data-tube-label="For U — full walkthrough"></div>
