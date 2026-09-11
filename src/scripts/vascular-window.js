@@ -674,17 +674,41 @@ export function initVascularWindow(elSpec, elVeil, elGlass, elTool, elTel) {
     if (hover > 0.02) {
       const down = ptr.down ? 1 : 0;
       const rr = BRUSH_R * (0.3 + down * 0.08);
+      const arm = 10 + down * 2;
       const a = Math.PI / 4 * down;
-      tool.strokeStyle = `rgba(${RED},${0.85 * hover})`;
-      tool.lineWidth = 1;
-      tool.beginPath(); tool.arc(ptr.x, ptr.y, rr, 0, 6.283); tool.stroke();
+
       tool.save();
       tool.translate(ptr.x, ptr.y);
-      tool.rotate(a);
+      tool.lineCap = 'round';
+
+      /* 先用纸色描一道更粗的底。标本上深浅差别很大，
+         只画红线的话，压到深色主干上就看不见了 —— 光标不能有看不见的时候。 */
+      const halo = `rgba(247,248,247,${0.75 * hover})`;
+      const ink = `rgba(${RED},${0.98 * hover})`;
+
+      for (const [style, w] of [[halo, 4], [ink, 1.6]]) {
+        tool.strokeStyle = style;
+        tool.lineWidth = w;
+        tool.beginPath();
+        tool.arc(0, 0, rr, 0, 6.283);
+        tool.stroke();
+        tool.save();
+        tool.rotate(a);
+        tool.beginPath();
+        tool.moveTo(-arm, 0); tool.lineTo(-3.5, 0);
+        tool.moveTo(3.5, 0);  tool.lineTo(arm, 0);
+        tool.moveTo(0, -arm); tool.lineTo(0, -3.5);
+        tool.moveTo(0, 3.5);  tool.lineTo(0, arm);
+        tool.stroke();
+        tool.restore();
+      }
+
+      /* 正中一个实心点：既是精确的落点，也和导航栏的红点是同一个形 */
+      tool.fillStyle = ink;
       tool.beginPath();
-      tool.moveTo(-7, 0); tool.lineTo(7, 0);
-      tool.moveTo(0, -7); tool.lineTo(0, 7);
-      tool.stroke();
+      tool.arc(0, 0, 2.1, 0, 6.283);
+      tool.fill();
+
       tool.restore();
     }
 
