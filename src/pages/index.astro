@@ -14,7 +14,24 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   <!-- ==================== 首屏：观察窗 ==================== -->
   <section class="hero">
-    <canvas class="field" data-table aria-hidden="true"></canvas>
+    <!-- 标本 / 玻璃 / 仪器。分三块是因为它们该被区别对待：
+         只有玻璃层挂折射滤镜，仪器层永远清楚。 -->
+    <canvas class="lyr lyr-spec" data-spec aria-hidden="true"></canvas>
+    <canvas class="lyr lyr-glass" data-glass aria-hidden="true"></canvas>
+    <canvas class="lyr lyr-tool" data-tool aria-hidden="true"></canvas>
+
+    <!-- 真磨砂玻璃是折射不是模糊：湍流把背后的像素推歪，
+         玻璃才有透镜感。顺带把擦出来的洞口边缘也打碎。 -->
+    <svg class="filters" aria-hidden="true" focusable="false">
+      <filter id="frost" x="-6%" y="-6%" width="112%" height="112%"
+              color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.016 0.021"
+                      numOctaves="4" seed="11" result="n" />
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="34"
+                           xChannelSelector="R" yChannelSelector="G" result="d" />
+        <feGaussianBlur in="d" stdDeviation="1.4" />
+      </filter>
+    </svg>
 
     <div class="wrap hero-inner">
       <p class="hero-eyebrow mono">MULTIDISCIPLINARY ARTIST &amp; DESIGNER · BOSTON</p>
@@ -81,10 +98,12 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 </Base>
 
 <script>
-  import { initObservationWindow } from '../scripts/observation-window.js';
+  import { initVascularWindow } from '../scripts/vascular-window.js';
 
-  const canvas = document.querySelector('[data-table]');
-  if (canvas) initObservationWindow(canvas as HTMLCanvasElement);
+  const spec = document.querySelector('[data-spec]') as HTMLCanvasElement | null;
+  const glass = document.querySelector('[data-glass]') as HTMLCanvasElement | null;
+  const tool = document.querySelector('[data-tool]') as HTMLCanvasElement | null;
+  if (spec && glass && tool) initVascularWindow(spec, glass, tool);
 </script>
 
 <style>
@@ -99,14 +118,30 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     overflow: hidden;
   }
 
-  .field {
+  .lyr {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
-    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着划才在台面上推 */
+    pointer-events: none;
+  }
+
+  .lyr-spec  { z-index: 0; }
+  .lyr-glass { z-index: 1; filter: url(#frost); }
+
+  /* 仪器层在最上面，也是唯一接事件的那层 —— 整屏都是活动范围 */
+  .lyr-tool {
+    z-index: 2;
+    pointer-events: auto;
+    touch-action: pan-y;   /* 手机上竖着滑还能滚页面，横着划才擦玻璃 */
     cursor: crosshair;
+  }
+
+  .filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
   }
 
   /* 磨砂的颗粒。铺整个首屏，标本和纸面吃同一层噪点，
@@ -116,7 +151,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
     content: '';
     position: absolute;
     inset: 0;
-    z-index: 2;
+    z-index: 3;
     pointer-events: none;
     opacity: 0.42;
     mix-blend-mode: multiply;
@@ -127,7 +162,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-inner {
     position: relative;
-    z-index: 3;
+    z-index: 4;
     padding-top: 4rem;
     pointer-events: none;   /* 光标要能穿过文字去量台面 */
   }
@@ -178,7 +213,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-hint {
     position: absolute;
-    z-index: 3;
+    z-index: 4;
     left: var(--gutter);
     bottom: 4.5rem;
     color: var(--ink-faint);
@@ -189,7 +224,7 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero-cue {
     position: absolute;
-    z-index: 4;
+    z-index: 5;
     left: var(--gutter);
     bottom: 2rem;
     display: inline-flex;
