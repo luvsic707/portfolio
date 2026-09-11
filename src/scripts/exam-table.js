@@ -23,10 +23,7 @@ const INK = '16,19,20';
 const PAPER = '247,248,247';
 
 const SPECIMENS = 9;
-/* 烘焙分辨率的倒数，也就是磨砂的程度。
-   调大了确实更像磨砂玻璃，但轮廓会糊成一团 —— 形没了，意义也就没了。
-   2.4 是还能认出是颗牙、是只耳朵的上限。 */
-const UP = 2.4;
+const WASH_LO = 5;              // 底色那一层的降采样倍数，只有它是糊的
 const CALM_DELAY = 1100;
 const PX_PER_CM = 5.2;          // 画面尺度换算成标注上的厘米
 const PUSH_RADIUS = 210;
@@ -35,20 +32,14 @@ const rand = (a, b) => a + Math.random() * (b - a);
 const pick = (a) => a[Math.floor(Math.random() * a.length)];
 const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
-/* 冷调虹彩。暖层和冷层各一套，错位相乘 —— 参考的是隔着磨砂玻璃的那只手：
-   主体压成紫灰，边上漏出暖橙和青绿。
-   三个色标分别是：淡处 / 中间调 / 核。
-   必须起得很淡 —— 两层相乘会把明度压掉一大半，
-   按「看起来对」的深浅去配，相乘出来就是一摊墨。 */
-const WARM = [
-  ['#F1DDD2', '#D9A9AC', '#B4737C'],
-  ['#EFDCC9', '#D5A2A0', '#B07179'],
-  ['#F2DECF', '#D29CA6', '#AC6E80'],
-];
-const COOL = [
-  ['#D9D4E8', '#AEC5C8', '#7E7FA8'],
-  ['#D5D0E6', '#B3C7BF', '#787CA4'],
-  ['#D8D2E4', '#A9C0CE', '#8480AA'],
+/* 彩铅色系。每件标本抽一组，组里四支笔：深、中、浅，外加一支对比色。
+   对比色是关键 —— 参考图那颗牙之所以好看，是品红里压着青绿，
+   不是因为紫画得准。一组颜色只在自己的色相里叠，画面必灰。 */
+const FAMILIES = [
+  { deep: '#6E2A5E', mid: '#A24C87', lite: '#DFB6D0', cool: '#4E8FA0' },
+  { deep: '#4A3B86', mid: '#7361AC', lite: '#C6C2E4', cool: '#4E9A92' },
+  { deep: '#2F6B72', mid: '#559A9C', lite: '#C2DDD7', cool: '#9A4E86' },
+  { deep: '#7B3350', mid: '#B06277', lite: '#E6C3C7', cool: '#5E7FB0' },
 ];
 
 /* 高斯突起。把一个正圆在指定角度上鼓出来或按下去，
@@ -106,100 +97,134 @@ export function initExamTable(canvas) {
 
   /* ---------- 标本 ---------- */
 
-  /* 烘焙一件标本。低分辨率画好，主循环里放大 UP 倍贴出去。 */
+  /* 烘焙一件标本，1:1 画，一次画完存起来，主循环只负责贴。
+     三层，顺序就是画彩铅的顺序：
+       底色 —— 降采样再放大，湿的、漫射的，负责大关系
+       排线 —— 全分辨率几百笔，负责质感
+       轮廓 —— 一道定形的线，负责「这是一件东西」
+     之前只有第一层，所以凑近看什么都没有，就是一团雾。 */
   const bake = (w, h) => {
-    const iw = Math.max(6, Math.round(w / UP));
-    const ih = Math.max(6, Math.round(h / UP));
-    const pad = 12;                       // 低分辨率下的留边，放大后是漫射的余地
-    const cw = iw + pad * 2, ch = ih + pad * 2;
-
+    const fam = pick(FAMILIES);
+    const form = pick(SHAPES);
     /* 一个有名字的轮廓，再叠一点点谐波抖动 ——
        完全规整就成了图标，抖动是为了让它像一件东西而不是一个符号 */
-    const form = pick(SHAPES);
     const jitter = [
       { f: 3, p: rand(0, 6.283), a: rand(0.02, 0.055) },
       { f: 7, p: rand(0, 6.283), a: rand(0.01, 0.03) },
     ];
 
-    const blob = (g, ox, oy, rx, ry, k0) => {
-      g.beginPath();
-      const N = 90;
+    const pad = Math.round(Math.max(w, h) * 0.12);
+    const cw = Math.round(w) + pad * 2, ch = Math.round(h) + pad * 2;
+    const ox = cw / 2, oy = ch / 2;
+    const rx = w / 2 / 1.5, ry = h / 2 / 1.5;   // 轮廓函数最大能到 1.5
+    const rad = Math.max(rx, ry);
+
+    const trace = (dx, dy) => {
+      const p = new Path2D();
+      const N = 180;
       for (let i = 0; i <= N; i++) {
         const a = (i / N) * Math.PI * 2;
-        let k = form(a) * k0;
+        let k = form(a);
         for (const t of jitter) k += Math.sin(a * t.f + t.p) * t.a;
-        const x = ox + Math.cos(a) * rx * k;
-        const y = oy + Math.sin(a) * ry * k;
-        if (i) g.lineTo(x, y); else g.moveTo(x, y);
+        const x = ox + dx + Math.cos(a) * rx * k;
+        const y = oy + dy + Math.sin(a) * ry * k;
+        if (i) p.lineTo(x, y); else p.moveTo(x, y);
       }
-      g.closePath();
+      p.closePath();
+      return p;
+    };
+    const shape = trace(0, 0);
+
+    const cv = document.createElement('canvas');
+    cv.width = cw; cv.height = ch;
+    const g = cv.getContext('2d');
+
+    /* 光从左上来，核落在背光那一侧 */
+    const la = -2.3 + rand(-0.45, 0.45);
+    const cosl = Math.cos(la), sinl = Math.sin(la);
+    const kx = ox - cosl * rx * 0.3, ky = oy - sinl * ry * 0.3;
+    const shadeAt = (x, y) => {
+      const lit = ((x - ox) * cosl + (y - oy) * sinl) / rad;
+      const d = Math.hypot((x - kx) / rad, (y - ky) / rad);
+      return clamp01(0.52 - lit * 0.42 + (1 - Math.min(1, d)) * 0.3);
     };
 
-    /* 核和高光都用径向渐变，不用第二个多边形。
-       用多边形的话，放大之后那圈边还是看得出来，
-       每件标本里都卧着同一个月牙 —— 一眼就是模板，不是标本。 */
-    const layer = (stops, sx, sy, ang) => {
-      const cv = document.createElement('canvas');
-      cv.width = cw; cv.height = ch;
-      const g = cv.getContext('2d');
-      const ox = cw / 2 + sx, oy = ch / 2 + sy;
-      const rx = iw / 2 / 1.5, ry = ih / 2 / 1.5;   // 轮廓函数最大能到 1.5
-      const rad = Math.max(rx, ry);
+    /* ---- 1. 底色 ---- */
+    const sw = Math.max(4, Math.round(cw / WASH_LO));
+    const sh = Math.max(4, Math.round(ch / WASH_LO));
+    const wash = document.createElement('canvas');
+    wash.width = sw; wash.height = sh;
+    const wg = wash.getContext('2d');
+    wg.scale(sw / cw, sh / ch);
+    wg.clip(shape);
+    const gr = wg.createLinearGradient(ox + cosl * rx, oy + sinl * ry,
+                                       ox - cosl * rx, oy - sinl * ry);
+    gr.addColorStop(0, hexa(fam.lite, 0.85));
+    gr.addColorStop(1, hexa(fam.mid, 0.9));
+    wg.fillStyle = gr;
+    wg.fillRect(0, 0, cw, ch);
+    const core = wg.createRadialGradient(kx, ky, 0, kx, ky, rad * 0.8);
+    core.addColorStop(0, hexa(fam.deep, 0.7));
+    core.addColorStop(1, hexa(fam.deep, 0));
+    wg.fillStyle = core;
+    wg.fillRect(0, 0, cw, ch);
 
-      blob(g, ox, oy, rx, ry, 1);
-      g.save();
-      g.clip();
+    g.imageSmoothingEnabled = true;
+    g.imageSmoothingQuality = 'high';
+    g.globalAlpha = 0.8;
+    g.drawImage(wash, 0, 0, cw, ch);
+    g.globalAlpha = 1;
 
-      const ca = Math.cos(ang), sa = Math.sin(ang);
-      const gr = g.createLinearGradient(ox - ca * rx, oy - sa * ry, ox + ca * rx, oy + sa * ry);
-      gr.addColorStop(0, stops[0]);
-      gr.addColorStop(1, stops[1]);
-      g.fillStyle = gr;
-      g.fillRect(0, 0, cw, ch);
+    /* ---- 2. 排线 ---- */
+    g.save();
+    g.clip(shape);
+    g.lineCap = 'round';
+    const target = Math.round((w * h) / 95);
+    for (let i = 0, guard = 0; i < target && guard < target * 14; guard++) {
+      const x = rand(pad * 0.4, cw - pad * 0.4);
+      const y = rand(pad * 0.4, ch - pad * 0.4);
+      if (!g.isPointInPath(shape, x, y)) continue;
+      const s = shadeAt(x, y);
+      /* 亮的地方少下笔，高光那一块几乎留白 —— 彩铅的亮部是纸，不是白颜料 */
+      if (Math.random() > 0.18 + s * 1.05) continue;
+      i++;
 
-      /* 偏心的深核 —— 参考的是那颗牙的牙髓腔。
-         少了这一层，标本就是一块平色斑，没有体积。 */
-      const kx = ox + rx * 0.12, ky = oy + ry * 0.16;
-      const core = g.createRadialGradient(kx, ky, 0, kx, ky, rad * 0.72);
-      core.addColorStop(0, hexa(stops[2], 0.9));
-      core.addColorStop(0.5, hexa(stops[2], 0.42));
-      core.addColorStop(1, hexa(stops[2], 0));
-      g.fillStyle = core;
-      g.fillRect(0, 0, cw, ch);
+      /* 笔顺沿着形走：垂直于从中心出发的半径。
+         乱下笔看着像噪点，顺着形走才叫塑形 */
+      const ra = Math.atan2((y - oy) / ry, (x - ox) / rx);
+      /* 长短两种笔混着下。全是短的会织成一层毛，
+         得有几笔长的扫过去，才像是画的而不是长出来的。 */
+      const long = Math.random() < 0.3;
+      const dir = ra + Math.PI / 2 + rand(-0.34, 0.34) * (long ? 0.4 : 1);
+      const len = rad * (long ? rand(0.22, 0.46) : rand(0.05, 0.15));
+      const ux = Math.cos(dir) * len * 0.5, uy = Math.sin(dir) * len * 0.5;
+      const bow = rand(-0.3, 0.3);
 
-      /* 朝光那一侧的反光：湿的东西都有，参考图里那几只猪耳朵上都是 */
-      g.globalCompositeOperation = 'lighten';
-      const hx = ox - rx * 0.3, hy = oy - ry * 0.34;
-      /* 只能是一小块。铺满整个形的话，反光就不是反光，是把形洗白了 */
-      const sheen = g.createRadialGradient(hx, hy, 0, hx, hy, rad * 0.48);
-      sheen.addColorStop(0, hexa(stops[0], 0.8));
-      sheen.addColorStop(1, hexa(stops[0], 0));
-      g.fillStyle = sheen;
-      g.fillRect(0, 0, cw, ch);
+      const accent = Math.random() < 0.16;
+      const col = accent ? fam.cool : s > 0.66 ? fam.deep : s > 0.4 ? fam.mid : fam.lite;
+      g.strokeStyle = hexa(col, rand(0.05, 0.17) * (0.4 + s) * (long ? 0.6 : 1));
+      g.lineWidth = long ? rand(0.5, 1.1) : rand(0.7, 1.8);
+      g.beginPath();
+      g.moveTo(x - ux, y - uy);
+      g.quadraticCurveTo(x - uy * bow, y + ux * bow, x + ux, y + uy);
+      g.stroke();
+    }
+    g.restore();
 
-      g.restore();
-      return cv;
-    };
+    /* ---- 3. 轮廓 ----
+       两道错开的彩边留住参考图一那点色散，中间一道深色定形。
+       没有这道线，排线就是飘在纸上的一片毛。 */
+    g.lineWidth = Math.max(0.8, rad * 0.012);
+    g.strokeStyle = hexa(fam.cool, 0.3);
+    g.stroke(trace(-1.4, -0.9));
+    g.strokeStyle = hexa(fam.mid, 0.26);
+    g.stroke(trace(1.4, 0.9));
+    g.strokeStyle = hexa(fam.deep, 0.55);
+    g.stroke(shape);
 
-    /* 偏移量按低分辨率算，放大后就是几个像素的色散。
-       两层的渐变角度也错开 —— 只错位置只在边上出彩边，
-       连角度一起错，整个形体内部才有冷暖的流动。 */
-    const d = 1.6;
-    const ang = rand(0, 6.283);
-    const cool = layer(pick(COOL), -d, -d * 0.6, ang + 0.8);
-    const warm = layer(pick(WARM), d, d * 0.6, ang);
-
-    const out = document.createElement('canvas');
-    out.width = cw; out.height = ch;
-    const o = out.getContext('2d');
-    o.globalAlpha = 0.94;
-    o.drawImage(cool, 0, 0);
-    o.globalCompositeOperation = 'multiply';
-    o.globalAlpha = 0.9;
-    o.drawImage(warm, 0, 0);
-
-    return { bmp: out, dw: cw * UP, dh: ch * UP };
+    return { bmp: cv, dw: cw, dh: ch };
   };
+
 
   /* 标本铺满整屏，但要稀。
      候选点里挑离已有标本最远的那个，同时躲开标题所在的那一块 ——
