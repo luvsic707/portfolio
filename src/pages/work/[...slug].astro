@@ -1776,7 +1776,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.sub) {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    margin-block: clamp(2.25rem, 5.2vw, 3.5rem);
+    /* 组与组之间。注意图自己还带着一圈留白：抠图导出时四周留了 6%，
+       一个 450px 的格子就是上下各 27px。所以「看上去」的空当是
+       27 + 这里 + 17(标题到图) + 27 ≈ 127px，比这个数字大得多。
+       按看上去的算，这里给 36 就够把两组分开了。 */
+    margin-block: clamp(1.5rem, 3.2vw, 2.25rem);
     width: 100%;
   }
 
