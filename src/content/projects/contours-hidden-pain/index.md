@@ -55,13 +55,12 @@ diagram and is not yet an illustration.
 
 ## C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM
 
-To spend the time on learning Unity AR rather than on modelling, I drew by hand and
-converted the sketches with Tripo AI. Hand drawing keeps its own expression; the conversion
-lets me test forms in 3D quickly. Of dozens of generated models I kept the few that matched
-the theme.
+Time went into learning Unity AR, not modelling — so I drew by hand and converted with
+Tripo AI. The drawing keeps its expression; the conversion tests forms in 3D fast. Of dozens
+of generated models I kept a few.
 
 <!-- auto:images -->
-<div class="flow">
+<div class="band" style="--n: 6; --sum: 5.8575" aria-label="Hand-drawn sketches">
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.jpg)
 
@@ -74,6 +73,10 @@ the theme.
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 05](./c-morphological-development-from-2d-sketch-to-3d-form-05.jpg)
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 06](./c-morphological-development-from-2d-sketch-to-3d-form-06.jpg)
+
+</div>
+
+<div class="band" style="--n: 5; --sum: 6.9686" aria-label="Models generated from the sketches">
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 07](./c-morphological-development-from-2d-sketch-to-3d-form-07.jpg)
 

@@ -843,6 +843,48 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.lead > p:first-child) { grid-column: auto; grid-row: auto; }
   }
 
+  /* 接触带：一行里所有图等高，宽度各随其形。
+     高度一样时，宽度之比就是宽高比之比 —— 于是一行正好填满，
+     每张都保持原样，一张都不用裁。
+     --sum 是这一行所有宽高比之和，--n 是张数，排版时算好写进去。
+     用 cqw 不用 vw：跟的是这一带自己的宽度，放进别的容器里照样对。 */
+  .prose-body :global(.band) {
+    container-type: inline-size;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin-block: clamp(0.75rem, 2vw, 1.25rem);
+    width: min(100%, 1180px);
+  }
+
+  .prose-body :global(.band > p) {
+    margin: 0;
+    flex: 0 0 auto;
+    height: calc((100cqw - (var(--n, 1) - 1) * 0.75rem) / var(--sum, 1));
+    position: relative;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .prose-body :global(.band img) {
+    height: 100%;
+    width: auto;
+    display: block;
+    margin: 0;
+  }
+
+  /* 窄屏一行塞六张就只剩指甲盖大 —— 改成定高横滑 */
+  @media (max-width: 700px) {
+    .prose-body :global(.band) {
+      container-type: normal;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line-strong) transparent;
+    }
+    .prose-body :global(.band > p) { height: clamp(120px, 34vw, 170px); }
+  }
+
   .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -886,6 +928,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 悬停微微放大并浮起，方便看清小图 */
   @media (hover: hover) and (pointer: fine) {
+    .prose-body :global(.band > p:hover),
     .prose-body :global(.lead > p:hover),
     .prose-body :global(.pair > p:hover),
     .prose-body :global([class^='rows-'] p:hover),
