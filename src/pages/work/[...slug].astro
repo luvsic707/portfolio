@@ -662,25 +662,46 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     top: var(--nav-h, 3.4rem);
     z-index: 5;
     background: var(--paper-sunk);
-    border-bottom: 1px solid var(--line-strong);
   }
 
+  /* 夹子的那道边线单独画，不用 border-bottom。
+     border 画在边框盒上，位置在滚动容器的裁切范围之外，当前标签
+     再怎么往下压也盖不住它。改成绝对定位的一条，压在内容区最底下
+     那一像素上 —— 当前标签把 z-index 抬一级就能盖过去，边线在它
+     底下断开，而标签本身完全待在滚动容器里，横滑不会被裁。 */
+  .sections::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: var(--line-strong);
+  }
+
+  /* 永远一行，排不下就左右滑。
+     之前是 flex-wrap: wrap，六节的项目会折成两行 —— 两行标签占掉
+     大半个屏幕的高度，而且第二行那几片底下没有边线可压，folder
+     的意思就散了。 */
   .sec-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: flex-end;
     gap: 0.15rem;
     padding-top: 0.45rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
+
+  .sec-list::-webkit-scrollbar { display: none; }
 
   .sec-link {
     position: relative;
     display: block;
     white-space: nowrap;
     padding: 0.5em 0.95em;
-    /* 往下多出 1px，正好盖住夹子的那道边线。
-       父元素的边框先画、子元素的背景后画，所以盖得住。 */
-    margin-bottom: -1px;
     font-size: var(--step--2);
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -704,6 +725,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     border-color: var(--line-strong);
     /* 比其余标签高出一点，像被抽出来半公分 */
     padding-top: 0.62em;
+    /* 抬一级，好盖住 .sections::after 那道边线 */
+    z-index: 1;
   }
 
   /* 标签顶上那道红封条 —— 扫一眼就知道翻到哪一页了 */
@@ -717,18 +740,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     background: var(--red);
   }
 
-  /* 窄屏排不下就横着滑。滑动容器会把那多出来的 1px 裁掉，
-     所以这里不再往下压，改成规规矩矩地贴着边线。 */
-  @media (max-width: 760px) {
-    .sec-list {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
-    }
-    .sec-list::-webkit-scrollbar { display: none; }
-    .sec-link { margin-bottom: 0; }
-  }
+
 
   /* ==================== 正文 ==================== */
 
