@@ -59,6 +59,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   <article>
     {slides.length > 0 && <HeroGallery slides={slides} title={title} />}
 
+    <!-- 开屏底下的一切装在这张「纸」上。开屏是钉住的，这张纸往上滑
+         盖住它 —— 所以它必须是不透明的，也必须压在开屏上面。 -->
+    <div class="sheet">
+
     <header class:list={['head', { 'has-shot': slides.length > 0 }]}>
       <div class="wrap">
 
@@ -134,6 +138,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
           <Content />
         </div>
       </div>
+    </div>
+
     </div>
   </article>
 
@@ -447,6 +453,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
 <style>
   /* ==================== 标题区 ==================== */
+
+  /* 开屏底下的正文整体是一张不透明的纸，压在钉住的开屏上面往上滑。
+     背景必须写死：不写的话它是透明的，滑上来什么也盖不住。 */
+  .sheet {
+    position: relative;
+    z-index: 1;
+    background: var(--paper);
+  }
 
   .head {
     padding-top: clamp(6.5rem, 13vw, 10rem);

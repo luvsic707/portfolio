@@ -191,12 +191,25 @@ const hasVideo = slides.some((s) => s.video);
       if (Math.abs(dx) > 45) go(index + (dx < 0 ? 1 : -1));
     }, { passive: true });
 
-    /* 键盘左右键（画廊在视野里时才响应） */
-    let visible = true;
-    new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (visible) schedule(); else clearTimer();
-    }).observe(root);
+    /* 开屏是钉住的，正文盖上来之后它其实还留在视口里 ——
+       IntersectionObserver 会一路报「可见」，于是轮播在盖住的地方接着转，
+       视频也在后台接着解码一整页。所以改成按滚动距离判断：
+       滚过它自己那一屏就当作看不见，停表、停片；滚回来再接着放。 */
+    const onScreen = () => scrollY < root.offsetTop + root.offsetHeight - 2;
+    let visible = onScreen();
+
+    addEventListener('scroll', () => {
+      const now = onScreen();
+      if (now === visible) return;
+      visible = now;
+      if (visible) {
+        videoIn(slides[index])?.play().catch(() => {});
+        schedule();
+      } else {
+        clearTimer();
+        slides.forEach((s) => videoIn(s)?.pause());
+      }
+    }, { passive: true });
 
     document.addEventListener('keydown', (e) => {
       if (!visible) return;
@@ -213,8 +226,13 @@ const hasVideo = slides.some((s) => s.video);
 </script>
 
 <style>
+  /* 钉在视口顶上不动，底下的正文往上滑盖过来 ——
+     不是开屏跟着页面一起被推走。
+     z-index 要低于正文那张纸，否则盖不住。 */
   .gallery {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 0;
     width: 100%;
     padding-top: var(--nav-h, 3.4rem);
     background: var(--paper-sunk);
