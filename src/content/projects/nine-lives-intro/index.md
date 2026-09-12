@@ -88,18 +88,14 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 ## E — FILM STILLS
 
-Every visual decision has to serve the story.
+The opening holds still — stable composition, symbolic figures. After the king's poem it
+goes abstract: Nüwa's anger as flat geometry, cosmic order coming apart. The last thirty
+seconds turn realistic, with pseudo-3D depth built in After Effects.
 
-The opening holds still: stable composition, symbolic figures, the setting established. From
-the king's blasphemous poem the animation goes abstract — Nüwa's silent anger as flat
-geometry, cosmic order coming apart.
-
-The last thirty seconds return to something realistic, moving from the palace interior out to
-the city. A pseudo-3D depth built in After Effects gives the flat animation space and
-tension. The final explosion takes the shape of a fox — the protagonist of the game.
+The final explosion takes the shape of a fox.
 
 <!-- auto:images -->
-<div class="showcase">
+<div class="rows-2">
 
 ![E — FILM STILLS 01](./e-film-stills-01.jpg)
 
