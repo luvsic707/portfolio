@@ -41,14 +41,18 @@ resists both the gods and Daji, and destroys himself doing it.
 
 ## B — GAME CORE LOOP
 
-**Draw a Card → Make a Decision → Change Stats.**
+Each choice shifts four attributes — Love, Corruption, Divine Favour, Freedom — and they
+decide which branches and endings you reach.
 
-Every card is a moral event. Each choice shifts four attributes — Love, Corruption,
-Divine Favour, Freedom — which decide the branches and endings you reach. Mini-games sit
-at key decision points to raise the emotional stakes.
+<!-- auto:images -->
+<div class="grid-2">
 
-One scene, to show the shape of it. Scene 1: you reach Su Daji, and have to take her body.
-The goal never changes — only what it costs you.
+![B — GAME CORE LOOP 01](./d-game-core-loop-02.jpg)
+
+</div>
+<!-- /auto:images -->
+
+Scene 1: you have to take Su Daji's body. The goal never changes, only what it costs.
 
 <div class="dg dg-tbl dg-tbl-w">
 
@@ -69,16 +73,6 @@ The goal never changes — only what it costs you.
 <div>Corruption +1 · Freedom +2 · Divine Favour −1 · Love −1</div>
 
 </div>
-
-<!-- auto:images -->
-<div class="grid-2">
-
-<p><video src="/media/nine-lives-game/d-game-core-loop-01.mp4" width="2628" height="1788" muted loop playsinline preload="metadata" data-autoplay aria-label="C — GAME CORE LOOP 01"></video></p>
-
-![C — GAME CORE LOOP 02](./d-game-core-loop-02.jpg)
-
-</div>
-<!-- /auto:images -->
 
 ## C — FIRST PROTOTYPE
 
