@@ -424,40 +424,64 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
   }
 
-  /* ---- 3. 章节索引跟着滚动高亮 ---- */
+  /* ---- 3. 章节索引跟着滚动高亮 ----
+     规则：取最后一个已经滚过标签条的标题。读到哪一节，那一节就一直亮着，
+     任何时刻有且只有一片标签是抽出来的 —— 就像文件夹里永远只有一页翻开。
+
+     以前用 IntersectionObserver 配 rootMargin，认的是「标题正落在视野中段」。
+     标题一滚出那条带子就没人是当前节，整排标签一起熄灭 ——
+     而一节往往有好几屏，于是大部分时间它都是暗的，等于没有指示。 */
   const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-sec]')];
 
   if (links.length) {
-    const byId = new Map(links.map((a) => [a.dataset.sec!, a]));
-    const seen = new Set<string>();
+    const heads = links
+      .map((a) => ({ a, el: document.getElementById(a.dataset.sec!) }))
+      .filter((h): h is { a: HTMLAnchorElement; el: HTMLElement } => !!h.el);
+
     const list = document.querySelector<HTMLElement>('[data-sections]');
+    const bar = document.querySelector<HTMLElement>('.sections');
+    let cur: (typeof heads)[number] | null = null;
+    let queued = false;
 
-    const spy = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) seen.add(e.target.id);
-          else seen.delete(e.target.id);
+    const mark = () => {
+      queued = false;
+      if (!heads.length) return;
+      const line = (bar?.getBoundingClientRect().bottom ?? 0) + 4;
+
+      let now = heads[0];
+      for (const h of heads) {
+        if (h.el.getBoundingClientRect().top <= line) now = h;
+        else break;
+      }
+      if (now === cur) return;
+      cur = now;
+      for (const h of heads) {
+        const on = h === now;
+        h.a.classList.toggle('is-on', on);
+        /* 屏幕阅读器也要知道翻开的是哪一页，不能只靠颜色和纸张 */
+        if (on) h.a.setAttribute('aria-current', 'true');
+        else h.a.removeAttribute('aria-current');
+      }
+
+      /* 只横向挪索引条本身。用 scrollIntoView 会连整页一起滚，把人拽走。 */
+      if (list && list.scrollWidth > list.clientWidth) {
+        const l = now.a.offsetLeft;
+        const r = l + now.a.offsetWidth;
+        if (l < list.scrollLeft || r > list.scrollLeft + list.clientWidth) {
+          list.scrollTo({ left: l - 12, behavior: 'smooth' });
         }
-        /* 视野里最靠上的那节算当前节 */
-        const current = links.find((a) => seen.has(a.dataset.sec!));
-        links.forEach((a) => a.classList.toggle('is-on', a === current));
+      }
+    };
 
-        /* 只横向挪索引条本身。用 scrollIntoView 会连整页一起滚，把人拽走。 */
-        if (current && list) {
-          const l = current.offsetLeft;
-          const r = l + current.offsetWidth;
-          if (l < list.scrollLeft || r > list.scrollLeft + list.clientWidth) {
-            list.scrollTo({ left: l - 12, behavior: 'smooth' });
-          }
-        }
-      },
-      { rootMargin: '-30% 0px -60% 0px' },
-    );
+    const ping = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(mark);
+    };
 
-    for (const id of byId.keys()) {
-      const h = document.getElementById(id);
-      if (h) spy.observe(h);
-    }
+    addEventListener('scroll', ping, { passive: true });
+    addEventListener('resize', ping);
+    mark();
   }
 </script>
 
@@ -624,57 +648,86 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* ==================== 章节索引 ==================== */
 
+  /* 卷宗夹的标签页。
+     原来是一条浮在正文上方的半透明条，当前节套一个红框再放大 1.22 倍 ——
+     放大的那一项从队列里弹出来，和左右两边对不上，整条就散了；
+     而一个细红框在一条淡字里根本抓不住眼睛。
+
+     现在按实物做：整条是夹子的硬纸边（paper-sunk，压深一档），
+     每一节是一片切口标签。当前那片抬成正文的纸色，并往下压住夹子的
+     边线 —— 边线在它底下断开，标签和下面的内容连成同一张纸，
+     等于「这一页正翻开着」。其余标签留在夹子里，没有底色。 */
   .sections {
     position: sticky;
     top: var(--nav-h, 3.4rem);
     z-index: 5;
-    background: color-mix(in srgb, var(--paper) 88%, transparent);
-    backdrop-filter: blur(10px);
-    border-block: 1px solid var(--line);
+    background: var(--paper-sunk);
+    border-bottom: 1px solid var(--line-strong);
   }
 
   .sec-list {
     display: flex;
-    gap: 0.35rem;
-    padding-block: 0.5rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 0.15rem;
+    padding-top: 0.45rem;
   }
 
-  .sec-list::-webkit-scrollbar { display: none; }
-
   .sec-link {
+    position: relative;
     display: block;
     white-space: nowrap;
-    padding: 0.35em 0.7em;
+    padding: 0.5em 0.95em;
+    /* 往下多出 1px，正好盖住夹子的那道边线。
+       父元素的边框先画、子元素的背景后画，所以盖得住。 */
+    margin-bottom: -1px;
     font-size: var(--step--2);
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-faint);
     border: 1px solid transparent;
-    /* 放大走 scale 而不是 font-size：字号一变，这一条的宽度跟着变，
-       后面所有项都会横向跳一下，滚着页面看就是一路抽搐。
-       scale 不影响布局，旁边的项纹丝不动。 */
-    transform-origin: left center;
+    border-bottom: 0;
     transition: color 0.2s var(--ease),
-                border-color 0.2s var(--ease),
-                scale 0.25s var(--ease);
+                background 0.2s var(--ease),
+                border-color 0.2s var(--ease);
   }
 
-  .sec-link:hover { color: var(--ink); }
+  .sec-link:hover {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--paper) 55%, transparent);
+  }
 
+  /* 当前节：抬到正文的纸色，边线在它底下断开 */
   .sec-link.is-on {
-    color: var(--red);
-    border-color: var(--red);
-    scale: 1.22;
+    color: var(--ink);
+    background: var(--paper);
+    border-color: var(--line-strong);
+    /* 比其余标签高出一点，像被抽出来半公分 */
+    padding-top: 0.62em;
   }
 
-  /* 放大之后它会往右压到下一项，给它留出这部分宽度 */
-  .sec-list li:has(.is-on) { padding-right: 1.1rem; }
+  /* 标签顶上那道红封条 —— 扫一眼就知道翻到哪一页了 */
+  .sec-link.is-on::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    right: -1px;
+    height: 2px;
+    background: var(--red);
+  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .sec-link { transition: color 0.2s var(--ease), border-color 0.2s var(--ease); }
+  /* 窄屏排不下就横着滑。滑动容器会把那多出来的 1px 裁掉，
+     所以这里不再往下压，改成规规矩矩地贴着边线。 */
+  @media (max-width: 760px) {
+    .sec-list {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sec-list::-webkit-scrollbar { display: none; }
+    .sec-link { margin-bottom: 0; }
   }
 
   /* ==================== 正文 ==================== */
