@@ -13,7 +13,7 @@ meta:
   subtitle: First-Person Narrative Exploration
 links:
   - label: Source code
-    href: https://github.com/luvsic707/memory2
+    href: https://github.com/luvsic707/memory2/tree/code/Assets/The_Last_Compact
 gallery:
   - video: /media/the-last-compact/hero-01.mp4
     alt: The Last Compact — video 01

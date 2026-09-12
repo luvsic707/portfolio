@@ -11,6 +11,9 @@ meta:
   dimension: 1920×1080
   media: Unity / C# / MCP-assisted development
   role: Solo concept-to-production designer & technical artist
+links:
+  - label: Source code
+    href: https://github.com/luvsic707/memory2/tree/code/Assets/For_You
 gallery:
   - video: /media/for-u/hero-01.mp4
     alt: For U — video 01
