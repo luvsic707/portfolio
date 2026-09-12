@@ -115,9 +115,10 @@ a lot of time, so the storytelling leans abstract.
 
 ### E.1 — NARRATIVE SEQUENCES
 
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
 <!-- auto:images -->
-<div class="strip">
+<div class="rows-2">
 
 <p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 01"></video></p>
 
@@ -137,6 +138,8 @@ a lot of time, so the storytelling leans abstract.
 <!-- /auto:images -->
 
 ### E.2 — SYMBOLS & ICONS
+
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
 Five Elements, each with a Yin and a Yang form — ten cards, ten totems. Yang Earth is an
 unbreakable wall; Yin Earth is soil that feeds.

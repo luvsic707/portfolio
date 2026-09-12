@@ -360,6 +360,16 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     hint();
   });
 
+  /* ---- 2a. 卡牌阵列也会横滑，同样要告诉人右边还有 ---- */
+  document.querySelectorAll<HTMLElement>('.prose-body .cards').forEach((el) => {
+    const hint = () => {
+      el.classList.toggle('has-more', el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
+    };
+    el.addEventListener('scroll', hint, { passive: true });
+    new ResizeObserver(hint).observe(el);
+    hint();
+  });
+
   /* ---- 2b. 混排的视频：进视野才播，离开就停 ----
      不这么做的话一页几十个视频会同时解码，手机直接卡死。
      点一下切声音 —— 浏览器不允许带声自播，所以默认静音。 */
@@ -1045,9 +1055,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   }
 
+  /* video 一定要跟 img 写在一起。少了它，<video> 会按自己的 width 属性
+     （1280）铺开，minmax(0,1fr) 也拦不住 —— E.1 那七段片子就是这么把
+     两列的栅格顶出去 699px 的，多出来的部分被 body 直接裁掉。 */
   .prose-body :global(.lead img),
+  .prose-body :global(.lead video),
   .prose-body :global(.pair img),
+  .prose-body :global(.pair video),
   .prose-body :global([class^='rows-'] img),
+  .prose-body :global([class^='rows-'] video),
   .prose-body :global([class^='grid-'] img) {
     margin: 0;
     display: block;
@@ -1202,12 +1218,23 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       minmax(300px, var(--c6))
       minmax(352px, var(--c7));
     gap: clamp(0.5rem, 1.4vw, 1rem);
+    /* 上面那些下限加起来要一千五百来像素。整块挪进子小节的右栏之后
+       容器只剩九百出头，多出来的五百多像素既不滚也不折 —— 直接被
+       body 的 overflow-x: hidden 裁掉了，最后两张特写根本没法看到。
+       宁可横滑也不让牌缩水，那就得真给它一条横滑。 */
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
     align-items: start;
     /* 窄屏放不下就左右滑，不硬挤 */
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scrollbar-width: thin;
     scrollbar-color: var(--line-strong) transparent;
+  }
+
+  /* 右边还有牌时右缘淡出，和过程带、章节标签是同一个提示 */
+  .prose-body :global(.cards.has-more) {
+    mask-image: linear-gradient(to right, #000 92%, transparent);
   }
 
   .prose-body :global(.cards p) { margin: 0; max-width: none; }
