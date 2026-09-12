@@ -4,7 +4,7 @@ year: '2024'
 categories: ['AR/VR', 'Graphic', 'Animation']
 featured: false
 order: 6
-summary: An AR poster treating the spine as a living archive of emotional experience — scan it in public space and childhood trauma unfolds as biological form.
+summary: An AR poster on how childhood trauma settles into the spine — a frozen memory held as posture and muscle tension. Scan it in public space and it unfolds as biological form.
 meta:
   date: 2024.11 – 2024.12
   dimension: AR interactive layer (variable digital scale)
@@ -17,10 +17,6 @@ cover: ./card.jpg
 ---
 
 ## A — RESEARCH
-
-How childhood trauma settles into the spine. Reading across clinical literature and somatic
-practice, one idea kept returning: trauma becomes a frozen memory in the body, held as
-posture and muscle tension. The spine as a living archive of what happened to you.
 
 ### References
 
