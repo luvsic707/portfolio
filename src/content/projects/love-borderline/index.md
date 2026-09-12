@@ -80,28 +80,34 @@ cover: ./card.jpg
 ## A — INSPIRATION AND RESEARCH
 
 A book for people with borderline personality disorder. In China it often goes undiagnosed
-and untreated — I made this to say something myself, and so that you know you are not the
-only one.
+— I made this to say something myself, and so you know you are not the only one.
 
-BPD runs on unstable relationships, a distorted sense of self, and emotional reactions that
-will not come back down to a baseline. Someone described it as *moving through the world
-without skin*.
+Unstable relationships, a distorted sense of self, feelings that never come back down.
+Someone described it as *moving through the world without skin*.
 
 ### Reference literature
+
+<div class="sources">
 
 - *Get Me Out of Here*
 - *Sometimes I Act Crazy*
 - *Understanding the Borderline Mother*
 - *The Buddha and the Borderline*
 
+</div>
+
 ### On-screen
 
-- Actress Winona Ryder as Suzanne in *Girl, Interrupted*
+<div class="sources">
+
+- Winona Ryder as Suzanne in *Girl, Interrupted*
 - Matsuko in *Memories of Matsuko*
 - Clementine in *Eternal Sunshine of the Spotless Mind*
 
+</div>
+
 <!-- auto:images -->
-<div class="grid-3">
+<div class="pair" style="--cols: 0.686fr 1.088fr">
 
 ![On-screen 01](./on-screen-01.jpg)
 
