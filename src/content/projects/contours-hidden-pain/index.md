@@ -37,14 +37,12 @@ posture and muscle tension. The spine as a living archive of what happened to yo
 
 ## B — STORYBOARD AND SKETCH
 
-The storyboard set the viewing path: a poster in a public space, scanned with a phone,
-opening into AR. What I wanted was the transition — physical to psychological, body to mind.
-
-Quick sketches worked out the biological vocabulary, looking for the point where line and
-structure have stopped being a diagram and are not yet an illustration.
+A poster in a public space, scanned with a phone, opening into AR — physical to
+psychological, body to mind. The sketches hunt the point where a line has stopped being a
+diagram and is not yet an illustration.
 
 <!-- auto:images -->
-<div class="grid-3">
+<div class="lead" style="--cols: 1.687fr 1fr">
 
 ![B — STORYBOARD AND SKETCH 01](./b-storyboard-and-sketch-01.jpg)
 

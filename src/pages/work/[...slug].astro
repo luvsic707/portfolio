@@ -818,6 +818,31 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     width: min(100%, 1180px);
   }
 
+  /* 一大两小：头一张占满左边两排，另外两张在右边上下叠。
+     栏宽同样是算出来的，不是挑出来的 —— 要让左边那张的高度正好等于
+     右边两张加一道间距：w1 = r1 × (w2/r2 + w2/r3)，所以
+     左:右 = r1 × (1/r2 + 1/r3) : 1。比例写在 --cols 里。
+     三张比例差很远的图并排会留下两个大洞，这个排法把洞填掉，
+     而且不用裁任何一张。 */
+  .prose-body :global(.lead) {
+    display: grid;
+    grid-template-columns: var(--cols, 1.6fr 1fr);
+    gap: clamp(0.6rem, 1.6vw, 1.1rem);
+    align-items: start;
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+    width: min(100%, 1180px);
+  }
+
+  .prose-body :global(.lead > p:first-child) {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  @media (max-width: 640px) {
+    .prose-body :global(.lead) { grid-template-columns: minmax(0, 1fr); }
+    .prose-body :global(.lead > p:first-child) { grid-column: auto; grid-row: auto; }
+  }
+
   .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -835,6 +860,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   }
 
+  .prose-body :global(.lead > p),
   .prose-body :global(.pair > p),
   .prose-body :global([class^='rows-'] p) {
     margin: 0;
@@ -842,6 +868,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   }
 
+  .prose-body :global(.lead img),
   .prose-body :global(.pair img),
   .prose-body :global([class^='rows-'] img),
   .prose-body :global([class^='grid-'] img) {
@@ -859,6 +886,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 悬停微微放大并浮起，方便看清小图 */
   @media (hover: hover) and (pointer: fine) {
+    .prose-body :global(.lead > p:hover),
     .prose-body :global(.pair > p:hover),
     .prose-body :global([class^='rows-'] p:hover),
     .prose-body :global([class^='grid-'] p:hover) {
