@@ -360,8 +360,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     hint();
   });
 
-  /* ---- 2a. 卡牌阵列也会横滑，同样要告诉人右边还有 ---- */
-  document.querySelectorAll<HTMLElement>('.prose-body .cards').forEach((el) => {
+  /* ---- 2a. 卡牌阵列和横向滑轨都会横滑，同样要告诉人右边还有 ---- */
+  document.querySelectorAll<HTMLElement>('.prose-body .cards, .prose-body .reel').forEach((el) => {
     const hint = () => {
       el.classList.toggle('has-more', el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
     };
@@ -1232,7 +1232,38 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     scrollbar-color: var(--line-strong) transparent;
   }
 
+  /* ---- reel：一排等高的东西，排不下就往右推 ----
+     和卡牌阵列是同一个模式。同一节底下的两个子小节，交互和体量
+     该长得像 —— E.1 原来是两列铺开的大图，一段片子就占半屏高，
+     翻到 E.2 忽然变成一排小卡片，读起来是两个东西。 */
+  /* 不叫 rail：页眉那条卷宗信息栏已经占了这个名字。 */
+  .prose-body :global(.reel) {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(340px, 1fr);
+    gap: clamp(0.5rem, 1.4vw, 1rem);
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+    width: min(100%, 1180px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .prose-body :global(.reel p) {
+    margin: 0;
+    max-width: none;
+    position: relative;
+  }
+
+  .prose-body :global(.reel img),
+  .prose-body :global(.reel video) {
+    margin: 0;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   /* 右边还有牌时右缘淡出，和过程带、章节标签是同一个提示 */
+  .prose-body :global(.reel.has-more),
   .prose-body :global(.cards.has-more) {
     mask-image: linear-gradient(to right, #000 92%, transparent);
   }

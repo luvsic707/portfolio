@@ -118,7 +118,7 @@ a lot of time, so the storytelling leans abstract.
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
 <!-- auto:images -->
-<div class="rows-2">
+<div class="reel">
 
 <p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 01"></video></p>
 
