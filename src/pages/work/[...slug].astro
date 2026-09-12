@@ -75,6 +75,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
           <span>REC</span>
           <span>CAM 01</span>
           <span>{ref}</span>
+          <span class="cam-live" data-cam-live></span>
           <span class="cam-end" data-cam-clock>--:--:--</span>
         </div>
 
@@ -192,6 +193,51 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       };
       tick();
       setInterval(tick, 1000);
+    }
+  }
+
+  /* ---- 监控条的活字段 ----
+     上一轮的结论是：会动的留得住，摆着看的留不住。所以不再往页面上
+     加新的小玩意，而是让已经立住的这一条多说点真话。
+
+     闲着的时候报「在第几节 · 一共几张片子」——张数是数出来的，不是写死的。
+     鼠标停在某张图上时，换成那张图自己的编号和像素尺寸。
+     两种状态都是这一页真实的数据，不是装饰。 */
+  {
+    const live = document.querySelector<HTMLElement>('[data-cam-live]');
+    const plates = [
+      ...document.querySelectorAll<HTMLElement>('.prose-body img, .prose-body video'),
+    ];
+
+    if (live && plates.length) {
+      let sec = '';
+      const idle = () => {
+        live.textContent = `${sec ? sec + ' · ' : ''}${plates.length} PLATES`;
+      };
+
+      /* 章节索引换节时会广播一次，监控条跟着改 */
+      addEventListener('rt:section', (e) => {
+        sec = (e as CustomEvent<string>).detail;
+        if (!live.dataset.hover) idle();
+      });
+
+      plates.forEach((el, i) => {
+        const spec = () => {
+          const w = el instanceof HTMLImageElement ? el.naturalWidth : (el as HTMLVideoElement).videoWidth;
+          const h = el instanceof HTMLImageElement ? el.naturalHeight : (el as HTMLVideoElement).videoHeight;
+          return `PL ${String(i + 1).padStart(2, '0')}${w ? ` · ${w}×${h}` : ''}`;
+        };
+        el.addEventListener('pointerenter', () => {
+          live.dataset.hover = '1';
+          live.textContent = spec();
+        });
+        el.addEventListener('pointerleave', () => {
+          delete live.dataset.hover;
+          idle();
+        });
+      });
+
+      idle();
     }
   }
 
@@ -494,6 +540,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       }
       if (now === cur) return;
       cur = now;
+
+      /* 监控条要知道现在在第几节。广播一下，别让两处逻辑互相伸手。 */
+      const label = now.a.textContent?.trim().split(/\s*[—–-]\s*/)[0] ?? '';
+      dispatchEvent(new CustomEvent('rt:section', { detail: label ? `SEC ${label}` : '' }));
       for (const h of heads) {
         const on = h === now;
         h.a.classList.toggle('is-on', on);
@@ -553,6 +603,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     letter-spacing: 0.08em;
     color: var(--ink-faint);
     border-bottom: 1px solid var(--line);
+  }
+
+  /* 这一格的内容会变（换节、悬停换成片号），给个下限，
+     否则每次变字这一条都要重排一次，看着像抽搐。 */
+  .cam-live {
+    min-width: 15ch;
+    color: var(--ink-soft);
   }
 
   .cam-end {
