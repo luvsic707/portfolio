@@ -1,0 +1,185 @@
+---
+/* 字体对照页 —— 不挂在导航里，只有知道地址的人能看到：/type
+   三个方向套在同一段真实内容上，并排比。选定之后这一页就可以删。 */
+const SPECS = [
+  {
+    id: 'a',
+    name: 'A · 打字机 + 编辑衬线',
+    base: "'Fragment Mono', ui-monospace, monospace",
+    display: "'Instrument Serif', Georgia, serif",
+    note: '卷宗本来就是打字机敲出来的。正文全部走等宽，极小、极紧，成片就是一块灰面；只有作品名和节号换成高对比衬线 —— 全站唯一的性格，出现两次。',
+  },
+  {
+    id: 'b',
+    name: 'B · 现代无衬线 + 编辑衬线',
+    base: "'Instrument Sans', system-ui, sans-serif",
+    display: "'Instrument Serif', Georgia, serif",
+    note: 'Karin Kiho 走的路。正文是当代的中性无衬线，利落干净；衬线负责点睛。比 A 更"设计工作室"，比 A 少一点卷宗味。',
+  },
+  {
+    id: 'c',
+    name: 'C · 只有一种字（Protocol 路线）',
+    base: "'Fragment Mono', ui-monospace, monospace",
+    display: "'Fragment Mono', ui-monospace, monospace",
+    note: '从头到尾一个字族，最大 22px。不留任何字体上的"亮点"，把所有视觉重量让给作品。最克制，也最容易做得好看，因为没有可搭错的地方。',
+  },
+];
+---
+
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>字体对照 — Red Thread</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+  />
+</head>
+
+<body>
+  <header class="top">
+    <h1>字体对照</h1>
+    <p>
+      同一段内容，三种字体方案。左右滚动比较，或者只看一个。
+      选定之后告诉我字母，我去改全站；这一页就删掉。
+    </p>
+    <p class="now">当前线上用的是 Archivo（压窄轴）+ Fragment Mono，55% 的字是大写。</p>
+  </header>
+
+  <div class="decks">
+    {SPECS.map((s) => (
+      <section class="deck" style={`--base: ${s.base}; --display: ${s.display}`}>
+        <h2 class="deck-name">{s.name}</h2>
+        <p class="deck-note">{s.note}</p>
+
+        <div class="sheet">
+          {/* 页眉：卷宗表头 */}
+          <div class="rail">
+            <span>← RETURN</span><span>CASE FILE</span>
+            <span>Graphic / Illustration</span><span class="end">RT-OCD-007</span>
+          </div>
+
+          {/* 作品名 */}
+          <div class="head">
+            <h3 class="title">The Person in a Culture Dish</h3>
+            <p class="lede">
+              Nine types of otaku, each distilled into a totem — collected, drawn in ink,
+              folded into symmetry, then coloured.
+            </p>
+            <dl class="meta">
+              <div><dt>Year</dt><dd>2023</dd></div>
+              <div><dt>Media</dt><dd>Print · Installation · Book</dd></div>
+              <div><dt>Tools</dt><dd>Procreate · InDesign</dd></div>
+            </dl>
+          </div>
+
+          {/* 章节 */}
+          <div class="sec">
+            <span class="mark">B</span>
+            <span class="sheetno">SHEET 02</span>
+          </div>
+
+          <p class="body">
+            Nine types of otaku. Each one’s objects and colours are collected, drawn in ink,
+            folded into symmetry, then coloured into a symbol — the four columns below, in order.
+          </p>
+
+          {/* 子小节标签 */}
+          <p class="sub">→ Type No.1 — Military Otaku</p>
+          <div class="strip"><i></i><i></i><i></i><i></i></div>
+          <p class="sub">→ Type No.2 — Occult Otaku</p>
+          <div class="strip"><i></i><i></i><i></i><i></i></div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <style is:global>
+    :root {
+      --paper: #f7f8f7;
+      --sunk: #eceeec;
+      --ink: #101314;
+      --soft: #5c6262;
+      --faint: #6e7474;
+      --line: #d6dad9;
+      --strong: #a8adab;
+      --red: #c8102e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 14px/1.6 'Instrument Sans', system-ui, sans-serif;
+    }
+
+    .top { padding: 3rem clamp(1rem, 4vw, 3rem) 1.5rem; max-width: 70ch; }
+    .top h1 { font-size: 1.5rem; margin: 0 0 0.6rem; font-weight: 600; }
+    .top p { margin: 0 0 0.4rem; color: var(--soft); font-size: 13px; }
+    .top .now { color: var(--faint); font-size: 12px; }
+
+    .decks {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(380px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border-block: 1px solid var(--line);
+      overflow-x: auto;
+    }
+
+    .deck { background: var(--paper); padding: 1.5rem clamp(1rem, 2vw, 1.75rem) 3rem; }
+    .deck-name { font-size: 13px; font-weight: 600; margin: 0 0 0.4rem; }
+    .deck-note {
+      font-size: 12px; line-height: 1.65; color: var(--soft);
+      margin: 0 0 2rem; min-height: 5.5em;
+    }
+
+    /* ---- 下面这块完全由 --base / --display 驱动 ---- */
+    .sheet { font-family: var(--base); }
+
+    .rail {
+      display: flex; flex-wrap: wrap; gap: 0 1.2rem;
+      font-size: 10px; line-height: 1.9; color: var(--faint);
+      border-block: 1px solid var(--line); padding: 0.3rem 0;
+    }
+    .rail .end { margin-left: auto; }
+
+    .head { padding: 1.6rem 0 0; }
+    .title {
+      font-family: var(--display);
+      font-size: 34px; line-height: 1.05; font-weight: 400;
+      letter-spacing: -0.015em; margin: 0 0 0.7rem;
+    }
+    .lede { font-size: 13px; line-height: 1.6; color: var(--soft); margin: 0 0 1.4rem; max-width: 42ch; }
+
+    .meta { display: grid; gap: 0.25rem; margin: 0 0 2.4rem; font-size: 10px; }
+    .meta > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.6rem;
+      border-top: 1px solid var(--line); padding-top: 0.25rem; }
+    .meta dt { color: var(--faint); margin: 0; }
+    .meta dd { margin: 0; color: var(--soft); }
+
+    .sec {
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid var(--ink); padding-bottom: 0.4rem;
+    }
+    .sec .mark { font-family: var(--display); font-size: 30px; line-height: 1; }
+    .sec .sheetno { font-size: 10px; color: var(--faint); letter-spacing: 0.02em; }
+
+    .body { font-size: 12px; line-height: 1.65; color: var(--soft); max-width: 44ch; margin: 1rem 0 2rem; }
+
+    .sub { font-size: 11px; color: var(--ink); margin: 0 0 0.5rem; letter-spacing: 0.01em; }
+    .sub::first-letter { color: var(--red); }
+
+    .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 1.8rem; }
+    .strip i { display: block; aspect-ratio: 1; background: var(--sunk); }
+
+    @media (max-width: 900px) {
+      .decks { grid-template-columns: minmax(340px, 1fr); }
+    }
+  </style>
+</body>
+</html>
