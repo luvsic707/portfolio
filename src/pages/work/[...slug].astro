@@ -56,9 +56,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 <Base title={`${title} — Red Thread`} description={summary} image={shareImage} type="article">
 
   <!-- ==================== 开屏：全屏画廊 ==================== -->
-  <!-- data-case 只是为了把「手术室」这套试装在单页上。
-       试通了就把 [data-case='…'] 的限定去掉，全站生效。 -->
-  <article data-case={project.id}>
+  <article>
     {slides.length > 0 && <HeroGallery slides={slides} title={title} fit={heroFit} />}
 
     <!-- 开屏底下的一切装在这张「纸」上。开屏是钉住的，这张纸往上滑
@@ -538,21 +536,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 </script>
 
 <style>
-  /* ==================== 手术室（单页试装） ====================
-     概念文件第一行写的是「参照医学档案与刑侦卷宗」。之前几轮我做的
-     全是后半句 —— 纸、装订孔、A4。这一套是前半句。
+  /* ==================== 监控条 ====================
+     这一轮试了四样，只有这一样立住了：切口线、标本编号、去纸纹都是
+     鸡肋。回头看原因很清楚 —— 那三样都是「摆在那儿看的」，
+     而这一样是**活的**：时间真的在走，红点真的在闪。
 
-     整段都限定在 [data-case='contours-hidden-pain']，试通了再去掉限定。 */
-
-  /* 纸纹去掉。手术室的语言是「没有纹理」—— 珐琅、不锈钢、无影灯下的平光。
-     纸纹是信纸的暗示，和这里是反的。 */
-  [data-case='contours-hidden-pain'] .sheet {
-    background-image: none;
-  }
-
-  /* --- 监控条 --- */
+     写死的时间只是一张写着时间的图。页面在你读第一个字之前先声明
+     自己在哪个世界，而且它正好说中作品在讲的事：被观察。 */
   .cam {
-    display: none;
+    display: flex;
     align-items: center;
     gap: 0.75rem;
     padding-block: 0.4rem;
@@ -562,8 +554,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     color: var(--ink-faint);
     border-bottom: 1px solid var(--line);
   }
-
-  [data-case='contours-hidden-pain'] .cam { display: flex; }
 
   .cam-end {
     margin-left: auto;
@@ -586,61 +576,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   @media (prefers-reduced-motion: reduce) {
     .cam-dot { animation: none; }
-  }
-
-  /* --- 切口线 ---
-     手术室里画在身体上的红线，是「这里要切开」。
-     虚线沿版心左缘一路往下，正好也是滚动的进度 ——
-     一个记号同时说「切这里」和「你读到这儿了」。 */
-  [data-case='contours-hidden-pain'] .sheet::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: max(26px, calc(50% - 720px + 26px));
-    width: 1px;
-    pointer-events: none;
-    background-image: linear-gradient(
-      to bottom,
-      var(--red) 0 7px,
-      transparent 7px 15px
-    );
-    background-size: 1px 15px;
-    opacity: 0.42;
-  }
-
-  @media (max-width: 1080px) {
-    [data-case='contours-hidden-pain'] .sheet::before { display: none; }
-  }
-
-  /* --- 标本编号 ---
-     检验科的片子边上都有一个编号。绝对定位，不占布局，
-     所以那些按比例算过的行一个数都不用改。
-     difference 混合让它在深图浅图上都读得清。 */
-  [data-case='contours-hidden-pain'] .prose-body { counter-reset: sheet spc; }
-
-  [data-case='contours-hidden-pain'] .prose-body :global(p:has(img)) {
-    position: relative;
-    counter-increment: spc;
-  }
-
-  [data-case='contours-hidden-pain'] .prose-body :global(p:has(img))::before {
-    content: 'SPC ' counter(spc, decimal-leading-zero);
-    position: absolute;
-    left: 0.45rem;
-    bottom: 0.4rem;
-    z-index: 2;
-    font-family: var(--font-mono);
-    font-size: var(--step--2);
-    letter-spacing: 0.06em;
-    color: #fff;
-    mix-blend-mode: difference;
-    pointer-events: none;
-  }
-
-  /* 红色收回去只当切口用：这一页的小节前导符不再是红的 */
-  [data-case='contours-hidden-pain'] .prose-body :global(.sub h3)::before {
-    color: var(--ink-faint);
   }
 
   /* ==================== 标题区 ==================== */
