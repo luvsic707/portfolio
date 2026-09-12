@@ -59,7 +59,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.1 — Military Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.1 — Military Otaku 01](./type-no-1-military-otaku-01.jpg)
 
@@ -75,7 +75,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.2 — Occult Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.2 — Occult Otaku 01](./type-no-2-occult-otaku-01.jpg)
 
@@ -91,7 +91,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.3 — ACG Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.3 — ACG Otaku 01](./type-no-3-acg-otaku-01.jpg)
 
@@ -107,7 +107,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.4 — Transportation Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.4 — Transportation Otaku 01](./type-no-4-transportation-otaku-01.jpg)
 
@@ -123,7 +123,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.5 — Pop Culture Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.5 — Pop Culture Otaku 01](./type-no-5-pop-culture-otaku-01.jpg)
 
@@ -139,7 +139,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.6 — Earthy Culture Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.6 — Earthy Culture Otaku 01](./type-no-6-earthy-culture-otaku-01.jpg)
 
@@ -155,7 +155,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.7 — Phantom Concept Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.7 — Phantom Concept Otaku 01](./type-no-7-phantom-concept-otaku-01.jpg)
 
@@ -171,7 +171,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.8 — Alien Pet Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.8 — Alien Pet Otaku 01](./type-no-8-alien-pet-otaku-01.jpg)
 
@@ -187,7 +187,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 ### Type No.9 — Clothing Otaku
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="rows-4 cutout">
 
 ![Type No.9 — Clothing Otaku 01](./type-no-9-clothing-otaku-01.jpg)
 

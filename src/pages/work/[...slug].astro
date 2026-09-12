@@ -821,7 +821,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      会对齐到最高的那张，比例参差时下面留空 —— 所以只在一组图比例
      一致时用它，其余情况还是交给 grid-N。 */
   .prose-body :global(.rows-2),
-  .prose-body :global(.rows-3) {
+  .prose-body :global(.rows-3),
+  .prose-body :global(.rows-4) {
     display: grid;
     gap: clamp(0.6rem, 1.6vw, 1.1rem);
     align-items: start;
@@ -928,11 +929,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prose-body :global(.rows-4) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 
   @media (max-width: 640px) {
     .prose-body :global(.pair),
     .prose-body :global(.rows-2),
     .prose-body :global(.rows-3) { grid-template-columns: minmax(0, 1fr); }
+    .prose-body :global(.rows-4) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   .prose-body :global([class^='grid-'] p) {
@@ -1615,6 +1618,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 通栏了就别再吸顶 —— 标题本来就贴在自己那组图上面 */
   .prose-body :global(.sub.is-banner .sub-head) { position: static; }
+
+  /* 图组自己的下边距会和小节的下边距叠起来 —— 一排图底下空出 112px，
+     而标题离自己那排图只有 22px。留白该把一组箍在一起、和下一组拉开，
+     不是在每组下面都开一个天窗。去掉里面那一层，只留小节之间的。 */
+  .prose-body :global(.sub.is-banner .sub-main > :last-child) { margin-bottom: 0; }
 
   .prose-body :global(.sub.is-banner h3) {
     display: flex;
