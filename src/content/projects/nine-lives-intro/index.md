@@ -122,9 +122,12 @@ The final explosion takes the shape of a fox.
 
 ## F — FINAL PRODUCTION AND REFLECTION
 
-Three months, one minute twenty. This moved me from a graphic-design head to an animation
-director's — storytelling, timing and visual rhythm as things you organise rather than feel
-your way through.
+Three months, one minute twenty.
+
+<div class="tube" data-tube="PZdFGc16eMI" data-tube-label="The War of Deification — the finished film"></div>
+
+This moved me from a graphic-design head to an animation director's — storytelling, timing
+and visual rhythm as things you organise rather than feel your way through.
 
 What went wrong: project management, rough transitions, thin sound design. What I got: how to
 hold visual consistency, technical execution and narrative rhythm at once, and where the
