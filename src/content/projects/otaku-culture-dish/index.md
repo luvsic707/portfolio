@@ -342,9 +342,29 @@ clay modelling build a miniature ecology — the persona of the group, visible a
 
 ## F — DETAIL
 
-Clay pinched into the different forms of fungus, then fluid acrylic and silicone oil for the
-cellular texture — the same treatment on the base of the petri dish. A layer of UV adhesive
-fixes the colour and lifts the brightness.
+Clay pinched into fungal forms, fluid acrylic and silicone oil for the cellular texture, UV
+adhesive over the top. The mycelium is wool felt, with miniature models set into it.
 
-The mycelium is wool felt, with miniature models set into it to carry the fixed
-characteristics.
+<!-- auto:images -->
+<div class="rows-3">
+
+![F — DETAIL 01](./f-detail-01.jpg)
+
+![F — DETAIL 02](./f-detail-02.jpg)
+
+![F — DETAIL 03](./f-detail-03.jpg)
+
+![F — DETAIL 04](./f-detail-04.jpg)
+
+![F — DETAIL 05](./f-detail-05.jpg)
+
+![F — DETAIL 06](./f-detail-06.jpg)
+
+![F — DETAIL 07](./f-detail-07.jpg)
+
+![F — DETAIL 08](./f-detail-08.jpg)
+
+![F — DETAIL 09](./f-detail-09.jpg)
+
+</div>
+<!-- /auto:images -->
