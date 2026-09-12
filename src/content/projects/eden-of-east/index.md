@@ -38,25 +38,15 @@ gallery:
 cover: ./card.jpg
 ---
 
-I've lived in China for 22 years since it is my homeland. Although these two decades
-seem to be safe and sound, there are plenty of doubts that come up in my mind.
-I frequently take trips to different sorts of metropolis in China, while sometimes
-I travel to undeveloped areas. Skyscrapers, various shops, and luxury cars show a
-prosperous view that is totally opposite to shabby buildings, muddy paths, and
-inconvenient transportation in most small cities and countrysides. All of the scenes
-illustrate a huge gap that we can't ignore.
-
-Being through these things, I decided to explore the sense of **contradiction** and
-**avulsion**.
+I grew up in China and kept travelling between its metropolises and its villages.
+Skyscrapers and luxury cars on one side; shabby buildings and muddy paths on the other.
+Twelve pieces on that **contradiction**, and on the **avulsion** it leaves.
 
 ## A — SKETCHES
 
-I talked to people of different ages and trades, and their answers shocked me. Some truths
-in this region have been neglected for a long time; accepting the scars is painful, but
-facing them matters more.
-
-Part of the inspiration is Fei Xiaotong's *From the Soil*, on the structure of local society
-and the order of human relationships in traditional China.
+I asked people of different ages and trades what they made of it. The reading behind it is
+Fei Xiaotong's *From the Soil*, on how local society and its obligations are actually
+structured.
 
 <!-- auto:images -->
 <div class="strip">
@@ -209,13 +199,9 @@ tradition. Vast land, harsh wind, rough texture.
 
 ## D — FINAL OUTPUT
 
-Twelve main pieces and several supporting graphics. Each one is a state of traditional
-Chinese culture as it stands now, seen from where I stand. The work holds to structure and
-cultural element rather than stating meaning, and leaves the reading to you.
-
-Modelling uses *baimiao*, the fine-line method from ink painting, but drops the *xieyi*
-freehand style for geometric form. Drawn in Procreate with textures sampled from traditional
-crafts, colour finalised in Photoshop.
+Twelve main pieces and several supporting graphics. Modelling uses *baimiao*, the fine-line
+method from ink painting, but drops *xieyi* freehand for geometric form. Drawn in Procreate
+with textures sampled from traditional crafts, colour finalised in Photoshop.
 
 <!-- auto:images -->
 <div class="showcase">
