@@ -885,6 +885,23 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.band > p) { height: clamp(120px, 34vw, 170px); }
   }
 
+  /* 单张图占满版心宽度。放进 grid-2 的话，「只剩一张就别缩在一栏里」
+     那条规则会把它收到 560px —— 那是给小图的照顾，一张要看清细节的
+     拼贴反而被压小了。 */
+  .prose-body :global(.solo) {
+    width: min(100%, 1180px);
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .prose-body :global(.solo p) { margin: 0; }
+
+  .prose-body :global(.solo img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
   .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 

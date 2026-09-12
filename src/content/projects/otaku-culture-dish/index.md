@@ -39,16 +39,12 @@ cover: ./card.jpg
 
 ## A — INSPIRATION
 
-"Otaku" comes from 1970s Japan and has stayed in East Asian culture ever since — people
-deeply into a subculture, mostly anime, manga and games. In Japan it now reads as a neutral
-identity.
-
-It has branches: ACG fans, idol fans, *fujoshi*, railway and car otaku, and lifestyle
-categories like NEET. What they share is staying inside a world of their own making. That is
-the culture dish — a closed environment growing on its own terms.
+"Otaku" comes from 1970s Japan, where it reads as a neutral identity — anime, manga and
+games, but also idols, *fujoshi*, railways, cars, NEET. What they share is staying inside a
+world of their own making.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="solo">
 
 ![A — INSPIRATION 01](./a-inspiration-02.jpg)
 
