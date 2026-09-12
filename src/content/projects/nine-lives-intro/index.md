@@ -17,13 +17,10 @@ cover: ./card.jpg
 
 ## A — INSPIRATION
 
-*Berserk* set this off — the way people resist a fate that has already been decided. I took
-that to *The War of Deification*, a Taoist myth where the fallen are enrolled as gods at the
-end of the Shang dynasty. The irony is that the list was written before the war began.
+*Berserk* set this off — resisting a fate already decided. That led to *The War of
+Deification*: the fallen are enrolled as gods, from a list written before the war began.
 
-I never finished the novel. I watched the animation as a child and kept only the feeling of
-that world. This is its opening: a proud king insults the goddess of creation, and his
-kingdom falls.
+It opens with a proud king insulting the goddess of creation. His kingdom falls.
 
 <!-- auto:images -->
 <div class="pair" style="--cols: 0.707fr 0.707fr">
