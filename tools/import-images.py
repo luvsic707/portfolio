@@ -334,8 +334,26 @@ def pair_cols(r1: float, r2: float, max_spread: float = 2.2) -> tuple[float, flo
     return g * (r1 / g) ** t, g * (r2 / g) ** t
 
 
+# 脚本自己会写出来的版式类名。除此以外出现在容器上的，都是手加的修饰类
+# （比如 cutout），重跑时要原样带回去 —— 不然每导一次图，手调的效果就没了。
+AUTO_CLASSES = {
+    "showcase", "strip", "flow", "full", "pair", "cards", "slider", "solo", "band",
+    *(f"grid-{n}" for n in range(1, 13)),
+    *(f"rows-{n}" for n in range(1, 13)),
+}
+
+
+def keep_classes(section: str) -> str:
+    """从旧的 auto 块里捞出手加的修饰类。"""
+    m = re.search(r'<div class="([^"]+)"', section)
+    if not m:
+        return ""
+    extra = [c for c in m.group(1).split() if c not in AUTO_CLASSES]
+    return (" " + " ".join(extra)) if extra else ""
+
+
 def block(items, alt_base: str, is_sub: bool = False, force: str | None = None,
-          ratios: list[float] | None = None) -> str:
+          ratios: list[float] | None = None, extra: str = "") -> str:
     """items 是 ('img', 文件名) 和 ('vid', 路径, 宽, 高) 混在一起的有序列表。
 
     视频包一层 <p>，跟图片渲染出来的结构完全一致 —— 这样瀑布流、
@@ -365,7 +383,7 @@ def block(items, alt_base: str, is_sub: bool = False, force: str | None = None,
                 f'{attrs} aria-label="{label}"></video></p>'
             )
     inner = "\n\n".join(out)
-    return f'{MARK_OPEN}\n<div class="{cls}"{style}>\n\n{inner}\n\n</div>\n{MARK_CLOSE}'
+    return f'{MARK_OPEN}\n<div class="{cls}{extra}"{style}>\n\n{inner}\n\n</div>\n{MARK_CLOSE}'
 
 
 def drop_key(front: str, key: str) -> str:
@@ -594,7 +612,7 @@ def process(project_dir: Path) -> str | None:
             print(f"     · {title} 手排过，跳过")
             continue
 
-        payload = block(items, title, is_sub, force, ratios)
+        payload = block(items, title, is_sub, force, ratios, keep_classes(section))
         chunk = strip_auto(section)
         lines[ln + 1:end] = (chunk.rstrip() + "\n\n" + payload + "\n").split("\n")
 

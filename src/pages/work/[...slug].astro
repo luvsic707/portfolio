@@ -195,6 +195,16 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       if (el.tagName === 'P' && !el.querySelector('img')) head.append(el);
       else main.append(el);
     }
+
+    /* 左栏的存在理由是放说明文字。没有说明，就没有左栏 ——
+       标题改成通栏的一行压在图上面，图拿回整个版心的宽度。
+       同一组图反复出现时（九类御宅、每类四张），两栏会把每一组
+       切成「一小块文字 + 一小排缩图」，翻下去全是碎片；通栏的
+       标题行反而把每一组箍成一整块。 */
+    for (const sub of body.querySelectorAll<HTMLElement>('.sub')) {
+      const h = sub.querySelector('.sub-head');
+      if (h && h.children.length === 1) sub.classList.add('is-banner');
+    }
   }
 
   /* ---- 1b. 还没有素材的小节 ----
@@ -1595,6 +1605,54 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   .prose-body :global(.sub-main > :first-child) { margin-top: 0; }
+
+  /* ---- 通栏子小节：标题独占一行，图在下面铺满 ---- */
+  .prose-body :global(.sub.is-banner) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-block: clamp(2.5rem, 6vw, 4rem);
+  }
+
+  /* 通栏了就别再吸顶 —— 标题本来就贴在自己那组图上面 */
+  .prose-body :global(.sub.is-banner .sub-head) { position: static; }
+
+  .prose-body :global(.sub.is-banner h3) {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    margin-bottom: clamp(0.9rem, 2vw, 1.4rem);
+  }
+
+  /* 全站唯一的彩色在正文里一直缺席 —— 让它在每一组的行首出现一次。
+     和 .marker::before 是同一套写法：前导符号标红，字本身不动。 */
+  .prose-body :global(.sub.is-banner h3)::before {
+    content: '→';
+    color: var(--red);
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+    flex: none;
+  }
+
+  /* ---- cutout：抠在白底上的图形，不是照片 ----
+     手动加在容器上，比如 <div class="grid-4 cutout">。
+     照片需要那圈发丝边框把画面和纸分开；而抠图不需要 —— 给抠图套上
+     边框和底色，每一张都变成一张小卡片，一屏几十张就碎成一地。
+
+     只去掉边框还不够：图自己的底是纯白，纸是偏冷的灰白，那层白底
+     仍然会在页面上留下一个个方块。multiply 让白色直接落到纸色上
+     消失，只剩墨和颜色浮在纸上，一组四张才连成一件东西。
+     纸色本来就够浅，压暗可以忽略。 */
+  .prose-body :global(.cutout img) {
+    border: 0;
+    background: none;
+    mix-blend-mode: multiply;
+  }
+
+  /* 卡片没了，悬停的投影就没有东西可投 —— 它会在图形四周画出一个
+     本来看不见的方框。只留放大。 */
+  @media (hover: hover) and (pointer: fine) {
+    .prose-body :global(.cutout p:hover) { box-shadow: none; }
+  }
 
   /* 等素材的小节。和封面缺图时的 NO PLATE ON FILE 同一套写法。 */
   .prose-body :global(.sub-pending) {
