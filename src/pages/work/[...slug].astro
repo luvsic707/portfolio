@@ -790,6 +790,29 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.grid-4) { column-count: 4; }
 
   /* 每张图是一个栏内块，不许被拆到两栏去 */
+  /* grid-N 是多栏，先填满第一栏才换下一栏 —— 四张图排出来是
+     1 3 / 2 4，不是 1 2 / 3 4。图各自独立时无所谓，但一组按顺序
+     看的过程图就读错了。
+     rows-N 用真正的栅格，逐行排，顺序就是画面上的顺序。代价是同一行
+     会对齐到最高的那张，比例参差时下面留空 —— 所以只在一组图比例
+     一致时用它，其余情况还是交给 grid-N。 */
+  .prose-body :global(.rows-2),
+  .prose-body :global(.rows-3) {
+    display: grid;
+    gap: clamp(0.6rem, 1.6vw, 1.1rem);
+    align-items: start;
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+    width: min(100%, 1180px);
+  }
+
+  .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  @media (max-width: 640px) {
+    .prose-body :global(.rows-2),
+    .prose-body :global(.rows-3) { grid-template-columns: minmax(0, 1fr); }
+  }
+
   .prose-body :global([class^='grid-'] p) {
     margin: 0 0 clamp(0.6rem, 1.6vw, 1.1rem);
     position: relative;
@@ -798,6 +821,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   }
 
+  .prose-body :global([class^='rows-'] p) {
+    margin: 0;
+    position: relative;
+    transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  }
+
+  .prose-body :global([class^='rows-'] img),
   .prose-body :global([class^='grid-'] img) {
     margin: 0;
     display: block;
@@ -813,6 +843,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 悬停微微放大并浮起，方便看清小图 */
   @media (hover: hover) and (pointer: fine) {
+    .prose-body :global([class^='rows-'] p:hover),
     .prose-body :global([class^='grid-'] p:hover) {
       transform: scale(1.045);
       z-index: 2;

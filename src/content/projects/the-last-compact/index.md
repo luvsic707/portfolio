@@ -27,7 +27,7 @@ an infinite corridor of memory chambers where the path and the ending are driven
 mathematical model of the protagonist's psychological state.
 
 <!-- auto:images -->
-<div class="full">
+<div class="rows-2">
 
 ![A — PROJECT OVERVIEW 01](./a-project-overview-01.jpg)
 
