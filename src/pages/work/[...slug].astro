@@ -170,8 +170,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 <script>
   const body = document.querySelector<HTMLElement>('.prose-body');
 
-  /* ---- 1. 子小节改成两栏：标题和说明在左，图在右 ----
-     ### 底下往往只有三四张小图，标题独占一行太浪费高度。 */
+  /* ---- 1. 把每个 ### 连同它底下的内容包成一个子小节 ----
+     标题和说明进 .sub-head，图和列表进 .sub-main。样式见下面的 .sub。 */
   if (body) {
     let head: HTMLElement | null = null;
     let main: HTMLElement | null = null;
@@ -194,16 +194,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       /* 纯文字说明跟着标题走，图和列表进右栏 */
       if (el.tagName === 'P' && !el.querySelector('img')) head.append(el);
       else main.append(el);
-    }
-
-    /* 左栏的存在理由是放说明文字。没有说明，就没有左栏 ——
-       标题改成通栏的一行压在图上面，图拿回整个版心的宽度。
-       同一组图反复出现时（九类御宅、每类四张），两栏会把每一组
-       切成「一小块文字 + 一小排缩图」，翻下去全是碎片；通栏的
-       标题行反而把每一组箍成一整块。 */
-    for (const sub of body.querySelectorAll<HTMLElement>('.sub')) {
-      const h = sub.querySelector('.sub-head');
-      if (h && h.children.length === 1) sub.classList.add('is-banner');
     }
   }
 
@@ -1732,57 +1722,33 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.sub-main .flow) { column-count: 2; }
 
-  /* ---- 子小节：标题在左，图在右 ---- */
+  /* ---- 子小节 ----
+     只有一种版式：标题通栏一行，说明跟在下面，图再下面。
+
+     之前还有一套「标题在左、图在右」的两栏，按有没有说明文字二选一。
+     结果同一节底下的两个子小节长成两个样 —— 一个是通栏小标签、图从
+     版心左缘起；另一个是左栏大标题、图从 345px 起。而全站真正带说明
+     文字的子小节只有一个。为一个特例留一整套版式，换来的是每一处
+     并排出现时的割裂，不划算。 */
   .prose-body :global(.sub) {
     display: grid;
-    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
-    gap: clamp(1rem, 3vw, 2.5rem);
-    align-items: start;
-    margin-block: clamp(1.75rem, 4vw, 2.75rem);
+    grid-template-columns: minmax(0, 1fr);
+    margin-block: clamp(2.25rem, 5.2vw, 3.5rem);
     width: min(100%, 1180px);
   }
 
-  /* 图多的时候标题跟着滚一段，一直知道在看哪一类 */
   .prose-body :global(.sub-head) {
-    position: sticky;
-    top: calc(var(--nav-h, 3.4rem) + 4rem);
+    margin-bottom: clamp(0.7rem, 1.6vw, 1.05rem);
   }
 
-  .prose-body :global(.sub h3) { margin-top: 0; }
-
-  .prose-body :global(.sub-head p) {
-    font-size: var(--step--1);
-    line-height: 1.6;
-    color: var(--ink-soft);
-  }
-
-  .prose-body :global(.sub-main > :first-child) { margin-top: 0; }
-
-  /* ---- 通栏子小节：标题独占一行，图在下面铺满 ---- */
-  .prose-body :global(.sub.is-banner) {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0;
-    margin-block: clamp(2.25rem, 5.2vw, 3.5rem);
-  }
-
-  /* 通栏了就别再吸顶 —— 标题本来就贴在自己那组图上面 */
-  .prose-body :global(.sub.is-banner .sub-head) { position: static; }
-
-  /* 图组自己的下边距会和小节的下边距叠起来 —— 一排图底下空出 112px，
-     而标题离自己那排图只有 22px。留白该把一组箍在一起、和下一组拉开，
-     不是在每组下面都开一个天窗。去掉里面那一层，只留小节之间的。 */
-  .prose-body :global(.sub.is-banner .sub-main > :last-child) { margin-bottom: 0; }
-
-  /* 组标题降成表单标签的写法 —— 压窄、全大写、发丝字距，和页眉横栏、
-     .section-label 是同一族。原来它用 --step-1，和章节大标题一样大：
-     九组重复出现的小标题跟章节抢同一个音量，读起来就是九句喊话，
-     整页的节奏全被它打断。这里它只需要说明「下面这排是哪一类」，
-     不需要被看见第二眼。 */
-  .prose-body :global(.sub.is-banner h3) {
+  /* 组标题是表单标签的写法 —— 压窄、全大写、发丝字距，和页眉横栏、
+     .section-label 是同一族。它只需要说明「下面这组是哪一类」，
+     用章节标题那个字号的话，九组重复出现就是九句喊话，整页节奏全断。 */
+  .prose-body :global(.sub h3) {
     display: flex;
     align-items: baseline;
     gap: 0.55em;
-    margin-bottom: clamp(0.7rem, 1.6vw, 1.05rem);
+    margin: 0;
     font-size: var(--step--1);
     font-stretch: var(--cond);
     font-weight: 600;
@@ -1793,13 +1759,29 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 全站唯一的彩色在正文里一直缺席 —— 让它在每一组的行首出现一次。
      和 .marker::before 是同一套写法：前导符号标红，字本身不动。 */
-  .prose-body :global(.sub.is-banner h3)::before {
+  .prose-body :global(.sub h3)::before {
     content: '→';
     color: var(--red);
     font-family: var(--font-mono);
     font-size: 0.8em;
     flex: none;
   }
+
+  /* 说明文字通栏了，但读起来还是要有个行长上限 */
+  .prose-body :global(.sub-head p) {
+    margin: 0.65rem 0 0;
+    max-width: 56ch;
+    font-size: var(--step-0);
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  .prose-body :global(.sub-main > :first-child) { margin-top: 0; }
+
+  /* 图组自己的下边距会和小节的下边距叠起来 —— 一排图底下空出 112px，
+     而标题离自己那排图只有 22px。留白该把一组箍在一起、和下一组拉开，
+     不是在每组下面都开一个天窗。去掉里面那一层，只留小节之间的。 */
+  .prose-body :global(.sub-main > :last-child) { margin-bottom: 0; }
 
   /* ---- cutout：抠在白底上的图形，不是照片 ----
      手动加在容器上，比如 <div class="grid-4 cutout">。
@@ -1833,11 +1815,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.sub-main [class^='grid-']),
   .prose-body :global(.sub-main .clamp) { width: 100%; }
-
-  @media (max-width: 860px) {
-    .prose-body :global(.sub) { grid-template-columns: minmax(0, 1fr); gap: 0.75rem; }
-    .prose-body :global(.sub-head) { position: static; }
-  }
 
   /* ---- 混排在图片里的视频 ----
      结构跟图片一样是 <p><video>，所以各版式的尺寸规则直接复用。
