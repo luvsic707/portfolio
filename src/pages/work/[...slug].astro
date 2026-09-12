@@ -842,29 +842,41 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 章节标题：整条发丝线压底，编号计数器挂在右侧页边 */
   .prose-body { counter-reset: sheet; }
 
-  /* 章节标题和上面的标签条写着同一句话，之前读起来像回声 ——
-     问题不在于说了两遍，在于用同一种声音说了两遍：
-     它原来是 19px、压窄 84%、字距 +0.08em，和标签条、子小节标签、
-     页眉字段是同一族「表单声」。
+  /* 标签条就钉在这行上面六十像素处，写着同一句话。换字号、换字距都救
+     不回来 —— 一样的词上下贴着，就是重复；放大反而更吵。
 
-     全站其实有两套声音。表单声：小、压窄、字距拉开，给标签和字段。
-     标题声：大、不压窄、字距收紧，给作品名。章节标题是标题，不是字段，
-     所以把它挪回标题声 —— 和作品名同族，比它小一档。
+     所以名字只说一遍，交给标签条（它一直在视野里，而且可以点）。
+     正文这里留下的是标签条给不了的东西：一个「新的一节从这里开始」的
+     实体路标 —— 一个大写的节号、一道通栏线、右端的卷宗页码。
 
-     换完之后，标签条读起来是这一节的索引条目，正文这行是这一节的标题。
-     同样的字，两种身份，不再是回声。 */
+     节号不是我写死的，是 CSS 数出来的（counter 的 upper-alpha 形态），
+     所以它和 markdown 里的 ## A / ## B 永远对得上，加节删节都不用管。
+     全站十个项目的章节都是 A 起、连号，这个前提成立。
+
+     顺带补上一件早该有的事：design tokens 里写明字阶是「掏空」的 ——
+     极小的表单字配极大的编号，中段基本不用。可那个极大的一端在项目页
+     从来没出现过，整页字都挤在 11–26px 这一窄条里。这个节号就是它。
+
+     h2 本身留在 DOM 里，只是不画 —— 文档结构、锚点、读屏、标签条
+     和页码计数全靠它。 */
   .prose-body :global(h2) {
     position: relative;
     counter-increment: sheet;
     margin-top: clamp(3.5rem, 8vw, 6rem);
-    padding-bottom: 0.55rem;
+    padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--ink);
-    font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
-    font-stretch: normal;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  .prose-body :global(h2)::before {
+    content: counter(sheet, upper-alpha);
+    display: block;
+    /* 封顶压在作品名之下（那个是 33px）—— 节号是路标，不是页面的标题 */
+    font-size: clamp(1.5rem, 1rem + 1.8vw, 2rem);
+    line-height: 0.95;
     font-weight: 500;
-    letter-spacing: -0.008em;
-    line-height: 1.1;
-    text-transform: uppercase;
+    letter-spacing: -0.02em;
     color: var(--ink);
   }
 
