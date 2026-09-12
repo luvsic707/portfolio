@@ -25,20 +25,7 @@ const hasVideo = slides.some((s) => s.video);
   aria-roledescription="carousel"
   aria-label={`${title} — gallery`}
 >
-  <!-- 真磨砂玻璃是折射不是模糊：湍流把背后的像素推歪，玻璃才有透镜感。
-       和首页 #frost 同一套参数，所以两处的玻璃是同一块。 -->
-  <svg class="gl-filters" aria-hidden="true" focusable="false">
-    <filter id="frost-case" x="-6%" y="-6%" width="112%" height="112%"
-            color-interpolation-filters="sRGB">
-      <feTurbulence type="fractalNoise" baseFrequency="0.055 0.07"
-                    numOctaves="3" seed="11" result="n" />
-      <feDisplacementMap in="SourceGraphic" in2="n" scale="22"
-                         xChannelSelector="R" yChannelSelector="G" result="d" />
-      <feGaussianBlur in="d" stdDeviation="1.1" />
-    </filter>
-  </svg>
-
-  <div class="stage" data-stage>
+  <div class="stage">
     {slides.map((s, i) => (
       <div
         class:list={['slide', { 'is-on': i === 0, 'is-video': !!s.video }]}
@@ -97,14 +84,6 @@ const hasVideo = slides.some((s) => s.video);
 </section>
 
 <script>
-  import { initSpecimenGlass } from '../scripts/specimen-glass.js';
-
-  /* 观察窗：开屏这一屏就是玻璃，底下是作品，擦开才看见。
-     首页看的是血管标本，这里看的是这件作品 —— 同一块玻璃，换了标本。 */
-  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((el) => {
-    initSpecimenGlass(el);
-  });
-
   document.querySelectorAll<HTMLElement>('[data-gallery]').forEach((root) => {
     const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
     if (slides.length === 0) return;
@@ -301,23 +280,6 @@ const hasVideo = slides.some((s) => s.video);
     object-fit: contain;
     object-position: center;
   }
-
-  /* --- 观察窗的玻璃 --- */
-
-  .gl-filters { position: absolute; width: 0; height: 0; pointer-events: none; }
-
-  .stage :global(.gl-glass) {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    /* 只有这一层挂折射。附带的好处是擦出来的洞口边缘也被同一个湍流
-       打碎，所以擦痕是毛的、是湿的，不是一个圆。 */
-    filter: url(#frost-case);
-    transition: opacity 0.85s var(--ease);
-  }
-
-  .stage :global(.gl-glass.is-gone) { opacity: 0; }
 
   /* --- 左右箭头 --- */
 
