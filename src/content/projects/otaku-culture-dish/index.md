@@ -301,7 +301,7 @@ A small interactive installation echoing the title. Acrylic fluid painting, felt
 clay modelling build a miniature ecology — the persona of the group, visible at a glance.
 
 <!-- auto:images -->
-<div class="showcase">
+<div class="rows-3">
 
 ![E — OUTCOME 2: INSTALLATION 01](./e-outcome-2-installation-01.jpg)
 
