@@ -988,7 +988,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     --c6: 2fr;      /* 0.64 宽高比 × 3.125 */
     --c7: 2.34fr;   /* 0.75 宽高比 × 3.125 */
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr)) var(--c6) var(--c7);
+    /* 每栏都给下限：容器窄的时候(比如整块挪进子小节的右栏)宁可横滑，
+       也不能让牌缩下去 —— 缩到 90px 就只剩一团黑影，图腾全看不见了。
+       下限之间保持同一组比例，否则一滑起来右边两格又被压回小方块。 */
+    grid-template-columns:
+      repeat(5, minmax(150px, 1fr))
+      minmax(300px, var(--c6))
+      minmax(352px, var(--c7));
     gap: clamp(0.5rem, 1.4vw, 1rem);
     align-items: start;
     /* 窄屏放不下就左右滑，不硬挤 */
@@ -1020,17 +1026,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     display: block;
     width: 100%;
     height: auto;
-  }
-
-  @media (max-width: 1100px) {
-    /* 窄屏保持同一套结构，靠横向滑动看全 */
-    .prose-body :global(.cards) {
-      /* 下限按同一个比例给，不然一横滑起来右边两格又被压回小方块 */
-      grid-template-columns:
-        repeat(5, minmax(150px, 1fr))
-        minmax(300px, var(--c6))
-        minmax(352px, var(--c7));
-    }
   }
 
   /* ==================== 正文里的图表 ====================
@@ -1455,11 +1450,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.strip p:hover) { opacity: 1; }
   }
 
-  /* 通栏版式在子小节里就老实待在右栏 —— 子小节是细节，不该冲破版心 */
+  /* 通栏版式在子小节里就老实待在右栏 —— 子小节是细节，不该冲破版心。
+     六种通栏版式一个都不能漏：它们靠 margin-inline: calc(50% - 50vw) 往外顶，
+     而那个 50% 算的是父元素。父元素在版心里居中时正好抵消；一旦挪进
+     子小节右栏（偏在一边、也更窄），就顶歪了，整个文档跟着横向溢出。 */
   .prose-body :global(.sub-main .strip),
   .prose-body :global(.sub-main .flow),
-  .prose-body :global(.sub-main .showcase) {
+  .prose-body :global(.sub-main .showcase),
+  .prose-body :global(.sub-main .cards),
+  .prose-body :global(.sub-main .slider),
+  .prose-body :global(.sub-main .full) {
     width: 100%;
+    max-width: 100%;
     margin-inline: 0;
     padding-inline: 0;
   }

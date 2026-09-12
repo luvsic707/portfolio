@@ -110,7 +110,33 @@ a lot of time, so the storytelling leans abstract.
 </div>
 <!-- /auto:images -->
 
-## E — CARD DESIGN
+
+## E — GAME ASSETS
+
+### E.1 — NARRATIVE SEQUENCES
+
+
+<!-- auto:images -->
+<div class="strip">
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 01"></video></p>
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 02"></video></p>
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 03"></video></p>
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 04"></video></p>
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 05"></video></p>
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 06"></video></p>
+
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="E.1 — NARRATIVE SEQUENCES 07"></video></p>
+
+</div>
+<!-- /auto:images -->
+
+### E.2 — SYMBOLS & ICONS
 
 Five Elements, each with a Yin and a Yang form — ten cards, ten totems. Yang Earth is an
 unbreakable wall; Yin Earth is soil that feeds.
@@ -120,58 +146,32 @@ Fate and Artifact cards are planned. Only **Element Cards** are built, and they 
 <!-- auto:images -->
 <div class="cards">
 
-![E — CARD DESIGN 01](./g-card-design-01.jpg)
+![E.2 — SYMBOLS & ICONS 01](./g-card-design-01.jpg)
 
-![E — CARD DESIGN 02](./g-card-design-02.jpg)
+![E.2 — SYMBOLS & ICONS 02](./g-card-design-02.jpg)
 
-![E — CARD DESIGN 03](./g-card-design-03.jpg)
+![E.2 — SYMBOLS & ICONS 03](./g-card-design-03.jpg)
 
-![E — CARD DESIGN 04](./g-card-design-04.jpg)
+![E.2 — SYMBOLS & ICONS 04](./g-card-design-04.jpg)
 
-![E — CARD DESIGN 05](./g-card-design-05.jpg)
+![E.2 — SYMBOLS & ICONS 05](./g-card-design-05.jpg)
 
-![E — CARD DESIGN 06](./g-card-design-06.jpg)
+![E.2 — SYMBOLS & ICONS 06](./g-card-design-06.jpg)
 
-![E — CARD DESIGN 07](./g-card-design-07.jpg)
+![E.2 — SYMBOLS & ICONS 07](./g-card-design-07.jpg)
 
-![E — CARD DESIGN 08](./g-card-design-08.jpg)
+![E.2 — SYMBOLS & ICONS 08](./g-card-design-08.jpg)
 
-![E — CARD DESIGN 09](./g-card-design-09.jpg)
+![E.2 — SYMBOLS & ICONS 09](./g-card-design-09.jpg)
 
-![E — CARD DESIGN 10](./g-card-design-10.jpg)
+![E.2 — SYMBOLS & ICONS 10](./g-card-design-10.jpg)
 
-![E — CARD DESIGN 11](./g-card-design-11.jpg)
+![E.2 — SYMBOLS & ICONS 11](./g-card-design-11.jpg)
 
-<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="800" height="1066" muted loop playsinline preload="metadata" data-autoplay aria-label="E — CARD DESIGN 12"></video></p>
-
-</div>
-<!-- /auto:images -->
-
-## F — GAME ASSETS
-
-### F.1 — NARRATIVE SEQUENCES
-
-
-<!-- auto:images -->
-<div class="strip">
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 01"></video></p>
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 02"></video></p>
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 03"></video></p>
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 04"></video></p>
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 05"></video></p>
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 06"></video></p>
-
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 07"></video></p>
+<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="800" height="1066" muted loop playsinline preload="metadata" data-autoplay aria-label="E.2 — SYMBOLS & ICONS 12"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-### F.2 — SYMBOLS & ICONS
 
-### F.3 — UI & INTERFACE
+### E.3 — UI & INTERFACE
