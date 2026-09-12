@@ -12,8 +12,6 @@ meta:
 links:
   - label: Source code
     href: https://github.com/Gary977/fengshen1
-  - label: World-building map
-    href: https://whimsical.com/intro-of-wod-GfwM5K2eucEkNBHchJLHC7
 gallery:
   - video: /media/nine-lives-game/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — video 01
@@ -22,20 +20,16 @@ cover: ./card.jpg
 
 ## A — WORLD-BUILDING
 
-Before any game design, the world had to hold together. A world-building map laid out how
-gods, humans and demons are tied to each other; a character mood board fixed each figure's
-personality, palette and symbol.
+Before any game design, the world had to hold together: gods, humans and demons tied to each
+other in one system, every figure fixed to a personality, a palette and a symbol, and every
+key decision in the story marked with where it leads.
 
-The intro animation and the main game story were written to meet, and a branching story map
-marks every key decision and where it leads.
+That map is a wall, not a picture — flattened onto a page it is unreadable. It lives on
+Whimsical, where it can be zoomed.
 
-<!-- auto:images -->
-<div class="full">
-
-![A — WORLD-BUILDING 01](./a-world-building-01.jpg)
-
+<div class="doclink">
+  <a href="https://whimsical.com/intro-of-wod-GfwM5K2eucEkNBHchJLHC7" target="_blank" rel="noopener noreferrer">World-building map<span class="arrow">&#8599;</span><span class="host">whimsical.com</span></a>
 </div>
-<!-- /auto:images -->
 
 ## B — CHARACTER & RELATIONSHIPS
 
