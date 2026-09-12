@@ -33,19 +33,6 @@ const hasVideo = slides.some((s) => s.video);
         aria-roledescription="slide"
         aria-label={`${i + 1} / ${slides.length}`}
       >
-        {/* 背景是同一张图的模糊放大版，用来把留白填满 —— 前景仍然完整不裁切 */}
-        {(s.image ?? s.poster) && (
-          <Image
-            class="bg"
-            src={(s.image ?? s.poster)!}
-            alt=""
-            aria-hidden="true"
-            widths={[64]}
-            sizes="64px"
-            loading={i === 0 ? 'eager' : 'lazy'}
-          />
-        )}
-
         {s.video ? (
           <video
             class="fg"
@@ -261,20 +248,22 @@ const hasVideo = slides.some((s) => s.video);
 
   .slide.is-on { opacity: 1; pointer-events: auto; }
 
-  /* 背景层：同一张图放大模糊，把上下留白填掉，观感是满的 */
-  .slide :global(img.bg) {
-    position: absolute;
-    inset: 0;
+  /* 开屏铺满整个画面。
+     以前是 contain + 背后垫一张放大模糊的同图，用来填掉留白 ——
+     那层糊影自己变成了画面里最显眼的东西，尤其竖图，两边各一大片。
+     现在直接铺满：竖图会被裁掉上下，这是填满的代价，换来的是
+     开屏一整屏都是作品本身。
+     视频仍然完整呈现 —— 视频是一段有开头结尾的东西，裁掉边角
+     等于把镜头改了。 */
+  .slide :global(img.fg) {
+    position: relative;
+    z-index: 1;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: blur(38px) saturate(1.15) brightness(0.9);
-    transform: scale(1.12);
-    z-index: 0;
+    object-position: center;
   }
 
-  /* 前景层：作品本身，完整呈现，一寸都不裁 */
-  .slide :global(img.fg),
   .slide video.fg {
     position: relative;
     z-index: 1;
