@@ -924,13 +924,23 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 用多栏而不是 grid：图按上传时的原始比例呈现，高度参差也不会留空档。
      2:1 就是 2:1，竖图就是竖图，一律不裁。 */
+  /* ---- 版块的宽度 ----
+     所有版式一律填满版心，不再各自设上限。
+
+     以前这里每一处都写 min(100%, 1180px)。版心在 1920 屏上有 1312，
+     块只肯要 1180，而且是左对齐 —— 右边白扔 132px。它上面的章节线
+     是满宽的，于是线比图宽出一截，整页看起来就是「图被推到了左边」。
+     一个页面里数出四条右边缘：正文 745、图块 1477、章节线 1609、
+     通栏 1913，左边却全钉在 297。重量当然压在左边。
+
+     正文的行长另有 max-width: 56ch 管着，不会因此跑成长条。 */
   .prose-body :global(.grid-2),
   .prose-body :global(.grid-3),
   .prose-body :global(.grid-4) {
     column-gap: clamp(0.6rem, 1.6vw, 1.1rem);
     margin-block: clamp(1.75rem, 4vw, 3rem);
     /* 网格整体比正文宽 —— 正文是给人读的，图是给人看的 */
-    width: min(100%, 1180px);
+    width: 100%;
   }
 
   .prose-body :global(.grid-2) { column-count: 2; }
@@ -951,7 +961,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     gap: clamp(0.6rem, 1.6vw, 1.1rem);
     align-items: start;
     margin-block: clamp(1.75rem, 4vw, 3rem);
-    width: min(100%, 1180px);
+    width: 100%;
   }
 
   /* 正好两张并排时，栏宽按各自的宽高比给，两张就一样高了。
@@ -964,7 +974,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     gap: clamp(0.6rem, 1.6vw, 1.1rem);
     align-items: start;
     margin-block: clamp(1.75rem, 4vw, 3rem);
-    width: min(100%, 1180px);
+    width: 100%;
   }
 
   /* 一大两小：头一张占满左边两排，另外两张在右边上下叠。
@@ -979,7 +989,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     gap: clamp(0.6rem, 1.6vw, 1.1rem);
     align-items: start;
     margin-block: clamp(1.75rem, 4vw, 3rem);
-    width: min(100%, 1180px);
+    width: 100%;
   }
 
   .prose-body :global(.lead > p:first-child) {
@@ -1004,7 +1014,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     align-items: flex-start;
     gap: 0.75rem;
     margin-block: clamp(0.75rem, 2vw, 1.25rem);
-    width: min(100%, 1180px);
+    width: 100%;
   }
 
   .prose-body :global(.band > p) {
@@ -1038,7 +1048,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      那条规则会把它收到 560px —— 那是给小图的照顾，一张要看清细节的
      拼贴反而被压小了。 */
   .prose-body :global(.solo) {
-    width: min(100%, 1180px);
+    width: 100%;
     margin-block: clamp(1.75rem, 4vw, 3rem);
   }
 
@@ -1266,7 +1276,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     grid-auto-columns: minmax(340px, 1fr);
     gap: clamp(0.5rem, 1.4vw, 1rem);
     margin-block: clamp(1.75rem, 4vw, 3rem);
-    width: min(100%, 1180px);
+    width: 100%;
     overflow-x: auto;
     overscroll-behavior-x: contain;
   }
@@ -1320,7 +1330,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      节点是方的，箭头是排版符号，红色只给关键路径。 */
 
   .prose-body :global(.dg) {
-    width: min(100%, 1180px);
+    width: 100%;
     margin-block: clamp(1.75rem, 4vw, 3rem);
     border-top: 1px solid var(--ink);
     padding-top: 1rem;
@@ -1767,7 +1777,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     margin-block: clamp(2.25rem, 5.2vw, 3.5rem);
-    width: min(100%, 1180px);
+    width: 100%;
   }
 
   .prose-body :global(.sub-head) {
@@ -1891,7 +1901,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 正文里的视频（旧的独立视频块，保留兼容） */
   .prose-body :global(.videos) {
-    width: min(100%, 1180px);
+    width: 100%;
     margin-block: clamp(1.75rem, 4vw, 3rem);
     display: grid;
     gap: clamp(0.75rem, 2vw, 1.25rem);
