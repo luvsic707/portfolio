@@ -425,12 +425,16 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   /* ---- 3. 章节索引跟着滚动高亮 ----
-     规则：取最后一个已经滚过标签条的标题。读到哪一节，那一节就一直亮着，
-     任何时刻有且只有一片标签是抽出来的 —— 就像文件夹里永远只有一页翻开。
+     规则：哪一节占了屏幕最多，就算在看哪一节。任何时刻有且只有一片标签
+     是抽出来的 —— 就像文件夹里永远只有一页翻开。
 
-     以前用 IntersectionObserver 配 rootMargin，认的是「标题正落在视野中段」。
-     标题一滚出那条带子就没人是当前节，整排标签一起熄灭 ——
-     而一节往往有好几屏，于是大部分时间它都是暗的，等于没有指示。 */
+     试过两种更简单的写法，都不行：
+     · IntersectionObserver 配 rootMargin，认「标题正落在视野中段」——
+       标题一滚出那条带子就没人是当前节，整排标签一起熄灭，而一节往往
+       有好几屏，于是大部分时间都是暗的。
+     · 取最后一个滚过标签条的标题 —— 永远有一片亮着，但下一节的标题
+       都露出大半屏了，只要它还没顶到条上，标签就还停在上一节。
+       屏幕上明明写着 D，标签却说 C。 */
   const links = [...document.querySelectorAll<HTMLAnchorElement>('[data-sec]')];
 
   if (links.length) {
@@ -446,12 +450,20 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     const mark = () => {
       queued = false;
       if (!heads.length) return;
-      const line = (bar?.getBoundingClientRect().bottom ?? 0) + 4;
+      /* 每一节的地盘是「自己的标题到下一节的标题」。
+         把它和标签条以下的可视区域求交集，谁的交集长谁就是当前节。 */
+      const top = bar?.getBoundingClientRect().bottom ?? 0;
+      const tops = heads.map((h) => h.el.getBoundingClientRect().top);
 
       let now = heads[0];
-      for (const h of heads) {
-        if (h.el.getBoundingClientRect().top <= line) now = h;
-        else break;
+      let best = -Infinity;
+      for (let i = 0; i < heads.length; i++) {
+        const end = i + 1 < heads.length ? tops[i + 1] : Infinity;
+        const seen = Math.min(end, innerHeight) - Math.max(tops[i], top);
+        if (seen > best) {
+          best = seen;
+          now = heads[i];
+        }
       }
       if (now === cur) return;
       cur = now;
