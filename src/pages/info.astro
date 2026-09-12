@@ -1,35 +1,131 @@
 ---
 import Base from '../layouts/Base.astro';
 
-/* 这几块直接改文字就行 */
-const capabilities = [
-  'Brand Design',
-  'Illustration',
-  'Tattoo',
-  'Game Design',
-  'Graphic & Visual Communication',
-  'AR / VR',
-  'Animation',
+/* ── 这一页的内容全部在这里改，下面的模板不用动 ───────────────── */
+
+const role = 'Illustrator · Concept & Visual Designer';
+const city = 'TORONTO, ON';
+
+/* 技能按「做什么」分组，不按「会什么软件」——
+   招聘的人先找的是职能，软件是第二层。
+   每组都排满，整块读起来是一片密实的灰面，这是这一页的主体。 */
+const skills = [
+  {
+    label: 'Design',
+    items: [
+      'Illustration',
+      'Concept Art',
+      'Character Design',
+      'Storyboarding',
+      'Narrative Design',
+      'Brand & Visual Identity',
+      'Editorial & Book Design',
+      'UI / UX Design',
+      'Motion Graphics',
+      '2D Animation',
+    ],
+  },
+  {
+    label: 'Technical',
+    items: [
+      'Unity (2D / AR)',
+      'C#',
+      'Vuforia',
+      'Blender',
+      'TouchDesigner',
+      'Game Prototyping',
+      'Usability Research',
+      'AI-assisted Creation',
+    ],
+  },
+  {
+    label: 'Software',
+    items: [
+      'Photoshop',
+      'Illustrator',
+      'After Effects',
+      'Premiere Pro',
+      'Procreate',
+      'Figma',
+      'Unity',
+      'Blender',
+    ],
+  },
+  /* 这一组是别人没有的。放进技能表里，「杂」就变成了「跨度」。 */
+  {
+    label: 'Hand & Material',
+    items: [
+      'Tattooing',
+      'Henna',
+      'Chinese Ink',
+      'Watercolour',
+      'Mixed Media',
+      'Bookbinding',
+      'Stop-Motion',
+      'Mural Painting',
+      'Print Production',
+    ],
+  },
 ];
 
-const tools = ['Procreate', 'Photoshop', 'Illustrator', 'Unity', 'Blender', 'Figma', 'After Effects'];
-
-/* 学历和经历混在一条时间线上，按开始年份倒序。
-   学位名和学校分两行 —— 挤在一行里读起来像一串逗号，
-   分开之后眼睛先扫到学位，再落到学校，和简历上的读法一致。 */
-const timeline = [
+const experience = [
   {
-    year: '2024 — 2026',
-    text: 'Master of Digital Media',
-    at: 'Northeastern University',
+    year: '2026 —',
+    role: 'Character Design Artist',
+    at: '2.5D Tactical Turn-Based Game · Vancouver',
+    note: 'Progression-based character assets from sketch to in-engine; 3D blockout to 2D refinement at 31° isometric.',
   },
-  { year: '2021 —', text: 'Freelance: brand, illustration, tattoo design' },
+  {
+    year: '2025 —',
+    role: 'Independent Tattoo Artist',
+    at: 'RedThread · Vancouver',
+    note: 'Narrative-driven work. Showed at the 2025 Vancouver Tattoo Convention.',
+  },
+  {
+    year: '2025 — 2026',
+    role: 'Independent Branding Designer',
+    at: 'Nuo-Oxygen Rice Wine · Remote',
+    note: 'Full visual identity and a packaging system across 8 SKUs, gift sets, apparel and retail. In use in two stores.',
+  },
+  {
+    year: '2024',
+    role: 'Brand Designer & Creative Coordinator',
+    at: 'Zenith Construction Engineering Management · Chengdu',
+    note: 'Identity rebuild and brand manual, rolled out at the firm’s 30th anniversary.',
+  },
+  {
+    year: '2023 — 2024',
+    role: 'Social Media & Content Designer',
+    at: 'Southwest Institute of Applied Psychology · Chengdu',
+    note: 'Branding, long-form articles and infographics turning clinical material into public-facing work.',
+  },
+  {
+    year: '2020',
+    role: 'Illustrator Intern',
+    at: 'Muke Cultural & Creative · Hangzhou',
+    note: 'Two illustration series put into production; over 1,000 units sold.',
+  },
+];
+
+const education = [
+  { year: '2024 — 2026', text: 'Master of Digital Media', at: 'Northeastern University' },
   {
     year: '2019 — 2023',
-    text: 'Bachelor of Fine Arts in Visual Communication',
+    text: 'Bachelor of Fine Arts, Visual Communication',
     at: 'Communication University of Zhejiang',
   },
 ];
+
+const showings = [
+  {
+    year: '2026',
+    text: 'Between Selves · Flowing Through Identities',
+    at: 'Balam Balam Place, Melbourne',
+  },
+  { year: '2025', text: 'Vancouver Tattoo Convention', at: 'Vancouver' },
+];
+
+const languages = ['English', '中文'];
 
 const revised = new Date().toISOString().slice(0, 10);
 ---
@@ -38,11 +134,10 @@ const revised = new Date().toISOString().slice(0, 10);
 
   <section class="head-block">
     <div class="wrap">
-
       <div class="rail">
         <span>PRACTITIONER FILE</span>
         <span>RT-000</span>
-        <span>TORONTO, ON</span>
+        <span>{city}</span>
         <span class="rail-end">REV. {revised}</span>
       </div>
 
@@ -52,75 +147,106 @@ const revised = new Date().toISOString().slice(0, 10);
         <span class="hash">#000</span>
       </div>
 
+      <p class="role">{role}</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="wrap layout">
+    <div class="wrap">
 
-      <div class="col-main">
-        <p class="prose reveal">
-          Hi there — I&rsquo;m Red Thread. I design, paint, tattoo, and make games:
-          a multi-hyphenate by passion.
-        </p>
+      <div class="layout">
+        <div class="col-main">
+          <p class="prose reveal">
+            I draw, design, tattoo, and make games. Illustration is the spine of it —
+            everything else is that drawing pushed into another material until it has to
+            hold up as a printed object, a playable system, or a mark on skin.
+          </p>
 
-        <p class="prose reveal">
-          With a Master&rsquo;s in Digital Media, I&rsquo;m exploring how
-          traditional craft and modern technology collide to create <em>tension</em>,
-          <em>contradiction</em>, and visual storytelling. My work lives somewhere
-          between the tangible and the unreal, where myth, emotion, and data all
-          intertwine.
-        </p>
+          <p class="prose reveal">
+            Most of the work here starts in reading and interviews and ends in something
+            made: a sociology text becomes an ink series, clinical literature becomes an
+            AR poster, a myth becomes a card game. I take projects the whole way —
+            research, form, production, and the file that goes to the printer.
+          </p>
 
-        <p class="prose reveal">
-          I can help you turn abstract ideas into striking, story-driven visuals —
-          whether it&rsquo;s brand design, illustration, or immersive media experiences
-          that move people both visually and emotionally.
-        </p>
+          <p class="prose reveal">
+            Finishing a Master of Digital Media at Northeastern. Based in Toronto,
+            looking for work in illustration, concept and visual design.
+          </p>
+        </div>
+
+        <aside class="col-side">
+          <div class="block reveal">
+            <h2 class="section-label">Languages</h2>
+            <ul class="tags">
+              {languages.map((l) => <li>{l}</li>)}
+            </ul>
+          </div>
+
+          <div class="block reveal">
+            <h2 class="section-label">Enquiries</h2>
+            <p class="mail"><a href="mailto:ruojingpu19@gmail.com">ruojingpu19@gmail.com</a></p>
+          </div>
+        </aside>
       </div>
 
-      <aside class="col-side">
-
-        <div class="block reveal">
-          <h2 class="section-label">Capacités</h2>
-          <ul class="ledger">
-            {capabilities.map((c, i) => (
-              <li>
-                <span class="ledger-n">{String(i + 1).padStart(2, '0')}</span>
-                <span>{c}</span>
-              </li>
-            ))}
-          </ul>
+      <!-- ── 技能：整页的主体 ── -->
+      <div class="stack reveal">
+        <h2 class="section-label">Skills</h2>
+        <div class="skill-cols">
+          {skills.map((g) => (
+            <div class="skill-col">
+              <h3 class="skill-label">{g.label}</h3>
+              <ul class="skill-list">
+                {g.items.map((it) => <li>{it}</li>)}
+              </ul>
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div class="block reveal">
-          <h2 class="section-label">Outils</h2>
-          <ul class="ledger">
-            {tools.map((t, i) => (
-              <li>
-                <span class="ledger-n">{String(i + 1).padStart(2, '0')}</span>
-                <span>{t}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <!-- ── 经历 ── -->
+      <div class="stack reveal">
+        <h2 class="section-label">Experience</h2>
+        <dl class="ledger ledger-wide">
+          {experience.map((e) => (
+            <div>
+              <dt class="ledger-n">{e.year}</dt>
+              <dd>
+                {e.role}
+                <span class="ledger-at">{e.at}</span>
+                <span class="ledger-note">{e.note}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
 
-        <div class="block reveal">
-          <h2 class="section-label">Chronologie</h2>
-          <dl class="ledger">
-            {timeline.map((t) => (
-              <div>
-                <dt class="ledger-n">{t.year}</dt>
-                <dd>
-                  {t.text}
-                  {t.at && <span class="ledger-at">{t.at}</span>}
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+      <!-- ── 学历 ── -->
+      <div class="stack reveal">
+        <h2 class="section-label">Education</h2>
+        <dl class="ledger ledger-wide">
+          {education.map((e) => (
+            <div>
+              <dt class="ledger-n">{e.year}</dt>
+              <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
+            </div>
+          ))}
+        </dl>
+      </div>
 
-      </aside>
+      <!-- ── 展览：只有两条，所以和学历同一个写法，不单独做大 ── -->
+      <div class="stack reveal">
+        <h2 class="section-label">Showings</h2>
+        <dl class="ledger ledger-wide">
+          {showings.map((e) => (
+            <div>
+              <dt class="ledger-n">{e.year}</dt>
+              <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
+            </div>
+          ))}
+        </dl>
+      </div>
 
     </div>
   </section>
@@ -157,7 +283,6 @@ const revised = new Date().toISOString().slice(0, 10);
     flex-wrap: wrap;
     gap: 0.5rem clamp(0.9rem, 3vw, 2.5rem);
     padding-top: 0.5rem;
-    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
     border-top: 1px solid var(--ink);
   }
 
@@ -172,30 +297,92 @@ const revised = new Date().toISOString().slice(0, 10);
   .title {
     font-size: var(--step-2);
     font-weight: 500;
-    line-height: 1.05;
-    letter-spacing: -0.012em;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
+  }
+
+  /* 职位行：让人两秒内知道这是干什么的，比任何一段自我介绍都先起作用 */
+  .role {
+    padding-top: 0.35rem;
+    padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+    font-size: var(--step--1);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
   }
 
   .layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
     gap: clamp(2.5rem, 6vw, 5rem);
     align-items: start;
   }
 
-  .col-main > * + * { margin-top: 1.4rem; }
+  .col-main > * + * { margin-top: 1.2rem; }
+  .col-side > * + * { margin-top: clamp(1.75rem, 3vw, 2.5rem); }
 
-  .col-side > * + * { margin-top: clamp(2rem, 4vw, 3rem); }
+  .block .section-label,
+  .stack .section-label { margin-bottom: 0.9rem; }
 
-  .block .section-label { margin-bottom: 0.9rem; }
+  /* 几个大块之间拉开，每一块内部收紧 —— 一块是一块 */
+  .stack { margin-top: clamp(3rem, 7vw, 5rem); }
 
-  .ledger li,
+  /* --- 技能：四组并排，排满 --- */
+
+  .skill-cols {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .skill-label {
+    margin: 0 0 0.5rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .skill-list {
+    display: grid;
+    gap: 0.18rem;
+    font-size: var(--step--1);
+    color: var(--ink);
+  }
+
+  /* --- 语言：小方块 --- */
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    font-size: var(--step--1);
+  }
+
+  .tags li {
+    padding: 0.2rem 0.55rem;
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
+
+  .mail { font-size: var(--step--1); }
+  .mail a {
+    border-bottom: 1px solid var(--red);
+    transition: background 0.2s var(--ease);
+  }
+  .mail a:hover { background: var(--red-wash); }
+
+  /* --- 账目表 --- */
+
   .ledger > div {
     display: grid;
-    grid-template-columns: 6.6rem minmax(0, 1fr);   /* 放得下 2024 — 2026 */
+    grid-template-columns: 7.5rem minmax(0, 1fr);
     gap: 0.8rem;
-    padding-block: 0.4rem;
+    padding-block: 0.55rem;
     border-bottom: 1px solid var(--line);
     font-size: var(--step--1);
     color: var(--ink);
@@ -210,7 +397,7 @@ const revised = new Date().toISOString().slice(0, 10);
 
   .ledger dd { margin: 0; }
 
-  /* 学校名压一档，学位才是这一行的主语 */
+  /* 单位压一档，职位才是这一行的主语 */
   .ledger-at {
     display: block;
     margin-top: 0.15em;
@@ -218,21 +405,26 @@ const revised = new Date().toISOString().slice(0, 10);
     font-size: var(--step--2);
   }
 
-  .ledger > div:first-child .ledger-n,
-  .ledger li:first-child .ledger-n { color: var(--red); }
+  /* 一句话说明这份工做了什么 —— 只给经历用，学历和展览不需要 */
+  .ledger-note {
+    display: block;
+    margin-top: 0.35em;
+    max-width: 62ch;
+    color: var(--ink-soft);
+    font-size: var(--step--2);
+    line-height: 1.6;
+  }
 
-  /* 窄屏收成单栏 —— 两栏在手机上会把页面撑宽 */
+  .ledger > div:first-child .ledger-n { color: var(--red); }
+
   @media (max-width: 860px) {
     .layout { grid-template-columns: minmax(0, 1fr); }
     .col-side { margin-top: clamp(2rem, 6vw, 3rem); }
+    .skill-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   @media (max-width: 480px) {
-    .ledger li,
-    /* 能力和工具是两位数编号，3.2rem 就够；
-       时间线是「2024 — 2026」，得单独留宽一点，不然年份会折行。 */
+    .skill-cols { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
     .ledger > div { grid-template-columns: 5.6rem minmax(0, 1fr); gap: 0.5rem; }
-    .ledger li { grid-template-columns: 3.2rem minmax(0, 1fr); gap: 0.5rem; }
   }
-
 </style>
