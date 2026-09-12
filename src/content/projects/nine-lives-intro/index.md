@@ -34,18 +34,18 @@ It opens with a proud king insulting the goddess of creation. His kingdom falls.
 
 ## B — EARLY CONCEPT AND STORY DEVELOPMENT
 
-A few storyboard sketches to find the rhythm, and a rough script to fix the tone. I was lost
-at this point — no visual style, no technical direction, following impulse and trying to
-find a way to tell it.
+Storyboards for the rhythm, a script for the tone. No visual style yet, no technical
+direction — just looking for a way to tell it.
+
+A dynasty falls because of two lines the king writes on the goddess's wall:
+
+> Within the golden chambers shines a beauty rare,<br />
+> If she were mine, what joy beyond compare.
 
 <!-- auto:images -->
 <div class="grid-3">
 
-<p><video src="/media/nine-lives-intro/b-early-concept-and-story-development-01.mp4" width="1356" height="1312" muted loop playsinline preload="metadata" data-autoplay aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT 01"></video></p>
-
-<p><video src="/media/nine-lives-intro/b-early-concept-and-story-development-02.mp4" width="1356" height="1312" muted loop playsinline preload="metadata" data-autoplay aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT 02"></video></p>
-
-![B — EARLY CONCEPT AND STORY DEVELOPMENT 03](./b-early-concept-and-story-development-03.jpg)
+![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-03.jpg)
 
 </div>
 <!-- /auto:images -->
