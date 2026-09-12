@@ -97,7 +97,7 @@ Elements pulled straight from the moodboard and combined with the 3D material. M
 graphic design — spatial composition and visual experiment, done fast.
 
 <!-- auto:images -->
-<div class="showcase">
+<div class="pair" style="--cols: 1.001fr 0.707fr">
 
 ![D — POSTER COMPOSITION 01](./d-poster-composition-01.jpg)
 
