@@ -5,7 +5,7 @@ categories: ['Game']
 featured: true
 order: 1
 status: ONGOING
-summary: A six-stage first-person experience about the emptiness algorithmic feeds leave behind — built so the participant recognises themselves as both victim and accomplice.
+summary: A six-stage first-person experience on what algorithmic feeds leave behind. The reward lasts seconds; the debt comes back as emptiness. Most anti-addiction work casts you as the victim — this one makes you the accomplice.
 meta:
   date: 2026.07 – Present
   dimension: 1920×1080
@@ -20,21 +20,7 @@ gallery:
 cover: ./hero-poster.jpg
 ---
 
-## A — PREMISE
-
-Short-video feeds run on borrowed pleasure. The reward lands inside a stimulus–response loop
-measured in seconds; the debt comes back, with interest, as emptiness the moment you stop.
-Byung-Chul Han calls it the erosion of deep attention; Anna Lembke describes the same drift
-as a pleasure–pain balance sliding toward pain.
-
-Most anti-addiction work casts the user as a victim. This does not. The mechanism works
-because you feed it, swipe by swipe. It is built to put you in a Sartrean position:
-*I could have not scrolled.*
-
-No horror vocabulary. The language is evacuation — desaturated colour, decaying feedback,
-muffled sound.
-
-## B — THE SIX STAGES
+## A — THE SIX STAGES
 
 <div class="dg dg-tbl">
 
@@ -68,7 +54,7 @@ muffled sound.
 
 </div>
 
-## C — DATA RECKONING
+## B — DATA RECKONING
 
 Stage 6 shows you the residue of your own behaviour. That only works if the data is real.
 
@@ -81,7 +67,7 @@ I rejected it and redirected the pipeline to read the actual interaction frequen
 preceding stages. In human–AI co-creation the designer's job is not accepting generated
 code; it is staying the final arbiter of what the work means.
 
-## D — SEE IT IN ACTION
+## C — SEE IT IN ACTION
 
 The full walkthrough, all six stages end to end.
 
