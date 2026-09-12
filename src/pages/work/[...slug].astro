@@ -93,16 +93,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
         <p class="lede">{summary}</p>
 
-        <!-- 卡尺。首页那根量着 84cm 的红线就是这个形。
-             量的是这件作品真实的尺寸 —— meta.dimension 本来就有，
-             以前只是排成检验表里一行小灰字。
-             端点那两道垂直刻度是关键：没有它，这就只是一条红线。 -->
-        {meta?.dimension && (
-          <div class="caliper" aria-hidden="true">
-            <span>{meta.dimension}</span>
-          </div>
-        )}
-
         <!-- 检验表：横向分栏，不是竖着的键值对 -->
         <dl class="spec">
           <div class="spec-col">
@@ -591,48 +581,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 </script>
 
 <style>
-  /* ==================== 卡尺 ====================
-     照搬首页 thread() 画的那根尺寸线：1px 红线，两端各一道垂直刻度，
-     中间一个字，底下垫一块纸色把线断开。
-
-     vascular-window.js 里那句注释说得很准 ——「端点刻度垂直于线，
-     这一笔才让它从『连线』变成『尺寸线』」。省掉它就只是一条红线。 */
-  .caliper {
-    position: relative;
-    height: 0;
-    margin-top: clamp(1.5rem, 3.5vw, 2.4rem);
-    border-top: 1px solid var(--red);
-    opacity: 0.82;
-  }
-
-  .caliper::before,
-  .caliper::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    width: 1px;
-    height: 10px;
-    background: var(--red);
-  }
-
-  .caliper::before { left: 0; }
-  .caliper::after { right: 0; }
-
-  .caliper span {
-    position: absolute;
-    left: 50%;
-    top: -7px;
-    transform: translateX(-50%);
-    padding: 0 0.55rem;
-    background: var(--paper);
-    font-family: var(--font-mono);
-    font-size: 0.625rem;
-    line-height: 14px;
-    letter-spacing: 0.04em;
-    white-space: nowrap;
-    color: var(--red);
-  }
-
   /* ==================== 遥测块 ====================
      和首页 .telemetry 是同一套值：等宽、10px、行高 1.7、字距 0.04em、
      --ink-faint、右下角、不吃鼠标。一眼要看得出是同一台仪器。
