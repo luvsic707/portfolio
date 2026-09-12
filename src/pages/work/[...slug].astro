@@ -533,14 +533,12 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     top: 0;
     bottom: 0;
     left: max(18px, calc(50% - 720px + 18px));
-    width: 11px;
+    width: 18px;
     pointer-events: none;
-    background-image: radial-gradient(
-      circle 5.5px at 50% 26px,
-      #dfe2e0 0 5.5px,
-      transparent 5.6px
-    );
-    background-size: 100% 104px;
+    background-image:
+      radial-gradient(circle 9px at 50% 30px,
+        #c9cecb 0 8px, #eef0ee 8px 9px, transparent 9.1px);
+    background-size: 100% 92px;
     background-repeat: repeat-y;
   }
 
@@ -950,8 +948,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin-block: clamp(1.75rem, 4vw, 3rem);
     background: var(--paper-sunk);
     box-shadow:
-      0 0 0 3px var(--paper-raised),
-      0 1px 4px rgba(16, 19, 20, 0.13);
+      0 0 0 9px var(--paper-raised),
+      0 3px 10px rgba(16, 19, 20, 0.22);
   }
 
   /* ---- 正文里的排版工具 ----
