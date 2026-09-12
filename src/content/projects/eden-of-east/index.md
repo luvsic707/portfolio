@@ -4,7 +4,7 @@ year: '2021–2022'
 categories: ['Illustration', 'Graphic']
 featured: true
 order: 10
-summary: A twelve-piece illustration series using the baimiao line method of Chinese ink painting crossed with geometric structure, on the state of traditional culture in the present day.
+summary: Twelve ink pieces on the contradiction between China's metropolises and its villages — skyscrapers on one side, muddy paths on the other. Baimiao line from ink painting, crossed with geometric structure.
 meta:
   date: 2021.09 – 2022.02
   dimension: 20cm × 20cm
@@ -37,10 +37,6 @@ gallery:
     alt: EDEN OF EAST 12
 cover: ./card.jpg
 ---
-
-I grew up in China and kept travelling between its metropolises and its villages.
-Skyscrapers and luxury cars on one side; shabby buildings and muddy paths on the other.
-Twelve pieces on that **contradiction**, and on the **avulsion** it leaves.
 
 ## A — SKETCHES
 
