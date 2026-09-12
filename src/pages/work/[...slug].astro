@@ -473,6 +473,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       }
     };
 
+    /* 两头的渐隐：还能往那个方向滑，就挂上对应的类 */
+    const edges = () => {
+      if (!list) return;
+      const max = list.scrollWidth - list.clientWidth;
+      list.classList.toggle('more-l', list.scrollLeft > 2);
+      list.classList.toggle('more-r', list.scrollLeft < max - 2);
+    };
+
     const ping = () => {
       if (queued) return;
       queued = true;
@@ -481,7 +489,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
     addEventListener('scroll', ping, { passive: true });
     addEventListener('resize', ping);
+    list?.addEventListener('scroll', edges, { passive: true });
+    addEventListener('resize', edges);
     mark();
+    edges();
   }
 </script>
 
@@ -696,6 +707,21 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   .sec-list::-webkit-scrollbar { display: none; }
+
+  /* 滚动条藏了，所以两头要自己说话：哪边还有标签，哪边就淡出去一截。
+     类名由脚本按 scrollLeft 挂，滑到头就撤掉，不会骗人说还有。 */
+  .sec-list.more-r {
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.75rem), transparent);
+  }
+
+  .sec-list.more-l {
+    mask-image: linear-gradient(to left, #000 calc(100% - 2.75rem), transparent);
+  }
+
+  .sec-list.more-l.more-r {
+    mask-image: linear-gradient(to right,
+      transparent, #000 2.75rem, #000 calc(100% - 2.75rem), transparent);
+  }
 
   .sec-link {
     position: relative;
