@@ -120,11 +120,6 @@ The final explosion takes the shape of a fox.
 </div>
 <!-- /auto:images -->
 
-## F — FINAL PRODUCTION AND REFLECTION
-
-Three months, one minute twenty.
+## F — THE FILM
 
 <div class="tube" data-tube="PZdFGc16eMI" data-tube-label="The War of Deification — the finished film"></div>
-
-What went wrong: project management, rough transitions, thin sound design. What changed:
-timing stopped being something I felt my way through and became something I organise.
