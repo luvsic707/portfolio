@@ -842,24 +842,30 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 章节标题：整条发丝线压底，编号计数器挂在右侧页边 */
   .prose-body { counter-reset: sheet; }
 
-  /* 章节的名字交给钉在上面的标签条 —— 那条一直在视野里，正文再写一遍
-     就是同一句话说两遍。这里只留一道分节线和卷宗页码：标记「新的一节
-     从这里开始」，不再重复它叫什么。
+  /* 章节标题和上面的标签条写着同一句话，之前读起来像回声 ——
+     问题不在于说了两遍，在于用同一种声音说了两遍：
+     它原来是 19px、压窄 84%、字距 +0.08em，和标签条、子小节标签、
+     页眉字段是同一族「表单声」。
 
-     层级反而比原来清楚了：一节是一道通栏的线，一个子小节是一片红箭头
-     小标签。线在结构上本来就比标签重，不用靠字号去分。
+     全站其实有两套声音。表单声：小、压窄、字距拉开，给标签和字段。
+     标题声：大、不压窄、字距收紧，给作品名。章节标题是标题，不是字段，
+     所以把它挪回标题声 —— 和作品名同族，比它小一档。
 
-     h2 留在 DOM 里不动 —— 文档结构、读屏、锚点跳转、章节索引都靠它，
-     只是不画出来。 */
+     换完之后，标签条读起来是这一节的索引条目，正文这行是这一节的标题。
+     同样的字，两种身份，不再是回声。 */
   .prose-body :global(h2) {
     position: relative;
     counter-increment: sheet;
     margin-top: clamp(3.5rem, 8vw, 6rem);
-    height: 2rem;
-    border-bottom: 2px solid var(--ink);
-    /* 吃掉标题文字。页码在 ::after 里按 rem 定字号，不受这行影响。 */
-    font-size: 0;
-    line-height: 0;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--ink);
+    font-size: clamp(1.2rem, 1rem + 0.9vw, 1.6rem);
+    font-stretch: normal;
+    font-weight: 500;
+    letter-spacing: -0.008em;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--ink);
   }
 
   /* 每节右端的张数编号 —— 数字是 CSS 数出来的，不是我写死的 */
