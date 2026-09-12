@@ -22,52 +22,46 @@ cover: ./hero-poster.jpg
 
 ## A — THE SIX STAGES
 
+<!-- 单元格用 div 不用 span：span 是行内元素，Markdown 会把连着的几个
+     裹进同一个 <p>，于是一整行三格塌成一格，表格就散了。 -->
 <div class="dg dg-tbl">
 
-<span class="dg-th">Stage</span>
-<span class="dg-th">Metaphor</span>
-<span class="dg-th">Mechanic</span>
+<div class="dg-th">Stage</div>
+<div class="dg-th">Metaphor</div>
+<div class="dg-th">Mechanic</div>
 
-<span class="dg-stage"><b>01</b>Primal desire</span>
-<span>The origin of primal pleasure</span>
-<span>A first-person hand reaches for a banana — immediate, frictionless grasp and release. The first voluntary reach toward a stimulus.</span>
+<div class="dg-stage"><b>01</b>Primal desire</div>
+<div>The origin of pleasure</div>
+<div>A hand reaches for a banana. Grasp, release, no friction.</div>
 
-<span class="dg-stage"><b>02</b>Blind faith</span>
-<span>Nietzsche's death of God — the passive erosion of spiritual foundations</span>
-<span>In a prayer scene, the sacred object at the centre of devotion deforms and melts through a Dalí-like vertex deformation.</span>
+<div class="dg-stage"><b>02</b>Blind faith</div>
+<div>Nietzsche — the death of God</div>
+<div>In a prayer scene, the sacred object melts.</div>
 
-<span class="dg-stage"><b>03</b>Sisyphus loop</span>
-<span>Nietzschean eternal recurrence, Camusian absurdity</span>
-<span>A stone pushed along a closed path. Withdrawal from interaction is designed as one of the ways out of the loop.</span>
+<div class="dg-stage"><b>03</b>Sisyphus loop</div>
+<div>Camus — the absurd</div>
+<div>A stone on a closed path. Letting go is a way out.</div>
 
-<span class="dg-stage"><b>04</b>Burnout society</span>
-<span>Han's self-exploitation and excessive positivity</span>
-<span>Mechanised keystrokes pile up office text. Under self-imposed pressure the participant accelerates until the environment physically collapses.</span>
+<div class="dg-stage"><b>04</b>Burnout society</div>
+<div>Han — self-exploitation</div>
+<div>Keystrokes pile up office text until the room collapses.</div>
 
-<span class="dg-stage"><b>05</b>Algorithmic feed</span>
-<span>Han's hyperattention — deep attention eroded by information overload</span>
-<span>A corridor. As the addiction parameter climbs, wall imagery distorts and colour drains toward monochrome; audio degrades into ambient noise, then cuts to silence at a narrative threshold.</span>
+<div class="dg-stage"><b>05</b>Algorithmic feed</div>
+<div>Han — hyperattention</div>
+<div>A corridor drains to monochrome, then to silence.</div>
 
-<span class="dg-stage"><b>06</b>Data reckoning</span>
-<span>The awakening of Sartrean accomplice consciousness</span>
-<span>The system aggregates the participant's authentic behavioural trace from the first five stages, normalises it, and hangs it in the scene as spatialised data.</span>
+<div class="dg-stage"><b>06</b>Data reckoning</div>
+<div>Sartre — the accomplice</div>
+<div>Your own behavioural trace, hung in the scene as data.</div>
 
 </div>
 
-## B — DATA RECKONING
+Stage 6 only works if the data is real. The first build looked finished and was fed by a
+random number generator — placebo data, at the climax of a work about confronting an
+authentic trace of yourself. I rewired it to read the actual interaction frequencies from
+the first five stages.
 
-Stage 6 shows you the residue of your own behaviour. That only works if the data is real.
-
-The first implementation — built in an MCP-linked workflow between a language model and the
-Unity editor — looked finished and was fed by a random number generator with no connection
-to anything the participant had done. Placebo data, at the climax of a work whose whole
-argument is confronting an authentic trace of yourself.
-
-I rejected it and redirected the pipeline to read the actual interaction frequencies from the
-preceding stages. In human–AI co-creation the designer's job is not accepting generated
-code; it is staying the final arbiter of what the work means.
-
-## C — SEE IT IN ACTION
+## B — SEE IT IN ACTION
 
 The full walkthrough, all six stages end to end.
 
