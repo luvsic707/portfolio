@@ -11,6 +11,9 @@ meta:
   dimension: 1920×1080
   media: Unity / C# / Photoshop / Illustrator / Blender
   subtitle: First-Person Narrative Exploration
+links:
+  - label: Source code
+    href: https://github.com/luvsic707/memory2
 gallery:
   - video: /media/the-last-compact/hero-01.mp4
     alt: The Last Compact — video 01
