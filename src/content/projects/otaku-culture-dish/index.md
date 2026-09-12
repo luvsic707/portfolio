@@ -237,7 +237,7 @@ typography, graphics and text are treated as one symbol, linked by flowing lines
 the rhythm of the composition.
 
 <!-- auto:images -->
-<div class="flow">
+<div class="rows-3">
 
 ![C — BOOK DESIGN 01](./c-book-design-01.jpg)
 
