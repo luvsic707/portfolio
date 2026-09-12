@@ -43,6 +43,7 @@ RASTER = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".heif", ".tif", ".tiff", "
 VIDEO = {".mp4", ".mov", ".m4v", ".avi"}
 
 MARK_OPEN, MARK_CLOSE = "<!-- auto:images -->", "<!-- /auto:images -->"
+MARK_SKIP = "<!-- auto:skip"
 
 MAX_EDGE_GRID = 1200     # 网格小图（4 列里每格约 270px，1200 已很宽裕）
 MAX_EDGE_FULL = 2400     # 通栏大图和封面
@@ -583,10 +584,18 @@ def process(project_dir: Path) -> str | None:
         if force is None and not is_sub and ratios and min(ratios) >= WIDE_RATIO:
             force = "full"
 
-        payload = block(items, title, is_sub, force, ratios)
-
         end = heads[idx + 1][0] if idx + 1 < len(heads) else len(lines)
-        chunk = strip_auto("\n".join(lines[ln + 1:end]))
+        section = "\n".join(lines[ln + 1:end])
+
+        # 手排过的章节写一行 <!-- auto:skip -->，脚本就整节不碰。
+        # 自动版式只认「数量 + 比例」，排不出「哪张摆哪儿」这种事；
+        # 手排一次之后再跑一遍脚本，成果就没了 —— 这个标记是唯一的护栏。
+        if MARK_SKIP in section:
+            print(f"     · {title} 手排过，跳过")
+            continue
+
+        payload = block(items, title, is_sub, force, ratios)
+        chunk = strip_auto(section)
         lines[ln + 1:end] = (chunk.rstrip() + "\n\n" + payload + "\n").split("\n")
 
     body = "\n".join(lines)

@@ -199,10 +199,57 @@ Twelve main pieces and several supporting graphics. Modelling uses *baimiao*, th
 method from ink painting, but drops *xieyi* freehand for geometric form. Drawn in Procreate
 with textures sampled from traditional crafts, colour finalised in Photoshop.
 
-<!-- auto:images -->
-<div class="flow">
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-![D — FINAL OUTPUT 01](./d-final-output-01.jpg)
+<div class="band" style="--n: 1; --sum: 2.0000">
+
+![D — FINAL OUTPUT 14](./d-final-output-14.jpg)
+
+</div>
+
+<div class="band" style="--n: 2; --sum: 3.0000">
+
+![D — FINAL OUTPUT 12](./d-final-output-12.jpg)
+
+![D — FINAL OUTPUT 05](./d-final-output-05.jpg)
+
+</div>
+
+<div class="band" style="--n: 2; --sum: 2.7500">
+
+![D — FINAL OUTPUT 10](./d-final-output-10.jpg)
+
+![D — FINAL OUTPUT 09](./d-final-output-09.jpg)
+
+</div>
+
+<div class="band" style="--n: 3; --sum: 2.8808">
+
+![D — FINAL OUTPUT 13](./d-final-output-13.jpg)
+
+![D — FINAL OUTPUT 11](./d-final-output-11.jpg)
+
+![D — FINAL OUTPUT 15](./d-final-output-15.jpg)
+
+</div>
+
+<div class="band" style="--n: 2; --sum: 2.2138">
+
+![D — FINAL OUTPUT 07](./d-final-output-07.jpg)
+
+![D — FINAL OUTPUT 16](./d-final-output-16.jpg)
+
+</div>
+
+<div class="band" style="--n: 2; --sum: 1.9258">
+
+![D — FINAL OUTPUT 06](./d-final-output-06.jpg)
+
+![D — FINAL OUTPUT 08](./d-final-output-08.jpg)
+
+</div>
+
+<div class="band" style="--n: 4; --sum: 3.8312">
 
 ![D — FINAL OUTPUT 02](./d-final-output-02.jpg)
 
@@ -210,32 +257,9 @@ with textures sampled from traditional crafts, colour finalised in Photoshop.
 
 ![D — FINAL OUTPUT 04](./d-final-output-04.jpg)
 
-![D — FINAL OUTPUT 05](./d-final-output-05.jpg)
-
-![D — FINAL OUTPUT 06](./d-final-output-06.jpg)
-
-![D — FINAL OUTPUT 07](./d-final-output-07.jpg)
-
-![D — FINAL OUTPUT 08](./d-final-output-08.jpg)
-
-![D — FINAL OUTPUT 09](./d-final-output-09.jpg)
-
-![D — FINAL OUTPUT 10](./d-final-output-10.jpg)
-
-![D — FINAL OUTPUT 11](./d-final-output-11.jpg)
-
-![D — FINAL OUTPUT 12](./d-final-output-12.jpg)
-
-![D — FINAL OUTPUT 13](./d-final-output-13.jpg)
-
-![D — FINAL OUTPUT 14](./d-final-output-14.jpg)
-
-![D — FINAL OUTPUT 15](./d-final-output-15.jpg)
-
-![D — FINAL OUTPUT 16](./d-final-output-16.jpg)
+![D — FINAL OUTPUT 01](./d-final-output-01.jpg)
 
 </div>
-<!-- /auto:images -->
 
 ## E — TEST BOARD 06
 
