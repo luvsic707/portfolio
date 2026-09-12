@@ -1613,7 +1613,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.sub.is-banner) {
     grid-template-columns: minmax(0, 1fr);
     gap: 0;
-    margin-block: clamp(2.5rem, 6vw, 4rem);
+    margin-block: clamp(2.25rem, 5.2vw, 3.5rem);
   }
 
   /* 通栏了就别再吸顶 —— 标题本来就贴在自己那组图上面 */
@@ -1624,11 +1624,22 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      不是在每组下面都开一个天窗。去掉里面那一层，只留小节之间的。 */
   .prose-body :global(.sub.is-banner .sub-main > :last-child) { margin-bottom: 0; }
 
+  /* 组标题降成表单标签的写法 —— 压窄、全大写、发丝字距，和页眉横栏、
+     .section-label 是同一族。原来它用 --step-1，和章节大标题一样大：
+     九组重复出现的小标题跟章节抢同一个音量，读起来就是九句喊话，
+     整页的节奏全被它打断。这里它只需要说明「下面这排是哪一类」，
+     不需要被看见第二眼。 */
   .prose-body :global(.sub.is-banner h3) {
     display: flex;
     align-items: baseline;
-    gap: 0.5em;
-    margin-bottom: clamp(0.9rem, 2vw, 1.4rem);
+    gap: 0.55em;
+    margin-bottom: clamp(0.7rem, 1.6vw, 1.05rem);
+    font-size: var(--step--1);
+    font-stretch: var(--cond);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
 
   /* 全站唯一的彩色在正文里一直缺席 —— 让它在每一组的行首出现一次。
