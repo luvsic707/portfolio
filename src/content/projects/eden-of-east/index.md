@@ -200,7 +200,7 @@ method from ink painting, but drops *xieyi* freehand for geometric form. Drawn i
 with textures sampled from traditional crafts, colour finalised in Photoshop.
 
 <!-- auto:images -->
-<div class="showcase">
+<div class="flow">
 
 ![D — FINAL OUTPUT 01](./d-final-output-01.jpg)
 
