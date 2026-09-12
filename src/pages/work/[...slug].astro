@@ -63,21 +63,17 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
          盖住它 —— 所以它必须是不透明的，也必须压在开屏上面。 -->
     <div class="sheet">
 
+    <!-- 观察窗的遥测块。
+         首页右下角那一叠就是这个 —— 同样的字、同样的右对齐、同样的灰。
+         之前这里是一条「REC · CAM 01」的闭路电视条，那是另一套虚构：
+         首页在看显微镜，项目页在看监控，两个故事，所以谁都不鲜明。
+
+         现在只有一套话：作品是放在观察窗下的标本，这一页就是它的读数。
+         数都是真的 —— 张数是数出来的，节次跟着你读到哪儿变。 -->
+    <pre class="telemetry" data-telemetry-case aria-hidden="true"></pre>
+
     <header class:list={['head', { 'has-shot': slides.length > 0 }]}>
       <div class="wrap">
-
-        <!-- 监控条。Junyeop Lee 页眉挂一个走字的首尔时间，Nrthview 顶上
-             是一条假菜单栏 —— 同一个手法：让页面自己声明它在哪个世界里。
-             这里是手术室的监控画面，所以时间必须真的在走，否则它只是
-             一张写着时间的图。 -->
-        <div class="cam" data-cam>
-          <span class="cam-dot" aria-hidden="true"></span>
-          <span>REC</span>
-          <span>CAM 01</span>
-          <span>{ref}</span>
-          <span class="cam-live" data-cam-live></span>
-          <span class="cam-end" data-cam-clock>--:--:--</span>
-        </div>
 
         <!-- 页眉横栏：一本正经的档案抬头 -->
         <div class="rail rail-top">
@@ -181,63 +177,62 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 </Base>
 
 <script>
-  /* ---- 监控条的时间戳 ----
-     写死的时间等于一张图。它得真的走，一秒一跳。 */
+  /* ---- 遥测块 ----
+     和首页右下角那一叠是同一台仪器，只是标本换了。
+     首页报的是血管数、灌流速度、清晰度；这里报的是这件作品的
+     状态、张数、看到第几节、跑了多久 —— 全是这一页真实的数。
+
+     UTIME 一秒一跳，和首页一样。写死的时间只是一张写着时间的图。 */
   {
-    const clock = document.querySelector<HTMLElement>('[data-cam-clock]');
-    if (clock) {
+    const tel = document.querySelector<HTMLElement>('[data-telemetry-case]');
+    const art = document.querySelector<HTMLElement>('article');
+
+    if (tel && art) {
+      const pad = (s: string) => s.padEnd(10, ' ');
       const two = (n: number) => String(n).padStart(2, '0');
-      const tick = () => {
-        const d = new Date();
-        clock.textContent = `${two(d.getHours())}:${two(d.getMinutes())}:${two(d.getSeconds())}`;
-      };
-      tick();
-      setInterval(tick, 1000);
-    }
-  }
 
-  /* ---- 监控条的活字段 ----
-     上一轮的结论是：会动的留得住，摆着看的留不住。所以不再往页面上
-     加新的小玩意，而是让已经立住的这一条多说点真话。
+      const plates = document.querySelectorAll('.prose-body img, .prose-body video').length;
+      const ref = art.querySelector('.ref')?.textContent?.trim() ?? '';
+      const span = art.querySelector('.rail-end')?.textContent?.trim() ?? '';
+      const status = art.querySelector('.is-status')?.textContent?.replace(/^STATUS:\s*/, '').trim();
+      const total = document.querySelectorAll('[data-sec]').length;
 
-     闲着的时候报「在第几节 · 一共几张片子」——张数是数出来的，不是写死的。
-     鼠标停在某张图上时，换成那张图自己的编号和像素尺寸。
-     两种状态都是这一页真实的数据，不是装饰。 */
-  {
-    const live = document.querySelector<HTMLElement>('[data-cam-live]');
-    const plates = [
-      ...document.querySelectorAll<HTMLElement>('.prose-body img, .prose-body video'),
-    ];
-
-    if (live && plates.length) {
       let sec = '';
-      const idle = () => {
-        live.textContent = `${sec ? sec + ' · ' : ''}${plates.length} PLATES`;
+      let focus = '';
+
+      const draw = () => {
+        const d = new Date();
+        tel.textContent = [
+          pad('SPECIMEN') + ref,
+          pad('STATE') + (status || 'ARCHIVED'),
+          sec && pad('SECTION') + sec + (total ? ` / ${total}` : ''),
+          pad('PLATES') + plates,
+          focus && pad('FOCUS') + focus,
+          span && pad('SPAN') + span,
+          pad('UTIME') + `${two(d.getHours())}:${two(d.getMinutes())}:${two(d.getSeconds())}`,
+        ].filter(Boolean).join('\n');
       };
 
-      /* 章节索引换节时会广播一次，监控条跟着改 */
       addEventListener('rt:section', (e) => {
         sec = (e as CustomEvent<string>).detail;
-        if (!live.dataset.hover) idle();
+        draw();
       });
 
-      plates.forEach((el, i) => {
-        const spec = () => {
-          const w = el instanceof HTMLImageElement ? el.naturalWidth : (el as HTMLVideoElement).videoWidth;
-          const h = el instanceof HTMLImageElement ? el.naturalHeight : (el as HTMLVideoElement).videoHeight;
-          return `PL ${String(i + 1).padStart(2, '0')}${w ? ` · ${w}×${h}` : ''}`;
-        };
-        el.addEventListener('pointerenter', () => {
-          live.dataset.hover = '1';
-          live.textContent = spec();
+      /* 鼠标停在哪张片子上，FOCUS 就报哪张 —— 和首页的准星是一个意思 */
+      document
+        .querySelectorAll<HTMLElement>('.prose-body img, .prose-body video')
+        .forEach((el, i) => {
+          el.addEventListener('pointerenter', () => {
+            const w = el instanceof HTMLImageElement ? el.naturalWidth : (el as HTMLVideoElement).videoWidth;
+            const h = el instanceof HTMLImageElement ? el.naturalHeight : (el as HTMLVideoElement).videoHeight;
+            focus = `PL ${two(i + 1)}` + (w ? `  ${w}×${h}` : '');
+            draw();
+          });
+          el.addEventListener('pointerleave', () => { focus = ''; draw(); });
         });
-        el.addEventListener('pointerleave', () => {
-          delete live.dataset.hover;
-          idle();
-        });
-      });
 
-      idle();
+      draw();
+      setInterval(draw, 1000);
     }
   }
 
@@ -543,7 +538,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
       /* 监控条要知道现在在第几节。广播一下，别让两处逻辑互相伸手。 */
       const label = now.a.textContent?.trim().split(/\s*[—–-]\s*/)[0] ?? '';
-      dispatchEvent(new CustomEvent('rt:section', { detail: label ? `SEC ${label}` : '' }));
+      dispatchEvent(new CustomEvent('rt:section', { detail: label }));
       for (const h of heads) {
         const on = h === now;
         h.a.classList.toggle('is-on', on);
@@ -586,53 +581,31 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 </script>
 
 <style>
-  /* ==================== 监控条 ====================
-     这一轮试了四样，只有这一样立住了：切口线、标本编号、去纸纹都是
-     鸡肋。回头看原因很清楚 —— 那三样都是「摆在那儿看的」，
-     而这一样是**活的**：时间真的在走，红点真的在闪。
+  /* ==================== 遥测块 ====================
+     和首页 .telemetry 是同一套值：等宽、10px、行高 1.7、字距 0.04em、
+     --ink-faint、右下角、不吃鼠标。一眼要看得出是同一台仪器。
 
-     写死的时间只是一张写着时间的图。页面在你读第一个字之前先声明
-     自己在哪个世界，而且它正好说中作品在讲的事：被观察。 */
-  .cam {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding-block: 0.4rem;
+     首页是 absolute（开屏就一屏高）；项目页是长页，所以钉在视口上，
+     一路跟着走 —— 观察窗不会因为标本长就挪开。 */
+  .telemetry {
+    position: fixed;
+    right: var(--gutter);
+    bottom: 1.6rem;
+    z-index: 6;
+    margin: 0;
     font-family: var(--font-mono);
-    font-size: var(--step--2);
-    letter-spacing: 0.08em;
+    font-size: 0.625rem;
+    line-height: 1.7;
+    letter-spacing: 0.04em;
     color: var(--ink-faint);
-    border-bottom: 1px solid var(--line);
+    white-space: pre;
+    pointer-events: none;
+    text-transform: none;
   }
 
-  /* 这一格的内容会变（换节、悬停换成片号），给个下限，
-     否则每次变字这一条都要重排一次，看着像抽搐。 */
-  .cam-live {
-    min-width: 15ch;
-    color: var(--ink-soft);
-  }
-
-  .cam-end {
-    margin-left: auto;
-    font-variant-numeric: tabular-nums;
-    color: var(--ink-soft);
-  }
-
-  .cam-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--red);
-    animation: cam-blink 1.6s steps(1, end) infinite;
-  }
-
-  @keyframes cam-blink {
-    0%, 55% { opacity: 1; }
-    56%, 100% { opacity: 0.15; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cam-dot { animation: none; }
+  /* 窄屏没有放它的余地，和首页一样收掉 */
+  @media (max-width: 900px) {
+    .telemetry { display: none; }
   }
 
   /* ==================== 标题区 ==================== */
