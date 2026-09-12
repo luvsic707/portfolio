@@ -26,28 +26,35 @@
   --red-wash:     rgba(200, 16, 46, 0.09);
 
   /* --- 字族 ---
-     全站一族 Archivo（可变：宽度轴 + 字重轴）。
-     不用衬线 —— 档案和卷宗里没有衬线，文字是记录不是叙述。
-     等宽只留给真正的机器数据：编号、计数、时间戳。 */
-  --font-display: 'Archivo', 'Noto Sans SC', -apple-system, sans-serif;
-  --font-prose:   'Archivo', 'Noto Sans SC', -apple-system, sans-serif;
-  /* Fragment Mono 是等宽版的 Helvetica（由 Nimbus Sans 改出），
-     跟 Archivo 的关系相当于 Suisse Int'l 配 Suisse Int'l Mono */
-  --font-mono:    'Fragment Mono', ui-monospace, Menlo, monospace;
+     全站只有一个字：IBM Plex Mono。
 
-  /* 压窄字宽 —— 表单标签、页眉横栏用 */
-  --cond: 84%;
+     卷宗、检验表、RT-OCD-007 这套东西本来就是打字机敲出来的，等宽不是
+     借来的风格，是这个站的语言本身。编号、表格、字段一上去自动成列，
+     不用再靠压窄和拉字距去凹「技术感」。
+
+     以前是 Archivo 的压窄轴（84%）撑着标签层。压窄体是路牌和报表的
+     语汇 —— 11px 的压窄大写看着像仪表盘，不像作品集。等宽本身就有
+     骨架，压窄那条路可以整个拆掉。
+
+     Plex Mono 是人文骨架，字形留着起收笔，成段排出来是一块匀净的灰面，
+     长文也读得住 —— 比 Helvetica 系的等宽有味道，比几何怪字耐看。 */
+  --font-display: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --font-prose:   'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --font-mono:    'IBM Plex Mono', ui-monospace, Menlo, monospace;
 
   /* --- 尺度 --- */
   /* 档案排版的尺度是掏空的：极小的表单字，极大的编号，中段基本不用。
      平滑爬升的字阶读起来像网页，断裂的字阶读起来像印刷品。 */
-  --step--2: 0.6875rem;                                        /* 11px 表单标签，不随屏缩放 */
-  --step--1: 0.75rem;                                          /* 12px 表格数据 */
-  --step-0:  clamp(0.8125rem, 0.79rem + 0.12vw, 0.875rem);     /* 13–14px 正文 */
-  --step-1:  clamp(1rem, 0.93rem + 0.32vw, 1.1875rem);         /* 引言，克制地用 */
-  --step-2:  clamp(1.375rem, 1.1rem + 1.2vw, 2.125rem);        /* 编号行 */
-  --step-3:  clamp(2.5rem, 1.4rem + 5vw, 6rem);                /* 页面大标题 */
-  --step-4:  clamp(3.5rem, 0.5rem + 13vw, 13rem);              /* 巨号编号、竖排页码 */
+  /* 之前小字那一端挤着 11 / 12 / 12 / 13 四档 —— 彼此差 1px，眼睛分不出
+     层级，只看得出「不统一」；然后 13 直接跳到 22，中间是空的。
+     现在每一档都拉开到看得出来，而且总数更少。 */
+  --step--2: 0.625rem;                                         /* 10px 页码、页脚小字 */
+  --step--1: 0.6875rem;                                        /* 11px 标签、机器数据 */
+  --step-0:  0.8125rem;                                        /* 13px 正文 */
+  --step-1:  1rem;                                             /* 16px 引言 */
+  --step-2:  1.375rem;                                         /* 22px 作品名、节号 —— 全站最大 */
+  --step-3:  clamp(1.75rem, 1.2rem + 2.2vw, 2.5rem);           /* 28–40px 列表页标题 */
+  --step-4:  clamp(2.5rem, 1rem + 6vw, 5rem);                  /* 备用：巨号编号 */
 
   --gutter:  clamp(1.25rem, 4vw, 4rem);
   --measure: 62ch;
@@ -112,7 +119,6 @@ button {
 
 .mono {
   font-size: var(--step--1);
-  font-stretch: var(--cond);
   font-weight: 500;
   letter-spacing: 0.07em;
   text-transform: uppercase;
@@ -152,7 +158,6 @@ button {
 /* 章节标题：编号在前，规矩，不带箭头 */
 .section-label {
   font-size: var(--step--1);
-  font-stretch: var(--cond);
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;

@@ -580,11 +580,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .hash { margin-left: auto; color: var(--red); }
 
+  /* 等宽字每个字身一样宽，不存在需要收紧的字距对。负字距在比例字上是
+     光学补偿，在等宽上只是把字挤到一起。大写等宽反而要往外放一点点。 */
   .title {
     font-size: var(--step-2);
     font-weight: 500;
-    line-height: 1.05;
-    letter-spacing: -0.012em;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
     text-transform: uppercase;
   }
 
@@ -649,7 +651,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     align-items: baseline;
     gap: 0.5em;
     font-size: var(--step--1);
-    font-stretch: var(--cond);
     font-weight: 500;
     letter-spacing: 0.07em;
     text-transform: uppercase;
@@ -873,10 +874,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     content: counter(sheet, upper-alpha);
     display: block;
     /* 封顶压在作品名之下（那个是 33px）—— 节号是路标，不是页面的标题 */
-    font-size: clamp(1.5rem, 1rem + 1.8vw, 2rem);
-    line-height: 0.95;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    font-size: var(--step-2);
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0;
     color: var(--ink);
   }
 
@@ -1361,7 +1362,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     font-style: normal;
     font-family: var(--font-display);
     font-size: var(--step--2);
-    font-stretch: var(--cond);
     color: var(--ink-faint);
   }
 
@@ -1501,7 +1501,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.dg-branch > .dg-label) {
     font-family: var(--font-display);
     font-size: var(--step--2);
-    font-stretch: var(--cond);
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -1571,7 +1570,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     border-bottom-color: var(--ink);
     font-family: var(--font-display);
     font-size: var(--step--2);
-    font-stretch: var(--cond);
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1619,7 +1617,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.dg-layer > .dg-label) {
     font-family: var(--font-display);
     font-size: var(--step--2);
-    font-stretch: var(--cond);
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -1776,16 +1773,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.sub) {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    /* 组与组之间。注意图自己还带着一圈留白：抠图导出时四周留了 6%，
-       一个 450px 的格子就是上下各 27px。所以「看上去」的空当是
-       27 + 这里 + 17(标题到图) + 27 ≈ 127px，比这个数字大得多。
-       按看上去的算，这里给 36 就够把两组分开了。 */
-    margin-block: clamp(1.5rem, 3.2vw, 2.25rem);
+    /* 组与组之间。图自己还带着一圈留白（抠图导出时四周留 2%），
+       所以「看上去」的空当比这个数字大：2%×450 = 9px，两边共 18px，
+       再加标题到图的 10px —— 实际约 66px。
+       留白 6% 的时候这个总和是 127px，标签夹在中间两头都够不着，
+       所以既显空、又不像哪一组的开头。 */
+    margin-block: clamp(1.25rem, 2.6vw, 1.75rem);
     width: 100%;
   }
 
+  /* 标签要贴住它标的那组图 —— 离自己 10px，离上一组 28px，差三倍。
+     之前是 17 和 36，只差一倍，所以它谁也不属于。 */
   .prose-body :global(.sub-head) {
-    margin-bottom: clamp(0.7rem, 1.6vw, 1.05rem);
+    margin-bottom: clamp(0.4rem, 0.9vw, 0.6rem);
   }
 
   /* 组标题是表单标签的写法 —— 压窄、全大写、发丝字距，和页眉横栏、
@@ -1797,7 +1797,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     gap: 0.55em;
     margin: 0;
     font-size: var(--step--1);
-    font-stretch: var(--cond);
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
