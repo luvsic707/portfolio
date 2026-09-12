@@ -241,7 +241,9 @@ with textures sampled from traditional crafts, colour finalised in Photoshop.
 
 </div>
 
-<div class="band" style="--n: 2; --sum: 1.9258">
+<div class="band" style="--n: 3; --sum: 2.9258">
+
+![D — FINAL OUTPUT 17](./d-final-output-17.jpg)
 
 ![D — FINAL OUTPUT 06](./d-final-output-06.jpg)
 
