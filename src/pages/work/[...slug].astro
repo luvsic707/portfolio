@@ -516,7 +516,36 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .sheet {
     position: relative;
     z-index: 1;
-    background: var(--paper);
+    background-color: var(--paper);
+    background-image: var(--paper-grain);
+  }
+
+  /* ---- 装订孔 ----
+     卷宗是被装订过的。这一列孔沿着版心左缘一路往下，不参与布局，
+     纯粹是「这叠纸被夹子夹过」的物证。
+
+     位置跟着版心走：版心没到上限时贴在内边距里，到了上限就锁在
+     1440 的左缘往里 18px —— 所以任何屏宽下它和正文的距离都一样。
+     窄屏没有多余的边距，就不画。 */
+  .sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: max(18px, calc(50% - 720px + 18px));
+    width: 11px;
+    pointer-events: none;
+    background-image: radial-gradient(
+      circle 5.5px at 50% 26px,
+      #dfe2e0 0 5.5px,
+      transparent 5.6px
+    );
+    background-size: 100% 104px;
+    background-repeat: repeat-y;
+  }
+
+  @media (max-width: 1080px) {
+    .sheet::before { display: none; }
   }
 
   .head {
@@ -912,12 +941,17 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(h3 + p) { margin-top: 0.7rem; }
 
+  /* 图片不再「套一圈发丝线」，改成裱在纸上：一圈白衬边加一点投影。
+     两样都用 box-shadow 画 —— 它画在盒子外面，不占布局，所以那些按比例
+     算过的行（band / pair / cards）一个数都不用改。 */
   .prose-body :global(img) {
     width: 100%;
     height: auto;
     margin-block: clamp(1.75rem, 4vw, 3rem);
-    border: 1px solid var(--line);
     background: var(--paper-sunk);
+    box-shadow:
+      0 0 0 3px var(--paper-raised),
+      0 1px 4px rgba(16, 19, 20, 0.13);
   }
 
   /* ---- 正文里的排版工具 ----
@@ -1834,6 +1868,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.cutout img) {
     border: 0;
     background: none;
+    /* 抠图是 multiply 融进纸里的，没有边界可裱 */
+    box-shadow: none;
     mix-blend-mode: multiply;
   }
 
