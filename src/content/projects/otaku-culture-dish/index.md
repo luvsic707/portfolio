@@ -287,7 +287,7 @@ where you are, and what light is on it. Reading becomes something closer to expl
 
 ![D — OUTCOME 1: PRINT 05](./d-outcome-1-print-05.jpg)
 
-![D — OUTCOME 1: PRINT 04](./d-outcome-1-print-04.jpg)
+![D — OUTCOME 1: PRINT 08](./d-outcome-1-print-08.jpg)
 
 </div>
 
@@ -307,7 +307,7 @@ where you are, and what light is on it. Reading becomes something closer to expl
 
 ![D — OUTCOME 1: PRINT 03](./d-outcome-1-print-03.jpg)
 
-![D — OUTCOME 1: PRINT 08](./d-outcome-1-print-08.jpg)
+![D — OUTCOME 1: PRINT 04](./d-outcome-1-print-04.jpg)
 
 </div>
 
