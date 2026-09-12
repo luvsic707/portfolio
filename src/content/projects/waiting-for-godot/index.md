@@ -84,7 +84,7 @@ Godot. Despair arrives, they try to end it, they fail.
 It repeats twice. We know it goes on forever — them, and you and me in front of the screen.
 
 <!-- auto:images -->
-<div class="showcase">
+<div class="rows-2">
 
 ![D — FILM STILLS 01](./d-film-stills-01.jpg)
 
