@@ -520,32 +520,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     background-image: var(--paper-grain);
   }
 
-  /* ---- 装订孔 ----
-     卷宗是被装订过的。这一列孔沿着版心左缘一路往下，不参与布局，
-     纯粹是「这叠纸被夹子夹过」的物证。
-
-     位置跟着版心走：版心没到上限时贴在内边距里，到了上限就锁在
-     1440 的左缘往里 18px —— 所以任何屏宽下它和正文的距离都一样。
-     窄屏没有多余的边距，就不画。 */
-  .sheet::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: max(18px, calc(50% - 720px + 18px));
-    width: 18px;
-    pointer-events: none;
-    background-image:
-      radial-gradient(circle 9px at 50% 30px,
-        #c9cecb 0 8px, #eef0ee 8px 9px, transparent 9.1px);
-    background-size: 100% 92px;
-    background-repeat: repeat-y;
-  }
-
-  @media (max-width: 1080px) {
-    .sheet::before { display: none; }
-  }
-
   .head {
     padding-top: clamp(6.5rem, 13vw, 10rem);
     padding-bottom: clamp(2rem, 5vw, 3rem);
