@@ -842,21 +842,24 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 章节标题：整条发丝线压底，编号计数器挂在右侧页边 */
   .prose-body { counter-reset: sheet; }
 
+  /* 章节的名字交给钉在上面的标签条 —— 那条一直在视野里，正文再写一遍
+     就是同一句话说两遍。这里只留一道分节线和卷宗页码：标记「新的一节
+     从这里开始」，不再重复它叫什么。
+
+     层级反而比原来清楚了：一节是一道通栏的线，一个子小节是一片红箭头
+     小标签。线在结构上本来就比标签重，不用靠字号去分。
+
+     h2 留在 DOM 里不动 —— 文档结构、读屏、锚点跳转、章节索引都靠它，
+     只是不画出来。 */
   .prose-body :global(h2) {
     position: relative;
     counter-increment: sheet;
     margin-top: clamp(3.5rem, 8vw, 6rem);
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--ink);
-    /* 章节标题是正文的路标，之前比正文还小一档，
-       扫页面时根本抓不住。字距随字号变大要收一点，
-       不然拉开的字母会把这一行读散。 */
-    font-size: var(--step-1);
-    font-stretch: var(--cond);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
+    height: 2rem;
+    border-bottom: 2px solid var(--ink);
+    /* 吃掉标题文字。页码在 ::after 里按 rem 定字号，不受这行影响。 */
+    font-size: 0;
+    line-height: 0;
   }
 
   /* 每节右端的张数编号 —— 数字是 CSS 数出来的，不是我写死的 */
@@ -864,7 +867,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     content: 'SHEET ' counter(sheet, decimal-leading-zero);
     position: absolute;
     right: 0;
-    bottom: 0.4rem;
+    bottom: 0.45rem;
     font-family: var(--font-mono);
     font-size: var(--step--2);
     letter-spacing: 0.02em;
