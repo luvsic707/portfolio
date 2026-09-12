@@ -26,7 +26,7 @@ that world. This is its opening: a proud king insults the goddess of creation, a
 kingdom falls.
 
 <!-- auto:images -->
-<div class="grid-2">
+<div class="pair" style="--cols: 0.707fr 0.707fr">
 
 ![A — INSPIRATION 01](./a-inspiration-01.jpg)
 

@@ -28,6 +28,7 @@
 手写的段落不会被动，脚本只管 <!-- auto:images --> 标记之间的部分。
 """
 
+import math
 import os, re, subprocess, sys, shutil
 import hashlib
 from pathlib import Path
@@ -316,13 +317,37 @@ def layout_for(n: int, title: str = "", is_sub: bool = False) -> str:
     return "strip"
 
 
-def block(items, alt_base: str, is_sub: bool = False, force: str | None = None) -> str:
+def pair_cols(r1: float, r2: float, max_spread: float = 2.2) -> tuple[float, float]:
+    """两张并排时各占多少栏宽。
+
+    高度相同的两张图，宽度之比就等于宽高比之比 —— 直接拿比例当栏宽，
+    两张就一样高，也不用裁图。
+    差得太离谱时往几何平均数收一收，否则窄的那张会被压成一条。
+    """
+    lo, hi = min(r1, r2), max(r1, r2)
+    spread = hi / lo if lo else 1.0
+    if spread <= max_spread:
+        return r1, r2
+    g = math.sqrt(r1 * r2)
+    t = math.log(max_spread) / math.log(spread)
+    return g * (r1 / g) ** t, g * (r2 / g) ** t
+
+
+def block(items, alt_base: str, is_sub: bool = False, force: str | None = None,
+          ratios: list[float] | None = None) -> str:
     """items 是 ('img', 文件名) 和 ('vid', 路径, 宽, 高) 混在一起的有序列表。
 
     视频包一层 <p>，跟图片渲染出来的结构完全一致 —— 这样瀑布流、
     接触表、网格都不用为视频写特例。
     """
     cls = force or layout_for(len(items), alt_base, is_sub)
+
+    # 正好两张、又没被别的版式接管时，按比例分栏，省掉一高一矮的落差
+    style = ""
+    if cls == "grid-2" and ratios and len(ratios) == 2:
+        a, b = pair_cols(*ratios)
+        cls, style = "pair", f' style="--cols: {a:.3f}fr {b:.3f}fr"'
+
     solo = len(items) == 1
     out = []
     for i, it in enumerate(items):
@@ -339,7 +364,7 @@ def block(items, alt_base: str, is_sub: bool = False, force: str | None = None) 
                 f'{attrs} aria-label="{label}"></video></p>'
             )
     inner = "\n\n".join(out)
-    return f'{MARK_OPEN}\n<div class="{cls}">\n\n{inner}\n\n</div>\n{MARK_CLOSE}'
+    return f'{MARK_OPEN}\n<div class="{cls}"{style}>\n\n{inner}\n\n</div>\n{MARK_CLOSE}'
 
 
 def drop_key(front: str, key: str) -> str:
@@ -552,13 +577,13 @@ def process(project_dir: Path) -> str | None:
         if src_dir and (src_dir / ".layout").exists():
             force = (src_dir / ".layout").read_text().strip() or None
 
-        # 超宽的流程图/时间轴并排会把标签压得看不清 —— 数量不多时各占一行
-        if force is None and not is_sub and 2 <= len(media) <= 4:
-            ratios = [media_ratio(f) for _, f in media]
-            if min(ratios) >= WIDE_RATIO:
-                force = "full"
+        ratios = [media_ratio(f) for _, f in media] if 2 <= len(media) <= 4 else []
 
-        payload = block(items, title, is_sub, force)
+        # 超宽的流程图/时间轴并排会把标签压得看不清 —— 数量不多时各占一行
+        if force is None and not is_sub and ratios and min(ratios) >= WIDE_RATIO:
+            force = "full"
+
+        payload = block(items, title, is_sub, force, ratios)
 
         end = heads[idx + 1][0] if idx + 1 < len(heads) else len(lines)
         chunk = strip_auto("\n".join(lines[ln + 1:end]))

@@ -112,13 +112,10 @@ a lot of time, so the storytelling leans abstract.
 
 ## E — CARD DESIGN
 
-Three card types are planned — Fate, Element and Artifact. Only **Element Cards** are fully
-implemented, and they carry combat.
+Five Elements, each with a Yin and a Yang form — ten cards, ten totems. Yang Earth is an
+unbreakable wall; Yin Earth is soil that feeds.
 
-In Taoist philosophy each of the Five Elements has a Yin and a Yang form, so every element
-here has two personalities, drawn as totems. Yang Earth is an unbreakable wall, Yin Earth is
-soil that feeds. Yang Metal a battle axe, Yin Metal an ornamental hairpin. Yang Fire
-explodes; Yin Fire glows like a ritual flame.
+Fate and Artifact cards are planned. Only **Element Cards** are built, and they carry combat.
 
 <!-- auto:images -->
 <div class="cards">

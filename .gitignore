@@ -5,3 +5,7 @@ dist/
 *.log
 .env
 .env.production
+
+# Python 缓存 —— 跑 tools/ 里的脚本时生成的字节码，不该进仓库
+__pycache__/
+*.pyc
