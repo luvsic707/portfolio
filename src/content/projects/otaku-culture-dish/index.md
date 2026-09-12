@@ -48,11 +48,9 @@ categories like NEET. What they share is staying inside a world of their own mak
 the culture dish — a closed environment growing on its own terms.
 
 <!-- auto:images -->
-<div class="pair" style="--cols: 0.667fr 1.415fr">
+<div class="grid-2">
 
-![A — INSPIRATION 01](./a-inspiration-01.jpg)
-
-![A — INSPIRATION 02](./a-inspiration-02.jpg)
+![A — INSPIRATION 01](./a-inspiration-02.jpg)
 
 </div>
 <!-- /auto:images -->
