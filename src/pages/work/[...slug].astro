@@ -1135,9 +1135,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* 通栏大图：冲破正文宽度铺满视口，用来放主视觉 */
   .prose-body :global(.full) {
-    width: 100vw;
-    max-width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     margin-block: clamp(2.5rem, 6vw, 4.5rem);
   }
 
@@ -1161,8 +1159,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* ---- 成品：大而直接 ----
      冲破正文宽度，两列大图，高度错落用多栏自然填满。 */
   .prose-body :global(.showcase) {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     margin-block: clamp(2.5rem, 6vw, 4.5rem);
     padding-inline: clamp(0.75rem, 3vw, 3rem);
     column-width: 640px;
@@ -1196,8 +1193,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* ---- 滑动组：每张占满一屏宽，左右滑着看 ----
      用在「两三张都想给到通栏尺寸，但不想让页面变得很长」的时候。 */
   .prose-body :global(.slider) {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     margin-block: clamp(2rem, 5vw, 3.5rem);
     display: flex;
     gap: 0;
@@ -1230,8 +1226,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      左边 5 栏 × 2 排放十张牌，右边两格（牌背和视频）各占满两排高、更大。
      用 grid 不用多栏，因为要的是「每排正好五张」，多栏是按高度分的。 */
   .prose-body :global(.cards) {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     margin-block: clamp(2rem, 5vw, 3.5rem);
     padding-inline: clamp(0.75rem, 3vw, 3rem);
     /* 右边两格各占满两排高，所以栏宽不能随手给 ——
@@ -1655,8 +1650,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      跟 showcase 的分工：几件成品用 showcase 给到最大，
      一整批用 flow 连续铺开，看的是量和节奏。 */
   .prose-body :global(.flow) {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     margin-block: clamp(2rem, 5vw, 3.5rem);
     padding-inline: clamp(0.5rem, 2vw, 2rem);
     /* 用 column-width 而不是固定列数：屏幕越宽自动多排一栏，
@@ -1689,8 +1683,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      版面本身就铺满几排小图，放不下的部分才靠左右滑。
      大小不一（每四张里有一张占两排高）才灵动，不是一条整齐的胶片。 */
   .prose-body :global(.strip) {
-    width: 100vw;
-    margin-inline: calc(50% - 50vw);
+    width: 100%;
     margin-block: clamp(1.75rem, 4vw, 3rem);
     padding: 0.25rem clamp(0.75rem, 3vw, 3rem) 1rem;
 
@@ -1744,10 +1737,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.strip p:hover) { opacity: 1; }
   }
 
-  /* 通栏版式在子小节里就老实待在右栏 —— 子小节是细节，不该冲破版心。
-     六种通栏版式一个都不能漏：它们靠 margin-inline: calc(50% - 50vw) 往外顶，
-     而那个 50% 算的是父元素。父元素在版心里居中时正好抵消；一旦挪进
-     子小节右栏（偏在一边、也更窄），就顶歪了，整个文档跟着横向溢出。 */
+  /* 这几种版式以前靠 width: 100vw 顶出版心。整站只剩一条版心之后，
+     它们是唯一还在破线的东西 —— 一页里两条右边缘，图看起来就没对齐。
+     现在一律 100%，和章节线、图组、标签条同一条边。
+     开屏还是满屏的：那是一整屏的开场，不参与正文的网格。 */
   .prose-body :global(.sub-main .strip),
   .prose-body :global(.sub-main .flow),
   .prose-body :global(.sub-main .showcase),
