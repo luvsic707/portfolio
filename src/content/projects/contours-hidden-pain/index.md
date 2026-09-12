@@ -24,6 +24,8 @@ posture and muscle tension. The spine as a living archive of what happened to yo
 
 ### References
 
+<div class="sources">
+
 - [Treatment and Rehabilitation of AIS Patients](https://journals.eco-vector.com/turner/article/view/11266) — Eco-Vector Journal
 - [Heal Your Spine, Heal Yourself](https://www.kimiyahealing.co.uk/post/heal-your-spine-heal-yourself) — Kimiya Healing
 - [Long-term Consequences of Childhood Trauma](https://pubmed.ncbi.nlm.nih.gov/8118090/) — PubMed
@@ -31,15 +33,7 @@ posture and muscle tension. The spine as a living archive of what happened to yo
 - [Can Childhood Trauma Also Be a Precursor to Adult Chronic Pain?](https://stwilliamslivingcenter.com/can-childhood-trauma-also-be-a-precursor-to-adult-chronic-pain/) — St. Williams Living Center
 - [Childhood Trauma and Physiological Responses](https://pmc.ncbi.nlm.nih.gov/articles/PMC9138975/) — PubMed Central
 
-<!-- auto:images -->
-<div class="grid-3">
-
-<p><video src="/media/contours-hidden-pain/references-01.mp4" width="480" height="532" muted loop playsinline preload="metadata" data-autoplay aria-label="References 01"></video></p>
-
-![References 02](./references-02.jpg)
-
 </div>
-<!-- /auto:images -->
 
 ## B — STORYBOARD AND SKETCH
 

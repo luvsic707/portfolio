@@ -1622,6 +1622,22 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(li + li) { margin-top: 0.4em; }
 
+  /* 出处清单。正文的 li 是 --step-1，比正文还大一档 —— 那个尺寸是给
+     「要一条条读的要点」的。参考文献不是要点，是出处：六条按正文大小排，
+     每条还折成两行，整节就成了一堵字墙。压小、收紧、一条一行。 */
+  .prose-body :global(.sources ul) { margin-top: 0.6em; max-width: none; }
+
+  .prose-body :global(.sources li) {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    color: var(--ink-soft);
+  }
+
+  .prose-body :global(.sources li + li) { margin-top: 0.5em; }
+  .prose-body :global(.sources a) { color: var(--ink); }
+
   .prose-body :global(li)::before {
     content: '—';
     position: absolute;
