@@ -35,6 +35,7 @@ gallery:
     alt: EDEN OF EAST 11
   - image: ./hero-12.jpg
     alt: EDEN OF EAST 12
+heroFit: contain
 cover: ./card.jpg
 ---
 

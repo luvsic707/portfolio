@@ -58,6 +58,12 @@ const projects = defineCollection({
          卷宗本来就有状态字段 —— 与其假装做完了，不如明写。 */
       status: z.string().optional(),        // 'ONGOING' / 'PROTOTYPE' / 'ARCHIVED'
 
+      /* 开屏图怎么放进画面。
+         默认 cover：铺满，画面里全是作品，代价是竖图被裁掉上下。
+         改成 contain：整张完整呈现，留白填纯白 —— 画作本身就是拍在白底上的
+         时候用这个，白边和画心连成一片，看不出边界，而且一寸不裁。 */
+      heroFit: z.enum(['cover', 'contain']).optional(),
+
       /* 外部链接：源码仓库、在线 demo、设计文档之类。
          渲染在检验表下面，新标签页打开。
          只放公开可访问的地址 —— 私有链接点进去是登录墙，比不放更糟。 */

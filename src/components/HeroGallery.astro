@@ -11,14 +11,15 @@ interface Slide {
 interface Props {
   slides: Slide[];
   title: string;
+  fit?: 'cover' | 'contain';
 }
 
-const { slides, title } = Astro.props;
+const { slides, title, fit = 'cover' } = Astro.props;
 const hasVideo = slides.some((s) => s.video);
 ---
 
 <section
-  class="gallery"
+  class:list={['gallery', { 'is-contain': fit === 'contain' }]}
   data-gallery
   data-interval="3500"
   aria-roledescription="carousel"
@@ -245,6 +246,13 @@ const hasVideo = slides.some((s) => s.video);
   }
 
   .slide.is-video { background: #08080a; }
+
+  /* heroFit: contain —— 整张完整呈现，留白是纯白。
+     画作拍在白纸上的时候用这个：白边和画心连成一片，看不出边界，
+     一寸不裁。默认的 cover 是铺满优先，竖图会被切掉上下。 */
+  .gallery.is-contain .slide { background: var(--paper-raised); }
+
+  .gallery.is-contain :global(img.fg) { object-fit: contain; }
 
   .slide.is-on { opacity: 1; pointer-events: auto; }
 

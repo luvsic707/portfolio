@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next } = Astro.props;
-const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status, heroFit } = project.data;
 const { Content, headings } = await render(project);
 
 /* 章节索引：只取 ## 这一级，长案例才值得放 */
@@ -57,7 +57,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   <!-- ==================== 开屏：全屏画廊 ==================== -->
   <article>
-    {slides.length > 0 && <HeroGallery slides={slides} title={title} />}
+    {slides.length > 0 && <HeroGallery slides={slides} title={title} fit={heroFit} />}
 
     <!-- 开屏底下的一切装在这张「纸」上。开屏是钉住的，这张纸往上滑
          盖住它 —— 所以它必须是不透明的，也必须压在开屏上面。 -->
