@@ -1228,6 +1228,12 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     column-gap: clamp(0.75rem, 2vw, 2rem);
   }
 
+  /* 最后一栏短、中间一栏长的表用这个 —— 比如「选择 / 你做了什么 / 属性变化」，
+     属性变化就一行，默认比例会把它撑得空空荡荡，中间那栏反而挤成四行。 */
+  .prose-body :global(.dg-tbl.dg-tbl-w) {
+    grid-template-columns: minmax(0, 8rem) minmax(0, 1.75fr) minmax(0, 1fr);
+  }
+
   .prose-body :global(.dg-tbl > *) {
     padding-block: 0.7rem;
     border-bottom: 1px solid var(--line);

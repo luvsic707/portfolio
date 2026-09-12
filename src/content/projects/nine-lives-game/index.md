@@ -4,7 +4,7 @@ year: '2025'
 categories: ['Game', 'Illustration']
 featured: false
 order: 4
-summary: A story-driven card game set in a world where gods, humans and demons are bound in one system — a psychological duel between fate and freedom. Every card is a moral event, and four hidden attributes decide which ending you reach.
+summary: You are the nine-tailed fox, sent by the goddess Nüwa to possess Su Daji and bring down King Zhou. A story-driven card game where every card is a moral event, and four hidden attributes decide whether you serve Heaven or break free.
 meta:
   date: 2025.05 – 2025.06 (Phase I) · 2025.10 – 2025.12 (Phase II)
   dimension: 1920×1080
@@ -39,29 +39,36 @@ resists both the gods and Daji, and destroys himself doing it.
 </div>
 <!-- /auto:images -->
 
-## B — ESTABLISHING GAME TONE & STORY STYLE
-
-Not just a story-driven card game — a psychological duel between fate and freedom,
-divinity and desire. The tone is dark and absurd: the solemnity of epic myth crossed with
-a cold reading of faith and human nature, carried by black humour and cruel irony.
-
-<!-- auto:images -->
-<div class="grid-2">
-
-<p><video src="/media/nine-lives-game/c-establishing-game-tone-story-style-01.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="B — ESTABLISHING GAME TONE & STORY STYLE 01"></video></p>
-
-<p><video src="/media/nine-lives-game/c-establishing-game-tone-story-style-02.mp4" width="1606" height="1472" muted loop playsinline preload="metadata" data-autoplay aria-label="B — ESTABLISHING GAME TONE & STORY STYLE 02"></video></p>
-
-</div>
-<!-- /auto:images -->
-
-## C — GAME CORE LOOP
+## B — GAME CORE LOOP
 
 **Draw a Card → Make a Decision → Change Stats.**
 
 Every card is a moral event. Each choice shifts four attributes — Love, Corruption,
 Divine Favour, Freedom — which decide the branches and endings you reach. Mini-games sit
 at key decision points to raise the emotional stakes.
+
+One scene, to show the shape of it. Scene 1: you reach Su Daji, and have to take her body.
+The goal never changes — only what it costs you.
+
+<div class="dg dg-tbl dg-tbl-w">
+
+<div class="dg-th">Choice</div>
+<div class="dg-th">What you do</div>
+<div class="dg-th">Stat change</div>
+
+<div class="dg-stage"><b>01</b>Force</div>
+<div>Tear her soul open and seize the body. Rapid clicks against a soul-pressure bar.</div>
+<div>Corruption +2 · Freedom +2 · Divine Favour −2 · Love −1</div>
+
+<div class="dg-stage"><b>02</b>Dream</div>
+<div>Build her an illusion until she gives the body up willingly. Three rounds of dialogue lower her Mind Resistance.</div>
+<div>Divine Favour +2 · Love +1 · Freedom −1 · Corruption ±0</div>
+
+<div class="dg-stage"><b>03</b>Poison</div>
+<div>Serpent venom in her tea forces the soul out. Sequence clicking — kettle, poison, incense burner.</div>
+<div>Corruption +1 · Freedom +2 · Divine Favour −1 · Love −1</div>
+
+</div>
 
 <!-- auto:images -->
 <div class="grid-2">
@@ -73,7 +80,7 @@ at key decision points to raise the emotional stakes.
 </div>
 <!-- /auto:images -->
 
-## D — FIRST PROTOTYPE
+## C — FIRST PROTOTYPE
 
 A playable prototype in under two weeks, to test whether the narrative flow and the
 interaction held up.
@@ -85,12 +92,12 @@ The loop lacked appeal and reward; the next iteration has to be more dynamic.
 <!-- auto:images -->
 <div class="full">
 
-<p><video src="/media/nine-lives-game/hero-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="D — FIRST PROTOTYPE 01"></video></p>
+<p><video src="/media/nine-lives-game/hero-01.mp4" width="2948" height="1902" controls preload="metadata" aria-label="C — FIRST PROTOTYPE 01"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-## E — PRODUCTION FLOW
+## D — PRODUCTION FLOW
 
 I handled the core loop, card system, storytelling visuals, early character concept and user
 testing.
@@ -102,14 +109,14 @@ a lot of time, so the storytelling leans abstract.
 <!-- auto:images -->
 <div class="slider">
 
-<p><video src="/media/nine-lives-game/f-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="E — PRODUCTION FLOW 01"></video></p>
+<p><video src="/media/nine-lives-game/f-production-flow-01.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="D — PRODUCTION FLOW 01"></video></p>
 
-<p><video src="/media/nine-lives-game/f-production-flow-02.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="E — PRODUCTION FLOW 02"></video></p>
+<p><video src="/media/nine-lives-game/f-production-flow-02.mp4" width="2230" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="D — PRODUCTION FLOW 02"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-## F — CARD DESIGN
+## E — CARD DESIGN
 
 Three card types are planned — Fate, Element and Artifact. Only **Element Cards** are fully
 implemented, and they carry combat.
@@ -122,58 +129,58 @@ explodes; Yin Fire glows like a ritual flame.
 <!-- auto:images -->
 <div class="cards">
 
-![F — CARD DESIGN 01](./g-card-design-01.jpg)
+![E — CARD DESIGN 01](./g-card-design-01.jpg)
 
-![F — CARD DESIGN 02](./g-card-design-02.jpg)
+![E — CARD DESIGN 02](./g-card-design-02.jpg)
 
-![F — CARD DESIGN 03](./g-card-design-03.jpg)
+![E — CARD DESIGN 03](./g-card-design-03.jpg)
 
-![F — CARD DESIGN 04](./g-card-design-04.jpg)
+![E — CARD DESIGN 04](./g-card-design-04.jpg)
 
-![F — CARD DESIGN 05](./g-card-design-05.jpg)
+![E — CARD DESIGN 05](./g-card-design-05.jpg)
 
-![F — CARD DESIGN 06](./g-card-design-06.jpg)
+![E — CARD DESIGN 06](./g-card-design-06.jpg)
 
-![F — CARD DESIGN 07](./g-card-design-07.jpg)
+![E — CARD DESIGN 07](./g-card-design-07.jpg)
 
-![F — CARD DESIGN 08](./g-card-design-08.jpg)
+![E — CARD DESIGN 08](./g-card-design-08.jpg)
 
-![F — CARD DESIGN 09](./g-card-design-09.jpg)
+![E — CARD DESIGN 09](./g-card-design-09.jpg)
 
-![F — CARD DESIGN 10](./g-card-design-10.jpg)
+![E — CARD DESIGN 10](./g-card-design-10.jpg)
 
-![F — CARD DESIGN 11](./g-card-design-11.jpg)
+![E — CARD DESIGN 11](./g-card-design-11.jpg)
 
-<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="800" height="1066" muted loop playsinline preload="metadata" data-autoplay aria-label="F — CARD DESIGN 12"></video></p>
+<p><video src="/media/nine-lives-game/g-card-design-12.mp4" width="800" height="1066" muted loop playsinline preload="metadata" data-autoplay aria-label="E — CARD DESIGN 12"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-## G — GAME ASSETS
+## F — GAME ASSETS
 
-### G.1 — NARRATIVE SEQUENCES
+### F.1 — NARRATIVE SEQUENCES
 
 
 <!-- auto:images -->
 <div class="strip">
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 01"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-01.mp4" width="1248" height="704" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 01"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 02"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-02.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 02"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 03"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-03.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 03"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 04"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-04.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 04"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 05"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-05.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 05"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 06"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-06.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 06"></video></p>
 
-<p><video src="/media/nine-lives-game/h-1-narrative-sequences-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="G.1 — NARRATIVE SEQUENCES 07"></video></p>
+<p><video src="/media/nine-lives-game/h-1-narrative-sequences-07.mp4" width="1280" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="F.1 — NARRATIVE SEQUENCES 07"></video></p>
 
 </div>
 <!-- /auto:images -->
 
-### G.2 — SYMBOLS & ICONS
+### F.2 — SYMBOLS & ICONS
 
-### G.3 — UI & INTERFACE
+### F.3 — UI & INTERFACE
