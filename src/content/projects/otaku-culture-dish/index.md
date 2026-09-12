@@ -265,35 +265,51 @@ the rhythm of the composition.
 Weighted transparent acrylic instead of paper, so the work changes with how you stack it,
 where you are, and what light is on it. Reading becomes something closer to exploring.
 
-<!-- auto:images -->
-<div class="showcase">
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-![D — OUTCOME 1: PRINT 01](./d-outcome-1-print-01.jpg)
+<div class="band" style="--n: 2; --sum: 1.9839">
 
 ![D — OUTCOME 1: PRINT 02](./d-outcome-1-print-02.jpg)
 
-![D — OUTCOME 1: PRINT 03](./d-outcome-1-print-03.jpg)
-
-![D — OUTCOME 1: PRINT 04](./d-outcome-1-print-04.jpg)
-
-![D — OUTCOME 1: PRINT 05](./d-outcome-1-print-05.jpg)
-
 ![D — OUTCOME 1: PRINT 06](./d-outcome-1-print-06.jpg)
+
+</div>
+
+<div class="band" style="--n: 2; --sum: 2.2046">
 
 ![D — OUTCOME 1: PRINT 07](./d-outcome-1-print-07.jpg)
 
-![D — OUTCOME 1: PRINT 08](./d-outcome-1-print-08.jpg)
+![D — OUTCOME 1: PRINT 01](./d-outcome-1-print-01.jpg)
+
+</div>
+
+<div class="band" style="--n: 2; --sum: 2.2333">
+
+![D — OUTCOME 1: PRINT 05](./d-outcome-1-print-05.jpg)
+
+![D — OUTCOME 1: PRINT 04](./d-outcome-1-print-04.jpg)
+
+</div>
+
+<div class="band" style="--n: 3; --sum: 2.8579">
 
 ![D — OUTCOME 1: PRINT 09](./d-outcome-1-print-09.jpg)
 
+![D — OUTCOME 1: PRINT 12](./d-outcome-1-print-12.jpg)
+
 ![D — OUTCOME 1: PRINT 10](./d-outcome-1-print-10.jpg)
+
+</div>
+
+<div class="band" style="--n: 3; --sum: 4.5000">
 
 ![D — OUTCOME 1: PRINT 11](./d-outcome-1-print-11.jpg)
 
-![D — OUTCOME 1: PRINT 12](./d-outcome-1-print-12.jpg)
+![D — OUTCOME 1: PRINT 03](./d-outcome-1-print-03.jpg)
+
+![D — OUTCOME 1: PRINT 08](./d-outcome-1-print-08.jpg)
 
 </div>
-<!-- /auto:images -->
 
 ## E — OUTCOME 2: INSTALLATION
 
