@@ -1,27 +1,37 @@
 ---
-/* 字体对照页 —— 不挂在导航里，只有知道地址的人能看到：/type
-   三个方向套在同一段真实内容上，并排比。选定之后这一页就可以删。 */
-const SPECS = [
+/* 字体对照页 —— 不挂导航，只有知道地址的人能看到：/type
+   已定方向 C（全站一个等宽字，最大 22px）。现在比的是「哪一个等宽字」。
+   选定之后这一页删掉。 */
+const MONOS = [
   {
-    id: 'a',
-    name: 'A · 打字机 + 编辑衬线',
-    base: "'Fragment Mono', ui-monospace, monospace",
-    display: "'Instrument Serif', Georgia, serif",
-    note: '卷宗本来就是打字机敲出来的。正文全部走等宽，极小、极紧，成片就是一块灰面；只有作品名和节号换成高对比衬线 —— 全站唯一的性格，出现两次。',
+    name: 'Fragment Mono',
+    stack: "'Fragment Mono', ui-monospace, monospace",
+    note: '现在站上用的。Helvetica 改的等宽 —— 干净、中性，但没有脾气。就是你说的"太朴素"。',
+    tag: '现状',
   },
   {
-    id: 'b',
-    name: 'B · 现代无衬线 + 编辑衬线',
-    base: "'Instrument Sans', system-ui, sans-serif",
-    display: "'Instrument Serif', Georgia, serif",
-    note: 'Karin Kiho 走的路。正文是当代的中性无衬线，利落干净；衬线负责点睛。比 A 更"设计工作室"，比 A 少一点卷宗味。',
+    name: 'Courier Prime',
+    stack: "'Courier Prime', Courier, monospace",
+    note: 'Protocol 用的就是 Courier（New）。这个是重新画过的版本，给剧本排版做的 —— 修掉了 Courier New 太瘦太飘的毛病，板衬线和打字机味全留着。',
+    tag: '最接近 Protocol',
   },
   {
-    id: 'c',
-    name: 'C · 只有一种字（Protocol 路线）',
-    base: "'Fragment Mono', ui-monospace, monospace",
-    display: "'Fragment Mono', ui-monospace, monospace",
-    note: '从头到尾一个字族，最大 22px。不留任何字体上的"亮点"，把所有视觉重量让给作品。最克制，也最容易做得好看，因为没有可搭错的地方。',
+    name: 'Space Mono',
+    stack: "'Space Mono', ui-monospace, monospace",
+    note: 'Colophon 给 Google 画的。几何骨架配上突然冒出来的怪衬线，性格最强，一眼能认出来。代价是它很"2016 网页设计"，几年后可能显得有时代。',
+    tag: '性格最强',
+  },
+  {
+    name: 'IBM Plex Mono',
+    stack: "'IBM Plex Mono', ui-monospace, monospace",
+    note: '人文主义骨架，字形有手写的起收笔。比 Fragment 有味道，比 Space Mono 稳重，长文也读得住。',
+    tag: '中间路线',
+  },
+  {
+    name: 'Martian Mono',
+    stack: "'Martian Mono', ui-monospace, monospace",
+    note: '字面极宽，整段排出来是密实的一大块。块面感最强 —— 但太宽了，同样的话要占更多行，正文吃亏。',
+    tag: '块面感最强',
   },
 ];
 ---
@@ -31,67 +41,62 @@ const SPECS = [
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex" />
-  <title>字体对照 — Red Thread</title>
+  <title>等宽字对照 — Red Thread</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fragment+Mono&family=Courier+Prime:wght@400;700&family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&family=Martian+Mono:wght@400;600&family=Instrument+Sans:wght@400;500;600&display=swap"
   />
 </head>
 
 <body>
   <header class="top">
-    <h1>字体对照</h1>
+    <h1>等宽字对照</h1>
     <p>
-      同一段内容，三种字体方案。左右滚动比较，或者只看一个。
-      选定之后告诉我字母，我去改全站；这一页就删掉。
+      方向已定：全站一个等宽字，最大 22px，不留字体上的亮点（C 方案）。
+      现在比的是换哪一个字。同一段真实内容，五个候选。
     </p>
-    <p class="now">当前线上用的是 Archivo（压窄轴）+ Fragment Mono，55% 的字是大写。</p>
+    <p class="now">看三件事：一、整段排出来是不是一块匀净的灰面；二、作品名放大之后撑不撑得住；三、编号和表格对齐得好不好看。</p>
   </header>
 
   <div class="decks">
-    {SPECS.map((s) => (
-      <section class="deck" style={`--base: ${s.base}; --display: ${s.display}`}>
-        <h2 class="deck-name">{s.name}</h2>
-        <p class="deck-note">{s.note}</p>
+    {MONOS.map((m) => (
+      <section class="deck" style={`--mono: ${m.stack}`}>
+        <div class="deck-head">
+          <h2 class="deck-name">{m.name}</h2>
+          <span class="deck-tag">{m.tag}</span>
+        </div>
+        <p class="deck-note">{m.note}</p>
 
         <div class="sheet">
-          {/* 页眉：卷宗表头 */}
           <div class="rail">
-            <span>← RETURN</span><span>CASE FILE</span>
-            <span>Graphic / Illustration</span><span class="end">RT-OCD-007</span>
+            <span>← RETURN</span><span>CASE FILE</span><span class="end">RT-OCD-007</span>
           </div>
 
-          {/* 作品名 */}
-          <div class="head">
-            <h3 class="title">The Person in a Culture Dish</h3>
-            <p class="lede">
-              Nine types of otaku, each distilled into a totem — collected, drawn in ink,
-              folded into symmetry, then coloured.
-            </p>
-            <dl class="meta">
-              <div><dt>Year</dt><dd>2023</dd></div>
-              <div><dt>Media</dt><dd>Print · Installation · Book</dd></div>
-              <div><dt>Tools</dt><dd>Procreate · InDesign</dd></div>
-            </dl>
-          </div>
+          <h3 class="title">The Person in a Culture Dish</h3>
 
-          {/* 章节 */}
-          <div class="sec">
-            <span class="mark">B</span>
-            <span class="sheetno">SHEET 02</span>
-          </div>
+          <p class="lede">
+            Nine types of otaku, each distilled into a totem — collected, drawn in ink,
+            folded into symmetry, then coloured.
+          </p>
+
+          <dl class="meta">
+            <div><dt>Year</dt><dd>2023</dd></div>
+            <div><dt>Media</dt><dd>Print · Installation · Book</dd></div>
+            <div><dt>Tools</dt><dd>Procreate · InDesign</dd></div>
+          </dl>
+
+          <div class="sec"><span class="mark">B</span><span class="sheetno">SHEET 02</span></div>
 
           <p class="body">
             Nine types of otaku. Each one’s objects and colours are collected, drawn in ink,
             folded into symmetry, then coloured into a symbol — the four columns below, in order.
           </p>
 
-          {/* 子小节标签 */}
-          <p class="sub">→ Type No.1 — Military Otaku</p>
+          <p class="sub"><i>→</i> Type No.1 — Military Otaku</p>
           <div class="strip"><i></i><i></i><i></i><i></i></div>
-          <p class="sub">→ Type No.2 — Occult Otaku</p>
+          <p class="sub"><i>→</i> Type No.2 — Occult Otaku</p>
           <div class="strip"><i></i><i></i><i></i><i></i></div>
         </div>
       </section>
@@ -100,64 +105,49 @@ const SPECS = [
 
   <style is:global>
     :root {
-      --paper: #f7f8f7;
-      --sunk: #eceeec;
-      --ink: #101314;
-      --soft: #5c6262;
-      --faint: #6e7474;
-      --line: #d6dad9;
-      --strong: #a8adab;
-      --red: #c8102e;
+      --paper: #f7f8f7; --sunk: #eceeec; --ink: #101314;
+      --soft: #5c6262; --faint: #6e7474; --line: #d6dad9; --red: #c8102e;
     }
     * { box-sizing: border-box; }
     body {
-      margin: 0;
-      background: var(--paper);
-      color: var(--ink);
+      margin: 0; background: var(--paper); color: var(--ink);
       font: 14px/1.6 'Instrument Sans', system-ui, sans-serif;
     }
 
-    .top { padding: 3rem clamp(1rem, 4vw, 3rem) 1.5rem; max-width: 70ch; }
+    .top { padding: 3rem clamp(1rem, 4vw, 3rem) 1.5rem; max-width: 74ch; }
     .top h1 { font-size: 1.5rem; margin: 0 0 0.6rem; font-weight: 600; }
     .top p { margin: 0 0 0.4rem; color: var(--soft); font-size: 13px; }
     .top .now { color: var(--faint); font-size: 12px; }
 
     .decks {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(380px, 1fr));
-      gap: 1px;
-      background: var(--line);
-      border-block: 1px solid var(--line);
-      overflow-x: auto;
+      display: grid; grid-template-columns: repeat(5, minmax(330px, 1fr));
+      gap: 1px; background: var(--line);
+      border-block: 1px solid var(--line); overflow-x: auto;
     }
 
-    .deck { background: var(--paper); padding: 1.5rem clamp(1rem, 2vw, 1.75rem) 3rem; }
-    .deck-name { font-size: 13px; font-weight: 600; margin: 0 0 0.4rem; }
-    .deck-note {
-      font-size: 12px; line-height: 1.65; color: var(--soft);
-      margin: 0 0 2rem; min-height: 5.5em;
-    }
+    .deck { background: var(--paper); padding: 1.25rem 1.25rem 3rem; }
+    .deck-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem; }
+    .deck-name { font-size: 13px; font-weight: 600; margin: 0; }
+    .deck-tag { font-size: 10px; color: var(--red); white-space: nowrap; }
+    .deck-note { font-size: 11.5px; line-height: 1.6; color: var(--soft); margin: 0.4rem 0 1.8rem; min-height: 7em; }
 
-    /* ---- 下面这块完全由 --base / --display 驱动 ---- */
-    .sheet { font-family: var(--base); }
+    /* ---- 全部由 --mono 驱动 ---- */
+    .sheet { font-family: var(--mono); }
 
     .rail {
-      display: flex; flex-wrap: wrap; gap: 0 1.2rem;
-      font-size: 10px; line-height: 1.9; color: var(--faint);
-      border-block: 1px solid var(--line); padding: 0.3rem 0;
+      display: flex; gap: 0 1rem; font-size: 10px; line-height: 1.9;
+      color: var(--faint); border-block: 1px solid var(--line); padding: 0.3rem 0;
     }
     .rail .end { margin-left: auto; }
 
-    .head { padding: 1.6rem 0 0; }
     .title {
-      font-family: var(--display);
-      font-size: 34px; line-height: 1.05; font-weight: 400;
-      letter-spacing: -0.015em; margin: 0 0 0.7rem;
+      font-size: 22px; line-height: 1.15; font-weight: 400;
+      letter-spacing: -0.01em; margin: 1.4rem 0 0.7rem;
     }
-    .lede { font-size: 13px; line-height: 1.6; color: var(--soft); margin: 0 0 1.4rem; max-width: 42ch; }
+    .lede { font-size: 12px; line-height: 1.6; color: var(--soft); margin: 0 0 1.4rem; }
 
-    .meta { display: grid; gap: 0.25rem; margin: 0 0 2.4rem; font-size: 10px; }
-    .meta > div { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.6rem;
+    .meta { display: grid; gap: 0.25rem; margin: 0 0 2.2rem; font-size: 10px; }
+    .meta > div { display: grid; grid-template-columns: 4.5rem 1fr; gap: 0.6rem;
       border-top: 1px solid var(--line); padding-top: 0.25rem; }
     .meta dt { color: var(--faint); margin: 0; }
     .meta dd { margin: 0; color: var(--soft); }
@@ -166,20 +156,18 @@ const SPECS = [
       display: flex; align-items: baseline; justify-content: space-between;
       border-bottom: 1px solid var(--ink); padding-bottom: 0.4rem;
     }
-    .sec .mark { font-family: var(--display); font-size: 30px; line-height: 1; }
-    .sec .sheetno { font-size: 10px; color: var(--faint); letter-spacing: 0.02em; }
+    .sec .mark { font-size: 28px; line-height: 1; }
+    .sec .sheetno { font-size: 10px; color: var(--faint); }
 
-    .body { font-size: 12px; line-height: 1.65; color: var(--soft); max-width: 44ch; margin: 1rem 0 2rem; }
+    .body { font-size: 11.5px; line-height: 1.7; color: var(--soft); margin: 1rem 0 2rem; }
 
-    .sub { font-size: 11px; color: var(--ink); margin: 0 0 0.5rem; letter-spacing: 0.01em; }
-    .sub::first-letter { color: var(--red); }
+    .sub { font-size: 11px; color: var(--ink); margin: 0 0 0.5rem; }
+    .sub i { color: var(--red); font-style: normal; }
 
     .strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 1.8rem; }
     .strip i { display: block; aspect-ratio: 1; background: var(--sunk); }
 
-    @media (max-width: 900px) {
-      .decks { grid-template-columns: minmax(340px, 1fr); }
-    }
+    @media (max-width: 900px) { .decks { grid-template-columns: minmax(320px, 1fr); } }
   </style>
 </body>
 </html>
