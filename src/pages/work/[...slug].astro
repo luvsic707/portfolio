@@ -531,7 +531,48 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     drift(strip);
   });
 
-  /* ---- 2b. 卡牌阵列和横向滑轨都会横滑，同样要告诉人右边还有 ---- */
+  /* ---- 2b. 片子入场 ----
+     一张图进视野就淡进、放大到位。同一组里按顺序错开一点，
+     一排四张是挨个落下去的，不是齐刷刷闪一下。
+
+     错开只数到第六张就封顶：一条滑动带里有二十张，真按顺序排下去
+     最后一张要等一秒多，人早滑过去了。
+
+     只观察一次，进过就不再管 —— 来回滚不会反复闪。 */
+  {
+    const plates = document.querySelectorAll<HTMLElement>('.prose-body img, .prose-body video');
+
+    if (plates.length && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      /* 同组之内的序号：拿它外面那层版式块当一组 */
+      const seat = new Map<Element, number>();
+
+      plates.forEach((el) => {
+        el.classList.add('plate-in');
+        const group = el.closest('.strip-col, .band, .pair, .lead, .solo, [class^="rows-"], [class^="grid-"], .reel, .cards')
+          ?? el.parentElement!;
+        const i = seat.get(group) ?? 0;
+        seat.set(group, i + 1);
+        el.style.transitionDelay = `${Math.min(i, 5) * 70}ms`;
+      });
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            e.target.classList.add('is-in');
+            io.unobserve(e.target);
+          }
+        },
+        /* 底下收一点：等它真进来一截再开始，别在屏幕边缘上就演完了 */
+        { rootMargin: '0px 0px -6% 0px', threshold: 0.01 }
+      );
+
+      plates.forEach((el) => io.observe(el));
+    }
+  }
+
+
+  /* ---- 2c. 卡牌阵列和横向滑轨都会横滑，同样要告诉人右边还有 ---- */
   document.querySelectorAll<HTMLElement>('.prose-body .cards, .prose-body .reel').forEach((el) => {
     const hint = () => {
       el.classList.toggle('has-more', el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
@@ -2019,13 +2060,21 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
      退的办法不能是 opacity —— 图一透明，纸背后那层作品幽灵就从图里
      透出来，一整条滑动带看着像蒙了层脏。用 filter 把它压淡：
-     图还是不透明的，背后什么都漏不过来。 */
+     图还是不透明的，背后什么都漏不过来。
+
+     而且 filter 要加在图自己身上，不能加在外面那个 p 上：给一个
+     mix-blend-mode 元素的祖先加 filter / opacity / transform，
+     都会把它的混合隔离掉 —— 抠图的白底会当场变回一个个白方块。
+     加在图自己身上没这个问题，滤镜先作用于图，再拿结果去和纸相乘。 */
   @media (hover: hover) and (pointer: fine) {
-    .prose-body :global(.strip p) {
+    .prose-body :global(.strip img),
+    .prose-body :global(.strip video) {
       transition: filter 0.3s var(--ease);
     }
-    .prose-body :global(.strip:hover p) { filter: contrast(0.72) brightness(1.16); }
-    .prose-body :global(.strip p:hover) { filter: none; }
+    .prose-body :global(.strip:hover img),
+    .prose-body :global(.strip:hover video) { filter: contrast(0.72) brightness(1.16); }
+    .prose-body :global(.strip p:hover img),
+    .prose-body :global(.strip p:hover video) { filter: none; }
   }
 
   /* 这几种版式以前靠 width: 100vw 顶出版心。整站只剩一条版心之后，
@@ -2159,6 +2208,33 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       transform: scale(1.02);
       box-shadow: none;
     }
+  }
+
+  /* ==================== 入场：片子落到纸上 ====================
+     滚下去的时候图一张张浮上来，淡进、微微放大到位 —— 像把片子
+     一张张摆到台面上。首页和 info 页早就有这个（.reveal），
+     唯独作品页从头到尾是死的，所以那几页看着比别处旧。
+
+     关键：动效必须加在图自己身上，不能加在外面的容器上。
+     容器一旦有了 opacity / transform / filter，就成了一个混合隔离组，
+     里面 multiply 的抠图会当场变回一个个白方块，动画结束再啪地变回来。
+     加在图身上则是「先算自己的透明度和缩放，再拿结果去和纸相乘」。 */
+  .prose-body :global(img.plate-in),
+  .prose-body :global(video.plate-in) {
+    opacity: 0;
+    transform: translateY(18px) scale(0.972);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+
+  .prose-body :global(img.plate-in.is-in),
+  .prose-body :global(video.plate-in.is-in) {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prose-body :global(img.plate-in),
+    .prose-body :global(video.plate-in) { opacity: 1; transform: none; }
   }
 
   /* ---- merge 的章节抬头：收成一条，别在图和图之间开天窗 ----
