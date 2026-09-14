@@ -3,6 +3,10 @@ import Base from '../layouts/Base.astro';
 
 /* ── 这一页的内容全部在这里改，下面的模板不用动 ───────────────── */
 
+/* Red Thread 是实践的名字，但求职这一页得有法定名字：
+   招聘的人拿到简历之后会去搜，搜的是这个；作品集上找不到它，
+   简历和网站就对不上号了。所以两个都给，大的是招牌，小的是本人。 */
+const name = 'Jane Pu · 濮若菁';
 const role = 'Illustrator · Concept & Visual Designer';
 const city = 'TORONTO, ON';
 
@@ -147,6 +151,7 @@ const revised = new Date().toISOString().slice(0, 10);
         <span class="hash">#000</span>
       </div>
 
+      <p class="real-name">{name}</p>
       <p class="role">{role}</p>
     </div>
   </section>
@@ -157,21 +162,22 @@ const revised = new Date().toISOString().slice(0, 10);
       <div class="layout">
         <div class="col-main">
           <p class="prose reveal">
-            I draw, design, tattoo, and make games. Illustration is the spine of it —
-            everything else is that drawing pushed into another material until it has to
-            hold up as a printed object, a playable system, or a mark on skin.
+            I'm an illustrator and visual designer in Toronto, finishing a Master of
+            Digital Media at Northeastern and looking for work in illustration, concept
+            art and visual design.
           </p>
 
           <p class="prose reveal">
-            Most of the work here starts in reading and interviews and ends in something
-            made: a sociology text becomes an ink series, clinical literature becomes an
-            AR poster, a myth becomes a card game. I take projects the whole way —
+            The work starts in reading and interviews and ends in something made: a
+            sociology text becomes an ink series, clinical literature becomes an AR
+            poster, a myth becomes a card game. I take a project the whole way —
             research, form, production, and the file that goes to the printer.
           </p>
 
           <p class="prose reveal">
-            Finishing a Master of Digital Media at Northeastern. Based in Toronto,
-            looking for work in illustration, concept and visual design.
+            I also tattoo and make games. Illustration is the spine of all of it:
+            everything else is that drawing pushed into another material until it has to
+            hold up as a printed object, a playable system, or a mark on skin.
           </p>
         </div>
 
@@ -302,9 +308,17 @@ const revised = new Date().toISOString().slice(0, 10);
     text-transform: uppercase;
   }
 
+  /* 法定名字压一档，跟在招牌底下 —— 招牌是给人记的，名字是给人搜的 */
+  .real-name {
+    padding-top: 0.5rem;
+    font-size: var(--step-0);
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
   /* 职位行：让人两秒内知道这是干什么的，比任何一段自我介绍都先起作用 */
   .role {
-    padding-top: 0.35rem;
+    padding-top: 0.2rem;
     padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
     font-size: var(--step--1);
     letter-spacing: 0.02em;
