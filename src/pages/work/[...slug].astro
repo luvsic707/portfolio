@@ -2615,6 +2615,24 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     box-shadow: none;
   }
 
+  /* 黑带里的字和框都要反过来 —— 墨色的图注压在 #050607 上等于没有，
+     窗框那条 var(--ink) 的细线同理。 */
+  .prose-body :global(.dark .win-cap) {
+    color: color-mix(in srgb, var(--paper) 55%, transparent);
+  }
+
+  .prose-body :global(.dark .windows img),
+  .prose-body :global(.dark .windows video) {
+    border-color: color-mix(in srgb, var(--paper) 26%, transparent);
+    background: #0d0f10;
+  }
+
+  /* 右缘那道「还有更多」的虚化用的是遮罩，化的是透明度，
+     黑带里自然就化进黑，不用管。滚动条得自己调。 */
+  .prose-body :global(.dark .strip) {
+    scrollbar-color: color-mix(in srgb, var(--paper) 30%, transparent) transparent;
+  }
+
   /* 等素材的小节。和封面缺图时的 NO PLATE ON FILE 同一套写法。 */
   .prose-body :global(.sub-pending) {
     margin: 0;

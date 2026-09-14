@@ -125,6 +125,8 @@ Someone described it as *moving through the world without skin*.
               aria-label="Girl, Interrupted (1999) dir. James Mangold"></video>
      脚本会自动加上静音、循环、自动播放，样式和静帧的窗一模一样。
      片子文件放 public/media/love-borderline/ 下面。 -->
+<div class="dark">
+
 <div class="windows centred">
 
 <p><video src="/media/love-borderline/girl-interrupted.mp4" poster="/media/love-borderline/girl-interrupted-poster.jpg" width="900" height="630" aria-label="Girl, Interrupted (1999) dir. James Mangold"></video></p>
@@ -132,6 +134,8 @@ Someone described it as *moving through the world without skin*.
 <p><video src="/media/love-borderline/memories-of-matsuko.mp4" poster="/media/love-borderline/memories-of-matsuko-poster.jpg" width="900" height="628" aria-label="Memories of Matsuko (2006) dir. Tetsuya Nakashima"></video></p>
 
 <p><video src="/media/love-borderline/eternal-sunshine.mp4" poster="/media/love-borderline/eternal-sunshine-poster.jpg" width="900" height="628" aria-label="Eternal Sunshine of the Spotless Mind (2004) dir. Michel Gondry"></video></p>
+
+</div>
 
 </div>
 
@@ -159,6 +163,8 @@ Taken during lockdown, around my neighbourhood and the old downtown. My friend a
 the same quiet, heavy state. On impulse I walked barefoot across a construction site — cold
 rising from the ground, roughness, hardness underfoot. A brief, hard connection with
 something real.
+
+<div class="dark">
 
 <!-- auto:images -->
 <div class="strip">
@@ -194,6 +200,8 @@ something real.
 </div>
 <!-- /auto:images -->
 
+</div>
+
 ## D — STRUCTURE OF THE BOOK
 
 Three sections, each a different size inside a single A4 frame.
@@ -210,9 +218,18 @@ Saddle-stitched, on vintage special paper, for the archival feel.
      01 是三册全摊开的总图，这一节讲的就是它，给到最大；
      03/02 两张封面叠放并排，斜的那张大、竖的那张小且下沉，交叠一栏；
      05/04/06 三张手翻内页，大小不同、高低错开。 -->
-<div class="plot cutout" data-plot="1/1-11  2/6-13  2/2-7+4  3/1-7  3/7-13+6  4/4-10">
+<div class="dark">
+
+<!-- 三册全摊开的总图本来就是拍在黑布上的，压进黑带才是它自己的底 -->
+<div class="solo">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
+
+</div>
+
+</div>
+
+<div class="plot cutout" data-plot="1/6-13  1/2-7+4  2/1-7  2/7-13+6  3/4-10">
 
 ![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.jpg)
 
