@@ -173,13 +173,36 @@ const revised = new Date().toISOString().slice(0, 10);
           </div>
 
           <p class="real-name">{name}</p>
-          <p class="role">{role}</p>
 
-          <!-- 联系方式跟着登记信息走，不埋到页面下半截去 ——
-               这一页的目的就是让人联系到她。 -->
-          <p class="mail id-mail">
-            <a href="mailto:ruojingpu19@gmail.com">ruojingpu19@gmail.com</a>
-          </p>
+          <!-- 元信息带。照片旁边原来只有三行字，右边 900px 空着。
+               参考 protocol.studio：它的抬头是一整条密排的窄栏元信息，
+               客户／服务／年份／职员表并排铺满整幅，全部 7–8px，没有一个大字。
+               空间不是靠「大」填的，是靠「密」填的 —— 而密排小字正是这个站的母语。 -->
+          <dl class="id-meta">
+            <div>
+              <dt>Role</dt>
+              <dd>{role}</dd>
+            </div>
+            <div>
+              <dt>Based</dt>
+              <dd>Toronto, ON<br />Canada</dd>
+            </div>
+            <div>
+              <dt>Languages</dt>
+              <dd>{languages.join(' · ')}</dd>
+            </div>
+            <div>
+              <dt>Contact</dt>
+              <dd><a href="mailto:ruojingpu19@gmail.com">ruojingpu19@gmail.com</a></dd>
+            </div>
+            <div>
+              <dt>Elsewhere</dt>
+              <dd>
+                <a href="https://www.linkedin.com/in/ruojing-pu-94067a33b/">LinkedIn ↗</a><br />
+                <a href="https://www.instagram.com/luvsic707/">Instagram ↗</a>
+              </dd>
+            </div>
+          </dl>
         </div>
       </div>
     </div>
@@ -285,15 +308,6 @@ const revised = new Date().toISOString().slice(0, 10);
         </div>
       </div>
 
-      <div class="row reveal">
-        <h2 class="row-label">Languages</h2>
-        <div class="row-body">
-          <ul class="tags">
-            {languages.map((l) => <li>{l}</li>)}
-          </ul>
-        </div>
-      </div>
-
     </div>
   </section>
 
@@ -330,8 +344,17 @@ const revised = new Date().toISOString().slice(0, 10);
     display: grid;
     grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
     gap: clamp(1.5rem, 4vw, 3.5rem);
-    align-items: start;
+    /* stretch 而不是 start：右栏撑满照片的高度，
+       名字钉在顶、元信息带钉在底，中间那段空白于是有了两个端点。
+       start 的话空白是挂在下面的，看着就是漏了一块。 */
+    align-items: stretch;
     padding-top: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .id-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .portrait { margin: 0; }
@@ -380,6 +403,41 @@ const revised = new Date().toISOString().slice(0, 10);
     letter-spacing: -0.02em;
     text-transform: uppercase;
   }
+
+  /* ---- 元信息带 ----
+     五条窄栏并排，全部 10px。密排是这个站的母语（页眉横栏、遥测块
+     都是这么写的），所以这一条不是新东西，是把已有的说法用在该用的地方。
+     自动填充：窄了就少几栏，不用另写断点。 */
+  .id-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+    gap: clamp(0.9rem, 2vw, 1.75rem);
+    margin: clamp(1.5rem, 3.5vw, 2.5rem) 0 0;
+    padding-top: clamp(0.9rem, 2vw, 1.25rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .id-meta dt {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .id-meta dd {
+    margin: 0.55em 0 0;
+    font-size: var(--step--2);
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .id-meta a {
+    border-bottom: 1px solid var(--line-strong);
+    transition: border-color 0.2s var(--ease);
+  }
+
+  .id-meta a:hover { border-bottom-color: var(--red); }
 
   /* 法定名字压一档，跟在招牌底下 —— 招牌是给人记的，名字是给人搜的 */
   .real-name {
