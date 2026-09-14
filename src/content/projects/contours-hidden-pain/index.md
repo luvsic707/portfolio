@@ -24,7 +24,7 @@ psychological, body to mind. The sketches hunt the point where a line has stoppe
 diagram and is not yet an illustration.
 
 <!-- auto:images -->
-<div class="lead cutout" style="--cols: 1.687fr 1fr">
+<div class="lead cutout" style="--cols: 1.439fr 1fr">
 
 ![A — STORYBOARD AND SKETCH 01](./b-storyboard-and-sketch-01.jpg)
 
@@ -42,7 +42,7 @@ Tripo AI. The drawing keeps its expression; the conversion tests forms in 3D fas
 of generated models I kept a few.
 
 <!-- auto:images -->
-<div class="band" style="--n: 6; --sum: 5.8215" aria-label="Hand-drawn sketches">
+<div class="band" style="--n: 6; --sum: 5.8244" aria-label="Hand-drawn sketches">
 
 ![B — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.webp)
 
