@@ -206,7 +206,10 @@ Saddle-stitched, on vintage special paper, for the archival feel.
 
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-<!-- data-plot 按图的顺序写「第几行/占第几栏到第几栏+往下沉几rem」。
+<!-- data-plot 按图的顺序写「第几行/占第几栏到第几栏+往下沉百分之几」。
+     偏移的百分比是按这张图自己的网格区**宽度**算的（CSS 对 margin-top
+     的百分比就是这么解析的），所以它跟栏宽用同一个尺子，换视口宽度不散。
+     2026-09-14 之前这里写的是 rem，那版只在 721px 容器宽下成立。
      01 是三册全摊开的总图，这一节讲的就是它，给到最大；
      03/02 两张封面叠放并排，斜的那张大、竖的那张小且下沉，交叠一栏；
      05/04/06 三张手翻内页，大小不同、高低错开。 -->
@@ -225,7 +228,7 @@ Saddle-stitched, on vintage special paper, for the archival feel.
      06 收在右下。负的偏移是用来把行往上提、让它们真的叠在一起的，
      叠起来谁压谁看这里的先后 —— 写在后面的盖在上面。
      02（竖着摞的三册）这一版不用，节奏够满了。 -->
-<div class="plot" data-plot="1/1-7  1/7-13+3  2/6-11-3  2/1-7+1  3/7-13-14">
+<div class="plot" data-plot="1/1-7  1/7-13+13.52  2/6-11-16.33  2/1-7+4.51  3/7-13-63.12">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 

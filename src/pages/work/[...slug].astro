@@ -387,7 +387,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       if (!m) return;
       p.style.setProperty('--r', m[1]);
       p.style.setProperty('--c', `${m[2]} / ${m[3]}`);
-      if (m[4]) p.style.setProperty('--t', `${m[4]}rem`);
+      /* 偏移用 % 不用 rem。margin-top 的百分比是按包含块的**宽度**解析的
+         （不是高度），这里的包含块就是这张图占的网格区 —— 于是偏移和栏宽
+         用同一个尺子，版面整体缩放，换个视口宽度也不散。
+
+         写成 rem 的时候不是这样：栏宽是 fr，跟着容器走；偏移是绝对长度，
+         不跟。同一份 data-plot 在 800 宽下量出来是 1.05，到 1280 就成了
+         0.95 —— 手排的位置只在调它的那个宽度上成立，别的宽度全是错的。
+
+         没用 cqw 是因为那要给 .plot 加 container-type，而 container-type
+         会建立层叠上下文，抠图的 multiply 会被关在里面 —— 上面 .underlay
+         那段注释记的就是这个坑。百分比不需要容器，也就不碰这条线。 */
+      if (m[4]) p.style.setProperty('--t', `${m[4]}%`);
     });
   });
 
