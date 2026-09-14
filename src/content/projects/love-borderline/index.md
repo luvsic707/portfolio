@@ -326,7 +326,7 @@ and the reader is guided rather than immersed.
 </div>
 
 <!-- Part Three —— 怎么找治疗 -->
-<div class="rows-3 airy">
+<div class="rows-3 airy narrow">
 
 ![E — PRINT (BOOK DESIGN) 25](./e-print-book-design-25.webp)
 
