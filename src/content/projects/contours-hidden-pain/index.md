@@ -23,12 +23,9 @@ cover: ./card.webp
 
 <div class="sources">
 
-- [Treatment and Rehabilitation of AIS Patients](https://journals.eco-vector.com/turner/article/view/11266) — Eco-Vector Journal
-- [Heal Your Spine, Heal Yourself](https://www.kimiyahealing.co.uk/post/heal-your-spine-heal-yourself) — Kimiya Healing
 - [Long-term Consequences of Childhood Trauma](https://pubmed.ncbi.nlm.nih.gov/8118090/) — PubMed
-- [Childhood Trauma Increases Risk of Chronic Pain in Adulthood](https://www.mcgill.ca/newsroom/channels/news/childhood-trauma-increases-risk-chronic-pain-adulthood-353822) — McGill Newsroom
-- [Can Childhood Trauma Also Be a Precursor to Adult Chronic Pain?](https://stwilliamslivingcenter.com/can-childhood-trauma-also-be-a-precursor-to-adult-chronic-pain/) — St. Williams Living Center
 - [Childhood Trauma and Physiological Responses](https://pmc.ncbi.nlm.nih.gov/articles/PMC9138975/) — PubMed Central
+- [Childhood Trauma Increases Risk of Chronic Pain in Adulthood](https://www.mcgill.ca/newsroom/channels/news/childhood-trauma-increases-risk-chronic-pain-adulthood-353822) — McGill Newsroom
 
 </div>
 
