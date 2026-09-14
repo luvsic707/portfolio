@@ -42,9 +42,9 @@ diagram and is not yet an illustration.
 
 ![B — STORYBOARD AND SKETCH 01](./b-storyboard-and-sketch-01.jpg)
 
-![B — STORYBOARD AND SKETCH 02](./b-storyboard-and-sketch-02.jpg)
+![B — STORYBOARD AND SKETCH 02](./b-storyboard-and-sketch-02.webp)
 
-![B — STORYBOARD AND SKETCH 03](./b-storyboard-and-sketch-03.jpg)
+![B — STORYBOARD AND SKETCH 03](./b-storyboard-and-sketch-03.webp)
 
 </div>
 <!-- /auto:images -->
@@ -58,31 +58,31 @@ of generated models I kept a few.
 <!-- auto:images -->
 <div class="band" style="--n: 6; --sum: 5.8575" aria-label="Hand-drawn sketches">
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 02](./c-morphological-development-from-2d-sketch-to-3d-form-02.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 02](./c-morphological-development-from-2d-sketch-to-3d-form-02.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 03](./c-morphological-development-from-2d-sketch-to-3d-form-03.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 03](./c-morphological-development-from-2d-sketch-to-3d-form-03.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 04](./c-morphological-development-from-2d-sketch-to-3d-form-04.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 04](./c-morphological-development-from-2d-sketch-to-3d-form-04.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 05](./c-morphological-development-from-2d-sketch-to-3d-form-05.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 05](./c-morphological-development-from-2d-sketch-to-3d-form-05.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 06](./c-morphological-development-from-2d-sketch-to-3d-form-06.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 06](./c-morphological-development-from-2d-sketch-to-3d-form-06.webp)
 
 </div>
 
 <div class="band" style="--n: 5; --sum: 6.9686" aria-label="Models generated from the sketches">
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 07](./c-morphological-development-from-2d-sketch-to-3d-form-07.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 07](./c-morphological-development-from-2d-sketch-to-3d-form-07.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 08](./c-morphological-development-from-2d-sketch-to-3d-form-08.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 08](./c-morphological-development-from-2d-sketch-to-3d-form-08.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 09](./c-morphological-development-from-2d-sketch-to-3d-form-09.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 09](./c-morphological-development-from-2d-sketch-to-3d-form-09.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 10](./c-morphological-development-from-2d-sketch-to-3d-form-10.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 10](./c-morphological-development-from-2d-sketch-to-3d-form-10.webp)
 
-![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 11](./c-morphological-development-from-2d-sketch-to-3d-form-11.jpg)
+![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 11](./c-morphological-development-from-2d-sketch-to-3d-form-11.webp)
 
 </div>
 <!-- /auto:images -->
@@ -97,7 +97,7 @@ graphic design — spatial composition and visual experiment, done fast.
 
 ![D — POSTER COMPOSITION 01](./d-poster-composition-01.jpg)
 
-![D — POSTER COMPOSITION 02](./d-poster-composition-02.jpg)
+![D — POSTER COMPOSITION 02](./d-poster-composition-02.webp)
 
 </div>
 <!-- /auto:images -->

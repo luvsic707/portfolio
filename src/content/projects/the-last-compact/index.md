@@ -29,13 +29,13 @@ mathematical model of the protagonist's psychological state.
 <!-- auto:images -->
 <div class="rows-2">
 
-![A — PROJECT OVERVIEW 01](./a-project-overview-01.jpg)
+![A — PROJECT OVERVIEW 01](./a-project-overview-01.webp)
 
-![A — PROJECT OVERVIEW 02](./a-project-overview-02.jpg)
+![A — PROJECT OVERVIEW 02](./a-project-overview-02.webp)
 
-![A — PROJECT OVERVIEW 03](./a-project-overview-03.jpg)
+![A — PROJECT OVERVIEW 03](./a-project-overview-03.webp)
 
-![A — PROJECT OVERVIEW 04](./a-project-overview-04.jpg)
+![A — PROJECT OVERVIEW 04](./a-project-overview-04.webp)
 
 </div>
 <!-- /auto:images -->

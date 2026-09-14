@@ -45,7 +45,7 @@ A dynasty falls because of two lines the king writes on the goddess's wall:
 <!-- auto:images -->
 <div class="grid-3">
 
-![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-03.jpg)
+![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-03.webp)
 
 </div>
 <!-- /auto:images -->
@@ -97,25 +97,25 @@ The final explosion takes the shape of a fox.
 <!-- auto:images -->
 <div class="rows-2">
 
-![E — FILM STILLS 01](./e-film-stills-01.jpg)
+![E — FILM STILLS 01](./e-film-stills-01.webp)
 
-![E — FILM STILLS 02](./e-film-stills-02.jpg)
+![E — FILM STILLS 02](./e-film-stills-02.webp)
 
-![E — FILM STILLS 03](./e-film-stills-03.jpg)
+![E — FILM STILLS 03](./e-film-stills-03.webp)
 
-![E — FILM STILLS 04](./e-film-stills-04.jpg)
+![E — FILM STILLS 04](./e-film-stills-04.webp)
 
-![E — FILM STILLS 05](./e-film-stills-05.jpg)
+![E — FILM STILLS 05](./e-film-stills-05.webp)
 
-![E — FILM STILLS 06](./e-film-stills-06.jpg)
+![E — FILM STILLS 06](./e-film-stills-06.webp)
 
-![E — FILM STILLS 07](./e-film-stills-07.jpg)
+![E — FILM STILLS 07](./e-film-stills-07.webp)
 
-![E — FILM STILLS 08](./e-film-stills-08.jpg)
+![E — FILM STILLS 08](./e-film-stills-08.webp)
 
-![E — FILM STILLS 09](./e-film-stills-09.jpg)
+![E — FILM STILLS 09](./e-film-stills-09.webp)
 
-![E — FILM STILLS 10](./e-film-stills-10.jpg)
+![E — FILM STILLS 10](./e-film-stills-10.webp)
 
 </div>
 <!-- /auto:images -->

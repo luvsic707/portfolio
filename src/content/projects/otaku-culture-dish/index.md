@@ -12,7 +12,7 @@ meta:
 gallery:
   - image: ./hero-01.jpg
     alt: The Person in a Culture Dish — Otaku 01
-  - image: ./hero-02.jpg
+  - image: ./hero-02.webp
     alt: The Person in a Culture Dish — Otaku 02
   - image: ./hero-03.jpg
     alt: The Person in a Culture Dish — Otaku 03
@@ -46,7 +46,7 @@ world of their own making.
 <!-- auto:images -->
 <div class="solo">
 
-![A — INSPIRATION 01](./a-inspiration-02.jpg)
+![A — INSPIRATION 01](./a-inspiration-02.webp)
 
 </div>
 <!-- /auto:images -->
@@ -61,13 +61,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.1 — Military Otaku 01](./type-no-1-military-otaku-01.jpg)
+![Type No.1 — Military Otaku 01](./type-no-1-military-otaku-01.webp)
 
 ![Type No.1 — Military Otaku 02](./type-no-1-military-otaku-02.jpg)
 
-![Type No.1 — Military Otaku 03](./type-no-1-military-otaku-03.jpg)
+![Type No.1 — Military Otaku 03](./type-no-1-military-otaku-03.webp)
 
-![Type No.1 — Military Otaku 04](./type-no-1-military-otaku-04.jpg)
+![Type No.1 — Military Otaku 04](./type-no-1-military-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -77,13 +77,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.2 — Occult Otaku 01](./type-no-2-occult-otaku-01.jpg)
+![Type No.2 — Occult Otaku 01](./type-no-2-occult-otaku-01.webp)
 
 ![Type No.2 — Occult Otaku 02](./type-no-2-occult-otaku-02.jpg)
 
-![Type No.2 — Occult Otaku 03](./type-no-2-occult-otaku-03.jpg)
+![Type No.2 — Occult Otaku 03](./type-no-2-occult-otaku-03.webp)
 
-![Type No.2 — Occult Otaku 04](./type-no-2-occult-otaku-04.jpg)
+![Type No.2 — Occult Otaku 04](./type-no-2-occult-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -93,13 +93,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.3 — ACG Otaku 01](./type-no-3-acg-otaku-01.jpg)
+![Type No.3 — ACG Otaku 01](./type-no-3-acg-otaku-01.webp)
 
 ![Type No.3 — ACG Otaku 02](./type-no-3-acg-otaku-02.jpg)
 
 ![Type No.3 — ACG Otaku 03](./type-no-3-acg-otaku-03.jpg)
 
-![Type No.3 — ACG Otaku 04](./type-no-3-acg-otaku-04.jpg)
+![Type No.3 — ACG Otaku 04](./type-no-3-acg-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -109,13 +109,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.4 — Transportation Otaku 01](./type-no-4-transportation-otaku-01.jpg)
+![Type No.4 — Transportation Otaku 01](./type-no-4-transportation-otaku-01.webp)
 
 ![Type No.4 — Transportation Otaku 02](./type-no-4-transportation-otaku-02.jpg)
 
 ![Type No.4 — Transportation Otaku 03](./type-no-4-transportation-otaku-03.jpg)
 
-![Type No.4 — Transportation Otaku 04](./type-no-4-transportation-otaku-04.jpg)
+![Type No.4 — Transportation Otaku 04](./type-no-4-transportation-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -125,13 +125,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.5 — Pop Culture Otaku 01](./type-no-5-pop-culture-otaku-01.jpg)
+![Type No.5 — Pop Culture Otaku 01](./type-no-5-pop-culture-otaku-01.webp)
 
 ![Type No.5 — Pop Culture Otaku 02](./type-no-5-pop-culture-otaku-02.jpg)
 
-![Type No.5 — Pop Culture Otaku 03](./type-no-5-pop-culture-otaku-03.jpg)
+![Type No.5 — Pop Culture Otaku 03](./type-no-5-pop-culture-otaku-03.webp)
 
-![Type No.5 — Pop Culture Otaku 04](./type-no-5-pop-culture-otaku-04.jpg)
+![Type No.5 — Pop Culture Otaku 04](./type-no-5-pop-culture-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -141,13 +141,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.6 — Earthy Culture Otaku 01](./type-no-6-earthy-culture-otaku-01.jpg)
+![Type No.6 — Earthy Culture Otaku 01](./type-no-6-earthy-culture-otaku-01.webp)
 
 ![Type No.6 — Earthy Culture Otaku 02](./type-no-6-earthy-culture-otaku-02.jpg)
 
 ![Type No.6 — Earthy Culture Otaku 03](./type-no-6-earthy-culture-otaku-03.jpg)
 
-![Type No.6 — Earthy Culture Otaku 04](./type-no-6-earthy-culture-otaku-04.jpg)
+![Type No.6 — Earthy Culture Otaku 04](./type-no-6-earthy-culture-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -157,13 +157,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.7 — Phantom Concept Otaku 01](./type-no-7-phantom-concept-otaku-01.jpg)
+![Type No.7 — Phantom Concept Otaku 01](./type-no-7-phantom-concept-otaku-01.webp)
 
 ![Type No.7 — Phantom Concept Otaku 02](./type-no-7-phantom-concept-otaku-02.jpg)
 
-![Type No.7 — Phantom Concept Otaku 03](./type-no-7-phantom-concept-otaku-03.jpg)
+![Type No.7 — Phantom Concept Otaku 03](./type-no-7-phantom-concept-otaku-03.webp)
 
-![Type No.7 — Phantom Concept Otaku 04](./type-no-7-phantom-concept-otaku-04.jpg)
+![Type No.7 — Phantom Concept Otaku 04](./type-no-7-phantom-concept-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -173,13 +173,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.8 — Alien Pet Otaku 01](./type-no-8-alien-pet-otaku-01.jpg)
+![Type No.8 — Alien Pet Otaku 01](./type-no-8-alien-pet-otaku-01.webp)
 
 ![Type No.8 — Alien Pet Otaku 02](./type-no-8-alien-pet-otaku-02.jpg)
 
-![Type No.8 — Alien Pet Otaku 03](./type-no-8-alien-pet-otaku-03.jpg)
+![Type No.8 — Alien Pet Otaku 03](./type-no-8-alien-pet-otaku-03.webp)
 
-![Type No.8 — Alien Pet Otaku 04](./type-no-8-alien-pet-otaku-04.jpg)
+![Type No.8 — Alien Pet Otaku 04](./type-no-8-alien-pet-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -189,13 +189,13 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 <!-- auto:images -->
 <div class="rows-4 cutout">
 
-![Type No.9 — Clothing Otaku 01](./type-no-9-clothing-otaku-01.jpg)
+![Type No.9 — Clothing Otaku 01](./type-no-9-clothing-otaku-01.webp)
 
 ![Type No.9 — Clothing Otaku 02](./type-no-9-clothing-otaku-02.jpg)
 
-![Type No.9 — Clothing Otaku 03](./type-no-9-clothing-otaku-03.jpg)
+![Type No.9 — Clothing Otaku 03](./type-no-9-clothing-otaku-03.webp)
 
-![Type No.9 — Clothing Otaku 04](./type-no-9-clothing-otaku-04.jpg)
+![Type No.9 — Clothing Otaku 04](./type-no-9-clothing-otaku-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -239,7 +239,7 @@ where you are, and what light is on it. Reading becomes something closer to expl
 
 <div class="band" style="--n: 2; --sum: 1.9839">
 
-![D — OUTCOME 1: PRINT 02](./d-outcome-1-print-02.jpg)
+![D — OUTCOME 1: PRINT 02](./d-outcome-1-print-02.webp)
 
 ![D — OUTCOME 1: PRINT 06](./d-outcome-1-print-06.jpg)
 

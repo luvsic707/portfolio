@@ -29,7 +29,7 @@ stop motion.
 <!-- auto:images -->
 <div class="full">
 
-![A — INSPIRATION 01](./a-inspiration-01.jpg)
+![A — INSPIRATION 01](./a-inspiration-01.webp)
 
 </div>
 <!-- /auto:images -->
@@ -47,7 +47,7 @@ clothes.
 <!-- auto:images -->
 <div class="grid-3">
 
-![B — SCRIPT, STORYBOARD AND CONFIGURATION 01](./b-script-storyboard-and-configuration-01.jpg)
+![B — SCRIPT, STORYBOARD AND CONFIGURATION 01](./b-script-storyboard-and-configuration-01.webp)
 
 ![B — SCRIPT, STORYBOARD AND CONFIGURATION 02](./b-script-storyboard-and-configuration-02.jpg)
 
@@ -86,25 +86,25 @@ It repeats twice. We know it goes on forever — them, and you and me in front o
 <!-- auto:images -->
 <div class="rows-2">
 
-![D — FILM STILLS 01](./d-film-stills-01.jpg)
+![D — FILM STILLS 01](./d-film-stills-01.webp)
 
-![D — FILM STILLS 02](./d-film-stills-02.jpg)
+![D — FILM STILLS 02](./d-film-stills-02.webp)
 
-![D — FILM STILLS 03](./d-film-stills-03.jpg)
+![D — FILM STILLS 03](./d-film-stills-03.webp)
 
-![D — FILM STILLS 04](./d-film-stills-04.jpg)
+![D — FILM STILLS 04](./d-film-stills-04.webp)
 
-![D — FILM STILLS 05](./d-film-stills-05.jpg)
+![D — FILM STILLS 05](./d-film-stills-05.webp)
 
-![D — FILM STILLS 06](./d-film-stills-06.jpg)
+![D — FILM STILLS 06](./d-film-stills-06.webp)
 
-![D — FILM STILLS 07](./d-film-stills-07.jpg)
+![D — FILM STILLS 07](./d-film-stills-07.webp)
 
-![D — FILM STILLS 08](./d-film-stills-08.jpg)
+![D — FILM STILLS 08](./d-film-stills-08.webp)
 
-![D — FILM STILLS 09](./d-film-stills-09.jpg)
+![D — FILM STILLS 09](./d-film-stills-09.webp)
 
-![D — FILM STILLS 10](./d-film-stills-10.jpg)
+![D — FILM STILLS 10](./d-film-stills-10.webp)
 
 </div>
 <!-- /auto:images -->

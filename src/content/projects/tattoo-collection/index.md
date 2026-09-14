@@ -20,17 +20,17 @@ cover: ./card.jpg
 
 ![A — ON SKIN 01](./a-on-skin-01.jpg)
 
-![A — ON SKIN 02](./a-on-skin-02.jpg)
+![A — ON SKIN 02](./a-on-skin-02.webp)
 
 ![A — ON SKIN 03](./a-on-skin-03.jpg)
 
-![A — ON SKIN 04](./a-on-skin-04.jpg)
+![A — ON SKIN 04](./a-on-skin-04.webp)
 
-![A — ON SKIN 05](./a-on-skin-05.jpg)
+![A — ON SKIN 05](./a-on-skin-05.webp)
 
-![A — ON SKIN 06](./a-on-skin-06.jpg)
+![A — ON SKIN 06](./a-on-skin-06.webp)
 
-![A — ON SKIN 07](./a-on-skin-07.jpg)
+![A — ON SKIN 07](./a-on-skin-07.webp)
 
 <p><video src="/media/tattoo-collection/a-on-skin-08.mp4" width="1920" height="1080" muted loop playsinline preload="metadata" data-autoplay aria-label="A — ON SKIN 08"></video></p>
 
@@ -48,15 +48,15 @@ cover: ./card.jpg
 
 ![A — ON SKIN 15](./a-on-skin-15.jpg)
 
-![A — ON SKIN 16](./a-on-skin-16.jpg)
+![A — ON SKIN 16](./a-on-skin-16.webp)
 
 ![A — ON SKIN 17](./a-on-skin-17.jpg)
 
 ![A — ON SKIN 18](./a-on-skin-18.jpg)
 
-![A — ON SKIN 19](./a-on-skin-19.jpg)
+![A — ON SKIN 19](./a-on-skin-19.webp)
 
-![A — ON SKIN 20](./a-on-skin-20.jpg)
+![A — ON SKIN 20](./a-on-skin-20.webp)
 
 ![A — ON SKIN 21](./a-on-skin-21.jpg)
 
