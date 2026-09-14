@@ -2276,7 +2276,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.sheet-head) {
     position: relative;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     column-gap: clamp(1.25rem, 3.5vw, 3rem);
     align-items: baseline;
     margin-top: clamp(2.25rem, 5vw, 3.5rem);
@@ -2284,13 +2284,26 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     border-bottom: 1px solid var(--ink);
   }
 
-  /* 线和页码交给外面这条横栏，节号只管当节号 */
+  /* ---- 节号不画了 ----
+     A / B / C 是个抽象记号，本身不说明任何事；它上面那条标签条一直
+     贴在视野里、写着全名、还能点。同一件事说两遍，弱的那遍只是噪声。
+
+     但 h2 不能 display: none —— 它是锚点的落点、标签条判断「现在在
+     哪一节」的依据，而且 SHEET 的编号是它在增。display: none 的元素
+     不参与计数器，页码会全塌掉。所以是「在但不画」：抽出文档流缩到
+     一像素，读屏和锚点照用，页面上看不见，计数照增。 */
   .prose-body :global(.sheet-head h2) {
-    position: static;
+    position: absolute;
+    width: 1px;
+    height: 1px;
     margin: 0;
     padding: 0;
     border: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
   }
+
+  .prose-body :global(.sheet-head h2)::before { content: none; }
 
   /* 说明填满节号右边那片空档 —— 一条横栏读完，不是三块摞起来 */
   .prose-body :global(.sheet-head p) {
@@ -2327,11 +2340,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 窄屏排不下两栏，退回上下两行，但仍然是同一条横栏 */
   @media (max-width: 720px) {
     .prose-body :global(.sheet-head) {
-      grid-template-columns: auto minmax(0, 1fr);
-      row-gap: 0.55rem;
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 0.5rem;
     }
-    /* 说明退到第二行通栏，节号和页码还在第一行的两端 */
-    .prose-body :global(.sheet-head p) { grid-column: 1 / -1; }
+    /* 窄屏页码退到说明下面自己一行，仍然靠右 */
+    .prose-body :global(.sheet-head)::after { grid-row: 2; }
   }
 
   /* ---- dark：拍在黑底上的东西，就给它黑底 ----
