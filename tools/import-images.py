@@ -59,12 +59,22 @@ def slugify(name: str) -> str:
 
 NODE_WEBP = """
 const sharp = require('sharp');
+const { alphaBox } = require('./tools/trim-alpha.cjs');
 const [src, dst, max] = process.argv.slice(1);
-sharp(src)
-  .resize({ width: +max, height: +max, fit: 'inside', withoutEnlargement: true })
-  .webp({ quality: 82, effort: 5 })
-  .toFile(dst)
-  .catch((e) => { console.error(e.message); process.exit(1); });
+(async () => {
+  /* 先裁到画自己的边缘，再缩。顺序不能反 ——
+     先缩的话余量和阈值都按缩完的尺寸算，精度白白丢一档。
+
+     为什么导入时就得裁：版式系统摆的是画布，不是画。画布留白多少，
+     画就小多少、偏多少。不在这里裁，就得在每个项目的 md 里用
+     --sum / --cols / 偏移去凑，而那是拿参数补文件的毛病，凑不准也传不下去。 */
+  const box = await alphaBox(sharp, src);
+  const img = box ? sharp(src).extract(box) : sharp(src);
+  await img
+    .resize({ width: +max, height: +max, fit: 'inside', withoutEnlargement: true })
+    .webp({ quality: 82, effort: 5 })
+    .toFile(dst);
+})().catch((e) => { console.error(e.message); process.exit(1); });
 """
 
 
