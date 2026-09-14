@@ -9,75 +9,75 @@ meta:
   date: 2022.09 – 2022.11
   dimension: 23cm × 29cm × 2.5cm · 19cm × 27cm × 3cm
   media: Print, Photography, Mixed Media
-gallery:
-  - image: ./hero-01.jpg
-    alt: Love in the Time of Borderline 01
-  - image: ./hero-02.jpg
-    alt: Love in the Time of Borderline 02
-  - image: ./hero-03.jpg
-    alt: Love in the Time of Borderline 03
-  - image: ./hero-04.jpg
-    alt: Love in the Time of Borderline 04
-  - image: ./hero-05.jpg
-    alt: Love in the Time of Borderline 05
-  - image: ./hero-06.jpg
-    alt: Love in the Time of Borderline 06
-  - image: ./hero-07.jpg
-    alt: Love in the Time of Borderline 07
-  - image: ./hero-08.jpg
-    alt: Love in the Time of Borderline 08
-  - image: ./hero-09.jpg
-    alt: Love in the Time of Borderline 09
-  - image: ./hero-10.jpg
-    alt: Love in the Time of Borderline 10
-  - image: ./hero-11.jpg
-    alt: Love in the Time of Borderline 11
-  - image: ./hero-12.jpg
-    alt: Love in the Time of Borderline 12
-  - image: ./hero-13.jpg
-    alt: Love in the Time of Borderline 13
-  - image: ./hero-14.jpg
-    alt: Love in the Time of Borderline 14
-  - image: ./hero-15.jpg
-    alt: Love in the Time of Borderline 15
-  - image: ./hero-16.jpg
-    alt: Love in the Time of Borderline 16
-  - image: ./hero-17.jpg
-    alt: Love in the Time of Borderline 17
-  - image: ./hero-18.jpg
-    alt: Love in the Time of Borderline 18
-  - image: ./hero-19.jpg
-    alt: Love in the Time of Borderline 19
-  - image: ./hero-20.jpg
-    alt: Love in the Time of Borderline 20
-  - image: ./hero-21.jpg
-    alt: Love in the Time of Borderline 21
-  - image: ./hero-22.jpg
-    alt: Love in the Time of Borderline 22
-  - image: ./hero-23.jpg
-    alt: Love in the Time of Borderline 23
-  - image: ./hero-24.jpg
-    alt: Love in the Time of Borderline 24
-  - image: ./hero-25.jpg
-    alt: Love in the Time of Borderline 25
-  - image: ./hero-26.jpg
-    alt: Love in the Time of Borderline 26
-  - image: ./hero-27.jpg
-    alt: Love in the Time of Borderline 27
-  - image: ./hero-28.jpg
-    alt: Love in the Time of Borderline 28
-  - image: ./hero-29.jpg
-    alt: Love in the Time of Borderline 29
-  - image: ./hero-30.jpg
-    alt: Love in the Time of Borderline 30
-  - image: ./hero-31.jpg
-    alt: Love in the Time of Borderline 31
-  - image: ./hero-32.jpg
-    alt: Love in the Time of Borderline 32
 heroFit: contain
-cover: ./card.jpg
 surface: merge
-underlay: ./hero-21.jpg
+underlay: ./hero-21.webp
+gallery:
+  - image: ./hero-01.webp
+    alt: Love in the Time of Borderline 01
+  - image: ./hero-02.webp
+    alt: Love in the Time of Borderline 02
+  - image: ./hero-03.webp
+    alt: Love in the Time of Borderline 03
+  - image: ./hero-04.webp
+    alt: Love in the Time of Borderline 04
+  - image: ./hero-05.webp
+    alt: Love in the Time of Borderline 05
+  - image: ./hero-06.webp
+    alt: Love in the Time of Borderline 06
+  - image: ./hero-07.webp
+    alt: Love in the Time of Borderline 07
+  - image: ./hero-08.webp
+    alt: Love in the Time of Borderline 08
+  - image: ./hero-09.webp
+    alt: Love in the Time of Borderline 09
+  - image: ./hero-10.webp
+    alt: Love in the Time of Borderline 10
+  - image: ./hero-11.webp
+    alt: Love in the Time of Borderline 11
+  - image: ./hero-12.webp
+    alt: Love in the Time of Borderline 12
+  - image: ./hero-13.webp
+    alt: Love in the Time of Borderline 13
+  - image: ./hero-14.webp
+    alt: Love in the Time of Borderline 14
+  - image: ./hero-15.webp
+    alt: Love in the Time of Borderline 15
+  - image: ./hero-16.webp
+    alt: Love in the Time of Borderline 16
+  - image: ./hero-17.webp
+    alt: Love in the Time of Borderline 17
+  - image: ./hero-18.webp
+    alt: Love in the Time of Borderline 18
+  - image: ./hero-19.webp
+    alt: Love in the Time of Borderline 19
+  - image: ./hero-20.webp
+    alt: Love in the Time of Borderline 20
+  - image: ./hero-21.webp
+    alt: Love in the Time of Borderline 21
+  - image: ./hero-22.webp
+    alt: Love in the Time of Borderline 22
+  - image: ./hero-23.webp
+    alt: Love in the Time of Borderline 23
+  - image: ./hero-24.webp
+    alt: Love in the Time of Borderline 24
+  - image: ./hero-25.webp
+    alt: Love in the Time of Borderline 25
+  - image: ./hero-26.webp
+    alt: Love in the Time of Borderline 26
+  - image: ./hero-27.webp
+    alt: Love in the Time of Borderline 27
+  - image: ./hero-28.webp
+    alt: Love in the Time of Borderline 28
+  - image: ./hero-29.webp
+    alt: Love in the Time of Borderline 29
+  - image: ./hero-30.webp
+    alt: Love in the Time of Borderline 30
+  - image: ./hero-31.webp
+    alt: Love in the Time of Borderline 31
+  - image: ./hero-32.webp
+    alt: Love in the Time of Borderline 32
+cover: ./card.webp
 ---
 
 ## A — INSPIRATION AND RESEARCH
@@ -140,15 +140,15 @@ Someone described it as *moving through the world without skin*.
 MY MOST OF FILES MISSING .....
 
 <!-- auto:images -->
-<div class="grid-4 cutout">
+<div class="grid-4">
 
-![B — MOODBOARD 01](./b-moodboard-01.jpg)
+![B — MOODBOARD 01](./b-moodboard-01.webp)
 
-![B — MOODBOARD 02](./b-moodboard-02.jpg)
+![B — MOODBOARD 02](./b-moodboard-02.webp)
 
-![B — MOODBOARD 03](./b-moodboard-03.jpg)
+![B — MOODBOARD 03](./b-moodboard-03.webp)
 
-![B — MOODBOARD 04](./b-moodboard-04.jpg)
+![B — MOODBOARD 04](./b-moodboard-04.webp)
 
 </div>
 <!-- /auto:images -->
@@ -223,15 +223,15 @@ Saddle-stitched, on vintage special paper, for the archival feel.
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 
-![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.png)
+![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.webp)
 
-![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.png)
+![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.webp)
 
-![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.png)
+![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.webp)
 
-![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.png)
+![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.webp)
 
-![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.png)
+![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.webp)
 
 </div>
 
@@ -250,75 +250,75 @@ archival in feel, held between structure and spontaneity.
 and the reader is guided rather than immersed.
 
 <!-- auto:images -->
-<div class="flow cutout">
+<div class="flow">
 
-![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.jpg)
+![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.webp)
 
-![E — PRINT (BOOK DESIGN) 02](./e-print-book-design-02.jpg)
+![E — PRINT (BOOK DESIGN) 02](./e-print-book-design-02.webp)
 
-![E — PRINT (BOOK DESIGN) 03](./e-print-book-design-03.jpg)
+![E — PRINT (BOOK DESIGN) 03](./e-print-book-design-03.webp)
 
-![E — PRINT (BOOK DESIGN) 04](./e-print-book-design-04.jpg)
+![E — PRINT (BOOK DESIGN) 04](./e-print-book-design-04.webp)
 
-![E — PRINT (BOOK DESIGN) 05](./e-print-book-design-05.jpg)
+![E — PRINT (BOOK DESIGN) 05](./e-print-book-design-05.webp)
 
-![E — PRINT (BOOK DESIGN) 06](./e-print-book-design-06.jpg)
+![E — PRINT (BOOK DESIGN) 06](./e-print-book-design-06.webp)
 
-![E — PRINT (BOOK DESIGN) 07](./e-print-book-design-07.jpg)
+![E — PRINT (BOOK DESIGN) 07](./e-print-book-design-07.webp)
 
-![E — PRINT (BOOK DESIGN) 08](./e-print-book-design-08.jpg)
+![E — PRINT (BOOK DESIGN) 08](./e-print-book-design-08.webp)
 
-![E — PRINT (BOOK DESIGN) 09](./e-print-book-design-09.jpg)
+![E — PRINT (BOOK DESIGN) 09](./e-print-book-design-09.webp)
 
-![E — PRINT (BOOK DESIGN) 10](./e-print-book-design-10.jpg)
+![E — PRINT (BOOK DESIGN) 10](./e-print-book-design-10.webp)
 
-![E — PRINT (BOOK DESIGN) 11](./e-print-book-design-11.jpg)
+![E — PRINT (BOOK DESIGN) 11](./e-print-book-design-11.webp)
 
-![E — PRINT (BOOK DESIGN) 12](./e-print-book-design-12.jpg)
+![E — PRINT (BOOK DESIGN) 12](./e-print-book-design-12.webp)
 
-![E — PRINT (BOOK DESIGN) 13](./e-print-book-design-13.jpg)
+![E — PRINT (BOOK DESIGN) 13](./e-print-book-design-13.webp)
 
-![E — PRINT (BOOK DESIGN) 14](./e-print-book-design-14.jpg)
+![E — PRINT (BOOK DESIGN) 14](./e-print-book-design-14.webp)
 
-![E — PRINT (BOOK DESIGN) 15](./e-print-book-design-15.jpg)
+![E — PRINT (BOOK DESIGN) 15](./e-print-book-design-15.webp)
 
-![E — PRINT (BOOK DESIGN) 16](./e-print-book-design-16.jpg)
+![E — PRINT (BOOK DESIGN) 16](./e-print-book-design-16.webp)
 
-![E — PRINT (BOOK DESIGN) 17](./e-print-book-design-17.jpg)
+![E — PRINT (BOOK DESIGN) 17](./e-print-book-design-17.webp)
 
-![E — PRINT (BOOK DESIGN) 18](./e-print-book-design-18.jpg)
+![E — PRINT (BOOK DESIGN) 18](./e-print-book-design-18.webp)
 
-![E — PRINT (BOOK DESIGN) 19](./e-print-book-design-19.jpg)
+![E — PRINT (BOOK DESIGN) 19](./e-print-book-design-19.webp)
 
-![E — PRINT (BOOK DESIGN) 20](./e-print-book-design-20.jpg)
+![E — PRINT (BOOK DESIGN) 20](./e-print-book-design-20.webp)
 
-![E — PRINT (BOOK DESIGN) 21](./e-print-book-design-21.jpg)
+![E — PRINT (BOOK DESIGN) 21](./e-print-book-design-21.webp)
 
-![E — PRINT (BOOK DESIGN) 22](./e-print-book-design-22.jpg)
+![E — PRINT (BOOK DESIGN) 22](./e-print-book-design-22.webp)
 
-![E — PRINT (BOOK DESIGN) 23](./e-print-book-design-23.jpg)
+![E — PRINT (BOOK DESIGN) 23](./e-print-book-design-23.webp)
 
-![E — PRINT (BOOK DESIGN) 24](./e-print-book-design-24.jpg)
+![E — PRINT (BOOK DESIGN) 24](./e-print-book-design-24.webp)
 
-![E — PRINT (BOOK DESIGN) 25](./e-print-book-design-25.jpg)
+![E — PRINT (BOOK DESIGN) 25](./e-print-book-design-25.webp)
 
-![E — PRINT (BOOK DESIGN) 26](./e-print-book-design-26.jpg)
+![E — PRINT (BOOK DESIGN) 26](./e-print-book-design-26.webp)
 
-![E — PRINT (BOOK DESIGN) 27](./e-print-book-design-27.jpg)
+![E — PRINT (BOOK DESIGN) 27](./e-print-book-design-27.webp)
 
-![E — PRINT (BOOK DESIGN) 28](./e-print-book-design-28.jpg)
+![E — PRINT (BOOK DESIGN) 28](./e-print-book-design-28.webp)
 
-![E — PRINT (BOOK DESIGN) 29](./e-print-book-design-29.jpg)
+![E — PRINT (BOOK DESIGN) 29](./e-print-book-design-29.webp)
 
-![E — PRINT (BOOK DESIGN) 30](./e-print-book-design-30.jpg)
+![E — PRINT (BOOK DESIGN) 30](./e-print-book-design-30.webp)
 
-![E — PRINT (BOOK DESIGN) 31](./e-print-book-design-31.jpg)
+![E — PRINT (BOOK DESIGN) 31](./e-print-book-design-31.webp)
 
-![E — PRINT (BOOK DESIGN) 32](./e-print-book-design-32.jpg)
+![E — PRINT (BOOK DESIGN) 32](./e-print-book-design-32.webp)
 
-![E — PRINT (BOOK DESIGN) 33](./e-print-book-design-33.jpg)
+![E — PRINT (BOOK DESIGN) 33](./e-print-book-design-33.webp)
 
-![E — PRINT (BOOK DESIGN) 34](./e-print-book-design-34.jpg)
+![E — PRINT (BOOK DESIGN) 34](./e-print-book-design-34.webp)
 
 </div>
 <!-- /auto:images -->

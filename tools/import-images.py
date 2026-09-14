@@ -57,15 +57,62 @@ def slugify(name: str) -> str:
     return re.sub(r"-{2,}", "-", s).strip("-") or "img"
 
 
-def convert(src: Path, dst: Path, max_edge: int) -> bool:
-    """用 sips 转成 jpg 并缩到合适尺寸。HEIC / PSD 也能吃。"""
-    dst.parent.mkdir(parents=True, exist_ok=True)
+NODE_WEBP = """
+const sharp = require('sharp');
+const [src, dst, max] = process.argv.slice(1);
+sharp(src)
+  .resize({ width: +max, height: +max, fit: 'inside', withoutEnlargement: true })
+  .webp({ quality: 82, effort: 5 })
+  .toFile(dst)
+  .catch((e) => { console.error(e.message); process.exit(1); });
+"""
+
+
+def has_alpha(src: Path) -> bool:
+    """源文件带不带透明通道。
+
+    这件事必须在转格式之前问清楚 —— JPEG 根本没有 alpha 通道，
+    一张抠好的图转成 jpg，透明背景会被压平成白色，而且不可逆。
+    作品集里大量的图是抠过的（书、卡牌、成品），压平之后只能靠
+    mix-blend-mode: multiply 去凑「白等于没有」，那是障眼法：
+    只在浅底上成立，压到深色上整张图会被乘没。
+    真 alpha 放在什么底上都对，所以带 alpha 的一律存成 webp。"""
+    if src.suffix.lower() not in {".png", ".webp", ".gif", ".tif", ".tiff", ".psd"}:
+        return False
     r = subprocess.run(
-        ["sips", "-Z", str(max_edge), "-s", "format", "jpeg",
-         "-s", "formatOptions", str(QUALITY), str(src), "--out", str(dst)],
-        capture_output=True,
+        ["ffprobe", "-v", "error", "-select_streams", "v",
+         "-show_entries", "stream=pix_fmt", "-of", "csv=p=0", str(src)],
+        capture_output=True, text=True,
     )
-    return r.returncode == 0 and dst.exists()
+    pix = r.stdout.strip().lower()
+    return "a" in pix.replace("gray", "").replace("pal", "")
+
+
+def convert(src: Path, dst: Path, max_edge: int) -> Path | None:
+    """缩到合适尺寸。带透明的存 webp，其余转 jpg。HEIC / PSD 也能吃。
+
+    返回真实写出的文件名要靠调用方看 dst 的后缀 —— 这里会按需要改它。"""
+    dst.parent.mkdir(parents=True, exist_ok=True)
+
+    if has_alpha(src):
+        # 透明的图走 webp：它是唯一又能存 alpha、又能有损压缩的格式。
+        # 同一张 5184px 的抠图，源 9.3MB、存成 png 3.0MB、存成 webp
+        # 只有 0.11MB —— 三十几张一节的话，这是 100MB 和 4MB 的差别。
+        # sips 和本机的 ffmpeg 都不会写 webp，但 sharp 会，
+        # 而它本来就是 Astro 的依赖，不用额外装东西。
+        dst = dst.with_suffix(".webp")
+        r = subprocess.run(
+            ["node", "-e", NODE_WEBP, str(src), str(dst), str(max_edge)],
+            cwd=str(ROOT), capture_output=True,
+        )
+    else:
+        dst = dst.with_suffix(".jpg")
+        r = subprocess.run(
+            ["sips", "-Z", str(max_edge), "-s", "format", "jpeg",
+             "-s", "formatOptions", str(QUALITY), str(src), "--out", str(dst)],
+            capture_output=True,
+        )
+    return dst if (r.returncode == 0 and dst.exists()) else None
 
 
 def has_ffmpeg() -> bool:
@@ -479,8 +526,10 @@ def process(project_dir: Path) -> str | None:
             if card_src.suffix.lower() in VIDEO:
                 if poster_from_video(card_src, target / "card.jpg"):
                     first_img = "card.jpg"
-            elif convert(card_src, target / "card.jpg", MAX_EDGE_FULL):
-                first_img = "card.jpg"
+            else:
+                made = convert(card_src, target / "card.jpg", MAX_EDGE_FULL)
+                if made:
+                    first_img = made.name
             if first_img:
                 generated.append(first_img)
         # 记下封面用过的源文件名，正文里遇到同名的就跳过
@@ -505,8 +554,9 @@ def process(project_dir: Path) -> str | None:
                                f'    alt: {proj_title} — video {n_vid:02d}')
             else:
                 n_img += 1
-                out = f"hero-{n_img:02d}.jpg"
-                if convert(f, target / out, MAX_EDGE_FULL):
+                made = convert(f, target / f"hero-{n_img:02d}.jpg", MAX_EDGE_FULL)
+                if made:
+                    out = made.name
                     generated.append(out)
                     first_img = first_img or out   # card.jpg 存在时不覆盖
                     entries.append(f'  - image: ./{out}\n'
@@ -564,8 +614,10 @@ def process(project_dir: Path) -> str | None:
         items = []
         for i, (kind, f) in enumerate(media):
             if kind == "img":
-                out = f"{base}-{i+1:02d}.jpg"
-                if convert(f, target / out, MAX_EDGE_FULL if big else MAX_EDGE_GRID):
+                made = convert(f, target / f"{base}-{i+1:02d}.jpg",
+                               MAX_EDGE_FULL if big else MAX_EDGE_GRID)
+                if made:
+                    out = made.name
                     items.append(("img", out))
                     generated.append(out)
             else:
