@@ -1571,9 +1571,12 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
        而它们其实是同一节。疏密要按比例守恒，不是按像素。
 
        竖向留得比横向多：一行之内是并排看的，行与行之间要断开。 */
-    gap: var(--gy, 3rem) var(--gx, 1.5rem);
+    gap: var(--gy, 2.5rem) var(--gx, 1.25rem);
     align-items: center;
-    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+    /* 块与块之间原来 72px，而 Part One 自己的行距只有 32 ——
+       段落之间的断裂比段落内部大出一倍多，三块就散成了三段。
+       收到 52 之后，它比最大那块的行距略小，三块读下来是一节。 */
+    margin-block: clamp(1.75rem, 4vw, 3.25rem);
   }
 
   /* ---- narrow：把一块收窄，让它的格子和上一块对得上 ----
