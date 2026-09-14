@@ -1573,9 +1573,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   /* ---- narrow：把一块收窄，让它的格子和上一块对得上 ----
      栏数少的那一块（三栏）铺满版心时，每格会比四栏那块大三成多，
-     翻到那里像换了一本书。收窄之后栏数还是三栏、左边缘还是那条线，
-     只是右边空出来 —— 尺寸接上了，结构没动。 */
-  .prose-body :global(.narrow) { width: min(100%, 1100px); }
+     翻到那里像换了一本书。收窄之后栏数不变，只是整块小一圈。
+
+     必须居中。左对齐的话右边空出一大条，看着就是歪的 ——
+     两边等宽的留白是「内缩」，单边留白是「没对齐」，
+     一样是空白，读出来完全是两回事。 */
+  .prose-body :global(.narrow) {
+    width: min(100%, 1100px);
+    margin-inline: auto;
+  }
 
   .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
