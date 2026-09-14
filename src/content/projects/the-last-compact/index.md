@@ -14,6 +14,7 @@ meta:
 links:
   - label: Source code
     href: https://github.com/luvsic707/memory2/tree/code/Assets/The_Last_Compact
+surface: merge
 gallery:
   - video: /media/the-last-compact/hero-01.mp4
     alt: The Last Compact — video 01

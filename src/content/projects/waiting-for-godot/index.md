@@ -9,6 +9,7 @@ meta:
   date: 2023.05 – 2023.07
   dimension: 1min 47sec
   media: stop-motion animation
+surface: merge
 gallery:
   - video: /media/waiting-for-godot/hero-01.mp4
     alt: Waiting for Godot — video 01
