@@ -402,10 +402,34 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     const snap = (on: boolean) => { el.style.scrollSnapType = on ? '' : 'none'; };
 
     /* 人自己动了：把浮点位置对回去，让开一会儿，并把吸附还回去 */
-    const yield_ = () => { pos = el.scrollLeft; hold = 5; snap(true); };
-    ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((t) =>
-      el.addEventListener(t, yield_, { passive: true })
-    );
+    const yield_ = () => { pos = el.scrollLeft; hold = 2.5; snap(true); };
+
+    /* 关键是只认「冲着这一条来的」动作。
+
+       原来 wheel 和 touchstart 一律算数，于是：你用滚轮往下翻页，指针
+       正好扫过这条带子，每一下滚轮都算你在操作它，hold 一路顶到满 ——
+       停下来还要干等好几秒它才动。手机上更糟，滑动带又高又宽，
+       顺着页面往下划几乎一定是从某条带子上起手的。
+
+       所以横向才算：滚轮看 deltaX 是不是压过 deltaY，触屏看这一划
+       是横的还是竖的。竖着翻页跟这条带子没关系，它该继续走它的。 */
+    el.addEventListener('pointerdown', yield_, { passive: true });
+    el.addEventListener('keydown', yield_, { passive: true });
+
+    el.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) yield_();
+    }, { passive: true });
+
+    let tx = 0;
+    let ty = 0;
+    el.addEventListener('touchstart', (e) => {
+      tx = e.touches[0].clientX;
+      ty = e.touches[0].clientY;
+    }, { passive: true });
+    el.addEventListener('touchmove', (e) => {
+      const t0 = e.touches[0];
+      if (Math.abs(t0.clientX - tx) > Math.abs(t0.clientY - ty)) yield_();
+    }, { passive: true });
 
     const step = (t: number) => {
       raf = requestAnimationFrame(step);
@@ -433,8 +457,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       },
       /* 不能用 threshold 判「看见了没有」—— 一条 680px 高的滑动带在
          768 高的窗口里，露出大半也只有 0.22，永远够不到门槛。
-         改成看它压没压到视口中间那 76%：多高的块都算得对。 */
-      { rootMargin: '-12% 0px -12% 0px', threshold: 0 }
+
+         门槛压到「露出一个像素就算」：入眼即走。原来还往里收了 12%，
+         意思是带子要往上爬过视口高度的一成多才开始动 —— 从下面滚上来
+         的时候，那一段正好是你第一眼看它的时候，结果它是死的。 */
+      { threshold: 0 }
     ).observe(el);
 
     raf = requestAnimationFrame(step);
