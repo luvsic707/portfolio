@@ -365,9 +365,25 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
            autoplay 必须配 muted，否则浏览器一律不给自动播。 */
         media.muted = true;
         media.loop = true;
-        media.autoplay = true;
         media.playsInline = true;
         media.removeAttribute('controls');
+
+        /* 有人把动效关了就别自己动：停在 poster 上，那是片子的第一帧，
+           窗里照样有画面。 */
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        /* autoplay 交给浏览器，别只靠 IntersectionObserver。
+           只靠它的话，首次回调万一没赶上（标签页在后台、面板没显示），
+           之后交叠状态一直没变就再也不会回调 —— 窗会一直空着。
+           浏览器自己的 autoplay 没有这个洞，IO 只负责「看不见就停」。 */
+        media.autoplay = true;
+
+        /* 看不见就停：三段片子一直解码，风扇会转，手机上白烧电量，
+           而人根本不在这一屏。 */
+        new IntersectionObserver(([e]) => {
+          if (e.isIntersecting) media.play().catch(() => {});
+          else media.pause();
+        }, { threshold: 0 }).observe(media);
       }
 
       const label = media instanceof HTMLImageElement

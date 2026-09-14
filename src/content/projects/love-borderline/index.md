@@ -116,16 +116,17 @@ Someone described it as *moving through the world without skin*.
 
      要放片段就把对应那一行换成 video，别的都不用动，例如：
        <video src="/media/love-borderline/girl-interrupted.mp4"
+              poster="/media/love-borderline/girl-interrupted-poster.jpg"
               aria-label="Girl, Interrupted (1999) dir. James Mangold"></video>
      脚本会自动加上静音、循环、自动播放，样式和静帧的窗一模一样。
      片子文件放 public/media/love-borderline/ 下面。 -->
 <div class="plot windows" data-plot="1/1-5  1/5-10+5  1/10-13+1  2/2-4  2/4-6+3  2/6-8  2/8-10+3">
 
-![Girl, Interrupted (1999) dir. James Mangold](./ref-film-01.jpg)
+<p><video src="/media/love-borderline/girl-interrupted.mp4" poster="/media/love-borderline/girl-interrupted-poster.jpg" width="900" height="630" aria-label="Girl, Interrupted (1999) dir. James Mangold"></video></p>
 
-![Memories of Matsuko (2006) dir. Tetsuya Nakashima](./ref-film-02.jpg)
+<p><video src="/media/love-borderline/memories-of-matsuko.mp4" poster="/media/love-borderline/memories-of-matsuko-poster.jpg" width="900" height="628" aria-label="Memories of Matsuko (2006) dir. Tetsuya Nakashima"></video></p>
 
-![Eternal Sunshine of the Spotless Mind (2004) dir. Michel Gondry](./ref-film-03.jpg)
+<p><video src="/media/love-borderline/eternal-sunshine.mp4" poster="/media/love-borderline/eternal-sunshine-poster.jpg" width="900" height="628" aria-label="Eternal Sunshine of the Spotless Mind (2004) dir. Michel Gondry"></video></p>
 
 ![Rachel Reiland — Get Me Out of Here](./ref-book-01.jpg)
 
