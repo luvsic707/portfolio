@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next } = Astro.props;
-const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status, heroFit } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status, heroFit, surface, underlay } = project.data;
 const { Content, headings } = await render(project);
 
 /* 章节索引：只取 ## 这一级，长案例才值得放 */
@@ -56,12 +56,27 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 <Base title={`${title} — Red Thread`} description={summary} image={shareImage} type="article">
 
   <!-- ==================== 开屏：全屏画廊 ==================== -->
-  <article>
+  <article class:list={{ 'is-merge': surface === 'merge' }}>
     {slides.length > 0 && <HeroGallery slides={slides} title={title} fit={heroFit} />}
 
     <!-- 开屏底下的一切装在这张「纸」上。开屏是钉住的，这张纸往上滑
          盖住它 —— 所以它必须是不透明的，也必须压在开屏上面。 -->
     <div class="sheet">
+
+    <!-- ==================== 作品幽灵 ====================
+         参考站（zyang.cargo.site/13-13）整页跑着一张极暗的石碑线稿，
+         图直接压在上面 —— 所以那一页的底和图是同一件事，不是背景板
+         加贴图。这里照做，但用这件作品自己的画。
+
+         左右两半镜像，和参考站的对称碑面一样；浓度只有几个百分点，
+         极慢地浮动。sticky + 负的下外边距：钉在视口里但不占布局，
+         而且被这张纸自己的盒子裁住，不会糊到开屏上去。 -->
+    {underlay && (
+      <div class="underlay" aria-hidden="true">
+        <Image src={underlay} alt="" widths={[900, 1400]} sizes="50vw" loading="lazy" />
+        <Image src={underlay} alt="" widths={[900, 1400]} sizes="50vw" loading="lazy" class="flip" />
+      </div>
+    )}
 
     <!-- 观察窗的遥测块。
          首页右下角那一叠就是这个 —— 同样的字、同样的右对齐、同样的灰。
@@ -618,6 +633,69 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     background-color: var(--paper);
     background-image: var(--paper-grain);
   }
+
+  /* ==================== 作品幽灵 ====================
+     整张纸背后浮着这件作品自己的一张画，左右镜像。
+
+     sticky + margin-bottom: -100svh —— 占位 100svh 再整个收回来，
+     所以它一行布局都不动，却能钉在视口里跟着整张纸走；出了纸的
+     盒子自然就不画了，开屏那一屏干干净净。 */
+  .underlay {
+    position: sticky;
+    top: 0;
+    z-index: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100svh;
+    margin-bottom: -100svh;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .underlay :global(img) {
+    width: 100%;
+    height: 100%;
+    /* contain 不是 cover：这张画是一个完整的对称纹样，裁掉一块就只剩
+       一团墨。整只放进去，左右两半在中线上合成一个对称的碑面。 */
+    object-fit: contain;
+    /* 纸是暖白的，画上的粉和赭在这个浓度会泛出一层脏 ——
+       先抽成灰再拉对比，剩下的只有墨的骨架。 */
+    filter: grayscale(1) contrast(1.45);
+    /* 画本身是白底，multiply 之后白等于没画，真正落到纸上的只有墨，
+       所以这个数看着高，实际出来只是一层淡淡的影。 */
+    opacity: 0.11;
+    mix-blend-mode: multiply;
+    /* 极慢地起伏。快一点就成了会动的墙纸，慢到这个份上只是"纸在呼吸" */
+    animation: underlay-drift 72s ease-in-out infinite alternate;
+  }
+
+  /* 右边那半翻过来，和参考站的对称碑面一样：
+     两半在中线上对住，整页的底有了一根看不见的中轴。 */
+  .underlay :global(.flip) {
+    transform: scaleX(-1);
+    animation-delay: -36s;
+  }
+
+  @keyframes underlay-drift {
+    from { transform: translate3d(0, -2.5%, 0) scale(1.06); }
+    to   { transform: translate3d(0, 2.5%, 0) scale(1.14); }
+  }
+
+  .underlay :global(.flip) { animation-name: underlay-drift-flip; }
+
+  @keyframes underlay-drift-flip {
+    from { transform: scaleX(-1) translate3d(0, 2.5%, 0) scale(1.14); }
+    to   { transform: scaleX(-1) translate3d(0, -2.5%, 0) scale(1.06); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .underlay :global(img) { animation: none; }
+  }
+
+  /* 幽灵在最底下，上面的东西都得有自己的层
+     （.telemetry 是 fixed，本来就在自己的层里，不用管） */
+  .is-merge .head,
+  .is-merge .body { position: relative; z-index: 1; }
 
   .head {
     padding-top: clamp(6.5rem, 13vw, 10rem);
@@ -1948,6 +2026,88 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      本来看不见的方框。只留放大。 */
   @media (hover: hover) and (pointer: fine) {
     .prose-body :global(.cutout p:hover) { box-shadow: none; }
+  }
+
+  /* ==================== merge：图直接落在纸上 ====================
+     默认每张图裱一圈 9px 的白衬边加一层投影。一张两张是"标本卡"，
+     九十几张排下来就是九十几个白框，每一个都在喊"我是一张单独的图"——
+     一整节看过去是一叠卡片，不是一件作品。
+
+     merge 把框和影全撤掉。图之间只剩间距，白底的画再叠上 multiply，
+     白落成纸色，边界就没有了。参考站整页没有一个方框，靠的就是这个。 */
+  .is-merge .prose-body :global(img) {
+    background: none;
+    box-shadow: none;
+  }
+
+  /* 悬停的投影同理 —— 没有卡片了，投影只会凭空画出一个方框。
+     参考站根本没有 hover 效果；这里只留一点点放大，方便看清小图。 */
+  @media (hover: hover) and (pointer: fine) {
+    .is-merge .prose-body :global(.band > p:hover),
+    .is-merge .prose-body :global(.lead > p:hover),
+    .is-merge .prose-body :global(.pair > p:hover),
+    .is-merge .prose-body :global([class^='rows-'] p:hover),
+    .is-merge .prose-body :global([class^='grid-'] p:hover) {
+      transform: scale(1.02);
+      box-shadow: none;
+    }
+  }
+
+  /* ---- merge 的章节抬头：收成一条，别在图和图之间开天窗 ----
+     参考站从头到尾一个字的说明都没有，图是连着的。我们这几行说明是
+     真写过的内容，不删；但它现在占的位置不对 —— 标题上面 6rem、
+     标题到正文 1.4rem、正文到图 3rem，一节的开头拦了两百多像素，
+     上一节的图和下一节的图之间硬生生断开。
+
+     收成：标题、说明、图三样贴在一起当一块读，块和块之间才留白。
+     说明也压一档字号、退一档灰 —— 它是图注的身份，不是文章。 */
+  .is-merge .prose-body :global(h2) {
+    margin-top: clamp(2.25rem, 5vw, 3.5rem);
+  }
+
+  .is-merge .prose-body :global(h2 + p) {
+    margin-top: 0.8rem;
+    font-size: var(--step--1);
+    line-height: 1.75;
+    max-width: 54ch;
+    color: var(--ink-faint);
+  }
+
+  /* 说明底下紧跟着的图组，把它自己那一圈上边距收掉 */
+  .is-merge .prose-body :global(h2 + p + *),
+  .is-merge .prose-body :global(h2 + *) {
+    margin-top: 1.25rem;
+  }
+
+  /* ---- dark：拍在黑底上的东西，就给它黑底 ----
+     E 那一节是书，摄影棚黑布上拍的，边角全是 rgb(2,2,2)。放在纸上
+     就是十八个黑方块 —— 和"白底的画落进白纸"正好相反的错。
+
+     所以整节退到通栏的黑里，照片的黑背景和这条带连成一片，
+     浮起来的只有书页。同一条道理，只是底色翻了个面。 */
+  .prose-body :global(.dark) {
+    position: relative;
+    padding-block: clamp(1.5rem, 4vw, 2.75rem);
+    margin-block: clamp(2rem, 5vw, 3.5rem);
+    background: #050607;
+  }
+
+  /* 黑带要通栏，但里面的图还站在版心上 —— 用 box-shadow 把黑色
+     铺到视口两边，它画在盒子外面，不占布局，一个数都不用改。 */
+  .prose-body :global(.dark)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 0 100vmax #050607;
+    clip-path: inset(0 -100vmax);
+    pointer-events: none;
+  }
+
+  .prose-body :global(.dark > *) { position: relative; }
+
+  .prose-body :global(.dark img) {
+    background: none;
+    box-shadow: none;
   }
 
   /* 等素材的小节。和封面缺图时的 NO PLATE ON FILE 同一套写法。 */

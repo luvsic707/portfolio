@@ -37,6 +37,8 @@ gallery:
     alt: EDEN OF EAST 12
 heroFit: contain
 cover: ./card.jpg
+surface: merge
+underlay: ./hero-02.jpg
 ---
 
 ## A — SKETCHES
@@ -46,7 +48,7 @@ Fei Xiaotong's *From the Soil*, on how local society and its obligations are act
 structured.
 
 <!-- auto:images -->
-<div class="strip">
+<div class="strip cutout">
 
 ![A — SKETCHES 01](./a-sketches-01.jpg)
 
@@ -202,6 +204,8 @@ with textures sampled from traditional crafts, colour finalised in Photoshop.
 
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
+<div class="cutout">
+
 <div class="band" style="--n: 1; --sum: 2.0000">
 
 ![D — FINAL OUTPUT 14](./d-final-output-14.jpg)
@@ -264,10 +268,14 @@ with textures sampled from traditional crafts, colour finalised in Photoshop.
 
 </div>
 
+</div>
+
 ## E — TEST BOARD 06
 
 Bound the traditional Chinese way, cotton thread through every page. The proportions are a
 square, which gives the object more form and more decoration.
+
+<div class="dark">
 
 <!-- auto:images -->
 <div class="strip">
@@ -310,3 +318,5 @@ square, which gives the object more form and more decoration.
 
 </div>
 <!-- /auto:images -->
+
+</div>
