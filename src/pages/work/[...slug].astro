@@ -309,9 +309,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       band.className = 'sheet-head';
       h2.replaceWith(band);
       band.append(h2);
-      /* 紧跟在标题后面的那段说明并进来；后面还有别的段落就留在原处 */
-      const next = band.nextElementSibling;
-      if (next?.tagName === 'P' && !next.querySelector('img')) band.append(next);
+
+      /* 紧跟着的说明段全部并进来，不是只收第一段。
+         只收一段的话，写了三段的项目（借来的时光、印刷那两节）会把
+         剩下两段留在线底下 —— 又变回一块横在图中间的文章。 */
+      const note = document.createElement('div');
+      note.className = 'sheet-note';
+      while (
+        band.nextElementSibling?.tagName === 'P' &&
+        !band.nextElementSibling.querySelector('img')
+      ) {
+        note.append(band.nextElementSibling);
+      }
+      if (note.children.length) band.append(note);
     }
   }
 
@@ -2305,14 +2315,26 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.sheet-head h2)::before { content: none; }
 
-  /* 说明填满节号右边那片空档 —— 一条横栏读完，不是三块摞起来 */
+  /* 说明填满线上面那片空档 —— 一条横栏读完，不是几块摞起来。
+
+     写了好几段的项目，段落分栏排：三段短的并成一片密实的灰面，
+     而不是竖着摞出一长条。文字在这里是版面的一块，不是一篇文章。 */
+  .prose-body :global(.sheet-note) {
+    column-width: 46ch;
+    column-gap: clamp(1.25rem, 3.5vw, 3rem);
+  }
+
   .prose-body :global(.sheet-head p) {
     margin: 0;
     max-width: none;
     font-size: var(--step--1);
     line-height: 1.7;
     color: var(--ink-faint);
+    /* 不加 break-inside: avoid —— 加了整段就没法跨栏，
+       一段长文会被钉死在一栏里竖成细长条，比不分栏还高。 */
   }
+
+  .prose-body :global(.sheet-head p + p) { margin-top: 0.5em; }
 
   /* 页码改由横栏自己画，当第三栏。
      原来它是 h2 的 ::after 绝对定位在右下角 —— 说明一换行，

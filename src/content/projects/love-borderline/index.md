@@ -74,7 +74,10 @@ gallery:
     alt: Love in the Time of Borderline 31
   - image: ./hero-32.jpg
     alt: Love in the Time of Borderline 32
+heroFit: contain
 cover: ./card.jpg
+surface: merge
+underlay: ./hero-21.jpg
 ---
 
 ## A — INSPIRATION AND RESEARCH
@@ -107,7 +110,7 @@ Someone described it as *moving through the world without skin*.
 </div>
 
 <!-- auto:images -->
-<div class="pair" style="--cols: 0.686fr 1.088fr">
+<div class="pair cutout" style="--cols: 0.686fr 1.088fr">
 
 ![On-screen 01](./on-screen-01.jpg)
 
@@ -121,7 +124,7 @@ Someone described it as *moving through the world without skin*.
 MY MOST OF FILES MISSING .....
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="grid-4 cutout">
 
 ![B — MOODBOARD 01](./b-moodboard-01.jpg)
 
@@ -186,7 +189,7 @@ symptoms, co-morbidities. The third is for finding treatment and judging whether
 Saddle-stitched, on vintage special paper, for the archival feel.
 
 <!-- auto:images -->
-<div class="flow">
+<div class="flow cutout">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 
@@ -216,7 +219,7 @@ archival in feel, held between structure and spontaneity.
 and the reader is guided rather than immersed.
 
 <!-- auto:images -->
-<div class="flow">
+<div class="flow cutout">
 
 ![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.jpg)
 
