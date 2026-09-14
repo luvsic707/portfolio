@@ -1557,6 +1557,17 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin: 0;
   }
 
+  /* ---- airy：留白很足的规整网格 ----
+     rows-N 的间距是给密排过程图用的（0.6–1.1rem），一排排完就走。
+     一本书的成品跨页不一样：每一张都要单独看，挤在一起就成了缩略图墙。
+     加上 airy 之后间距放到四五倍，每张之间有真正的空气；
+     行内垂直居中 —— 抠出来的跨页高度参差，顶对齐会看着像掉下来一排。 */
+  .prose-body :global(.airy) {
+    gap: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
+    align-items: center;
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
   .prose-body :global(.rows-2) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .prose-body :global(.rows-3) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .prose-body :global(.rows-4) { grid-template-columns: repeat(4, minmax(0, 1fr)); }

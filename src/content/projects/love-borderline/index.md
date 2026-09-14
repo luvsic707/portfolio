@@ -254,7 +254,7 @@ archival in feel, held between structure and spontaneity.
 and the reader is guided rather than immersed.
 
 <!-- auto:images -->
-<div class="flow">
+<div class="rows-4 airy">
 
 ![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.webp)
 
