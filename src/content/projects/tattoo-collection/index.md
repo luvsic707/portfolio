@@ -2,7 +2,7 @@
 title: Tattoo Collection
 year: '2025-ongoing'
 categories: ['Tattoo', 'Illustration']
-featured: true
+featured: false
 order: 3
 summary: Bespoke tattoo work — cyber totemism grown along the body's own contours, plus commissioned pieces built from each client's story.
 meta:

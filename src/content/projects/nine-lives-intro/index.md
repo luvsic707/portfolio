@@ -2,7 +2,7 @@
 title: Nine Lives to Ruin a Kingdom — Intro Animation
 year: '2025'
 categories: ['Animation', 'Game']
-featured: true
+featured: false
 order: 5
 summary: An 80-second 2D collage animation retelling the opening of the Chinese myth Investiture of the Gods — a proud king offends the goddess of creation, and his kingdom burns.
 meta:
