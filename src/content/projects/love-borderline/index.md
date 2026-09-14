@@ -219,17 +219,21 @@ Saddle-stitched, on vintage special paper, for the archival feel.
      这几张是真透明，压在什么底上都对。 -->
 <div class="dark">
 
-<div class="plot" data-plot="1/1-11  2/6-13  2/2-7+4  3/1-7  3/7-13+6  4/4-10">
+<!-- 按红线自己排的那张版:
+     01 三册摊开的总图占左上一大片；03 封面叠放挑在右上角；
+     04 / 05 两只手翻开的内页从下面斜插上来，压住总图的下缘；
+     06 收在右下。负的偏移是用来把行往上提、让它们真的叠在一起的，
+     叠起来谁压谁看这里的先后 —— 写在后面的盖在上面。
+     02（竖着摞的三册）这一版不用，节奏够满了。 -->
+<div class="plot" data-plot="1/1-8  1/8-13+2  2/7-13-7  2/2-8-3  3/6-12-6">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 
 ![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.webp)
 
-![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.webp)
+![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.webp)
 
 ![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.webp)
-
-![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.webp)
 
 ![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.webp)
 

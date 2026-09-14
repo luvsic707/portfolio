@@ -379,7 +379,9 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   document.querySelectorAll<HTMLElement>('.prose-body .plot[data-plot]').forEach((el) => {
     const spec = (el.dataset.plot ?? '').trim().split(/\s+/);
     [...el.querySelectorAll<HTMLElement>(':scope > p')].forEach((p, i) => {
-      const m = /^(\d+)\/(\d+)-(\d+)(?:\+([\d.]+))?$/.exec(spec[i] ?? '');
+      /* 偏移可正可负：负的往上提，于是上下两行真的叠在一起。
+         叠起来谁压谁看文档顺序 —— 写在后面的盖在上面。 */
+      const m = /^(\d+)\/(\d+)-(\d+)(?:([+-][\d.]+))?$/.exec(spec[i] ?? '');
       if (!m) return;
       p.style.setProperty('--r', m[1]);
       p.style.setProperty('--c', `${m[2]} / ${m[3]}`);
@@ -2594,7 +2596,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     position: relative;
     padding-block: clamp(1.5rem, 4vw, 2.75rem);
     margin-block: clamp(2rem, 5vw, 3.5rem);
-    background: #050607;
+    /* 纯黑，不是「近似黑」。这一带里的图都是在黑布上拍的，
+       边角实测就是 (0,0,0)；黑带只要差那么 5 到 7 级，
+       每张图就在纸上留下一个看得见的方块边。底和底要对上，差一点都不行。 */
+    background: #000;
   }
 
   /* 黑带要通栏，但里面的图还站在版心上 —— 用 box-shadow 把黑色
@@ -2603,7 +2608,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     content: '';
     position: absolute;
     inset: 0;
-    box-shadow: 0 0 0 100vmax #050607;
+    box-shadow: 0 0 0 100vmax #000;
     clip-path: inset(0 -100vmax);
     pointer-events: none;
   }
@@ -2615,7 +2620,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     box-shadow: none;
   }
 
-  /* 黑带里的字和框都要反过来 —— 墨色的图注压在 #050607 上等于没有，
+  /* 黑带里的字和框都要反过来 —— 墨色的图注压在纯黑上等于没有，
      窗框那条 var(--ink) 的细线同理。 */
   .prose-body :global(.dark .win-cap) {
     color: color-mix(in srgb, var(--paper) 55%, transparent);
