@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.webp';
 
 /* ── 这一页的内容全部在这里改，下面的模板不用动 ───────────────── */
 
@@ -147,14 +149,39 @@ const revised = new Date().toISOString().slice(0, 10);
         <span class="rail-end">REV. {revised}</span>
       </div>
 
-      <div class="slug-line">
-        <span class="ref">RT-000</span>
-        <h1 class="title">Red Thread</h1>
-        <span class="hash">#000</span>
-      </div>
+      <!-- 这一页的抬头就是一张标本卡：左边是标本，右边是它的登记信息。
+           照片本身是作品 —— 脸被保鲜膜封在超市托盘里、贴着条码和价签。
+           整站的说法是「卷宗／标本／编号」，这一份的标本是本人。
+           已经抠干净了（51.6% 的像素全透明），所以托盘直接浮在纸上，
+           不加框、不垫底、不用 multiply 那套障眼法。 -->
+      <div class="id-block">
+        <figure class="portrait">
+          <Image
+            src={portrait}
+            alt="Self-portrait — the artist's face vacuum-packed in a supermarket tray, price label attached"
+            widths={[420, 760, 1100]}
+            sizes="(max-width: 760px) 62vw, 30vw"
+            loading="eager"
+          />
+        </figure>
 
-      <p class="real-name">{name}</p>
-      <p class="role">{role}</p>
+        <div class="id-text">
+          <div class="slug-line">
+            <span class="ref">RT-000</span>
+            <h1 class="title">Red Thread</h1>
+            <span class="hash">#000</span>
+          </div>
+
+          <p class="real-name">{name}</p>
+          <p class="role">{role}</p>
+
+          <!-- 联系方式跟着登记信息走，不埋到页面下半截去 ——
+               这一页的目的就是让人联系到她。 -->
+          <p class="mail id-mail">
+            <a href="mailto:ruojingpu19@gmail.com">ruojingpu19@gmail.com</a>
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -193,11 +220,6 @@ const revised = new Date().toISOString().slice(0, 10);
             <ul class="tags">
               {languages.map((l) => <li>{l}</li>)}
             </ul>
-          </div>
-
-          <div class="block reveal">
-            <h2 class="section-label">Enquiries</h2>
-            <p class="mail"><a href="mailto:ruojingpu19@gmail.com">ruojingpu19@gmail.com</a></p>
           </div>
         </aside>
       </div>
@@ -288,6 +310,33 @@ const revised = new Date().toISOString().slice(0, 10);
   }
 
   .rail-end { margin-left: auto; }
+
+  /* 标本卡：标本在左，登记信息在右、和照片顶边对齐。
+     照片不设上限高度，宽度封在 360 —— 再大就压过后面的技能表，
+     而技能表才是这一页的主体。 */
+  .id-block {
+    display: grid;
+    grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+    padding-top: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .portrait { margin: 0; }
+
+  .portrait :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 760px) {
+    .id-block {
+      grid-template-columns: minmax(0, 1fr);
+      gap: clamp(1.25rem, 5vw, 2rem);
+    }
+    .portrait { max-width: 300px; }
+  }
 
   .slug-line {
     display: flex;
@@ -388,6 +437,8 @@ const revised = new Date().toISOString().slice(0, 10);
     border: 1px solid var(--line);
     color: var(--ink);
   }
+
+  .id-mail { padding-top: clamp(1.25rem, 3vw, 2rem); }
 
   .mail { font-size: var(--step--1); }
   .mail a {
