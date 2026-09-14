@@ -552,7 +552,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
           ?? el.parentElement!;
         const i = seat.get(group) ?? 0;
         seat.set(group, i + 1);
-        el.style.transitionDelay = `${Math.min(i, 5) * 70}ms`;
+        el.style.transitionDelay = `${Math.min(i, 4) * 40}ms`;
       });
 
       const io = new IntersectionObserver(
@@ -563,8 +563,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
             io.unobserve(e.target);
           }
         },
-        /* 底下收一点：等它真进来一截再开始，别在屏幕边缘上就演完了 */
-        { rootMargin: '0px 0px -6% 0px', threshold: 0.01 }
+        /* 提前发车：底边往外放 18%，图还在屏幕下面一截就开始淡入，
+           等它真的进到你眼里，这一下基本已经演完了。
+
+           原来是往里收 6% —— 图得先爬进屏幕 46px 才触发，再等最多
+           350ms 的错开，再走 0.8 秒。加起来是「图早就在屏幕上了，
+           还得等一秒多才看得见」，这就是那股迟滞感的来源。 */
+        { rootMargin: '0px 0px 18% 0px', threshold: 0 }
       );
 
       plates.forEach((el) => io.observe(el));
@@ -2222,8 +2227,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(img.plate-in),
   .prose-body :global(video.plate-in) {
     opacity: 0;
-    transform: translateY(18px) scale(0.972);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    /* 位移和缩放都收小：走的距离短，看着就跟手。
+       原来 18px / 0.972 配 0.8 秒，图已经在屏幕上了还在慢慢爬。 */
+    transform: translateY(12px) scale(0.986);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
   }
 
   .prose-body :global(img.plate-in.is-in),
