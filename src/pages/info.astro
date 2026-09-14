@@ -174,6 +174,35 @@ const revised = new Date().toISOString().slice(0, 10);
 
           <p class="real-name">{name}</p>
 
+          <!-- About 放在脸旁边。名字和元信息带之间原来是一段空白，
+               而这段话正是「这张脸是谁」的答案，摆在这里才对得上。
+               开场一句大、两段细节小并排 —— 一大一小，一栏一栏，
+               和 protocol 抬头那条密排带是同一个道理。 -->
+          <div class="id-about">
+            <p class="lede">
+              I'm an interdisciplinary visual artist based in Toronto, finishing a Master
+              of Digital Media at Northeastern. I'm open to work across illustration,
+              concept art, visual and brand design, and interactive media.
+            </p>
+            <div class="id-detail">
+              <p class="prose">
+                Every project carries a commercial requirement and an idea of my own, and
+                I look for the form that holds both — usually with a technology the brief
+                did not come with. A sociology text becomes an ink series, clinical
+                literature becomes an AR poster, a myth becomes a card game. I take a
+                project the whole way: research, form, production, and the file that goes
+                to the printer.
+              </p>
+              <p class="prose">
+                The range runs from ink on handmade paper to a Unity build — illustration,
+                brand systems, printed books, tattoo, AR, card games. Illustration is the
+                spine of all of it: everything else is that drawing pushed into another
+                material until it has to hold up as a printed object, a playable system,
+                or a mark on skin.
+              </p>
+            </div>
+          </div>
+
           <!-- 元信息带。照片旁边原来只有三行字，右边 900px 空着。
                参考 protocol.studio：它的抬头是一整条密排的窄栏元信息，
                客户／服务／年份／职员表并排铺满整幅，全部 7–8px，没有一个大字。
@@ -216,31 +245,7 @@ const revised = new Date().toISOString().slice(0, 10);
            一带并排两组，长名单拆成多栏变成块面，经历做成真正的表格。
            全页几乎一个字号，只有开场那段大一档 —— 一个例外，不是一套字阶。 -->
 
-      <div class="band reveal">
-        <section class="blk blk-about">
-          <h2 class="blk-head">About</h2>
-          <p class="lede">
-            I'm an interdisciplinary visual artist based in Toronto, finishing a Master
-            of Digital Media at Northeastern. I'm open to work across illustration,
-            concept art, visual and brand design, and interactive media.
-          </p>
-          <p class="prose">
-            Every project carries a commercial requirement and an idea of my own, and
-            I look for the form that holds both — usually with a technology the brief
-            did not come with. A sociology text becomes an ink series, clinical
-            literature becomes an AR poster, a myth becomes a card game. I take a
-            project the whole way: research, form, production, and the file that goes
-            to the printer.
-          </p>
-          <p class="prose">
-            The range runs from ink on handmade paper to a Unity build — illustration,
-            brand systems, printed books, tattoo, AR, card games. Illustration is the
-            spine of all of it: everything else is that drawing pushed into another
-            material until it has to hold up as a printed object, a playable system, or
-            a mark on skin.
-          </p>
-        </section>
-
+      <div class="band band-1 reveal">
         <section class="blk blk-skills">
           <h2 class="blk-head">Skills</h2>
           <div class="cols-4">
@@ -358,7 +363,7 @@ const revised = new Date().toISOString().slice(0, 10);
 
   /* 整页唯一放大的一段 */
   .lede {
-    max-width: 34ch;
+    max-width: 46ch;
     font-size: clamp(1.05rem, 0.8rem + 0.9vw, 1.45rem);
     line-height: 1.35;
     letter-spacing: -0.01em;
@@ -543,6 +548,34 @@ const revised = new Date().toISOString().slice(0, 10);
     line-height: 1;
     letter-spacing: -0.02em;
     text-transform: uppercase;
+  }
+
+  /* About 在脸旁边：开场一句占一栏，两段细节占另一栏。
+     名字钉顶、元信息带钉底，这一块填在中间，空白就没了。 */
+  /* 开场句通栏，细节在它底下分两栏。
+     一开始把开场句挤在半栏里，427px 装 23px 的字一行只有十八个字符，
+     读起来像被掐着脖子 —— 大字要宽，这是它大的前提。 */
+  .id-about { margin-top: clamp(1.5rem, 3.5vw, 2.5rem); }
+
+  .id-detail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    align-items: start;
+    margin-top: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .id-detail > * + * { margin-top: 0; }
+
+  .id-about .prose {
+    max-width: none;
+    font-size: var(--step--2);
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 860px) {
+    .id-about { grid-template-columns: minmax(0, 1fr); }
   }
 
   /* ---- 元信息带 ----
