@@ -59,19 +59,84 @@ async function alphaBox(sharp, src) {
   return { left, top, width, height };
 }
 
-module.exports = { alphaBox };
+/* 白底模式：给「压平过的抠图」用。
+ *
+ * 作品集里同一排四张图，可能只有一张是真 alpha，其余三张是白底的 jpg 或
+ * 不透明 webp —— 它们靠 cutout 的 multiply 显示，肉眼看是抠好的，但文件层面
+ * 白边一寸没少。只裁 alpha 的话，一排里就只有一张缩到了自己的边缘，
+ * 另外三张还揣着白边，于是看着一大三小。实测 type-no-2-04 的内容只占画布
+ * 42% 宽 —— 这就是它看起来小的全部原因。
+ *
+ * 阈值裁白是危险的：Otaku 有一次就是这么把笔画末端切掉的。所以这里**不信任
+ * 单个阈值**，而是在两个阈值下各算一次包围盒，只有两次结果几乎重合（相差
+ * 不到长边的 1.5%）才承认那圈白是空的。边缘外真有淡墨的话，松阈值会把框
+ * 撑开，两次对不上，函数直接拒绝裁。
+ */
+const TH_TIGHT = 243, TH_LOOSE = 253;
 
-/* 直接跑就是一次性补裁：node tools/trim-alpha.cjs <文件…> */
+async function visibleBox(sharp, src) {
+  const { data, info } = await sharp(src).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const { width: W, height: H, channels: c } = info;
+
+  const boxAt = (th) => {
+    let x0 = W, y0 = H, x1 = -1, y1 = -1;
+    for (let y = 0; y < H; y++) {
+      for (let x = 0; x < W; x++) {
+        const i = (y * W + x) * c;
+        if (data[i + 3] <= 12) continue;
+        const lum = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
+        if (lum >= th) continue;
+        if (x < x0) x0 = x; if (x > x1) x1 = x;
+        if (y < y0) y0 = y; if (y > y1) y1 = y;
+      }
+    }
+    return x1 < 0 ? null : { x0, y0, x1, y1 };
+  };
+
+  const tight = boxAt(TH_TIGHT), loose = boxAt(TH_LOOSE);
+  if (!tight || !loose) return null;
+
+  const slack = Math.max(W, H) * 0.015;
+  const drift = Math.max(
+    Math.abs(tight.x0 - loose.x0), Math.abs(tight.y0 - loose.y0),
+    Math.abs(tight.x1 - loose.x1), Math.abs(tight.y1 - loose.y1),
+  );
+  if (drift > slack) return null;   // 边上还有东西，不确定，就不动它
+
+  const pad = MARGIN;
+  const left = Math.max(0, loose.x0 - pad), top = Math.max(0, loose.y0 - pad);
+  const right = Math.min(W, loose.x1 + 1 + pad), bottom = Math.min(H, loose.y1 + 1 + pad);
+  const width = right - left, height = bottom - top;
+  if (width >= W && height >= H) return null;
+  if (width < 8 || height < 8) return null;
+  return { left, top, width, height };
+}
+
+module.exports = { alphaBox, visibleBox };
+
+/* 一次性补裁：node tools/trim-alpha.cjs [--white] <文件…>
+ *
+ * 默认只裁真 alpha —— 那个判断没有阈值，放在导入流程里跑也安全。
+ * --white 会连白底一起裁，那是有阈值的判断，所以不自动跑：白底该不该当空，
+ * 取决于这一节是不是走 cutout，而那是一节一节手判的。 */
 if (require.main === module) {
   const sharp = require('sharp');
   const { renameSync } = require('fs');
+  const args = process.argv.slice(2);
+  const white = args.includes('--white');
   (async () => {
     let done = 0;
-    for (const f of process.argv.slice(2)) {
-      const box = await alphaBox(sharp, f);
+    for (const f of args.filter((a) => a !== '--white')) {
+      const box = (await alphaBox(sharp, f)) ?? (white ? await visibleBox(sharp, f) : null);
       if (!box) { console.log(`  ·  ${f.split('/').pop()} 已经贴边`); continue; }
       const meta = await sharp(f).metadata();
-      await sharp(f).extract(box).webp({ quality: 82, effort: 5 }).toFile(f + '.tmp');
+      /* 按扩展名选编码器 —— 一排里 jpg 和 webp 是混着的，
+         统一写 webp 会把 webp 的字节塞进 .jpg 的文件名。 */
+      const pipe = sharp(f).extract(box);
+      const out = /\.jpe?g$/i.test(f)
+        ? pipe.jpeg({ quality: 88, mozjpeg: true })
+        : pipe.webp({ quality: 82, effort: 5 });
+      await out.toFile(f + '.tmp');
       renameSync(f + '.tmp', f);
       console.log(`  ✂  ${f.split('/').pop().padEnd(46)} ${meta.width}×${meta.height} → ${box.width}×${box.height}`);
       done++;
