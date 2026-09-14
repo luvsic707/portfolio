@@ -140,7 +140,7 @@ Someone described it as *moving through the world without skin*.
 MY MOST OF FILES MISSING .....
 
 <!-- auto:images -->
-<div class="grid-4">
+<div class="grid-4 cutout">
 
 ![B — MOODBOARD 01](./b-moodboard-01.webp)
 
