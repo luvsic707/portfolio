@@ -253,26 +253,24 @@ archival in feel, held between structure and spontaneity.
 **Part Three** is information design. The emotional narrative turns into a rational system,
 and the reader is guided rather than immersed.
 
-<!-- auto:skip 手排顺序，导入脚本不要动这里 -->
+<!-- auto:skip 手排版面和顺序，导入脚本不要动这里 -->
 
-<!-- 顺序按红线自己那两张排版图还原，不是按文件名。
-     导入是按文件名排的，于是 32/33/34（彩色脚丫格子、铁丝网、河道）
-     这三张 Part One 的跨页被甩到了最后、排在 MBT 理论页后面。
-     书是有读法的，文件名没有。
+<!-- 顺序和每行张数都照红线自己那三张排版图。
+     三部分用不同的栏数，图随着书越往后越大 ——
+     Part One 的蒙太奇一行五张扫过去，Part Three 的治疗页一行三张要停下来读。
+     导入按文件名排，排不出这个。
 
-     04/05 和 03/06 看着是同一跨页的两次拍摄，这里挨着放，
-     确认是重复的话删掉其中一张即可。 -->
-<div class="rows-4 airy">
+     03 和 05 没有用：它们是 06 和 04 同一跨页的另一次拍摄，
+     文件还在文件夹里，要用随时加回来。 -->
+
+<!-- Part One —— 第一人称蒙太奇 -->
+<div class="rows-5 airy">
 
 ![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.webp)
 
 ![E — PRINT (BOOK DESIGN) 02](./e-print-book-design-02.webp)
 
 ![E — PRINT (BOOK DESIGN) 04](./e-print-book-design-04.webp)
-
-![E — PRINT (BOOK DESIGN) 05](./e-print-book-design-05.webp)
-
-![E — PRINT (BOOK DESIGN) 03](./e-print-book-design-03.webp)
 
 ![E — PRINT (BOOK DESIGN) 06](./e-print-book-design-06.webp)
 
@@ -287,6 +285,11 @@ and the reader is guided rather than immersed.
 ![E — PRINT (BOOK DESIGN) 34](./e-print-book-design-34.webp)
 
 ![E — PRINT (BOOK DESIGN) 08](./e-print-book-design-08.webp)
+
+</div>
+
+<!-- Part Two —— 特征、成因、症状、共病 -->
+<div class="rows-4 airy">
 
 ![E — PRINT (BOOK DESIGN) 10](./e-print-book-design-10.webp)
 
@@ -319,6 +322,11 @@ and the reader is guided rather than immersed.
 ![E — PRINT (BOOK DESIGN) 24](./e-print-book-design-24.webp)
 
 ![E — PRINT (BOOK DESIGN) 31](./e-print-book-design-31.webp)
+
+</div>
+
+<!-- Part Three —— 怎么找治疗 -->
+<div class="rows-3 airy">
 
 ![E — PRINT (BOOK DESIGN) 25](./e-print-book-design-25.webp)
 
