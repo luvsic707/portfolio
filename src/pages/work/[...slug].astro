@@ -372,6 +372,75 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
   };
 
+  /* ---- 2a. 自己会走的滑动带 ----
+     横滑带本来要人去拖才动。一条不动的带子和一张静止的长图没有区别，
+     而且右边还有多少东西全靠边缘那道虚化去猜。
+
+     所以让它自己极慢地走：20px/秒，一张图要走过去得二十多秒 ——
+     慢到不像在播幻灯片，只是「这一条是活的，右边还有」。
+
+     三条规矩：
+     · 只在真的看得见的时候走（IntersectionObserver），后台不空转；
+     · 人一碰（拖、滚轮、触屏、键盘）立刻让开，停五秒再接着走，
+       而且从人停下的地方接，不跳回去；
+     · 走到头掉头，不是倒回原点 —— 倒回去那一下会把人正在看的图抽走。
+
+     位置自己拿一个浮点数记着。scrollLeft 在有些浏览器上会取整，
+     每帧只走 0.33px 的话四舍五入回原值，整条就卡住不动了。 */
+  const drift = (el: HTMLElement, speed = 20) => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let pos = el.scrollLeft;
+    let dir = 1;
+    let last = 0;
+    let hold = 0;          // 人碰过之后的让步时间，秒
+    let seen = false;
+    let raf = 0;
+
+    /* 吸附要在自己走的时候关掉：proximity 会把每帧那 0.33px 拽回最近的
+       吸附点，整条看着就是一动不动。人一碰立刻还回去。 */
+    const snap = (on: boolean) => { el.style.scrollSnapType = on ? '' : 'none'; };
+
+    /* 人自己动了：把浮点位置对回去，让开一会儿，并把吸附还回去 */
+    const yield_ = () => { pos = el.scrollLeft; hold = 5; snap(true); };
+    ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((t) =>
+      el.addEventListener(t, yield_, { passive: true })
+    );
+
+    const step = (t: number) => {
+      raf = requestAnimationFrame(step);
+      /* 切回前台时 dt 会是几十秒，封住上限，别让它瞬移到底 */
+      const dt = last ? Math.min((t - last) / 1000, 0.05) : 0;
+      last = t;
+      if (!seen) return;
+      if (hold > 0) { hold -= dt; pos = el.scrollLeft; return; }
+
+      const max = el.scrollWidth - el.clientWidth;
+      if (max <= 1) return;
+
+      snap(false);
+      pos += dir * speed * dt;
+      if (pos >= max) { pos = max; dir = -1; hold = 3; }
+      if (pos <= 0) { pos = 0; dir = 1; hold = 3; }
+      el.scrollLeft = pos;
+    };
+
+    new IntersectionObserver(
+      ([e]) => {
+        seen = e.isIntersecting;
+        if (seen) { last = 0; pos = el.scrollLeft; }
+        else snap(true);
+      },
+      /* 不能用 threshold 判「看见了没有」—— 一条 680px 高的滑动带在
+         768 高的窗口里，露出大半也只有 0.22，永远够不到门槛。
+         改成看它压没压到视口中间那 76%：多高的块都算得对。 */
+      { rootMargin: '-12% 0px -12% 0px', threshold: 0 }
+    ).observe(el);
+
+    raf = requestAnimationFrame(step);
+    addEventListener('pagehide', () => cancelAnimationFrame(raf));
+  };
+
   document.querySelectorAll<HTMLElement>('.strip, .slider').forEach((strip) => {
     const n = strip.querySelectorAll('img').length;
     strip.tabIndex = 0;
@@ -431,9 +500,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     strip.addEventListener('scroll', hint, { passive: true });
     new ResizeObserver(hint).observe(strip);
     hint();
+
+    drift(strip);
   });
 
-  /* ---- 2a. 卡牌阵列和横向滑轨都会横滑，同样要告诉人右边还有 ---- */
+  /* ---- 2b. 卡牌阵列和横向滑轨都会横滑，同样要告诉人右边还有 ---- */
   document.querySelectorAll<HTMLElement>('.prose-body .cards, .prose-body .reel').forEach((el) => {
     const hint = () => {
       el.classList.toggle('has-more', el.scrollLeft + el.clientWidth < el.scrollWidth - 8);
@@ -441,6 +512,9 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     el.addEventListener('scroll', hint, { passive: true });
     new ResizeObserver(hint).observe(el);
     hint();
+
+    /* 这两种块头比滑动带小，走慢一点才配得上 */
+    drift(el, 14);
   });
 
   /* ---- 2b. 混排的视频：进视野才播，离开就停 ----
@@ -1914,10 +1988,17 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     max-width: none;
   }
 
-  /* 鼠标扫过时其余的图退一点，被指的那张更清楚 */
+  /* 鼠标扫过时其余的图退一点，被指的那张更清楚。
+
+     退的办法不能是 opacity —— 图一透明，纸背后那层作品幽灵就从图里
+     透出来，一整条滑动带看着像蒙了层脏。用 filter 把它压淡：
+     图还是不透明的，背后什么都漏不过来。 */
   @media (hover: hover) and (pointer: fine) {
-    .prose-body :global(.strip:hover p) { opacity: 0.55; }
-    .prose-body :global(.strip p:hover) { opacity: 1; }
+    .prose-body :global(.strip p) {
+      transition: filter 0.3s var(--ease);
+    }
+    .prose-body :global(.strip:hover p) { filter: contrast(0.72) brightness(1.16); }
+    .prose-body :global(.strip p:hover) { filter: none; }
   }
 
   /* 这几种版式以前靠 width: 100vw 顶出版心。整站只剩一条版心之后，
