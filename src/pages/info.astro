@@ -211,22 +211,19 @@ const revised = new Date().toISOString().slice(0, 10);
   <section class="section">
     <div class="wrap">
 
-      <!-- 整页只有一条脊柱：左边标签，右边内容，每一节都对齐同一条边。
-           之前每一块各用各的栅格（抬头 360px、简介 1.6fr/1fr、技能贴着四栏），
-           所以读下来是「空、空、密」——不是哪一块不好看，是它们没在同一个格子里。 -->
+      <!-- 板式照 protocol.studio 的 Information 页：
+           标题在内容上方、底下一条横线（不是左标签右内容那种表单），
+           一带并排两组，长名单拆成多栏变成块面，经历做成真正的表格。
+           全页几乎一个字号，只有开场那段大一档 —— 一个例外，不是一套字阶。 -->
 
-      <div class="row reveal">
-        <h2 class="row-label">Statement</h2>
-        <div class="row-body">
-          <!-- 第一段放大成一句话，不是一个段落。
-               参考站（abgd.it/about）把自我介绍拆成一句巨大的引述 + 一堆小字，
-               我们这一页原来三段都是 13px，所以右边那片空白没有东西去撑。 -->
+      <div class="band reveal">
+        <section class="blk blk-about">
+          <h2 class="blk-head">About</h2>
           <p class="lede">
             I'm an interdisciplinary visual artist based in Toronto, finishing a Master
             of Digital Media at Northeastern. I'm open to work across illustration,
             concept art, visual and brand design, and interactive media.
           </p>
-
           <p class="prose">
             Every project carries a commercial requirement and an idea of my own, and
             I look for the form that holds both — usually with a technology the brief
@@ -235,7 +232,6 @@ const revised = new Date().toISOString().slice(0, 10);
             project the whole way: research, form, production, and the file that goes
             to the printer.
           </p>
-
           <p class="prose">
             The range runs from ink on handmade paper to a Unity build — illustration,
             brand systems, printed books, tattoo, AR, card games. Illustration is the
@@ -243,69 +239,76 @@ const revised = new Date().toISOString().slice(0, 10);
             material until it has to hold up as a printed object, a playable system, or
             a mark on skin.
           </p>
-        </div>
-      </div>
+        </section>
 
-      <div class="row reveal">
-        <h2 class="row-label">Skills</h2>
-        <div class="row-body">
-          <div class="skill-cols">
+        <section class="blk blk-skills">
+          <h2 class="blk-head">Skills</h2>
+          <div class="cols-4">
             {skills.map((g) => (
-              <div class="skill-col">
-                <h3 class="skill-label">{g.label}</h3>
-                <ul class="skill-list">
+              <div>
+                <h3 class="sub-head">{g.label}</h3>
+                <ul class="plain">
                   {g.items.map((it) => <li>{it}</li>)}
                 </ul>
               </div>
             ))}
           </div>
-        </div>
+        </section>
       </div>
 
-      <div class="row reveal">
-        <h2 class="row-label">Experience</h2>
-        <div class="row-body">
-          <dl class="ledger">
-            {experience.map((e) => (
-              <div>
-                <dt class="ledger-n">{e.year}</dt>
-                <dd>
-                  {e.role}
-                  <span class="ledger-at">{e.at}</span>
-                  <span class="ledger-note">{e.note}</span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+      <div class="band band-1 reveal">
+        <section class="blk">
+          <h2 class="blk-head">Experience</h2>
+          <table class="tbl">
+            <thead>
+              <tr><th>Role</th><th>Organisation</th><th class="num">Year</th></tr>
+            </thead>
+            <tbody>
+              {experience.map((e) => (
+                <tr>
+                  <td>
+                    {e.role}
+                    <span class="tbl-note">{e.note}</span>
+                  </td>
+                  <td>{e.at}</td>
+                  <td class="num">{e.year}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
       </div>
 
-      <div class="row reveal">
-        <h2 class="row-label">Education</h2>
-        <div class="row-body">
-          <dl class="ledger">
-            {education.map((e) => (
-              <div>
-                <dt class="ledger-n">{e.year}</dt>
-                <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
+      <div class="band reveal">
+        <section class="blk">
+          <h2 class="blk-head">Education</h2>
+          <table class="tbl">
+            <tbody>
+              {education.map((e) => (
+                <tr>
+                  <td>{e.text}</td>
+                  <td>{e.at}</td>
+                  <td class="num">{e.year}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
 
-      <div class="row reveal">
-        <h2 class="row-label">Showings</h2>
-        <div class="row-body">
-          <dl class="ledger">
-            {showings.map((e) => (
-              <div>
-                <dt class="ledger-n">{e.year}</dt>
-                <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+        <section class="blk">
+          <h2 class="blk-head">Showings</h2>
+          <table class="tbl">
+            <tbody>
+              {showings.map((e) => (
+                <tr>
+                  <td>{e.text}</td>
+                  <td>{e.at}</td>
+                  <td class="num">{e.year}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
       </div>
 
     </div>
@@ -314,6 +317,144 @@ const revised = new Date().toISOString().slice(0, 10);
 </Base>
 
 <style>
+  /* ==================== 板式 ====================
+     protocol.studio 的 Information 页：标题在内容上方、底下一条横线，
+     一带并排两组，长名单拆成多栏成为块面，经历是真正的表格。
+     全页几乎一个字号，只有开场那段大一档。
+
+     之前是「左标签、右内容」的表单式两栏 —— 那个读起来像申请表，
+     不像文档，而且每一节的左边都钉着一个孤零零的小标签。 */
+
+  .band {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr);
+    gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+    margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  /* 只有一组的带子（经历）自己占满 */
+  .band-1 { grid-template-columns: minmax(0, 1fr); }
+
+  @media (max-width: 860px) {
+    .band { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* 标题 + 它自己那条线。线只有这一组那么宽 —— 是它的边界，
+     所以并排两组各有各的线，一眼看得出是两件事。 */
+  .blk-head {
+    margin: 0 0 clamp(1rem, 2.5vw, 1.75rem);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ink);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  .blk > * + * { margin-top: 1rem; }
+  .blk .lede + .prose { margin-top: clamp(1.25rem, 2.5vw, 1.75rem); }
+
+  /* 整页唯一放大的一段 */
+  .lede {
+    max-width: 34ch;
+    font-size: clamp(1.05rem, 0.8rem + 0.9vw, 1.45rem);
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .blk .prose {
+    max-width: 54ch;
+    font-size: var(--step--1);
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+
+  /* 名单拆成四栏 —— 一条长名单是细带，四栏并排是块面 */
+  .cols-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: clamp(0.9rem, 2vw, 1.75rem);
+  }
+
+  .sub-head {
+    margin: 0 0 0.7em;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .plain {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--step--2);
+    line-height: 1.9;
+    color: var(--ink);
+  }
+
+  .plain li::before { content: none; }
+
+  /* 表格：每行一条线，年份靠右。说明跟在职位下面、退一档灰，
+     所以扫一列就能读完职位，要细节再往下看。 */
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--step--1);
+    color: var(--ink);
+  }
+
+  .tbl th {
+    padding: 0 0 0.5rem;
+    border-bottom: 1px solid var(--line-strong);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--ink-faint);
+  }
+
+  .tbl td {
+    padding: clamp(0.7rem, 1.6vw, 1rem) 1rem clamp(0.7rem, 1.6vw, 1rem) 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+
+  .tbl td:last-child, .tbl th:last-child { padding-right: 0; }
+
+  .tbl .num {
+    width: 7rem;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--ink-faint);
+  }
+
+  .tbl tbody tr:first-child .num { color: var(--red); }
+
+  .tbl-note {
+    display: block;
+    margin-top: 0.45em;
+    max-width: 52ch;
+    font-size: var(--step--2);
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 640px) {
+    .tbl, .tbl tbody, .tbl tr, .tbl td { display: block; width: 100%; }
+    .tbl thead { display: none; }
+    .tbl td { border: 0; padding: 0.15rem 0; }
+    .tbl tr { padding-block: 0.9rem; border-bottom: 1px solid var(--line); }
+  }
+
   .head-block {
     padding-top: clamp(7rem, 14vw, 11rem);
     padding-bottom: 0;
@@ -462,34 +603,14 @@ const revised = new Date().toISOString().slice(0, 10);
      标签栏定宽，所以从 Statement 到 Languages，内容的左边缘是同一条线；
      节与节之间一条发丝线。一条边加一条线，密的地方有边界，
      空的地方也不再像漏了 —— 空白成了节奏的一部分，不是缺口。 */
-  .row {
-    display: grid;
-    grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr);
-    gap: clamp(1rem, 3vw, 2.5rem);
-    align-items: start;
-    padding-block: clamp(1.75rem, 4vw, 2.75rem);
-    border-top: 1px solid var(--line);
-  }
 
   /* 第一节的横线留着 —— 抬头和正文之间也要有那条线，
      整页从上到下才是一串等距的横栏，而不是「一块抬头」加「一堆段落」。 */
 
   /* 标签和右边第一行内容对齐基线 —— 差一点点就看得出来 */
-  .row-label {
-    margin: 0;
-    padding-top: 0.15em;
-    font-family: var(--font-mono);
-    font-size: var(--step--2);
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-  }
 
-  .row-body > * + * { margin-top: 1.1rem; }
 
   /* 正文的行长自己管住，别因为右边宽了就拉成长条 */
-  .row-body .prose { max-width: 62ch; }
 
   /* 开场那一句：大、占满内容栏，后面两段退回小字。
      一大一小，右边的空白就成了这句话的余量，不再是缺口。 */
@@ -505,44 +626,12 @@ const revised = new Date().toISOString().slice(0, 10);
 
   /* --- 技能：四组并排，排满 --- */
 
-  .skill-cols {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: clamp(1rem, 2.5vw, 2rem);
-  }
 
-  .skill-label {
-    margin: 0 0 0.5rem;
-    padding-bottom: 0.35rem;
-    border-bottom: 1px solid var(--line);
-    font-size: var(--step--2);
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-  }
 
-  .skill-list {
-    display: grid;
-    gap: 0.18rem;
-    font-size: var(--step--1);
-    color: var(--ink);
-  }
 
   /* --- 语言：小方块 --- */
 
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.35rem;
-    font-size: var(--step--1);
-  }
 
-  .tags li {
-    padding: 0.2rem 0.55rem;
-    border: 1px solid var(--line);
-    color: var(--ink);
-  }
 
   .id-mail { padding-top: clamp(1.25rem, 3vw, 2rem); }
 
@@ -563,64 +652,20 @@ const revised = new Date().toISOString().slice(0, 10);
      现在职位／学位用到 --step-3（28–40px），单位和日期留在 10px。
      三倍以上的落差，一眼扫下去先看见的是「她做过什么」，
      而不是均匀的一整页字。字阶本来就有这一档，首页在用，这一页一直没用。 */
-  .ledger > div {
-    display: grid;
-    grid-template-columns: 7.5rem minmax(0, 1fr);
-    gap: 0.8rem;
-    padding-block: clamp(0.9rem, 2vw, 1.4rem);
-    border-bottom: 1px solid var(--line);
-    color: var(--ink);
-  }
 
   /* 日期压到最小并且顶格 —— 它是索引，不是内容 */
-  .ledger-n {
-    font-family: var(--font-mono);
-    font-size: var(--step--2);
-    font-variant-numeric: tabular-nums;
-    padding-top: 0.5em;
-    color: var(--ink-faint);
-  }
 
-  .ledger dd {
-    margin: 0;
-    font-size: clamp(1.25rem, 0.85rem + 1.3vw, 1.9rem);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-  }
 
   /* 单位压一档，职位才是这一行的主语 */
-  .ledger-at {
-    display: block;
-    margin-top: 0.6em;
-    color: var(--ink-soft);
-    font-size: var(--step--2);
-    letter-spacing: 0.02em;
-  }
 
   /* 一句话说明这份工做了什么 —— 只给经历用，学历和展览不需要 */
-  .ledger-note {
-    display: block;
-    margin-top: 0.5em;
-    max-width: 62ch;
-    color: var(--ink-soft);
-    font-size: var(--step--2);
-    line-height: 1.6;
-  }
 
-  .ledger > div:first-child .ledger-n { color: var(--red); }
 
   @media (max-width: 860px) {
     /* 窄屏放弃脊柱：9.5rem 的标签栏一挤，右边就只剩一半，
        正文会碎成每行五六个词。改成标签在上、内容在下。 */
-    .row {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 0.75rem;
-    }
-    .skill-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
   @media (max-width: 480px) {
-    .skill-cols { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
-    .ledger > div { grid-template-columns: 5.6rem minmax(0, 1fr); gap: 0.5rem; }
   }
 </style>
