@@ -212,24 +212,26 @@ Saddle-stitched, on vintage special paper, for the archival feel.
      05/04/06 三张手翻内页，大小不同、高低错开。 -->
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-<!-- 整节压进通栏黑带。01 是三册全摊开的总图，本来就拍在黑布上，
-     和黑带合成同一个底；另外五张是白底的，在黑上就是白方块 ——
-     这里不能用 cutout，multiply 在黑底上会把白底图整张乘成黑的。 -->
+<!-- 整节压进通栏黑带。
+     01 是三册全摊开的总图，拍在黑布上，和黑带合成同一个底，没有边。
+     02–06 是真正抠过的 PNG，自带 alpha 通道 —— 书直接浮在黑上，
+     不需要 cutout，也不该用：multiply 是给白底图凑透明用的障眼法，
+     这几张是真透明，压在什么底上都对。 -->
 <div class="dark">
 
 <div class="plot" data-plot="1/1-11  2/6-13  2/2-7+4  3/1-7  3/7-13+6  4/4-10">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 
-![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.jpg)
+![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.png)
 
-![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.jpg)
+![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.png)
 
-![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.jpg)
+![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.png)
 
-![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.jpg)
+![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.png)
 
-![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.jpg)
+![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.png)
 
 </div>
 
