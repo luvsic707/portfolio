@@ -264,7 +264,7 @@ and the reader is guided rather than immersed.
      文件还在文件夹里，要用随时加回来。 -->
 
 <!-- Part One —— 第一人称蒙太奇 -->
-<div class="rows-5 airy">
+<div class="rows-5 airy" style="--gy: 2rem; --gx: 1.25rem">
 
 ![E — PRINT (BOOK DESIGN) 01](./e-print-book-design-01.webp)
 
@@ -289,7 +289,7 @@ and the reader is guided rather than immersed.
 </div>
 
 <!-- Part Two —— 特征、成因、症状、共病 -->
-<div class="rows-4 airy">
+<div class="rows-4 airy" style="--gy: 3.5rem; --gx: 1.55rem">
 
 ![E — PRINT (BOOK DESIGN) 10](./e-print-book-design-10.webp)
 
@@ -326,7 +326,7 @@ and the reader is guided rather than immersed.
 </div>
 
 <!-- Part Three —— 怎么找治疗 -->
-<div class="rows-3 airy narrow">
+<div class="rows-3 airy narrow" style="--gy: 4.5rem; --gx: 1.75rem">
 
 ![E — PRINT (BOOK DESIGN) 25](./e-print-book-design-25.webp)
 
