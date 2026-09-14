@@ -2462,6 +2462,23 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     box-shadow: none;
   }
 
+  /* ---- 但有些东西的边就是作品本身：按块把卡片要回来 ----
+     merge 成立的前提是「图没有边」—— 抠好的画、透明的渲染，纸接住它们
+     就完事了。海报不是这样：它是印出来的实物，四条边是设计的一部分。
+     Hidden Pain 那张九宫格海报里有两格是纯白的，落在同样浅的纸上，
+     边直接消失，整张看着像散了三格。
+
+     所以 merge 是项目级的默认，plate 是块级的例外，写在 md 的容器上：
+       <div class="pair plate">
+     它不在 import-images.py 的 AUTO_CLASSES 里，所以重导时会被
+     keep_classes() 原样带回来。 */
+  .is-merge .prose-body :global(.plate img) {
+    background: var(--paper-sunk);
+    box-shadow:
+      0 0 0 9px var(--paper-raised),
+      0 3px 10px rgba(16, 19, 20, 0.22);
+  }
+
   /* 悬停的投影同理 —— 没有卡片了，投影只会凭空画出一个方框。
      参考站根本没有 hover 效果；这里只留一点点放大，方便看清小图。 */
   @media (hover: hover) and (pointer: fine) {

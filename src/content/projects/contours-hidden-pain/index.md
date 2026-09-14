@@ -10,6 +10,7 @@ meta:
   dimension: AR interactive layer (variable digital scale)
   media: AR Poster, Animation, Sound Design
   tools: Unity · Vuforia · Tripo AI · Suno AI
+surface: merge
 gallery:
   - video: /media/contours-hidden-pain/hero-01.mp4
     alt: Contours of Hidden Pain — video 01
@@ -38,7 +39,7 @@ psychological, body to mind. The sketches hunt the point where a line has stoppe
 diagram and is not yet an illustration.
 
 <!-- auto:images -->
-<div class="lead" style="--cols: 1.687fr 1fr">
+<div class="lead cutout" style="--cols: 1.687fr 1fr">
 
 ![B — STORYBOARD AND SKETCH 01](./b-storyboard-and-sketch-01.jpg)
 
@@ -93,7 +94,7 @@ Elements pulled straight from the moodboard and combined with the 3D material. M
 graphic design — spatial composition and visual experiment, done fast.
 
 <!-- auto:images -->
-<div class="pair" style="--cols: 1.001fr 0.707fr">
+<div class="pair plate" style="--cols: 1.001fr 0.707fr">
 
 ![D — POSTER COMPOSITION 01](./d-poster-composition-01.jpg)
 
