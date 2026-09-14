@@ -188,15 +188,20 @@ const revised = new Date().toISOString().slice(0, 10);
   <section class="section">
     <div class="wrap">
 
-      <div class="layout">
-        <div class="col-main">
-          <p class="prose reveal">
+      <!-- 整页只有一条脊柱：左边标签，右边内容，每一节都对齐同一条边。
+           之前每一块各用各的栅格（抬头 360px、简介 1.6fr/1fr、技能贴着四栏），
+           所以读下来是「空、空、密」——不是哪一块不好看，是它们没在同一个格子里。 -->
+
+      <div class="row reveal">
+        <h2 class="row-label">Statement</h2>
+        <div class="row-body">
+          <p class="prose">
             I'm an interdisciplinary visual artist based in Toronto, finishing a Master
             of Digital Media at Northeastern. I'm open to work across illustration,
             concept art, visual and brand design, and interactive media.
           </p>
 
-          <p class="prose reveal">
+          <p class="prose">
             Every project carries a commercial requirement and an idea of my own, and
             I look for the form that holds both — usually with a technology the brief
             did not come with. A sociology text becomes an ink series, clinical
@@ -205,7 +210,7 @@ const revised = new Date().toISOString().slice(0, 10);
             to the printer.
           </p>
 
-          <p class="prose reveal">
+          <p class="prose">
             The range runs from ink on handmade paper to a Unity build — illustration,
             brand systems, printed books, tattoo, AR, card games. Illustration is the
             spine of all of it: everything else is that drawing pushed into another
@@ -213,73 +218,77 @@ const revised = new Date().toISOString().slice(0, 10);
             a mark on skin.
           </p>
         </div>
-
-        <aside class="col-side">
-          <div class="block reveal">
-            <h2 class="section-label">Languages</h2>
-            <ul class="tags">
-              {languages.map((l) => <li>{l}</li>)}
-            </ul>
-          </div>
-        </aside>
       </div>
 
-      <!-- ── 技能：整页的主体 ── -->
-      <div class="stack reveal">
-        <h2 class="section-label">Skills</h2>
-        <div class="skill-cols">
-          {skills.map((g) => (
-            <div class="skill-col">
-              <h3 class="skill-label">{g.label}</h3>
-              <ul class="skill-list">
-                {g.items.map((it) => <li>{it}</li>)}
-              </ul>
-            </div>
-          ))}
+      <div class="row reveal">
+        <h2 class="row-label">Skills</h2>
+        <div class="row-body">
+          <div class="skill-cols">
+            {skills.map((g) => (
+              <div class="skill-col">
+                <h3 class="skill-label">{g.label}</h3>
+                <ul class="skill-list">
+                  {g.items.map((it) => <li>{it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <!-- ── 经历 ── -->
-      <div class="stack reveal">
-        <h2 class="section-label">Experience</h2>
-        <dl class="ledger ledger-wide">
-          {experience.map((e) => (
-            <div>
-              <dt class="ledger-n">{e.year}</dt>
-              <dd>
-                {e.role}
-                <span class="ledger-at">{e.at}</span>
-                <span class="ledger-note">{e.note}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
+      <div class="row reveal">
+        <h2 class="row-label">Experience</h2>
+        <div class="row-body">
+          <dl class="ledger">
+            {experience.map((e) => (
+              <div>
+                <dt class="ledger-n">{e.year}</dt>
+                <dd>
+                  {e.role}
+                  <span class="ledger-at">{e.at}</span>
+                  <span class="ledger-note">{e.note}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
 
-      <!-- ── 学历 ── -->
-      <div class="stack reveal">
-        <h2 class="section-label">Education</h2>
-        <dl class="ledger ledger-wide">
-          {education.map((e) => (
-            <div>
-              <dt class="ledger-n">{e.year}</dt>
-              <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
-            </div>
-          ))}
-        </dl>
+      <div class="row reveal">
+        <h2 class="row-label">Education</h2>
+        <div class="row-body">
+          <dl class="ledger">
+            {education.map((e) => (
+              <div>
+                <dt class="ledger-n">{e.year}</dt>
+                <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
 
-      <!-- ── 展览：只有两条，所以和学历同一个写法，不单独做大 ── -->
-      <div class="stack reveal">
-        <h2 class="section-label">Showings</h2>
-        <dl class="ledger ledger-wide">
-          {showings.map((e) => (
-            <div>
-              <dt class="ledger-n">{e.year}</dt>
-              <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
-            </div>
-          ))}
-        </dl>
+      <div class="row reveal">
+        <h2 class="row-label">Showings</h2>
+        <div class="row-body">
+          <dl class="ledger">
+            {showings.map((e) => (
+              <div>
+                <dt class="ledger-n">{e.year}</dt>
+                <dd>{e.text}<span class="ledger-at">{e.at}</span></dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+
+      <div class="row reveal">
+        <h2 class="row-label">Languages</h2>
+        <div class="row-body">
+          <ul class="tags">
+            {languages.map((l) => <li>{l}</li>)}
+          </ul>
+        </div>
       </div>
 
     </div>
@@ -381,21 +390,39 @@ const revised = new Date().toISOString().slice(0, 10);
     color: var(--ink-soft);
   }
 
-  .layout {
+  /* ---- 整页的脊柱 ----
+     每一节都是同一个两栏：左边一个小标签，右边内容。
+     标签栏定宽，所以从 Statement 到 Languages，内容的左边缘是同一条线；
+     节与节之间一条发丝线。一条边加一条线，密的地方有边界，
+     空的地方也不再像漏了 —— 空白成了节奏的一部分，不是缺口。 */
+  .row {
     display: grid;
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-    gap: clamp(2.5rem, 6vw, 5rem);
+    grid-template-columns: minmax(0, 9.5rem) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
     align-items: start;
+    padding-block: clamp(1.75rem, 4vw, 2.75rem);
+    border-top: 1px solid var(--line);
   }
 
-  .col-main > * + * { margin-top: 1.2rem; }
-  .col-side > * + * { margin-top: clamp(1.75rem, 3vw, 2.5rem); }
+  /* 第一节的横线留着 —— 抬头和正文之间也要有那条线，
+     整页从上到下才是一串等距的横栏，而不是「一块抬头」加「一堆段落」。 */
 
-  .block .section-label,
-  .stack .section-label { margin-bottom: 0.9rem; }
+  /* 标签和右边第一行内容对齐基线 —— 差一点点就看得出来 */
+  .row-label {
+    margin: 0;
+    padding-top: 0.15em;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
 
-  /* 几个大块之间拉开，每一块内部收紧 —— 一块是一块 */
-  .stack { margin-top: clamp(3rem, 7vw, 5rem); }
+  .row-body > * + * { margin-top: 1.1rem; }
+
+  /* 正文的行长自己管住，别因为右边宽了就拉成长条 */
+  .row-body .prose { max-width: 62ch; }
 
   /* --- 技能：四组并排，排满 --- */
 
@@ -489,8 +516,12 @@ const revised = new Date().toISOString().slice(0, 10);
   .ledger > div:first-child .ledger-n { color: var(--red); }
 
   @media (max-width: 860px) {
-    .layout { grid-template-columns: minmax(0, 1fr); }
-    .col-side { margin-top: clamp(2rem, 6vw, 3rem); }
+    /* 窄屏放弃脊柱：9.5rem 的标签栏一挤，右边就只剩一半，
+       正文会碎成每行五六个词。改成标签在上、内容在下。 */
+    .row {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+    }
     .skill-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 
