@@ -111,10 +111,15 @@ Someone described it as *moving through the world without skin*.
 
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-<!-- 参考的书和电影做成一排小窗。三扇片子的窗大、四个书封的窗小，
-     高低错开。每扇窗底下那行出处直接取图的 alt，不用另写。
+<!-- 三部片子做成一排一样大的小窗，居中收窄。
+     它们是同一类引用，分大小等于在说谁更重要。
+     窗底下那行出处直接取 alt（图）或 aria-label（视频），不用另写。
 
-     要放片段就把对应那一行换成 video，别的都不用动，例如：
+     书封原来也在这里，是从一张 823×1200 的汇报页截图里裁的，
+     每个只有 150–186px 宽，放到三百多就糊了，所以撤掉 ——
+     书单在上面的 Reference literature 里，信息没丢。
+
+     要换成静帧就把 video 换回 ![]()，别的都不用动；反过来也一样：
        <video src="/media/love-borderline/girl-interrupted.mp4"
               poster="/media/love-borderline/girl-interrupted-poster.jpg"
               aria-label="Girl, Interrupted (1999) dir. James Mangold"></video>
@@ -127,18 +132,6 @@ Someone described it as *moving through the world without skin*.
 <p><video src="/media/love-borderline/memories-of-matsuko.mp4" poster="/media/love-borderline/memories-of-matsuko-poster.jpg" width="900" height="628" aria-label="Memories of Matsuko (2006) dir. Tetsuya Nakashima"></video></p>
 
 <p><video src="/media/love-borderline/eternal-sunshine.mp4" poster="/media/love-borderline/eternal-sunshine-poster.jpg" width="900" height="628" aria-label="Eternal Sunshine of the Spotless Mind (2004) dir. Michel Gondry"></video></p>
-
-</div>
-
-<div class="plot windows" data-plot="1/2-4  1/4-6+3  1/6-8  1/8-10+3">
-
-![Rachel Reiland — Get Me Out of Here](./ref-book-01.jpg)
-
-![Christine Ann Lawson — Understanding the Borderline Mother](./ref-book-02.jpg)
-
-![Kreisman and Straus — Sometimes I Act Crazy](./ref-book-03.jpg)
-
-![Daniel S. Lobel — When Your Daughter Has BPD](./ref-book-04.jpg)
 
 </div>
 
