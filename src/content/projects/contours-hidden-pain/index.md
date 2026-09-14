@@ -11,7 +11,6 @@ meta:
   media: AR Poster, Animation, Sound Design
   tools: Unity · Vuforia · Tripo AI · Suno AI
 surface: merge
-underlay: ./c-morphological-development-from-2d-sketch-to-3d-form-01.webp
 gallery:
   - video: /media/contours-hidden-pain/hero-01.mp4
     alt: Contours of Hidden Pain — video 01
