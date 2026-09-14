@@ -57,7 +57,7 @@ Tripo AI. The drawing keeps its expression; the conversion tests forms in 3D fas
 of generated models I kept a few.
 
 <!-- auto:images -->
-<div class="band" style="--n: 6; --sum: 5.8575" aria-label="Hand-drawn sketches">
+<div class="band" style="--n: 6; --sum: 5.8215" aria-label="Hand-drawn sketches">
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 01](./c-morphological-development-from-2d-sketch-to-3d-form-01.webp)
 
@@ -73,7 +73,7 @@ of generated models I kept a few.
 
 </div>
 
-<div class="band" style="--n: 5; --sum: 6.9686" aria-label="Models generated from the sketches">
+<div class="band" style="--n: 5; --sum: 3.8413" aria-label="Models generated from the sketches">
 
 ![C — MORPHOLOGICAL DEVELOPMENT: FROM 2D SKETCH TO 3D FORM 07](./c-morphological-development-from-2d-sketch-to-3d-form-07.webp)
 
