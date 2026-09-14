@@ -294,6 +294,27 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     main.append(note);
   });
 
+  /* ---- 1c. 章节抬头收成一条横栏（只在 merge 的项目上） ----
+     原来是竖着摞的三块：节号、通栏线、说明段。说明只占左边三分之一，
+     右边三分之二空着 —— 一节的开头就是一条又高又空的横带，把上一节的
+     图和下一节的图硬生生切开。参考站 zyang.cargo.site/13-13 整页没有
+     这种东西：标题一行、线一条、紧接着就是图。
+
+     我们那几行说明是真写过的内容，不删。但它该是图注的身份，
+     不是文章 —— 所以把节号和说明并进同一行，说明填满线上面的空档，
+     整个抬头变成一条密实的横栏，压在通栏线上。 */
+  if (body?.closest('.is-merge')) {
+    for (const h2 of [...body.querySelectorAll<HTMLElement>(':scope > h2')]) {
+      const band = document.createElement('div');
+      band.className = 'sheet-head';
+      h2.replaceWith(band);
+      band.append(h2);
+      /* 紧跟在标题后面的那段说明并进来；后面还有别的段落就留在原处 */
+      const next = band.nextElementSibling;
+      if (next?.tagName === 'P' && !next.querySelector('img')) band.append(next);
+    }
+  }
+
   /* ---- 2. 过程图的横向滑动带 ----
      鼠标可以直接按住拖，触控板/触屏本来就能横滑。 */
   /* 按原始比例把图分栏：同一栏统一宽度、竖着摞满整条高度，
@@ -2252,22 +2273,65 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
      收成：标题、说明、图三样贴在一起当一块读，块和块之间才留白。
      说明也压一档字号、退一档灰 —— 它是图注的身份，不是文章。 */
-  .is-merge .prose-body :global(h2) {
+  .prose-body :global(.sheet-head) {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: clamp(1.25rem, 3.5vw, 3rem);
+    align-items: baseline;
     margin-top: clamp(2.25rem, 5vw, 3.5rem);
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid var(--ink);
   }
 
-  .is-merge .prose-body :global(h2 + p) {
-    margin-top: 0.8rem;
+  /* 线和页码交给外面这条横栏，节号只管当节号 */
+  .prose-body :global(.sheet-head h2) {
+    position: static;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  /* 说明填满节号右边那片空档 —— 一条横栏读完，不是三块摞起来 */
+  .prose-body :global(.sheet-head p) {
+    margin: 0;
+    max-width: none;
     font-size: var(--step--1);
-    line-height: 1.75;
-    max-width: 54ch;
+    line-height: 1.7;
     color: var(--ink-faint);
   }
 
-  /* 说明底下紧跟着的图组，把它自己那一圈上边距收掉 */
-  .is-merge .prose-body :global(h2 + p + *),
-  .is-merge .prose-body :global(h2 + *) {
-    margin-top: 1.25rem;
+  /* 页码改由横栏自己画，当第三栏。
+     原来它是 h2 的 ::after 绝对定位在右下角 —— 说明一换行，
+     它就掉到文字底下单独占一行，像一句没人管的话。
+     做成栅格的一栏之后，节号、说明、页码三样坐在同一条基线上。
+
+     计数器仍然是 h2 增量的；h2 是这条横栏的子元素，
+     所以横栏的 ::after 读到的就是刚增完的那个数。 */
+  .prose-body :global(.sheet-head h2)::after { content: none; }
+
+  .prose-body :global(.sheet-head)::after {
+    content: 'SHEET ' counter(sheet, decimal-leading-zero);
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    justify-self: end;
+    color: var(--ink-faint);
+  }
+
+  /* 抬头和它底下第一组图贴紧，留白留给节与节之间 */
+  .prose-body :global(.sheet-head + *) { margin-top: 1.25rem; }
+
+  /* 窄屏排不下两栏，退回上下两行，但仍然是同一条横栏 */
+  @media (max-width: 720px) {
+    .prose-body :global(.sheet-head) {
+      grid-template-columns: auto minmax(0, 1fr);
+      row-gap: 0.55rem;
+    }
+    /* 说明退到第二行通栏，节号和页码还在第一行的两端 */
+    .prose-body :global(.sheet-head p) { grid-column: 1 / -1; }
   }
 
   /* ---- dark：拍在黑底上的东西，就给它黑底 ----
