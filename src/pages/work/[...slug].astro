@@ -333,7 +333,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     flush();
   }
 
-  /* ---- 1c. 章节抬头收成一条横栏（只在 merge 的项目上） ----
+  /* ---- 1c. 章节抬头收成一条横栏 ----
      原来是竖着摞的三块：节号、通栏线、说明段。说明只占左边三分之一，
      右边三分之二空着 —— 一节的开头就是一条又高又空的横带，把上一节的
      图和下一节的图硬生生切开。参考站 zyang.cargo.site/13-13 整页没有
@@ -341,27 +341,29 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
      我们那几行说明是真写过的内容，不删。但它该是图注的身份，
      不是文章 —— 所以把节号和说明并进同一行，说明填满线上面的空档，
-     整个抬头变成一条密实的横栏，压在通栏线上。 */
-  if (body?.closest('.is-merge')) {
-    for (const h2 of [...body.querySelectorAll<HTMLElement>(':scope > h2')]) {
-      const band = document.createElement('div');
-      band.className = 'sheet-head';
-      h2.replaceWith(band);
-      band.append(h2);
+     整个抬头变成一条密实的横栏，压在通栏线上。
 
-      /* 紧跟着的说明段全部并进来，不是只收第一段。
-         只收一段的话，写了三段的项目（借来的时光、印刷那两节）会把
-         剩下两段留在线底下 —— 又变回一块横在图中间的文章。 */
-      const note = document.createElement('div');
-      note.className = 'sheet-note';
-      while (
-        band.nextElementSibling?.tagName === 'P' &&
-        !band.nextElementSibling.querySelector('img')
-      ) {
-        note.append(band.nextElementSibling);
-      }
-      if (note.children.length) band.append(note);
+     这件事本来只在 merge 的项目上做，因为它是跟着那套一起想出来的。
+     但它跟 merge 没有关系：开天窗的是抬头自己的排布，跟图怎么压在
+     底面上是两回事，不开 merge 的项目一样在开。所以全站都这么排。 */
+  for (const h2 of [...(body?.querySelectorAll<HTMLElement>(':scope > h2') ?? [])]) {
+    const band = document.createElement('div');
+    band.className = 'sheet-head';
+    h2.replaceWith(band);
+    band.append(h2);
+
+    /* 紧跟着的说明段全部并进来，不是只收第一段。
+       只收一段的话，写了三段的项目（借来的时光、印刷那两节）会把
+       剩下两段留在线底下 —— 又变回一块横在图中间的文章。 */
+    const note = document.createElement('div');
+    note.className = 'sheet-note';
+    while (
+      band.nextElementSibling?.tagName === 'P' &&
+      !band.nextElementSibling.querySelector('img')
+    ) {
+      note.append(band.nextElementSibling);
     }
+    if (note.children.length) band.append(note);
   }
 
   /* ---- 1d. 手排版面的落位 ----
@@ -1321,7 +1323,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 章节标题：整条发丝线压底，编号计数器挂在右侧页边 */
   .prose-body { counter-reset: sheet; }
 
-  /* 标签条就钉在这行上面六十像素处，写着同一句话。换字号、换字距都救
+  /* 【这一段现在是 JS 没跑起来时的退路，不是页面上看到的样子。】
+     章节抬头一律由脚本收成 .sheet-head 那条横栏（见上面的 1c），
+     竖着摞的这三块只在脚本没执行时露出来。
+
+     还留着它，是因为 h2 在这里被压成了 font-size: 0 —— 底下那个
+     ::before 是它唯一画得出来的东西。删掉就等于「脚本一挂，节名全没」。
+     章节多的项目还有顶部标签条兜着，可 tattoo 只有一节、for-u 只有两节，
+     标签条要三节以上才出现（sections.length > 2），那两页没有第二条退路。
+
+     以下是它当初的来由，仍然成立：
+
+     标签条就钉在这行上面六十像素处，写着同一句话。换字号、换字距都救
      不回来 —— 一样的词上下贴着，就是重复；放大反而更吵。
 
      所以名字只说一遍，交给标签条（它一直在视野里，而且可以点）。
@@ -1332,9 +1345,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      所以它和 markdown 里的 ## A / ## B 永远对得上，加节删节都不用管。
      全站十个项目的章节都是 A 起、连号，这个前提成立。
 
-     顺带补上一件早该有的事：design tokens 里写明字阶是「掏空」的 ——
-     极小的表单字配极大的编号，中段基本不用。可那个极大的一端在项目页
-     从来没出现过，整页字都挤在 11–26px 这一窄条里。这个节号就是它。
+     counter-increment 这一行不能跟着注释一起当古董看 —— .sheet-head
+     的页码是 h2 在增的，横栏的 ::after 读的就是它。
 
      h2 本身留在 DOM 里，只是不画 —— 文档结构、锚点、读屏、标签条
      和页码计数全靠它。 */
@@ -2492,7 +2504,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(video.plate-in) { opacity: 1; transform: none; }
   }
 
-  /* ---- merge 的章节抬头：收成一条，别在图和图之间开天窗 ----
+  /* ---- 章节抬头：收成一条，别在图和图之间开天窗（全站，不只 merge）----
      参考站从头到尾一个字的说明都没有，图是连着的。我们这几行说明是
      真写过的内容，不删；但它现在占的位置不对 —— 标题上面 6rem、
      标题到正文 1.4rem、正文到图 3rem，一节的开头拦了两百多像素，
