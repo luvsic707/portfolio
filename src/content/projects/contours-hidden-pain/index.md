@@ -13,7 +13,7 @@ meta:
 gallery:
   - video: /media/contours-hidden-pain/hero-01.mp4
     alt: Contours of Hidden Pain — video 01
-cover: ./card.jpg
+cover: ./card.webp
 ---
 
 ## A — RESEARCH

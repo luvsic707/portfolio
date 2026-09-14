@@ -17,7 +17,7 @@ links:
 gallery:
   - video: /media/nine-lives-game/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — video 01
-cover: ./card.jpg
+cover: ./card.webp
 ---
 
 ## A — CHARACTER & RELATIONSHIPS

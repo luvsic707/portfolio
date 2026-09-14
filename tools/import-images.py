@@ -458,6 +458,31 @@ def strip_auto(text: str) -> str:
                   "", text, flags=re.S).rstrip() + "\n"
 
 
+def sweep(target: Path, slug: str, md: str, generated: list[str]) -> None:
+    """扫掉上一次导入留下的、这次没再生成的文件。
+
+    要等 md 写完再扫，而且「这次没生成」和「正文不再引用」两条都成立才删。
+    只看第一条是不够的：章节一旦被改名或删掉（页面编辑过的项目都会），
+    脚本就一个章节都匹配不上，那时候「没生成」等于「全部」，
+    正文还在用的图会被一次清空 —— Nine Lives 的十四张就是这么没的。
+    """
+    kept = set(generated) | set(re.findall(r"\./([\w.-]+\.\w+)", md))
+    for old in sorted(target.glob("*")):
+        if (old.is_file() and old.name not in kept
+                and re.match(r"^(cover|card|hero-\d{2}|[a-z0-9-]+-\d{2})\.(jpg|jpeg|png|webp)$",
+                             old.name)):
+            old.unlink()
+
+    vdir = PUBLIC / "media" / slug
+    if vdir.is_dir():
+        used = set(re.findall(rf"/media/{re.escape(slug)}/([\w.-]+)", md))
+        for old in sorted(vdir.glob("*")):
+            if old.is_file() and old.name not in used:
+                old.unlink()
+        if not any(vdir.iterdir()):
+            vdir.rmdir()
+
+
 def process(project_dir: Path) -> str | None:
     slug_file = project_dir / ".slug"
     if not slug_file.exists():
@@ -478,14 +503,6 @@ def process(project_dir: Path) -> str | None:
 
     m = re.search(r"^title:\s*(.+)$", front, flags=re.M)
     proj_title = m.group(1).strip() if m else project_dir.name
-
-    # 清掉上一次生成的图，避免删了图之后还留着旧文件
-    vdir_old = PUBLIC / "media" / slug
-    if vdir_old.exists():
-        shutil.rmtree(vdir_old)
-    for old in target.glob("*.jpg"):
-        if re.match(r"^(cover|hero-\d{2}|[a-z0-9-]+-\d{2})\.jpg$", old.name):
-            old.unlink()
 
     generated, skipped_video = [], []
     # 注：封面出现过的图，正文里照常出现 —— 开屏是快速预览，正文才是细看的地方
@@ -678,6 +695,7 @@ def process(project_dir: Path) -> str | None:
             front = front.rstrip() + f"\ncover: ./{fallback}\n"
 
     md_path.write_text(front + body)
+    sweep(target, slug, front + body, generated)
 
     vids = f"，跳过 {len(skipped_video)} 个视频" if skipped_video else ""
     return f"{slug}: {len(generated)} 张{vids}"
