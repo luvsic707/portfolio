@@ -325,6 +325,29 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
   }
 
+  /* ---- 1d. 手排版面的落位 ----
+     位置写在 md 的 data-plot 上，按图的顺序：
+       「第几行 / 第几栏-第几栏 (+往下沉几 rem)」
+     例：data-plot="1/1-11  2/6-13  2/2-7+4"
+
+     为什么不直接在 md 里给每个 <p> 写 style —— 那得用原生 <img>，
+     就绕开了 Astro 的图片优化（多档尺寸、WebP、宽高注入），
+     而且 ./ 相对路径在构建后根本指不到东西。
+     图还是写成 markdown 的 ![]()，位置从这里补上去。
+
+     行必须写明：交叠要靠两张图都显式落位才成立，
+     交给自动排的话第二张会被挤到下一行去。 */
+  document.querySelectorAll<HTMLElement>('.prose-body .plot[data-plot]').forEach((el) => {
+    const spec = (el.dataset.plot ?? '').trim().split(/\s+/);
+    [...el.querySelectorAll<HTMLElement>(':scope > p')].forEach((p, i) => {
+      const m = /^(\d+)\/(\d+)-(\d+)(?:\+([\d.]+))?$/.exec(spec[i] ?? '');
+      if (!m) return;
+      p.style.setProperty('--r', m[1]);
+      p.style.setProperty('--c', `${m[2]} / ${m[3]}`);
+      if (m[4]) p.style.setProperty('--t', `${m[4]}rem`);
+    });
+  });
+
   /* ---- 2. 过程图的横向滑动带 ----
      鼠标可以直接按住拖，触控板/触屏本来就能横滑。 */
   /* 按原始比例把图分栏：同一栏统一宽度、竖着摞满整条高度，
@@ -870,10 +893,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .underlay :global(img) { animation: none; }
   }
 
-  /* 幽灵在最底下，上面的东西都得有自己的层
-     （.telemetry 是 fixed，本来就在自己的层里，不用管） */
+  /* 幽灵在最底下。只用 position: relative 把它们抬到幽灵上面，
+     千万不要再加 z-index —— 加了就多出一个层叠上下文，而层叠上下文
+     就是混合的隔离边界：抠图的 multiply 会被关在 .body 里面，
+     背后什么都对不上，白底于是保持纯白，在纸上留下一个个亮方块。
+     这正是这一套刚上线时每张图都还看得见边的原因。
+
+     没有 z-index 也照样在上面：两个都是定位元素、都是 auto，
+     按文档顺序画，.underlay 写在前面所以在下面。
+     而混合的分组根成了 .sheet —— 那上面正好有纸色和幽灵，
+     multiply 要的就是这两样。 */
   .is-merge .head,
-  .is-merge .body { position: relative; z-index: 1; }
+  .is-merge .body { position: relative; }
 
   .head {
     padding-top: clamp(6.5rem, 13vw, 10rem);
@@ -2004,6 +2035,57 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.dg-split),
     .prose-body :global(.dg-ends) { grid-template-columns: minmax(0, 1fr); }
     .prose-body :global(.dg-layer) { grid-template-columns: minmax(0, 1fr); gap: 0.5rem; }
+  }
+
+  /* ---- plot：手排的自由版面 ----
+     其他版式都是「一视同仁」：一行几张，每张一样大。过程图合适，
+     成品不合适 —— 一本书的设计，六张图里有一张是三册全摊开的总图，
+     两张是封面叠放，三张是手翻开的内页。它们的分量本来就不一样，
+     排成一样大就等于说它们一样重要。
+
+     这里给一张 12 栏的台面，每张图自己说占哪几栏（--c）、
+     在第几行（--r）、还要往下沉多少（--t）。栏可以交叠，
+     沉多少各不相同 —— 于是有大有小、有高有低，留白是故意留的。
+
+     写法：<p style="--c: 1 / 11; --t: 3rem">。
+     这种版面必须包在 <!-- auto:skip --> 里，
+     否则重新导图时脚本会把这些 style 全冲掉。 */
+  .prose-body :global(.plot) {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: clamp(0.5rem, 1.4vw, 1.1rem);
+    row-gap: clamp(1.5rem, 4vw, 3.5rem);
+    align-items: start;
+    width: 100%;
+    margin-block: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .prose-body :global(.plot > p) {
+    grid-column: var(--c, auto);
+    grid-row: var(--r, auto);
+    margin: var(--t, 0) 0 0;
+  }
+
+  .prose-body :global(.plot img),
+  .prose-body :global(.plot video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  /* 窄屏放弃自由版面：12 栏挤成一栏根本看不清，
+     一张一张竖着排反而看得见。 */
+  @media (max-width: 760px) {
+    .prose-body :global(.plot) {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: clamp(1rem, 4vw, 2rem);
+    }
+    .prose-body :global(.plot > p) {
+      grid-column: auto;
+      grid-row: auto;
+      margin-top: 0;
+    }
   }
 
   /* ---- 瀑布流：一批成品 ----

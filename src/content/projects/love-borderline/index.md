@@ -188,23 +188,27 @@ symptoms, co-morbidities. The third is for finding treatment and judging whether
 
 Saddle-stitched, on vintage special paper, for the archival feel.
 
-<!-- auto:images -->
-<div class="flow cutout">
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
+
+<!-- data-plot 按图的顺序写「第几行/占第几栏到第几栏+往下沉几rem」。
+     01 是三册全摊开的总图，这一节讲的就是它，给到最大；
+     03/02 两张封面叠放并排，斜的那张大、竖的那张小且下沉，交叠一栏；
+     05/04/06 三张手翻内页，大小不同、高低错开。 -->
+<div class="plot cutout" data-plot="1/1-11  2/6-13  2/2-7+4  3/1-7  3/7-13+6  4/4-10">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 
-![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.jpg)
-
 ![D — STRUCTURE OF THE BOOK 03](./d-structure-of-the-book-03.jpg)
 
-![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.jpg)
+![D — STRUCTURE OF THE BOOK 02](./d-structure-of-the-book-02.jpg)
 
 ![D — STRUCTURE OF THE BOOK 05](./d-structure-of-the-book-05.jpg)
+
+![D — STRUCTURE OF THE BOOK 04](./d-structure-of-the-book-04.jpg)
 
 ![D — STRUCTURE OF THE BOOK 06](./d-structure-of-the-book-06.jpg)
 
 </div>
-<!-- /auto:images -->
 
 ## E — PRINT (BOOK DESIGN)
 
