@@ -225,7 +225,7 @@ Saddle-stitched, on vintage special paper, for the archival feel.
      06 收在右下。负的偏移是用来把行往上提、让它们真的叠在一起的，
      叠起来谁压谁看这里的先后 —— 写在后面的盖在上面。
      02（竖着摞的三册）这一版不用，节奏够满了。 -->
-<div class="plot" data-plot="1/1-7  1/7-13+3  2/6-10-3  2/1-7+1  3/7-12-14">
+<div class="plot" data-plot="1/1-7  1/7-13+3  2/6-11-3  2/1-7+1  3/7-13-14">
 
 ![D — STRUCTURE OF THE BOOK 01](./d-structure-of-the-book-01.jpg)
 
