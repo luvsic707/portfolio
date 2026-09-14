@@ -1564,7 +1564,9 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      加上 airy 之后间距放到四五倍，每张之间有真正的空气；
      行内垂直居中 —— 抠出来的跨页高度参差，顶对齐会看着像掉下来一排。 */
   .prose-body :global(.airy) {
-    gap: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 4vw, 3.5rem);
+    /* 横向间距收窄，图就变大 —— 栏数不变的前提下，能动的只有间距。
+       竖向留得比横向多：一行之内是并排看的，行与行之间要断开。 */
+    gap: clamp(1.75rem, 4vw, 3rem) clamp(0.75rem, 1.7vw, 1.5rem);
     align-items: center;
     margin-block: clamp(2.5rem, 6vw, 4.5rem);
   }
