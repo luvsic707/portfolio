@@ -348,6 +348,40 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     });
   });
 
+  /* ---- 1e. 小窗：参考资料的出处 ----
+     参考的书和电影不是作品，是「看过什么」。做成一排小窗摆在一起，
+     每扇窗底下一行出处 —— 出处直接用 md 里图的 alt，
+     所以写 md 的时候写一次就够了，不用另起一份说明。
+
+     窗里放视频也走这条路：md 里换成 <video> 标签，这里自动接上
+     静音循环自动播放，样式和静帧那几扇完全一样。 */
+  document.querySelectorAll<HTMLElement>('.prose-body .windows').forEach((box) => {
+    box.querySelectorAll<HTMLElement>(':scope > p').forEach((p) => {
+      const media = p.querySelector<HTMLImageElement | HTMLVideoElement>('img, video');
+      if (!media) return;
+
+      if (media instanceof HTMLVideoElement) {
+        /* 片段当画面用，不当播放器用：不出控件、不出声、自己循环。
+           autoplay 必须配 muted，否则浏览器一律不给自动播。 */
+        media.muted = true;
+        media.loop = true;
+        media.autoplay = true;
+        media.playsInline = true;
+        media.removeAttribute('controls');
+      }
+
+      const label = media instanceof HTMLImageElement
+        ? media.alt
+        : (media.getAttribute('aria-label') ?? '');
+      if (!label || p.querySelector('.win-cap')) return;
+
+      const cap = document.createElement('span');
+      cap.className = 'win-cap';
+      cap.textContent = label;
+      p.append(cap);
+    });
+  });
+
   /* ---- 2. 过程图的横向滑动带 ----
      鼠标可以直接按住拖，触控板/触屏本来就能横滑。 */
   /* 按原始比例把图分栏：同一栏统一宽度、竖着摞满整条高度，
@@ -2086,6 +2120,33 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       grid-row: auto;
       margin-top: 0;
     }
+  }
+
+  /* ---- windows：参考资料的小窗 ----
+     配合 .plot 用：<div class="plot windows" data-plot="…">。
+
+     这些不是作品，是出处 —— 所以要看得出「引用」的身份：
+     一圈细墨线当窗框，底下一行等宽小字写明是谁的东西。
+     作品是直接落在纸上的（merge，没有框），引用有框，
+     两种身份在版面上一眼分得开。 */
+  .prose-body :global(.windows img),
+  .prose-body :global(.windows video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    border: 1px solid var(--ink);
+    background: var(--paper-sunk);
+  }
+
+  .prose-body :global(.win-cap) {
+    display: block;
+    margin-top: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
   }
 
   /* ---- 瀑布流：一批成品 ----
