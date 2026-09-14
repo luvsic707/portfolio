@@ -195,7 +195,10 @@ const revised = new Date().toISOString().slice(0, 10);
       <div class="row reveal">
         <h2 class="row-label">Statement</h2>
         <div class="row-body">
-          <p class="prose">
+          <!-- 第一段放大成一句话，不是一个段落。
+               参考站（abgd.it/about）把自我介绍拆成一句巨大的引述 + 一堆小字，
+               我们这一页原来三段都是 13px，所以右边那片空白没有东西去撑。 -->
+          <p class="lede">
             I'm an interdisciplinary visual artist based in Toronto, finishing a Master
             of Digital Media at Northeastern. I'm open to work across illustration,
             concept art, visual and brand design, and interactive media.
@@ -356,19 +359,25 @@ const revised = new Date().toISOString().slice(0, 10);
     border-top: 1px solid var(--ink);
   }
 
+  /* 编号和井号压到最小、退成灰：它们是标记，不是内容。
+     招牌一个人扛落差。 */
   .ref, .hash {
-    font-size: var(--step-2);
+    font-size: var(--step--2);
     font-weight: 500;
     font-variant-numeric: tabular-nums;
+    color: var(--ink-faint);
+    padding-top: 0.9em;
   }
 
   .hash { margin-left: auto; color: var(--red); }
 
+  /* 抬头空，是因为这里本来该有的那个「大」一直没给。
+     22px 的招牌撑不住一整屏，右边自然就空成一块。 */
   .title {
-    font-size: var(--step-2);
+    font-size: clamp(2rem, 1.1rem + 3.4vw, 4.25rem);
     font-weight: 500;
-    line-height: 1.15;
-    letter-spacing: 0.01em;
+    line-height: 1;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
   }
 
@@ -423,6 +432,18 @@ const revised = new Date().toISOString().slice(0, 10);
 
   /* 正文的行长自己管住，别因为右边宽了就拉成长条 */
   .row-body .prose { max-width: 62ch; }
+
+  /* 开场那一句：大、占满内容栏，后面两段退回小字。
+     一大一小，右边的空白就成了这句话的余量，不再是缺口。 */
+  .lede {
+    max-width: 30ch;
+    font-size: clamp(1.35rem, 0.9rem + 1.5vw, 2.1rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .lede + .prose { margin-top: clamp(1.5rem, 3vw, 2.25rem); }
 
   /* --- 技能：四组并排，排满 --- */
 
