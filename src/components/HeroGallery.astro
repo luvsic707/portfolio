@@ -222,17 +222,22 @@ const hasVideo = slides.some((s) => s.video);
     top: 0;
     z-index: 0;
     width: 100%;
-    padding-top: var(--nav-h, 3.4rem);
+    /* 以前这里给页头留了一条 padding，露出的是 --paper-sunk ——
+       于是开屏顶上横着一条灰带，底下才是作品，中间一道硬边。
+       那条带子就是页头看着「有底色」的真正来源，页头自己本来是透明的。
+
+       现在作品一直铺到最顶上，页头浮在它上面。代价是页头的字会压到
+       画面上，所以 Nav 会先量一下开屏顶部的亮度，暗就把字翻浅。 */
     background: var(--paper-sunk);
     overflow: hidden;
     touch-action: pan-y;
   }
 
-  /* 开屏铺满一整屏 —— 导航条以下全给作品 */
+  /* 开屏铺满一整屏 —— 顶到天花板，不给页头让位 */
   .stage {
     position: relative;
     width: 100vw;
-    height: calc(100svh - var(--nav-h, 3.4rem));
+    height: 100svh;
   }
 
   .slide {

@@ -25,12 +25,91 @@ const isInfo = path.startsWith('/info');
   const nav = document.querySelector('[data-nav]');
 
   if (nav) {
-    // 往下滚一点就给导航加底线
+    /* ---- 什么时候浮出纸色 ----
+       普通页面：往下滚一点就加底色和底线。
+
+       作品页不一样：开屏是满屏的一整块，滚 24px 就横一条灰带过去，
+       等于在作品脸上切一刀，而人还在看开屏。所以在作品页上改用
+       正文那张纸当信号 —— 纸滑上来盖住开屏、顶到页头了，才浮色。 */
+    const sheet = document.querySelector('.sheet');
+
     const onScroll = () => {
-      nav.classList.toggle('is-stuck', window.scrollY > 24);
+      const h = nav.getBoundingClientRect().height;
+      const stuck = sheet
+        ? sheet.getBoundingClientRect().top <= h
+        : window.scrollY > 24;
+      nav.classList.toggle('is-stuck', stuck);
     };
+
+    /* ---- 开屏是深色的怎么办 ----
+       页头透明的时候，字是直接压在开屏上的。九命、等待戈多、for u
+       这几件的开屏顶部接近纯黑，墨色的字压上去就看不见了。
+
+       所以先问一句底下是什么：contain 的开屏两边留的是纸色，一定亮；
+       cover 的开屏铺满，就取第一张图顶上那条真的算一次亮度。
+       暗就把页头的字翻成浅色 —— 不是加一条底来保可读性，
+       是让字适应它所在的地方。 */
+    const gallery = document.querySelector('[data-gallery]');
+
+    const measureTone = (src: CanvasImageSource, w: number, h: number) => {
+      try {
+        const c = document.createElement('canvas');
+        c.width = 24;
+        c.height = 6;
+        const ctx = c.getContext('2d');
+        if (!ctx) return;
+        /* 只取最上面那 14% —— 页头压住的就是这一条 */
+        ctx.drawImage(src, 0, 0, w, h * 0.14, 0, 0, 24, 6);
+        const d = ctx.getImageData(0, 0, 24, 6).data;
+        let sum = 0;
+        for (let i = 0; i < d.length; i += 4) {
+          sum += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+        }
+        nav.classList.toggle('on-dark', sum / (d.length / 4) < 140);
+      } catch {
+        /* 取不到像素就当它是亮的，维持墨色 —— 宁可不翻，也不要翻错 */
+      }
+    };
+
+    const readTone = () => {
+      if (!gallery) return;
+      if (gallery.classList.contains('is-contain')) return;   // 纸色打底，一定亮
+
+      const img = gallery.querySelector('img');
+      if (img instanceof HTMLImageElement) {
+        if (img.complete && img.naturalWidth) measureTone(img, img.naturalWidth, img.naturalHeight);
+        else img.addEventListener('load', readTone, { once: true });
+        return;
+      }
+
+      /* 开屏是片子的项目（等待戈多、九命、for u）没有 img，只有 video。
+         有 poster 就量 poster（不用等解码），没有就等第一帧出来直接量
+         video 本身 —— canvas 画 video 和画 img 是一样的。
+
+         只量一次，用开头那一帧定调子。这几件片子从头到尾都是暗的，
+         跟着每一帧改会让页头的字一直在闪，那比看不清更糟。 */
+      const video = gallery.querySelector('video');
+      if (!(video instanceof HTMLVideoElement)) return;
+
+      if (video.poster) {
+        const probe = new Image();
+        probe.onload = () => measureTone(probe, probe.naturalWidth, probe.naturalHeight);
+        probe.src = video.poster;
+        return;
+      }
+
+      if (video.readyState >= 2 && video.videoWidth) {
+        measureTone(video, video.videoWidth, video.videoHeight);
+      } else {
+        video.addEventListener('loadeddata', readTone, { once: true });
+      }
+    };
+
+    readTone();
+
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
 
     // 把导航实测高度写进 --nav-h，供作品页的吸顶筛选器对齐。
     // 导航高度随字号变化，写死 rem 值在不同断点会错位。
@@ -68,6 +147,17 @@ const isInfo = path.startsWith('/info');
     background: color-mix(in srgb, var(--paper) 94%, transparent);
     backdrop-filter: blur(10px);
   }
+
+  /* 压在深色开屏上时字翻浅。纸色一浮出来就不需要了，收回墨色。 */
+  .nav.on-dark:not(.is-stuck) .brand-name { color: var(--paper); }
+  .nav.on-dark:not(.is-stuck) .brand-sub,
+  .nav.on-dark:not(.is-stuck) .link { color: color-mix(in srgb, var(--paper) 72%, transparent); }
+  .nav.on-dark:not(.is-stuck) .link:hover,
+  .nav.on-dark:not(.is-stuck) .link.on { color: var(--paper); }
+
+  .brand-name,
+  .brand-sub,
+  .link { transition: color 0.3s var(--ease); }
 
   .brand,
   .links { pointer-events: auto; }
