@@ -503,7 +503,14 @@ const revised = new Date().toISOString().slice(0, 10);
     justify-content: space-between;
   }
 
-  .portrait { margin: 0; }
+  /* 脸垂直居中，对着那段大字的中段。
+     顶对齐的时候左栏是「一个图 + 底下六百像素的空」，
+     右栏却一路排到底 —— 空的其实是左下角，不是别处。
+     居中之后两栏的重心对上了，那片空白被分到上下两头，各自成了页边。 */
+  .portrait {
+    margin: 0;
+    align-self: center;
+  }
 
   .portrait :global(img) {
     display: block;
@@ -516,7 +523,7 @@ const revised = new Date().toISOString().slice(0, 10);
       grid-template-columns: minmax(0, 1fr);
       gap: clamp(1.25rem, 5vw, 2rem);
     }
-    .portrait { max-width: 300px; }
+    .portrait { max-width: 360px; align-self: start; }
   }
 
   .slug-line {
