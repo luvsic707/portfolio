@@ -476,37 +476,52 @@ const revised = new Date().toISOString().slice(0, 10);
 
   /* --- 账目表 --- */
 
+  /* ---- 账目表 ----
+     这一页之前从头到尾都是 10–13px，加了脊柱也还是一片匀净的灰，
+     所以「改了和没改差异不大」是对的：参考站真正起作用的不是栅格，
+     是字号落差 —— 学校名 50px、日期 12px、要点 16px，中间档一个没有。
+
+     现在职位／学位用到 --step-3（28–40px），单位和日期留在 10px。
+     三倍以上的落差，一眼扫下去先看见的是「她做过什么」，
+     而不是均匀的一整页字。字阶本来就有这一档，首页在用，这一页一直没用。 */
   .ledger > div {
     display: grid;
     grid-template-columns: 7.5rem minmax(0, 1fr);
     gap: 0.8rem;
-    padding-block: 0.55rem;
+    padding-block: clamp(0.9rem, 2vw, 1.4rem);
     border-bottom: 1px solid var(--line);
-    font-size: var(--step--1);
     color: var(--ink);
   }
 
+  /* 日期压到最小并且顶格 —— 它是索引，不是内容 */
   .ledger-n {
     font-family: var(--font-mono);
     font-size: var(--step--2);
     font-variant-numeric: tabular-nums;
+    padding-top: 0.5em;
     color: var(--ink-faint);
   }
 
-  .ledger dd { margin: 0; }
+  .ledger dd {
+    margin: 0;
+    font-size: clamp(1.25rem, 0.85rem + 1.3vw, 1.9rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
 
   /* 单位压一档，职位才是这一行的主语 */
   .ledger-at {
     display: block;
-    margin-top: 0.15em;
+    margin-top: 0.6em;
     color: var(--ink-soft);
     font-size: var(--step--2);
+    letter-spacing: 0.02em;
   }
 
   /* 一句话说明这份工做了什么 —— 只给经历用，学历和展览不需要 */
   .ledger-note {
     display: block;
-    margin-top: 0.35em;
+    margin-top: 0.5em;
     max-width: 62ch;
     color: var(--ink-soft);
     font-size: var(--step--2);
