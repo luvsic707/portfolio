@@ -2145,6 +2145,23 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      一圈细墨线当窗框，底下一行等宽小字写明是谁的东西。
      作品是直接落在纸上的（merge，没有框），引用有框，
      两种身份在版面上一眼分得开。 */
+  /* 几扇一样大的窗并排、居中收窄 —— 三段片子是一组同类的东西，
+     分个大小反而在说它们不一样重要。比版心窄一截，两边留白。 */
+  .prose-body :global(.windows.centred) {
+    display: grid;
+    grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+    gap: clamp(0.6rem, 1.6vw, 1.1rem);
+    width: min(100%, 60rem);
+    margin-inline: auto;
+    align-items: start;
+  }
+
+  .prose-body :global(.windows.centred > p) { margin: 0; }
+
+  @media (max-width: 700px) {
+    .prose-body :global(.windows.centred) { grid-template-columns: minmax(0, 1fr); }
+  }
+
   .prose-body :global(.windows img),
   .prose-body :global(.windows video) {
     display: block;
