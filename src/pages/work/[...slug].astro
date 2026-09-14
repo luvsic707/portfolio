@@ -294,6 +294,45 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     main.append(note);
   });
 
+  /* ---- 1b2. 连着的出处清单并成一排 ----
+     「参考文献」和「影视参考」各占一个小节，竖着摞就是两个标题、
+     两条竖列表，七行短句拉出大半屏 —— 而它们其实是同一件事的两半。
+     并排放，一眼读完，高度砍掉一半。 */
+  if (body) {
+    const subs = [...body.querySelectorAll<HTMLElement>(':scope > .sub')];
+    let run: HTMLElement[] = [];
+
+    const flush = () => {
+      if (run.length > 1) {
+        const pair = document.createElement('div');
+        pair.className = 'source-pair';
+        run[0].replaceWith(pair);
+        pair.append(...run);
+
+        /* 小节是按「h3 之后的一切」划的，所以跟在清单后面的图组
+           （这里是三扇片子的窗）也被收进了同一个小节。清单并排之后
+           那一栏只剩半幅宽，窗就被挤扁了。
+           把清单以外的东西全部请出来，放到这一排的后面去，满宽。 */
+        const after: Element[] = [];
+        for (const sub of run) {
+          const main = sub.querySelector('.sub-main');
+          if (!main) continue;
+          for (const kid of [...main.children]) {
+            if (!kid.classList.contains('sources')) after.push(kid);
+          }
+        }
+        pair.after(...after);
+      }
+      run = [];
+    };
+
+    for (const sub of subs) {
+      if (sub.querySelector('.sources')) run.push(sub);
+      else flush();
+    }
+    flush();
+  }
+
   /* ---- 1c. 章节抬头收成一条横栏（只在 merge 的项目上） ----
      原来是竖着摞的三块：节号、通栏线、说明段。说明只占左边三分之一，
      右边三分之二空着 —— 一节的开头就是一条又高又空的横带，把上一节的
@@ -2702,6 +2741,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 出处清单。正文的 li 是 --step-1，比正文还大一档 —— 那个尺寸是给
      「要一条条读的要点」的。参考文献不是要点，是出处：六条按正文大小排，
      每条还折成两行，整节就成了一堵字墙。压小、收紧、一条一行。 */
+  /* 两份出处并排。宽度不够就自己掉成一列，不用另写断点。 */
+  .prose-body :global(.source-pair) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: clamp(1.25rem, 4vw, 3rem);
+    margin-block: clamp(1.25rem, 2.6vw, 1.75rem);
+    /* 两栏不一样长，短的那栏不要被抻开 —— .sub 自己也是栅格，
+       被抻开之后它的两行会拉开，标题和清单之间凭空空出一大截。 */
+    align-items: start;
+  }
+
+  .prose-body :global(.source-pair .sub) { margin-block: 0; align-content: start; }
+
   .prose-body :global(.sources ul) { margin-top: 0.6em; max-width: none; }
 
   .prose-body :global(.sources li) {
