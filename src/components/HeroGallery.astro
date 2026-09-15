@@ -237,7 +237,14 @@ const hasVideo = slides.some((s) => s.video);
   .stage {
     position: relative;
     width: 100vw;
-    height: 100svh;
+    /* vh 垫底，svh 在下面的 @supports 里加。并排写两行会被压缩器删掉一行，
+       见 index.astro .hero 的说明。svh 丢了的话这一屏会塌成 0 高，
+       整个开屏画廊就没了。 */
+    height: 100vh;
+  }
+
+  @supports (height: 100svh) {
+    .stage { height: 100svh; }
   }
 
   .slide {

@@ -129,7 +129,15 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   .hero {
     position: relative;
-    min-height: 100svh;
+    /* 兜底写成 vh，svh 放进 @supports 里加上去（见文件末尾）。
+       不能写成「连着两行 vh 再 svh」—— 构建时的 CSS 压缩器会把前一行
+       当成冗余删掉，产物里只剩 svh，兜底等于没写。实测过。
+
+       为什么需要兜底：微信 macOS 版那个内嵌 WebKit 不认 svh，整条声明被丢，
+       首屏就没了最小高度、塌成内容高度 —— 本该钉在底边的遥测块和 SCROLL
+       跟着上移，压在正文上。svh 只在移动端比 vh 强（避开会伸缩的地址栏），
+       所以退回 vh 在桌面端看不出差别。 */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -395,5 +403,12 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
   @media (max-width: 720px) {
     .about-grid { grid-template-columns: 1fr; }
+  }
+
+  /* 认得 svh 的浏览器才用 svh —— 手机上它避开会伸缩的地址栏，比 vh 准。
+     不认的（微信 macOS 的内嵌 WebKit）留在上面那条 100vh 上。
+     必须写成 @supports：同一条规则里并排两行的写法会被压缩器删掉一行。 */
+  @supports (min-height: 100svh) {
+    .hero { min-height: 100svh; }
   }
 </style>

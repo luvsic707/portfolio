@@ -19,7 +19,7 @@ import Base from '../layouts/Base.astro';
 
 <style>
   .nf {
-    min-height: 78svh;
+    min-height: 78vh;
     display: flex;
     align-items: center;
     padding-top: 5rem;
@@ -59,4 +59,8 @@ import Base from '../layouts/Base.astro';
   }
 
   .link:hover { color: var(--red); }
+
+  @supports (min-height: 78svh) {
+    .nf { min-height: 78svh; }
+  }
 </style>

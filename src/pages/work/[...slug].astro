@@ -951,10 +951,20 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     z-index: 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 100svh;
-    margin-bottom: -100svh;
+    /* 这两条是一对：占一屏，再整个收回来。所以升级到 svh 时也必须成对升，
+       只升一条的话就成了「占了一屏但没收回来」，正文被整屏推下去。
+       升级放在下面的 @supports 里 —— 并排写两行会被压缩器删掉一行。 */
+    height: 100vh;
+    margin-bottom: -100vh;
     pointer-events: none;
     overflow: hidden;
+  }
+
+  @supports (height: 100svh) {
+    .underlay {
+      height: 100svh;
+      margin-bottom: -100svh;
+    }
   }
 
   .underlay :global(img) {
