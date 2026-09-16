@@ -74,6 +74,18 @@ const projects = defineCollection({
          摊在这张纸上，而不是"一张画的照片"。 */
       surface: z.enum(['plate', 'merge']).optional(),
 
+      /* ---- 这一页的纸是什么白 ----
+         paper（默认）：全站统一的 #F7F8F7 暖白，带一层极细的纸纹。
+         照片和实物照要这个 —— 纯白会把照片的高光顶掉。
+
+         white：纯白 #FFF，不带纸纹。给那些本来就画在白纸上、
+         靠 cutout 的 multiply 融进底面的项目 —— 底越白，白落得越干净，
+         multiply 之后画和纸严丝合缝。Otaku 那九排墨符就是这种。
+
+         只改 .sheet 的背景，不覆盖 --paper 变量 —— 那个变量在深色带里
+         是当**文字颜色**用的，覆盖了字会跟着变白。 */
+      ground: z.enum(['paper', 'white']).optional(),
+
       /* 正文背后那层极淡的作品幽灵。用这件作品自己的一张图，左右镜像、
          压到几个百分点的浓度、极慢地浮动。
 

@@ -10,6 +10,8 @@ meta:
   dimension: 25cm × 25cm × 0.3cm · 19cm × 19cm × 4cm
   media: resin, acrylic paint, clay, ultraviolet epoxy
 surface: merge
+ground: white
+underlay: ./type-no-8-alien-pet-otaku-03.webp
 gallery:
   - image: ./hero-01.jpg
     alt: The Person in a Culture Dish — Otaku 01
@@ -45,7 +47,7 @@ games, but also idols, *fujoshi*, railways, cars, NEET. What they share is stayi
 world of their own making.
 
 <!-- auto:images -->
-<div class="solo">
+<div class="solo cutout">
 
 ![A — INSPIRATION 01](./a-inspiration-02.webp)
 

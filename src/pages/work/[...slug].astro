@@ -25,7 +25,7 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next } = Astro.props;
-const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status, heroFit, surface, underlay } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status, heroFit, surface, underlay, ground } = project.data;
 const { Content, headings } = await render(project);
 
 /* 章节索引：只取 ## 这一级，长案例才值得放 */
@@ -56,7 +56,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 <Base title={`${title} — Red Thread`} description={summary} image={shareImage} type="article">
 
   <!-- ==================== 开屏：全屏画廊 ==================== -->
-  <article class:list={{ 'is-merge': surface === 'merge' }}>
+  <article class:list={{ 'is-merge': surface === 'merge', 'is-white': ground === 'white' }}>
     {slides.length > 0 && <HeroGallery slides={slides} title={title} fit={heroFit} />}
 
     <!-- 开屏底下的一切装在这张「纸」上。开屏是钉住的，这张纸往上滑
@@ -937,6 +937,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     z-index: 1;
     background-color: var(--paper);
     background-image: var(--paper-grain);
+  }
+
+  /* ground: white —— 纯白的纸，不带纸纹。
+     给画在白纸上、靠 cutout 的 multiply 融进底的项目：底是 255 的时候，
+     图里的白 multiply 之后正好还是 255，画和纸严丝合缝，一点残影都没有。
+     纸纹也去掉 —— 留着的话「纯白」就不是纯白了。
+
+     只写 background，不动 --paper 变量：那个变量在 .dark 里是当文字颜色
+     用的（color: var(--paper)），覆盖了黑带里的字会跟着变。 */
+  .is-white .sheet {
+    background-color: #fff;
+    background-image: none;
   }
 
   /* ==================== 作品幽灵 ====================
