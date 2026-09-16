@@ -114,7 +114,7 @@ into symmetry, then coloured into a symbol — the four columns below, in order.
 
 ![Type No.4 — Transportation Otaku 02](./type-no-4-transportation-otaku-02.jpg)
 
-![Type No.4 — Transportation Otaku 03](./type-no-4-transportation-otaku-03.jpg)
+![Type No.4 — Transportation Otaku 03](./type-no-4-transportation-otaku-03.webp)
 
 ![Type No.4 — Transportation Otaku 04](./type-no-4-transportation-otaku-04.webp)
 
