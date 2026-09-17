@@ -1864,7 +1864,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.solo p) { margin: 0; }
 
-  .prose-body :global(.solo img) {
+  /* 视频要和图写在一起。只写 img 的话，混排的视频按自己的原始尺寸
+     铺开 —— 1600px 的片子会直接顶破 1163 的版心。
+     这个坑在 .band、.lane、.solo 上各踩过一次。 */
+  .prose-body :global(.solo img),
+  .prose-body :global(.solo video) {
     display: block;
     width: 100%;
     height: auto;
@@ -2350,7 +2354,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     justify-content: center;
   }
 
-  .prose-body :global(.loop img) {
+  .prose-body :global(.loop img),
+  .prose-body :global(.loop video) {
     display: block;
     margin: 0;
     width: auto;
@@ -2898,7 +2903,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     scroll-snap-align: start;
   }
 
-  .prose-body :global(.lane img) {
+  .prose-body :global(.lane img),
+  .prose-body :global(.lane video) {
     display: block;
     margin: 0;
     height: 100%;

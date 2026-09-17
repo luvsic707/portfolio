@@ -87,6 +87,33 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 </div>
 
+<!-- 狐火：这一节唯一能当画看的一段，单独放大。 -->
+<div class="solo">
+
+<p><video src="/media/nine-lives-intro/c-foxfire.mp4" width="1600" height="1164" muted loop playsinline preload="metadata" data-autoplay aria-label="C — VISUAL STYLE AND TECHNICAL REFINEMENT 05"></video></p>
+
+</div>
+
+<sub>Flames turning into a fox — hand-drawn frame by frame.</sub>
+
+<!-- 工序：四段各八秒，等高一条横排（.lane），压小。
+     它们是「这活是怎么做出来的」的证据，不是作品 —— 一眼扫过就够，
+     放大只会让满屏都是软件界面。重复的三段（同一个 Photoshop 画面、
+     同一个 AE 四视图）没放。 -->
+<div class="lane">
+
+<p><video src="/media/nine-lives-intro/c-process-01.mp4" width="1280" height="930" muted loop playsinline preload="metadata" data-autoplay aria-label="Midjourney — base visuals"></video></p>
+
+<p><video src="/media/nine-lives-intro/c-process-02.mp4" width="990" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="Photoshop — repainting"></video></p>
+
+<p><video src="/media/nine-lives-intro/c-process-03.mp4" width="990" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="After Effects — the seal"></video></p>
+
+<p><video src="/media/nine-lives-intro/c-process-04.mp4" width="990" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="After Effects — 3D camera"></video></p>
+
+</div>
+
+<sub>Midjourney, Photoshop, After Effects — and the 3D camera that gives a flat film its depth.</sub>
+
 ## D — FILM STILLS
 
 The opening holds still — stable composition, symbolic figures. After the king's poem it
