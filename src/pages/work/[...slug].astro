@@ -1002,9 +1002,34 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
       if (!bar) return;
       const stop = parseFloat(getComputedStyle(bar).top) || 0;
       const now = bar.getBoundingClientRect().top <= stop + 1;
-      if (now === tabbed) return;
-      tabbed = now;
-      dispatchEvent(new CustomEvent('rt:tabbed', { detail: now }));
+      if (now !== tabbed) {
+        tabbed = now;
+        dispatchEvent(new CustomEvent('rt:tabbed', { detail: now }));
+      }
+      ground();
+    };
+
+    /* ---- 标签条跟着它底下的底色走 ----
+       暗底的页面上会有纸带（.paper，比如开场动画的 moodboard 那节）。
+       条是钉住的，纸带从它底下滑过去 —— 条要是一直深色，滑到纸带上就
+       成了压在白纸上的一条黑；一直浅色，滑到暗底上又反过来错。
+
+       所以每帧看一眼：条的下沿此刻落在哪一块里。落在纸带里就整条翻成
+       纸色，出去了再翻回来。判断用纸带自己的矩形，不用 elementFromPoint
+       —— 那个会被条自己挡住，永远只能问到条。 */
+    let onPaper: boolean | null = null;
+    const bands = [...document.querySelectorAll<HTMLElement>('.prose-body .paper')];
+
+    const ground = () => {
+      if (!bar || !bands.length) return;
+      const edge = bar.getBoundingClientRect().bottom + 1;
+      const now = bands.some((b) => {
+        const r = b.getBoundingClientRect();
+        return r.top <= edge && r.bottom >= edge;
+      });
+      if (now === onPaper) return;
+      onPaper = now;
+      bar.classList.toggle('over-paper', now);
     };
 
     const mark = () => {
@@ -1179,14 +1204,23 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     background-image: var(--sheet-grain);
   }
 
-  /* 暗底的页面上例外：翻开的那片用纸色，不用页面色。
-     页面是近黑的时候，标签跟着页面走就等于沉进夹子里 —— 翻开的那页和
-     没翻开的那几页看不出差别。白的那片反而最像「正翻开着」。
-     字跟着回墨色：--ink 在 .is-dark 里是浅的，压在白标签上等于没有。 */
-  .is-dark .sec-link.is-on {
+  /* ---- 条滑到纸带上时，整条跟着翻 ----
+     底色是什么，条就是什么：白的地方白，黑的地方黑。
+     翻开的那片仍然等于它底下那张纸，夹子仍然比纸深一档。 */
+  .is-dark .sections.over-paper {
+    background: var(--paper-sunk-light, #ECEEEC);
+  }
+
+  .is-dark .sections.over-paper .sec-link { color: #5C6262; }
+  .is-dark .sections.over-paper .sec-link.is-on { color: #101314; }
+
+  .is-dark .sections.over-paper::after { background: #A8ADAB; }
+
+  /* 条滑到纸带上时，翻开的那片也跟着变成纸 —— 它永远等于它底下
+     那张纸。字回墨色：--ink 在 .is-dark 里是浅的，压在白上等于没有。 */
+  .is-dark .sections.over-paper .sec-link.is-on {
     background-color: var(--paper);
     background-image: var(--paper-grain);
-    color: #101314;
   }
 
   /* ==================== 作品幽灵 ====================
