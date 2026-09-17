@@ -258,6 +258,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   if (body) {
     let head: HTMLElement | null = null;
     let main: HTMLElement | null = null;
+    /* 右栏开张没有 —— 见下面那段。 */
+    let opened = false;
 
     for (const el of [...body.children] as HTMLElement[]) {
       if (el.tagName === 'H3') {
@@ -270,13 +272,26 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
         sub.append(head, main);
         el.replaceWith(sub);
         head.append(el);
+        opened = false;
         continue;
       }
       if (!head || !main) continue;
       if (el.tagName === 'H2') { head = main = null; continue; }
-      /* 纯文字说明跟着标题走，图和列表进右栏 */
-      if (el.tagName === 'P' && !el.querySelector('img')) head.append(el);
-      else main.append(el);
+
+      /* 开篇的说明跟着标题走，图进右栏。
+         但只有开篇那几段才跟着走 —— 右栏一旦开了张，后面的段落就留在
+         右栏原地，不再往上收。
+
+         原来是「所有纯文字段落一律进 head」。小节只有「标题＋一段话＋
+         一堆图」的时候看不出问题，可图组之间一写图注就散了：图注全被
+         抽到最上面摞成一叠没头没尾的句子，跟它说的那组图隔着半屏。
+         E.3 那节三条图注就是这么飞走的。 */
+      if (el.tagName === 'P' && !el.querySelector('img') && !opened) {
+        head.append(el);
+      } else {
+        main.append(el);
+        opened = true;
+      }
     }
   }
 
@@ -2916,8 +2931,13 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   /* 黑带里的字和框都要反过来 —— 墨色的图注压在纯黑上等于没有，
-     窗框那条 var(--ink) 的细线同理。 */
-  .prose-body :global(.dark .win-cap) {
+     窗框那条 var(--ink) 的细线同理。
+
+     图注不止 .win-cap 一种：图组之间直接写一行 <sub> 也是图注，
+     那是 ink-soft，压在纯黑上就是看不见。黑带里的正文一律翻浅。 */
+  .prose-body :global(.dark .win-cap),
+  .prose-body :global(.dark > p),
+  .prose-body :global(.dark > p sub) {
     color: color-mix(in srgb, var(--paper) 55%, transparent);
   }
 

@@ -16,8 +16,8 @@ links:
     href: https://whimsical.com/intro-of-wod-GfwM5K2eucEkNBHchJLHC7
 surface: merge
 gallery:
-  - video: /media/nine-lives-game/hero-01.mp4
-    alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — video 01
+  - video: /media/nine-lives-game/hero-02.mp4
+    alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — Unity build
 cover: ./card.webp
 ---
 
@@ -260,12 +260,9 @@ Fate and Artifact cards are planned. Only **Element Cards** are built, and they 
 
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-The interface arrived as Unity's defaults: opaque white panels, the built-in sprite as a
-health bar, Liberation Sans. It covered the painting it was meant to frame, and said nothing
-about elements.
-
+The interface arrived as Unity's defaults, covering the painting it was meant to frame.
 Splitting the health bar into groove, fill and frame produced a grammar worth reusing — dark
-ground, art on top, frame around. It now carries five elements:
+ground, art on top, frame around — now carrying five elements:
 
 <div class="dg dg-tbl">
 
@@ -295,56 +292,75 @@ ground, art on top, frame around. It now carries five elements:
 
 </div>
 
-The energy row is left-aligned because its ceiling climbs from three to six over a fight, so
-positions you have learned never shift.
+<!-- auto:images -->
+<!-- 三条横杠是同一条血条的三个档位，中间隔的是白画布，不是画的一部分。
+     近白已经归到纯 255（见下面 cutout），multiply 之后正好落成纸色，
+     三条血条就直接摊在纸上，没有一个方框。 -->
+<div class="full cutout">
 
-What the interface still doesn't say is the more interesting half: the advantage tell draws
-into an empty array, card faces carry no cost, five status effects have no icon. Design that
-was finished and never surfaced.
+![E.3 — UI & INTERFACE 01](./i-ui-interface-01.webp)
 
-<!-- TODO: 等实机截图（战斗界面 / 对话界面 / 背包），按 auto:images 格式插入 -->
+</div>
+<!-- /auto:images -->
+
+<sub>Full, then spent: the fill clips back and the groove shows through.</sub>
+
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
+
+<!-- 这八张都是深色底的界面件，所以给它们一条黑带。
+     02–06 的四角实测就是 (0,0,0) 纯黑 —— 落在黑带上边界整个消失，
+     五块牌像本来就刻在同一片底上；摊在纸上的话就是五个黑方块。
+     07–09 是真 alpha，中间那圈透明在黑带里正好补成黑，
+     name plate 的空槽、印记里的黑地，都跟游戏里一个样。 -->
+<div class="dark">
+
+<div class="rows-5">
+
+![E.3 — UI & INTERFACE 02](./i-ui-interface-02.jpg)
+
+![E.3 — UI & INTERFACE 03](./i-ui-interface-03.jpg)
+
+![E.3 — UI & INTERFACE 04](./i-ui-interface-04.jpg)
+
+![E.3 — UI & INTERFACE 05](./i-ui-interface-05.jpg)
+
+![E.3 — UI & INTERFACE 06](./i-ui-interface-06.jpg)
+
+</div>
+
+<sub>The five who appear in the name plate.</sub>
+
+<div class="rows-3">
+
+![E.3 — UI & INTERFACE 07](./i-ui-interface-07.png)
+
+![E.3 — UI & INTERFACE 08](./i-ui-interface-08.png)
+
+![E.3 — UI & INTERFACE 09](./i-ui-interface-09.png)
+
+</div>
+
+<sub>Name plate frame, energy pip, drop seal.</sub>
+
+</div>
+
+The advantage tell, card costs and five status effects are all implemented and still
+invisible — design that was finished and never surfaced.
 
 ## F — WHERE IT LANDED
 
 Phase II moved into Unity as a team build. **Engineering is his; my side was the card system,
 the art, and the script.**
 
-What the build reaches now:
+The build runs Boot → Title → Town → Battle: the Su residence as a hub with NPCs and actions
+gated on story flags, and card combat carrying the ten-stem deck — energy, block, burn,
+weaken, drag-to-play. That covers both things the testers said were missing: somewhere for
+the story to happen, and a loop that pays you back.
 
-<div class="dg dg-tbl">
-
-<div class="dg-th">System</div>
-<div class="dg-th">What it does</div>
-<div class="dg-th">Answers</div>
-
-<div><b>Scene flow</b></div>
-<div>Boot → Title → Town → Battle, with event channels between them, so no scene references another.</div>
-<div>—</div>
-
-<div><b>Town hub</b></div>
-<div>The Su residence as a place you move around in — locations, NPCs, actions gated on story state.</div>
-<div>"nowhere for the story to happen"</div>
-
-<div><b>Card combat</b></div>
-<div>The ten-stem deck as mechanics: energy cost, block, burn, weaken, drag-to-play.</div>
-<div>"the loop lacked reward"</div>
-
-<div><b>Conditional dialogue</b></div>
-<div>Scenes gate on story flags, so the opening plays once and later ones unlock on what you did.</div>
-<div>"testers didn't care about the story"</div>
-
-<div><b>Video backgrounds</b></div>
-<div>Looping video with fade transitions — the chaos sequence opening the Yin-Yang explanation is one.</div>
-<div>—</div>
-
-</div>
-
-The inventory has its UI and data contracts in place but no items authored, which describes
-the whole thing: the systems are further along than the content.
-
-A prototype, not a shipped game. What it settles is that the ten-stem deck works as
-mechanics, not only as illustration.
+A prototype, not a shipped game. The inventory has its UI and no items authored, which
+describes the whole thing — the systems are further along than the content. What it settles
+is that the ten-stem deck works as mechanics, not only as illustration.
 
 The walkthrough below is the current build.
 
-<div class="tube" data-tube="Afdd63h1plI" data-tube-label="Nine Lives to Ruin a Kingdom — Unity build walkthrough"></div>
+<div class="tube" data-tube="v_1MZvdq1JI" data-tube-label="Nine Lives to Ruin a Kingdom — Unity build walkthrough"></div>
