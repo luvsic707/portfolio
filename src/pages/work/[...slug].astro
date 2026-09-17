@@ -544,6 +544,42 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     });
   });
 
+  /* ---- 1e. 接触带的 --n / --sum 自己算 ----
+     .band 是「一行等高，宽度各随其形」：高度一样时宽度之比就是宽高比
+     之比，于是一行正好填满，一张都不用裁。它要知道这一行的宽高比之和。
+
+     原来这个和是手写在 md 的 style 里的。手写有两个毛病：换一张图就
+     得重算，而且很容易算错 —— 相机拍的 JPEG 常带 EXIF 方向位，文件里
+     存的是 1200×900，浏览器转 90° 显示成 900×1200，照着文件算出来的
+     和是错的，整行高度就散了。
+
+     所以这里按浏览器实际要显示的尺寸算：优先取 width/height 属性
+     （Astro 写的时候已经把 EXIF 方向算进去了，而且图还没加载就有），
+     没有再退回 naturalWidth。md 里手写了 --sum 的（比如 Otaku 的印刷
+     那几带）原样不动。 */
+  document.querySelectorAll<HTMLElement>('.prose-body .band').forEach((band) => {
+    if (band.style.getPropertyValue('--sum')) return;
+    const items = [...band.querySelectorAll<HTMLElement>(':scope > p')];
+    if (!items.length) return;
+
+    let sum = 0;
+    for (const p of items) {
+      const el = p.querySelector<HTMLImageElement | HTMLVideoElement>('img, video');
+      if (!el) { sum += 1; continue; }
+      const w = Number(el.getAttribute('width'))
+        || (el as HTMLImageElement).naturalWidth
+        || (el as HTMLVideoElement).videoWidth
+        || 1;
+      const h = Number(el.getAttribute('height'))
+        || (el as HTMLImageElement).naturalHeight
+        || (el as HTMLVideoElement).videoHeight
+        || 1;
+      sum += w / h;
+    }
+    band.style.setProperty('--n', String(items.length));
+    band.style.setProperty('--sum', sum.toFixed(4));
+  });
+
   /* ---- 2. 过程图的横向滑动带 ----
      鼠标可以直接按住拖，触控板/触屏本来就能横滑。 */
   /* 按原始比例把图分栏：同一栏统一宽度、竖着摞满整条高度，

@@ -46,7 +46,8 @@ protagonists are the same not-so-smart farmer, separated only by height, weight,
 clothes.
 
 <!-- auto:images -->
-<div class="grid-3">
+<!-- 等高一行：--n / --sum 由脚本按实际显示尺寸算（见 1e） -->
+<div class="band">
 
 ![B — SCRIPT, STORYBOARD AND CONFIGURATION 01](./b-script-storyboard-and-configuration-01.webp)
 
@@ -64,7 +65,8 @@ clay, textured with a spatula and coloured with acrylic. Leaves are paper; stone
 glue.
 
 <!-- auto:images -->
-<div class="grid-4">
+<!-- 等高一行 -->
+<div class="band">
 
 ![C — PROP MAKING 01](./c-prop-making-01.jpg)
 
