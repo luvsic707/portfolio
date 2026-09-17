@@ -2799,6 +2799,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 抬头和它底下第一组图贴紧，留白留给节与节之间 */
   .prose-body :global(.sheet-head + *) { margin-top: 1.25rem; }
 
+  /* 表紧跟在节抬头底下时，不再自己画顶线。
+     .dg 自带一条 border-top 当「这块从这里开始」的记号，抬头也有一条
+     通栏的墨线压底 —— 两条一模一样的线隔着 20px 上下摞着，中间空无一物。
+     十天干那节、D 节、F 节都是这样，滚到吸顶导航底下时连导航自己那条
+     发丝线一起，三条横线挤在九十像素里。
+
+     抬头那条线本来就够当表的顶线用：位置、粗细、颜色完全一样。
+     所以留抬头的，去掉表的；行距交给 .sheet-head + * 那 1.25rem。 */
+  .prose-body :global(.sheet-head + .dg) {
+    border-top: 0;
+    padding-top: 0;
+  }
+
   /* 窄屏排不下两栏，退回上下两行，但仍然是同一条横栏 */
   @media (max-width: 720px) {
     .prose-body :global(.sheet-head) {
