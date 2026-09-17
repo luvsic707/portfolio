@@ -2,7 +2,7 @@
 title: The Last Compact
 year: '2026'
 categories: ['Game', 'AR/VR']
-featured: false
+featured: true
 order: 2
 status: COMPLETE
 summary: A first-person interactive narrative installation on memory, debt, and entropy — an infinite corridor of memory chambers whose ending is driven by a model of the protagonist's psychological state.

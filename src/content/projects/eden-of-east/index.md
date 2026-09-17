@@ -2,7 +2,7 @@
 title: EDEN OF EAST
 year: '2021–2022'
 categories: ['Illustration', 'Graphic']
-featured: true
+featured: false
 order: 10
 summary: Twelve ink pieces on the contradiction between China's metropolises and its villages — skyscrapers on one side, muddy paths on the other. Baimiao line from ink painting, crossed with geometric structure.
 meta:

@@ -2,7 +2,7 @@
 title: For U
 year: '2026-ongoing'
 categories: ['Game']
-featured: false
+featured: true
 order: 1
 status: ONGOING
 summary: A six-stage first-person experience on what algorithmic feeds leave behind. The reward lasts seconds; the debt comes back as emptiness. Most anti-addiction work casts you as the victim — this one makes you the accomplice.
