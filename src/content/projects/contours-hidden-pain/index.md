@@ -10,6 +10,9 @@ meta:
   dimension: AR interactive layer (variable digital scale)
   media: AR Poster, Animation, Sound Design
   tools: Unity · Vuforia · Tripo AI · Suno AI
+links:
+  - label: Source code
+    href: https://github.com/luvsic707/Contours-of-Hidden-Pain
 surface: merge
 gallery:
   - video: /media/contours-hidden-pain/hero-01.mp4
