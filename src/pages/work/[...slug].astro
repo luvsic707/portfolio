@@ -912,8 +912,35 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     let cur: (typeof heads)[number] | null = null;
     let queued = false;
 
+    /* ---- 标签条钉住的时候，页头收掉自己的底线 ----
+       页头一滚起来会浮出纸色加一条底线（见 Nav.astro）。标签条钉在它
+       底下时，两条平行的灰线夹出一条 35px 的窄带，读着像一行空表头。
+
+       而标签条是按「夹子的硬纸边」做的（见下面 .sections 的注释）：
+       当前那片标签要压住夹子的边线，让标签和正文连成同一张纸。顶上
+       横着一条别人画的线，夹子这个意思就不成立了。
+
+       页头是 paper 94%，标签条是 paper-sunk，明度本来就差一档 ——
+       交界处不用线也分得开。
+
+       钉住了没有类名可问，就拿它现在的 top 和 CSS 里写的停靠位置比：
+       贴上了就是钉住了。判断挂在 mark() 里跟着同一个 rAF 走，不另外
+       加滚动监听。改了才广播，页头自己决定怎么响应 —— 跟 rt:section
+       一样，两处逻辑不互相伸手。 */
+    let tabbed: boolean | null = null;
+
+    const pin = () => {
+      if (!bar) return;
+      const stop = parseFloat(getComputedStyle(bar).top) || 0;
+      const now = bar.getBoundingClientRect().top <= stop + 1;
+      if (now === tabbed) return;
+      tabbed = now;
+      dispatchEvent(new CustomEvent('rt:tabbed', { detail: now }));
+    };
+
     const mark = () => {
       queued = false;
+      pin();
       if (!heads.length) return;
       /* 每一节的地盘是「自己的标题到下一节的标题」。
          把它和标签条以下的可视区域求交集，谁的交集长谁就是当前节。 */

@@ -41,6 +41,13 @@ const isInfo = path.startsWith('/info');
       nav.classList.toggle('is-stuck', stuck);
     };
 
+    /* 作品页的章节标签条钉到页头底下时，它自己就带一道边线 ——
+       再画一条，两条平行的灰线夹出一条窄带。条自己会说话（rt:tabbed），
+       页头只管收线。 */
+    addEventListener('rt:tabbed', (e) => {
+      nav.classList.toggle('has-tabs', !!(e as CustomEvent<boolean>).detail);
+    });
+
     /* ---- 开屏是深色的怎么办 ----
        页头透明的时候，字是直接压在开屏上的。九命、等待戈多、for u
        这几件的开屏顶部接近纯黑，墨色的字压上去就看不见了。
@@ -147,6 +154,10 @@ const isInfo = path.startsWith('/info');
     background: color-mix(in srgb, var(--paper) 94%, transparent);
     backdrop-filter: blur(10px);
   }
+
+  /* 底下钉着章节标签条的时候不画底线 —— 那条线在 35px 下面，
+     标签条自己画。两条的话中间那一带像一行空表头。 */
+  .nav.is-stuck.has-tabs { border-bottom-color: transparent; }
 
   /* 压在深色开屏上时字翻浅。纸色一浮出来就不需要了，收回墨色。 */
   .nav.on-dark:not(.is-stuck) .brand-name { color: var(--paper); }
