@@ -9,6 +9,7 @@ meta:
   date: 2025.04 – 2025.07
   dimension: 1920×1080 (H.264 / ProRes)
   media: Adobe Illustrator / Photoshop / After Effects · Procreate · Sora
+series: Nine Lives to Ruin a Kingdom
 surface: merge
 gallery:
   - video: /media/nine-lives-intro/hero-01.mp4

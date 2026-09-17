@@ -54,6 +54,12 @@ const projects = defineCollection({
       /* 作品页顶部那块等宽元信息，想写几行写几行，左边的名字随便取 */
       meta: z.record(z.string()).optional(),
 
+      /* 同一个系列的几件作品写同一个串名。写了之后作品名底下会多一行，
+         写明这是这一串里的第几件，并直接链到同串的其他件 ——
+         九命那两页（卡牌和开场动画）是同一个项目的两半，光靠标题
+         前缀一样，读的人不会知道它们是一回事。 */
+      series: z.string().optional(),
+
       /* 进行中的项目在页眉横栏标一个状态。
          卷宗本来就有状态字段 —— 与其假装做完了，不如明写。 */
       status: z.string().optional(),        // 'ONGOING' / 'PROTOTYPE' / 'ARCHIVED'

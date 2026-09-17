@@ -14,6 +14,7 @@ links:
     href: https://github.com/luvsic707/nine-lives-fengshen
   - label: World-building map
     href: https://whimsical.com/intro-of-wod-GfwM5K2eucEkNBHchJLHC7
+series: Nine Lives to Ruin a Kingdom
 surface: merge
 ground: dark
 gallery:
