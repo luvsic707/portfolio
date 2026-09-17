@@ -49,14 +49,18 @@ protagonists are the same not-so-smart farmer, separated only by height, weight,
 clothes.
 
 <!-- auto:images -->
-<!-- 等高一行：--n / --sum 由脚本按实际显示尺寸算（见 1e） -->
-<div class="band">
+<!-- 等高一行：--n / --sum 由脚本按实际显示尺寸算（见 1e）。
+     三张都是白纸上的文件（分镜表、故事板、人设草图），所以走 cutout：
+     画布白落成纸色，纸上的东西直接摊在页面上，没有三个白方框。
+     画布那圈白已经归到纯 255，阈值收在 246 —— 再松就会把铅笔的
+     淡调子一起烫平。 -->
+<div class="band cutout">
 
 ![B — SCRIPT, STORYBOARD AND CONFIGURATION 01](./b-script-storyboard-and-configuration-01.webp)
 
-![B — SCRIPT, STORYBOARD AND CONFIGURATION 02](./b-script-storyboard-and-configuration-02.jpg)
+![B — SCRIPT, STORYBOARD AND CONFIGURATION 02](./b-script-storyboard-and-configuration-02.webp)
 
-![B — SCRIPT, STORYBOARD AND CONFIGURATION 03](./b-script-storyboard-and-configuration-03.jpg)
+![B — SCRIPT, STORYBOARD AND CONFIGURATION 03](./b-script-storyboard-and-configuration-03.webp)
 
 </div>
 <!-- /auto:images -->
