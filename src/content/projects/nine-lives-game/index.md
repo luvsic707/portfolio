@@ -15,6 +15,7 @@ links:
   - label: World-building map
     href: https://whimsical.com/intro-of-wod-GfwM5K2eucEkNBHchJLHC7
 surface: merge
+ground: dark
 gallery:
   - video: /media/nine-lives-game/hero-02.mp4
     alt: Nine Lives to Ruin a Kingdom — Narrative Card Game — Unity build

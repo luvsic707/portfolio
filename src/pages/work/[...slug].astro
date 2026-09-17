@@ -56,7 +56,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 <Base title={`${title} — Red Thread`} description={summary} image={shareImage} type="article">
 
   <!-- ==================== 开屏：全屏画廊 ==================== -->
-  <article class:list={{ 'is-merge': surface === 'merge', 'is-white': ground === 'white' }}>
+  <article class:list={{ 'is-merge': surface === 'merge', 'is-white': ground === 'white', 'is-dark': ground === 'dark' }}>
     {slides.length > 0 && <HeroGallery slides={slides} title={title} fit={heroFit} />}
 
     <!-- 开屏底下的一切装在这张「纸」上。开屏是钉住的，这张纸往上滑
@@ -1056,28 +1056,63 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .sheet {
     position: relative;
     z-index: 1;
-    background-color: var(--paper);
-    background-image: var(--paper-grain);
+    background-color: var(--sheet);
+    background-image: var(--sheet-grain);
+  }
+
+  /* ---- 这一页的纸是什么色，只在这里说一次 ----
+     --sheet 是纸色，--sheet-grain 是纸纹。凡是「要跟这张纸一个色」的
+     东西（翻开的那片章节标签就是）都读这两个变量，不各写各的。
+
+     一律不动 --paper 本身：那个变量在 .dark 黑带里是当**文字颜色**用的
+     （color: var(--paper)），覆盖了黑带里的字会跟着变黑。 */
+  article {
+    --sheet: var(--paper);
+    --sheet-grain: var(--paper-grain);
   }
 
   /* ground: white —— 纯白的纸，不带纸纹。
      给画在白纸上、靠 cutout 的 multiply 融进底的项目：底是 255 的时候，
      图里的白 multiply 之后正好还是 255，画和纸严丝合缝，一点残影都没有。
-     纸纹也去掉 —— 留着的话「纯白」就不是纯白了。
-
-     只写 background，不动 --paper 变量：那个变量在 .dark 里是当文字颜色
-     用的（color: var(--paper)），覆盖了黑带里的字会跟着变。 */
-  .is-white .sheet {
-    background-color: #fff;
-    background-image: none;
+     纸纹也去掉 —— 留着的话「纯白」就不是纯白了。 */
+  .is-white {
+    --sheet: #fff;
+    --sheet-grain: none;
   }
 
-  /* 纸换成纯白了，翻开的那片标签跟着换 —— 它要跟正文那张纸一个色。
-     不跟的话标签是 #F7F8F7、纸是 #FFF，正好反过来：标签比页面脏一档。
-     夹子那条硬纸边不动，它本来就该比纸深一档。 */
-  .is-white .sec-link.is-on {
-    background-color: #fff;
-    background-image: none;
+  /* ---- ground: dark —— 整页反过来 ----
+     给素材本身就长在黑底上的项目：卡牌那页的人设、界面件、印记，
+     四角实测全是 (0,0,0)。摊在惨白纸上每张都留一个方块边，
+     整页反过来之后边界消失，图和页面是同一片底。
+
+     翻的是墨和线这几个 token，不是每条规则各写一遍 —— 全站的字号、
+     表格、发丝线本来就都从 token 取色，翻了 token 它们自己就跟上了。
+
+     --paper-sunk / --paper-raised 也得跟着翻：前者是章节标签条那块
+     「夹子硬纸边」，后者是图片占位。留着浅色的话，暗底上会浮出两块白。
+
+     对比度按 WCAG AA 留了余量：--ink 对 --sheet 是 15.8:1，
+     --ink-faint（11px 大写小字用的那档）是 5.6:1。 */
+  .is-dark {
+    --sheet: #0E1011;
+    --sheet-grain: var(--paper-grain);
+    --ink: #ECEFEE;
+    --ink-soft: #A9AFAE;
+    --ink-faint: #8C9292;
+    --line: #2B3031;
+    --line-strong: #4C5254;
+    --paper-sunk: #171A1B;
+    --paper-raised: #1B1F20;
+    /* 红线在暗底上要提亮一档，#C8102E 压在近黑上只剩一团暗红 */
+    --red: #E8354F;
+    --red-wash: rgba(232, 53, 79, 0.14);
+  }
+
+  /* 翻开的那片章节标签要跟正文那张纸一个色 —— 它是「这一页正翻开着」
+     的意思，色号一差就成了贴在夹子上的另一张纸。 */
+  .sec-link.is-on {
+    background-color: var(--sheet);
+    background-image: var(--sheet-grain);
   }
 
   /* ==================== 作品幽灵 ====================
@@ -1425,8 +1460,6 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
        纹是 200px 的随机噪点，标签和纸各自从自己的边框盒起铺，对不齐
        —— 但随机噪点错开相位看不出来，色号和颗粒感一致就够。 */
-    background-color: var(--paper);
-    background-image: var(--paper-grain);
     border-color: var(--line-strong);
     /* 比其余标签高出一点，像被抽出来半公分 */
     padding-top: 0.62em;
