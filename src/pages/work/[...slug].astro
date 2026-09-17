@@ -366,6 +366,83 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     if (note.children.length) band.append(note);
   }
 
+  /* ---- 1c-2. 图与图之间的正文收成一块，不是挂在左边的一条 ----
+     节首的说明段有 .sheet-note 管着（上面 1c）。这里管的是另一种：
+     图后面、表后面、还要接着说的那几段。
+
+     它们原来一段接一段竖着摞，每段封在 56ch（约 437px）里，而同一节
+     上下的表和图都是通栏 1310px —— 一条三分之一宽的细带子夹在两块
+     通栏之间，右边三分之二是死白。卡牌那页 B 节四段连排，单这一处就
+     空出三百像素高、八百多像素宽的一片。
+
+     收成两栏：读法仍然是先下后右（CSS 多栏保证的顺序），但整块的外形
+     跟上下的表和图一样是通栏。B 节那四段从 300px 高压到 130px。
+
+     多段的时候每段加 break-inside: avoid，段不跨栏断开；栏宽 630px
+     装得下整段，不会像 .sheet-note 那样被钉成细长条（那边是 46ch 的
+     窄栏，所以那边不能加）。
+
+     单独一段也收，但得够长。见下面 tallEnough。 */
+  if (body) {
+    const runnable = (el: Element | null | undefined) =>
+      !!el &&
+      (el.tagName === 'P' || el.tagName === 'BLOCKQUOTE') &&
+      !el.querySelector('img') &&
+      !el.querySelector('video');
+
+    /* 单独一段要不要分栏，取决于它在栏宽下有几行 —— 不是它现在有几行。
+       现在的行长是 56ch（437px），栏宽是 630px，同一段在栏里少三成行。
+
+       四行起才分。三行分下来是「两行 + 一行」，右栏吊着半句话，正是
+       要修的那种不平衡；两行分下来更糟，一句话左右各一行摊开一千三。
+
+       所以先临时把它按栏宽量一次真高度，再决定 —— 拿字数猜行数得先猜
+       字宽，量出来的是实数。量完把 style 抹掉，交给样式表。 */
+    const probe = document.createElement('div');
+    probe.className = 'run';
+    body.append(probe);
+    const colGap = parseFloat(getComputedStyle(probe).columnGap) || 0;
+    const colW = (probe.clientWidth - colGap) / 2;
+    probe.remove();
+
+    const lineH = 22;
+    const tallEnough = (p: Element) => {
+      const style = (p as HTMLElement).style;
+      const had = style.maxWidth;
+      style.maxWidth = `${colW}px`;
+      const lines = Math.round(p.getBoundingClientRect().height / lineH);
+      style.maxWidth = had;
+      return lines >= 4;
+    };
+
+    /* 走活的兄弟链，不走快照 —— 段落一旦被搬进 .run 就不再是 body 的
+       子节点，照着快照走会把已经收进去的段再收一次，套出一层嵌套的
+       .run，分栏就作废了。 */
+    let el: Element | null = body.firstElementChild;
+    while (el) {
+      const isFirst = el === body.firstElementChild;
+      if (!runnable(el) || isFirst) {
+        el = el.nextElementSibling;
+        continue;
+      }
+      const group: Element[] = [el];
+      while (runnable(group[group.length - 1].nextElementSibling)) {
+        group.push(group[group.length - 1].nextElementSibling as Element);
+      }
+      const next = group[group.length - 1].nextElementSibling;
+
+      if (group.length > 1 || tallEnough(group[0])) {
+        const run = document.createElement('div');
+        /* 一段的时候要让它跨栏流下去（否则 break-inside: avoid 会把整段
+           钉在第一栏，白排一次）；多段的时候相反，段不许断开。 */
+        run.className = group.length === 1 ? 'run run-flow' : 'run';
+        group[0].replaceWith(run);
+        run.append(...group);
+      }
+      el = next;
+    }
+  }
+
   /* ---- 1d. 手排版面的落位 ----
      位置写在 md 的 data-plot 上，按图的顺序：
        「第几行 / 第几栏-第几栏 (+往下沉几 rem)」
@@ -1348,6 +1425,31 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(strong) { color: var(--ink); }
 
+  /* 正文连排的那几段收成通栏两栏（怎么收见上面的 1c-2）。
+     栏宽自己就是行宽了，所以段落的 56ch 在这里要撤掉 —— 留着的话
+     630px 的栏里只用 437px，右边又空出一条。 */
+  .prose-body :global(.run) {
+    column-count: 2;
+    column-gap: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .prose-body :global(.run > *) { break-inside: avoid; }
+  .prose-body :global(.run-flow > *) { break-inside: auto; }
+  .prose-body :global(.run p) { max-width: none; }
+  .prose-body :global(.run > :first-child) { margin-top: 0; }
+
+  /* 引文在栏里不用再对齐正文的右边缘 —— 栏宽就是右边缘 */
+  .prose-body :global(.run blockquote) {
+    max-width: none;
+    margin-block: 1.2rem;
+  }
+
+  /* 窄屏排不下两栏，退回一栏，正文重新由 56ch 管行长 */
+  @media (max-width: 760px) {
+    .prose-body :global(.run) { column-count: 1; }
+    .prose-body :global(.run p) { max-width: 56ch; }
+  }
+
   /* 装图的段落不受字宽限制 —— 否则大图会被 56ch 截住 */
   .prose-body :global(p:has(img)) { max-width: none; }
 
@@ -2114,6 +2216,20 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     grid-template-columns: minmax(0, 8rem) minmax(0, 1.75fr) minmax(0, 1fr);
   }
 
+  /* 两栏：左边一句主张，右边它换来的东西。
+     三栏那套（短标签 / 说明 / 结果）装不下一整句话 —— .dg-stage 是
+     大写等宽的标签身份，八个字宽，一句话塞进去只会折成四行细条。 */
+  .prose-body :global(.dg-tbl.dg-tbl-2) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  }
+
+  /* 左栏那句主张用正文的墨色和字重，不做成标签 —— 它是一句话，
+     不是一个名字，大写和字距会把它变成读不动的一条。 */
+  .prose-body :global(.dg-tbl > .dg-call) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
   .prose-body :global(.dg-tbl > *) {
     padding-block: 0.7rem;
     border-bottom: 1px solid var(--line);
@@ -2151,10 +2267,19 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   }
 
   @media (max-width: 760px) {
-    .prose-body :global(.dg-tbl) { grid-template-columns: minmax(0, 1fr); }
+    /* 变体要写全 —— .dg-tbl.dg-tbl-w 是两个类，权重比单个 .dg-tbl 高，
+       只写 .dg-tbl 的话窄屏根本压不住它：手机上那张「选择 / 你做了
+       什么 / 属性变化」仍然是三栏，中间那栏 116px、右边 66px，一句话
+       竖成一条。 */
+    .prose-body :global(.dg-tbl),
+    .prose-body :global(.dg-tbl.dg-tbl-w),
+    .prose-body :global(.dg-tbl.dg-tbl-2) { grid-template-columns: minmax(0, 1fr); }
     .prose-body :global(.dg-tbl > *) { border-bottom: 0; padding-block: 0.15rem; }
     .prose-body :global(.dg-tbl > .dg-th) { display: none; }
-    .prose-body :global(.dg-tbl > .dg-stage) {
+    /* 一栏之后行与行就靠这条线分开了 —— 每行的头一格顶一条线。
+       .dg-call 和 .dg-stage 一样都是行首那一格。 */
+    .prose-body :global(.dg-tbl > .dg-stage),
+    .prose-body :global(.dg-tbl > .dg-call) {
       margin-top: 1rem;
       padding-top: 0.6rem;
       border-top: 1px solid var(--line);
@@ -2841,7 +2966,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     font-style: italic;
     font-size: var(--step-1);
     color: var(--ink-soft);
-    max-width: var(--measure);
+    /* 右边缘和正文对齐。原来是 --measure（62ch，按引文自己那档字号算），
+       正文是 56ch 按 step-0 算 —— 两个数不一样，正文和引文上下摞着的时候
+       右边缘差着一百多像素，像栏没排齐。引文比正文大一档，所以字符数要少
+       一点才落在同一条边上。 */
+    max-width: 45.5ch;
   }
 
   .prose-body :global(ul) {
