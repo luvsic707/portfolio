@@ -1334,6 +1334,22 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     overscroll-behavior-x: contain;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
+
+    /* 整条要压在 .sections::after 那道边线上面。
+       这不是锦上添花，是当前标签能不能压断边线的唯一条件。
+
+       底下 .more-l / .more-r 那两个 mask-image 会给这一条开一个新的
+       层叠上下文，当前标签的 z-index: 1 就被关在里面了 —— 它只跟别的
+       标签比高低，压根到不了边线那一层。边线是 .sections 的后一个孩子，
+       于是稳稳画在标签上面：翻开的那一页底下横着一条线，夹子白做了。
+
+       而 mask 只在排不下、要左右滑的时候才挂上，所以这个毛病跟着窗口
+       宽度时有时无 —— 六节的项目最容易撞上，窄一点就中招。
+
+       所以把整条抬到边线上面。条自己没有底色，非当前的标签也是透明的，
+       边线照样从它们底下穿过去 —— 只有当前那片是纸色，只有它压断。 */
+    position: relative;
+    z-index: 1;
   }
 
   .sec-list::-webkit-scrollbar { display: none; }
@@ -1381,7 +1397,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     border-color: var(--line-strong);
     /* 比其余标签高出一点，像被抽出来半公分 */
     padding-top: 0.62em;
-    /* 抬一级，好盖住 .sections::after 那道边线 */
+    /* 比其余标签抬一级，压在它们上面 */
     z-index: 1;
   }
 
