@@ -1055,6 +1055,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     background-image: none;
   }
 
+  /* 纸换成纯白了，翻开的那片标签跟着换 —— 它要跟正文那张纸一个色。
+     不跟的话标签是 #F7F8F7、纸是 #FFF，正好反过来：标签比页面脏一档。
+     夹子那条硬纸边不动，它本来就该比纸深一档。 */
+  .is-white .sec-link.is-on {
+    background-color: #fff;
+    background-image: none;
+  }
+
   /* ==================== 作品幽灵 ====================
      整张纸背后浮着这件作品自己的一张画，左右镜像。
 
@@ -1393,7 +1401,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   /* 当前节：抬到正文的纸色，边线在它底下断开 */
   .sec-link.is-on {
     color: var(--ink);
-    background: var(--paper);
+    /* 翻开的那一页就是正文那张纸 —— 连纸纹一起，不只是同一个色号。
+       原来只给了 background: var(--paper)，色号对得上，但正文那张纸上
+       还压着一层 0.12 的噪点（.sheet 的 --paper-grain），标签上没有。
+       并排一看，标签就是比整页干净一档，像贴上去的一张白纸。
+
+       纹是 200px 的随机噪点，标签和纸各自从自己的边框盒起铺，对不齐
+       —— 但随机噪点错开相位看不出来，色号和颗粒感一致就够。 */
+    background-color: var(--paper);
+    background-image: var(--paper-grain);
     border-color: var(--line-strong);
     /* 比其余标签高出一点，像被抽出来半公分 */
     padding-top: 0.62em;
