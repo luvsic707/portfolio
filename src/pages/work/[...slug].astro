@@ -1851,6 +1851,17 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin-block: clamp(1.75rem, 4vw, 3rem);
   }
 
+  /* 又窄又高的东西按高度收，不按宽度铺 —— 分镜条是 0.40 的比例，
+     铺满版心就是两千九百像素高，一屏装不下四分之一。宽度跟着高度走，
+     居中：单边留白读起来是「没对齐」，两边等宽才是「内缩」。 */
+  .prose-body :global(.solo.tall img),
+  .prose-body :global(.solo.tall video) {
+    width: auto;
+    max-width: 100%;
+    max-height: min(78vh, 900px);
+    margin-inline: auto;
+  }
+
   .prose-body :global(.solo p) { margin: 0; }
 
   .prose-body :global(.solo img) {

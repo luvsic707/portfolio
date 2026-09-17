@@ -43,18 +43,11 @@ A dynasty falls because of two lines the king writes on the goddess's wall:
 > Within the golden chambers shines a beauty rare,<br />
 > If she were mine, what joy beyond compare.
 
-<!-- auto:skip 手排版面，导入脚本不要动这里 -->
-
-<!-- 等高一行：分镜条 + 两段剧本录屏。--r 由脚本按实际显示尺寸写。
-     那两段视频一直躺在 public/media 里没人引用 —— B 节本来只剩
-     一条孤零零的分镜。 -->
-<div class="band">
+<!-- 那两段剧本录屏不要了 —— 一屏滚动的文字，既看不清也不好看。
+     只留分镜条；它很窄很高（0.40），所以按高度收，不铺满版心。 -->
+<div class="solo tall">
 
 ![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-03.webp)
-
-<p><video src="/media/nine-lives-intro/b-early-concept-and-story-development-01.mp4" width="1356" height="1312" controls preload="metadata" aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT 02"></video></p>
-
-<p><video src="/media/nine-lives-intro/b-early-concept-and-story-development-02.mp4" width="1356" height="1312" controls preload="metadata" aria-label="B — EARLY CONCEPT AND STORY DEVELOPMENT 03"></video></p>
 
 </div>
 
