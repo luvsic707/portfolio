@@ -1179,6 +1179,16 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     background-image: var(--sheet-grain);
   }
 
+  /* 暗底的页面上例外：翻开的那片用纸色，不用页面色。
+     页面是近黑的时候，标签跟着页面走就等于沉进夹子里 —— 翻开的那页和
+     没翻开的那几页看不出差别。白的那片反而最像「正翻开着」。
+     字跟着回墨色：--ink 在 .is-dark 里是浅的，压在白标签上等于没有。 */
+  .is-dark .sec-link.is-on {
+    background-color: var(--paper);
+    background-image: var(--paper-grain);
+    color: #101314;
+  }
+
   /* ==================== 作品幽灵 ====================
      整张纸背后浮着这件作品自己的一张画，左右镜像。
 
