@@ -2050,6 +2050,11 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     width: 100%;
     overflow-x: auto;
     overscroll-behavior-x: contain;
+    /* 和 .strip / .lane / .cards 一样细、一样取 token 的颜色。
+       漏了这两行的话拿到的是系统默认滚动条 —— 在暗底页面上就是
+       横在图底下的一条大白杠，全站唯一一条没被收拾过的。 */
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
   }
 
   .prose-body :global(.reel p) {
@@ -3211,6 +3216,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
      黑带里自然就化进黑，不用管。滚动条得自己调。 */
   .prose-body :global(.dark .strip) {
     scrollbar-color: color-mix(in srgb, var(--paper) 30%, transparent) transparent;
+  }
+
+  /* 整页已经是暗底的时候，黑带里的滚动条不用再单独提亮 ——
+     提了反而只有它一条比别的滑动条白，看着像没收拾干净。
+     token 在 .is-dark 里已经翻过了，跟着 token 走就和全站一致。 */
+  .is-dark .prose-body :global(.dark .strip),
+  .is-dark .prose-body :global(.dark .lane) {
+    scrollbar-color: var(--line-strong) transparent;
   }
 
   /* 等素材的小节。和封面缺图时的 NO PLATE ON FILE 同一套写法。 */
