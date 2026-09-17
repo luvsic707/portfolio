@@ -99,6 +99,8 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 </figure>
 
+<p class="loop-arrow">a main story event, or a side quest</p>
+
 <figure>
 
 ![Phase I — make a decision](./b-loop-i-02.webp)
@@ -106,6 +108,8 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 <figcaption>Make a decision</figcaption>
 
 </figure>
+
+<p class="loop-arrow">each option reflects a personality or a strategy</p>
 
 <figure>
 
@@ -115,9 +119,7 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 </figure>
 
-<p class="loop-edge"><b>Draw → Decide</b> a main story event, or a side quest &nbsp;·&nbsp; <b>Decide → Stats</b> each option reflects a personality or a strategy</p>
-
-<p class="loop-edge is-back"><b>Stats → Draw</b> the four values influence future events and possible endings</p>
+<p class="loop-back"><span>the four values steer the events and endings you reach</span></p>
 
 </div>
 
@@ -133,6 +135,8 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 </figure>
 
+<p class="loop-arrow">triggers events and fate hints</p>
+
 <figure>
 
 ![Phase II — combat](./b-loop-ii-02.webp)
@@ -140,6 +144,8 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 <figcaption>Combat</figcaption>
 
 </figure>
+
+<p class="loop-arrow">decides outcomes and stat growth</p>
 
 <figure>
 
@@ -149,9 +155,7 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 </figure>
 
-<p class="loop-edge"><b>Narrative → Combat</b> triggers events and fate hints &nbsp;·&nbsp; <b>Combat → Progression</b> decides outcomes and stat growth</p>
-
-<p class="loop-edge is-back"><b>Progression → Narrative</b> higher stats unlock branching storylines, side quests and fate events</p>
+<p class="loop-back"><span>higher stats unlock branching storylines, side quests and fate events</span></p>
 
 </div>
 

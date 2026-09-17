@@ -2232,22 +2232,28 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.dg-arrow.long) { height: 2.25rem; }
 
-  /* ---- 循环图：三步一圈，箭头上写这条边是什么 ----
+  /* ---- 循环图：三步围成一圈 ----
      原来这里贴的是一张导出的流程图截图 —— 一张 1200px 的白底图，
      上面的字是图片里的字：搜不到、选不中、读屏读不出来，暗底上还是
-     一整块亮方。现在只留三张真正的画面，图与图之间的关系用排版说。
+     一整块亮方。现在只留三张真正的画面，边和箭头用排版画出来。
 
-     三步之后有一条回到起点的线：循环之所以是循环，全在那一条上，
-     少了它就只是三个步骤排成一行。 */
+     栏宽比例 1 : 0.62 : 1 : 0.62 : 1（图、箭头、图、箭头、图），
+     底下那条回线的两个竖脚要正对第一格和第三格的中线。算上栏间距，
+     实测那条中线落在 11.2% —— 改了栏宽或间距，这个数要跟着重量一次。 */
   .prose-body :global(.loop) {
+    position: relative;
     width: 100%;
     max-width: none;
-    margin-block: clamp(1.5rem, 3.5vw, 2.5rem);
+    margin-block: clamp(1.75rem, 4vw, 3rem) clamp(2.5rem, 5vw, 3.5rem);
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: clamp(0.75rem, 2.5vw, 2rem);
-    row-gap: 0.5rem;
+    grid-template-columns:
+      minmax(0, 1fr) minmax(86px, 0.62fr)
+      minmax(0, 1fr) minmax(86px, 0.62fr)
+      minmax(0, 1fr);
+    column-gap: clamp(0.4rem, 1.2vw, 1rem);
     align-items: end;
+    /* 给底下那条回线留地方 */
+    padding-bottom: 4.5rem;
   }
 
   .prose-body :global(.loop figure) {
@@ -2275,7 +2281,7 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin: 0;
     width: auto;
     max-width: 100%;
-    max-height: clamp(120px, 15vw, 190px);
+    max-height: clamp(110px, 14vw, 180px);
   }
 
   .prose-body :global(.loop figcaption) {
@@ -2287,47 +2293,122 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     text-align: center;
   }
 
-  /* 边：一条横线加一句话，压在两步之间。
-     线用 ::before 画，所以文字换几行都不影响线的位置。 */
-  .prose-body :global(.loop-edge) {
-    grid-column: 1 / -1;
-    position: relative;
+  /* ---- 步与步之间的那条边 ----
+     一条横线、一个箭头、底下一句话。线压在三张图的竖直中线上，
+     所以是 align-self: center 再往上提半个图注的高度。 */
+  .prose-body :global(.loop-arrow) {
+    align-self: center;
     margin: 0;
-    padding-top: 0.9rem;
+    margin-bottom: 1.6rem;
     max-width: none;
+    position: relative;
+    padding-top: 1.1rem;
     font-family: var(--font-mono);
     font-size: var(--step--2);
     line-height: 1.5;
-    letter-spacing: 0.02em;
+    text-align: center;
     color: var(--ink-faint);
   }
 
-  .prose-body :global(.loop-edge)::before {
+  .prose-body :global(.loop-arrow)::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: 0.5rem;
     left: 0;
-    right: 0;
+    right: 6px;
     height: 1px;
-    background: var(--line);
+    background: var(--line-strong);
   }
 
-  /* 收口那条边 —— 它是循环成立的地方，画成红线，和全站唯一那根红对齐 */
-  .prose-body :global(.loop-edge.is-back) { color: var(--red); }
-  .prose-body :global(.loop-edge.is-back)::before { background: var(--red); }
-
-  .prose-body :global(.loop-edge) b {
-    color: var(--ink);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  /* 箭头：一个三角，不是字符 —— 字符的 → 在等宽里两边留白不一样，
+     线和头之间永远有个豁口。 */
+  .prose-body :global(.loop-arrow)::after {
+    content: '';
+    position: absolute;
+    top: calc(0.5rem - 3px);
+    right: 0;
+    width: 7px;
+    height: 7px;
+    background: var(--line-strong);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
   }
 
-  .prose-body :global(.loop-edge.is-back) b { color: var(--red); }
+  /* ---- 收口的那条边 ----
+     循环之所以是循环，全在这一条上。它从第三格底下走下来、横过整排、
+     再折上去指回第一格 —— 所以画成一个开口朝上的 U，两个竖脚正对
+     第一格和第三格的中线。
 
-  @media (max-width: 640px) {
-    .prose-body :global(.loop) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .prose-body :global(.loop figcaption) { letter-spacing: 0.04em; }
+     红色：全站唯一那根红，留给「这里合上了」这种事。 */
+  .prose-body :global(.loop-back) {
+    position: absolute;
+    left: 11.2%;
+    right: 11.2%;
+    bottom: 0.9rem;
+    height: 2.5rem;
+    margin: 0;
+    max-width: none;
+    border: 1px solid var(--red);
+    border-top: 0;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1;
+    color: var(--red);
+  }
+
+  /* 回线左端的箭头，指回第一格 */
+  .prose-body :global(.loop-back)::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -3.5px;
+    width: 7px;
+    height: 7px;
+    background: var(--red);
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+
+  /* 那句话压在底边线上，背景挖掉一段，线不穿字 */
+  .prose-body :global(.loop-back span) {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    padding: 0 0.7em;
+    background: var(--sheet);
+    white-space: nowrap;
+  }
+
+  /* 窄屏排不下三栏 —— 收成竖着的一列，边写在两步之间，
+     回线那一圈在这个宽度下没有意义，退成一行字。 */
+  @media (max-width: 720px) {
+    .prose-body :global(.loop) {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 0.75rem;
+      padding-bottom: 0;
+    }
+    .prose-body :global(.loop-arrow) {
+      align-self: stretch;
+      margin-bottom: 0;
+      padding-top: 0.9rem;
+      text-align: left;
+    }
+    .prose-body :global(.loop-arrow)::after { display: none; }
+    .prose-body :global(.loop-back) {
+      position: static;
+      height: auto;
+      border: 0;
+      border-top: 1px solid var(--red);
+      padding-top: 0.6rem;
+      line-height: 1.5;
+    }
+    .prose-body :global(.loop-back)::before { display: none; }
+    .prose-body :global(.loop-back span) {
+      position: static;
+      transform: none;
+      padding: 0;
+      background: none;
+      white-space: normal;
+    }
   }
 
   /* --- 一横排的小节点，中间带箭头 --- */
