@@ -1069,6 +1069,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   article {
     --sheet: var(--paper);
     --sheet-grain: var(--paper-grain);
+
+    /* 墨色要在这里重新取一次。
+       body 上写的是 color: var(--ink)，那句在 body 身上就已经算成了
+       具体的颜色值；底下凡是没自己写 color 的元素，继承到的是那个
+       算好的值，跟 article 把 --ink 改成什么毫无关系。
+
+       作品名就是这么丢的：.ref 自己写了 color: var(--ink) 所以翻了，
+       紧挨着的 .title 没写，于是在暗底上还顶着 #101314，几乎看不见。
+
+       纸色和白纸两种 ground 下 --ink 本来就等于 body 的值，这行不改
+       任何东西；只有 dark 会真的重算。 */
+    color: var(--ink);
   }
 
   /* ground: white —— 纯白的纸，不带纸纹。

@@ -279,15 +279,15 @@ Fate and Artifact cards are planned. Only **Element Cards** are built, and they 
 
 ![E.2 — SYMBOLS & ICONS 05](./g-card-design-05.jpg)
 
-![E.2 — SYMBOLS & ICONS 06](./g-card-design-06.jpg)
+![E.2 — SYMBOLS & ICONS 06](./g-card-design-06.webp)
 
-![E.2 — SYMBOLS & ICONS 07](./g-card-design-07.jpg)
+![E.2 — SYMBOLS & ICONS 07](./g-card-design-07.webp)
 
-![E.2 — SYMBOLS & ICONS 08](./g-card-design-08.jpg)
+![E.2 — SYMBOLS & ICONS 08](./g-card-design-08.webp)
 
-![E.2 — SYMBOLS & ICONS 09](./g-card-design-09.jpg)
+![E.2 — SYMBOLS & ICONS 09](./g-card-design-09.webp)
 
-![E.2 — SYMBOLS & ICONS 10](./g-card-design-10.jpg)
+![E.2 — SYMBOLS & ICONS 10](./g-card-design-10.webp)
 
 ![E.2 — SYMBOLS & ICONS 11](./g-card-design-11.jpg)
 
