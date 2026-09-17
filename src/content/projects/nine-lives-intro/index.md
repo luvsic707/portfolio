@@ -39,6 +39,11 @@ writes on the goddess's wall:
 > If she were mine, what joy beyond compare.
 
 <!-- auto:images -->
+<!-- 两张 moodboard 本来就画在纸上，暗底上既不能叠底也不能反色
+     （彩色拼贴，反了就毁）。给它们一条通栏纸带，当成卷宗里
+     「这一部分在纸上」那一段。 -->
+<div class="paper">
+
 <div class="pair" style="--cols: 0.707fr 0.707fr">
 
 ![A — INSPIRATION 01](./a-inspiration-01.jpg)
@@ -46,7 +51,8 @@ writes on the goddess's wall:
 ![A — INSPIRATION 02](./a-inspiration-02.jpg)
 
 </div>
-<!-- /auto:images -->
+
+</div>
 
 ## B — AI PROTOTYPE ITERATION
 

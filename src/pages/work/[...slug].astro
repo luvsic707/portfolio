@@ -3325,6 +3325,38 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     .prose-body :global(.sheet-head)::after { grid-row: 2; }
   }
 
+  /* ---- paper：.dark 的镜像 ----
+     暗底的页面上，本来就画在纸上的东西（moodboard、扫描件）没法叠底，
+     也没法反色 —— 它们是彩色拼贴，反过来就毁了。量过了，这两张四边
+     一点余白都没有，裁也裁不动。
+
+     所以反过来：给它们一条通栏的纸带。这样读到的是「卷宗这一部分在
+     纸上」，而不是「两张白纸浮在暗底上」—— 一样的白，两种读法。
+     做法和 .dark 一样：box-shadow 把纸色铺到视口两边，它画在盒子外面，
+     不占布局。 */
+  .prose-body :global(.paper) {
+    position: relative;
+    padding-block: clamp(1.5rem, 4vw, 2.75rem);
+    margin-block: clamp(2rem, 5vw, 3.5rem);
+    background: var(--paper);
+  }
+
+  .prose-body :global(.paper)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: 0 0 0 100vmax var(--paper);
+    clip-path: inset(0 -100vmax);
+    pointer-events: none;
+  }
+
+  .prose-body :global(.paper > *) { position: relative; }
+
+  /* 纸带里的字回到墨色 —— 暗底页面上正文是浅的，压在纸上等于没有 */
+  .prose-body :global(.paper p),
+  .prose-body :global(.paper p sub),
+  .prose-body :global(.paper .win-cap) { color: var(--ink-soft); }
+
   /* ---- dark：拍在黑底上的东西，就给它黑底 ----
      E 那一节是书，摄影棚黑布上拍的，边角全是 rgb(2,2,2)。放在纸上
      就是十八个黑方块 —— 和"白底的画落进白纸"正好相反的错。
