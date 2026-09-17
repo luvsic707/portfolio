@@ -41,14 +41,18 @@ writes on the goddess's wall:
 <!-- auto:images -->
 <!-- 两张 moodboard 本来就画在纸上，暗底上既不能叠底也不能反色
      （彩色拼贴，反了就毁）。给它们一条通栏纸带，当成卷宗里
-     「这一部分在纸上」那一段。 -->
+     「这一部分在纸上」那一段。
+
+     三个白要对齐：纸带是 --paper (247,248,247)，两张扫描件原本是
+     243,243,243 和 222,220,219 —— 并排就是三种白。已按各自的纸色
+     做过白点校正（逐通道增益），现在三者一致，接缝看不出来。 -->
 <div class="paper">
 
 <div class="pair" style="--cols: 0.707fr 0.707fr">
 
-![A — INSPIRATION 01](./a-inspiration-01.jpg)
+![A — INSPIRATION 01](./a-inspiration-01.webp)
 
-![A — INSPIRATION 02](./a-inspiration-02.jpg)
+![A — INSPIRATION 02](./a-inspiration-02.webp)
 
 </div>
 
