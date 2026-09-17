@@ -141,9 +141,8 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 ## C — THE TEN STEMS
 
-Not five elements with a yin and yang coat of paint. The **Ten Heavenly Stems** arrive
-already doubled: 甲 the upright tree, 乙 the coiling vine; 丙 the sun, 丁 the lamp. Three
-words per card, fixed before anything was drawn:
+Not five elements with a yin and yang coat of paint — the **Ten Heavenly Stems** arrive
+already doubled. Three words per card, fixed before anything was drawn:
 
 <div class="dg dg-tbl dg-tbl-w">
 
@@ -161,7 +160,7 @@ words per card, fixed before anything was drawn:
 
 <div class="dg-stage"><b>丙</b>Yang Fire</div>
 <div>deflagration · blazing sun · outward</div>
-<div>Everything at once, nothing held back</div>
+<div>Everything at once</div>
 
 <div class="dg-stage"><b>丁</b>Yin Fire</div>
 <div>candle flame · ritual · night fire</div>
@@ -173,7 +172,7 @@ words per card, fixed before anything was drawn:
 
 <div class="dg-stage"><b>己</b>Yin Earth</div>
 <div>wet soil · mud · healing</div>
-<div>The ground that feeds — restoration</div>
+<div>The ground that feeds</div>
 
 <div class="dg-stage"><b>庚</b>Yang Metal</div>
 <div>unyielding · slaughter · steel</div>
@@ -181,7 +180,7 @@ words per card, fixed before anything was drawn:
 
 <div class="dg-stage"><b>辛</b>Yin Metal</div>
 <div>refined · delicate · small implements</div>
-<div>Precision and refinement over force</div>
+<div>Precision over force</div>
 
 <div class="dg-stage"><b>壬</b>Yang Water</div>
 <div>ocean · storm · surging</div>
@@ -193,8 +192,7 @@ words per card, fixed before anything was drawn:
 
 </div>
 
-Underneath runs the overcoming cycle. In the build it tilts an exchange rather than
-deciding it.
+Underneath runs the overcoming cycle — it tilts an exchange, not decides it.
 
 ## D — PROCESS
 
@@ -206,22 +204,21 @@ Four decisions did most of the work, and none of them were about drawing.
 <div class="dg-th">What it bought</div>
 
 <div class="dg-call">Borrow a system that already has meaning; don't invent one.</div>
-<div>Five elements with a yin and yang label is a spreadsheet. The Ten Stems arrive already differentiated, so ten cards felt distinct before a single mark.</div>
+<div>Ten cards felt distinct before a single mark.</div>
 
 <div class="dg-call">Write the words before the image.</div>
-<div>Three words per card, fixed first. If two cards can't be separated in words, the paintings won't separate them either — 庚 and 辛 are both metal, but "slaughter, steel" and "delicate, small implements" are not one card.</div>
+<div>If two cards can't be separated in words, the paintings won't separate them either.</div>
 
 <div class="dg-call">Make the polarity visible, not labelled.</div>
-<div>Yang cards are cream paper with a black glyph; Yin inverts to near-black with white. Readable across a table, without reading the corner.</div>
+<div>Readable across a table, without reading the corner.</div>
 
 <div class="dg-call">Prototype in the cheapest tool that can answer the question.</div>
-<div>ProtoPie took two weeks and told me the loop was wrong. Finding that out after a Unity build would have cost months.</div>
+<div>Two weeks told me the loop was wrong. A Unity build would have cost months.</div>
 
 </div>
 
-Pipeline: script and boards → thumbnails → AI for initial motion → After Effects and
-TouchDesigner → sound last. The storytelling leans abstract on purpose — at this size,
-detailed narrative art is the most expensive thing there is.
+Pipeline: boards → thumbnails → AI for initial motion → After Effects and TouchDesigner →
+sound. Abstract on purpose: detailed narrative art is the most expensive thing at this size.
 
 <!-- auto:images -->
 <div class="slider">
