@@ -43,14 +43,6 @@ A dynasty falls because of two lines the king writes on the goddess's wall:
 > Within the golden chambers shines a beauty rare,<br />
 > If she were mine, what joy beyond compare.
 
-<!-- 那两段剧本录屏不要了 —— 一屏滚动的文字，既看不清也不好看。
-     只留分镜条；它很窄很高（0.40），所以按高度收，不铺满版心。 -->
-<div class="solo tall">
-
-![B — EARLY CONCEPT AND STORY DEVELOPMENT 01](./b-early-concept-and-story-development-03.webp)
-
-</div>
-
 ## C — AI PROTOTYPE ITERATION
 
 A test video in Sora AI, to check whether the story logic and the camera language worked. I
