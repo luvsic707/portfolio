@@ -87,20 +87,14 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 </div>
 
-<!-- 狐火。原片是在访达预览窗口里录的屏：顶上一条标题栏、底下一排缩略图。
-     裁掉上下的界面（crop 2180x1268 +92），只留画面本身；前十三秒只是一点
-     火星，也剪掉了。不铺满版心 —— 满幅的深底压在纸上太重。 -->
-<div class="solo half">
+<!-- 狐火和四段工序排成一行，等高，排不下就横滑。
+     狐火在最前面、也最宽 —— 它是唯一能当画看的一段；后面四段是
+     「这活怎么做出来的」的注脚。
+     狐火原片是在访达预览窗口里录的屏（顶上标题栏、底下一排缩略图），
+     已经裁掉界面（crop 2180x1268 +92），前十三秒只有一点火星也剪了。 -->
+<div class="lane">
 
-<p><video src="/media/nine-lives-intro/c-foxfire.mp4" width="1400" height="814" muted loop playsinline preload="metadata" data-autoplay aria-label="C — VISUAL STYLE AND TECHNICAL REFINEMENT 05"></video></p>
-
-</div>
-
-<sub>Flames turning into a fox — hand-drawn frame by frame.</sub>
-
-<!-- 工序录屏缩到脚注的尺寸：它们是「这活怎么做出来的」的一行注脚，
-     不是作品。放大一点就是满屏 Photoshop。 -->
-<div class="lane small">
+<p><video src="/media/nine-lives-intro/c-foxfire.mp4" width="1400" height="814" muted loop playsinline preload="metadata" data-autoplay aria-label="Flames turning into a fox"></video></p>
 
 <p><video src="/media/nine-lives-intro/c-process-01.mp4" width="1280" height="930" muted loop playsinline preload="metadata" data-autoplay aria-label="Midjourney — base visuals"></video></p>
 
@@ -112,7 +106,7 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 </div>
 
-<sub>Midjourney → Photoshop → After Effects.</sub>
+<sub>Flames turning into a fox, hand-drawn frame by frame — then Midjourney → Photoshop → After Effects.</sub>
 
 ## D — FILM STILLS
 
