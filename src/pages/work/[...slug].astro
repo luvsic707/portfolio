@@ -1851,6 +1851,14 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     margin-block: clamp(1.75rem, 4vw, 3rem);
   }
 
+  /* 单张不占满版心。深色的片子铺满整条版心，就是一大块黑压在纸上 ——
+     测过了，这一段四边没有可裁的死黑，画面本来就是满的，所以只能收小。
+     收到六成宽、居中：黑的面积小了，它读起来是一块板，不是一片底。 */
+  .prose-body :global(.solo.half) {
+    width: min(100%, 620px);
+    margin-inline: auto;
+  }
+
   /* 又窄又高的东西按高度收，不按宽度铺 —— 分镜条是 0.40 的比例，
      铺满版心就是两千九百像素高，一屏装不下四分之一。宽度跟着高度走，
      居中：单边留白读起来是「没对齐」，两边等宽才是「内缩」。 */

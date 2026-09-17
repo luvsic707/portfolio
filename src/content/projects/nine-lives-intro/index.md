@@ -87,8 +87,8 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 </div>
 
-<!-- 狐火：这一节唯一能当画看的一段，单独放大。 -->
-<div class="solo">
+<!-- 狐火：这一节唯一能当画看的一段。不铺满版心 —— 满幅的黑压在纸上太重。 -->
+<div class="solo half">
 
 <p><video src="/media/nine-lives-intro/c-foxfire.mp4" width="1600" height="1164" muted loop playsinline preload="metadata" data-autoplay aria-label="C — VISUAL STYLE AND TECHNICAL REFINEMENT 05"></video></p>
 
