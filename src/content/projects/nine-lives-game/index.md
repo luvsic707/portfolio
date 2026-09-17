@@ -148,51 +148,41 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 Not five elements with a yin and yang coat of paint — the **Ten Heavenly Stems** arrive
 already doubled. Three words per card, fixed before anything was drawn:
 
-<div class="dg dg-tbl dg-tbl-w">
+<!-- 「它必须是什么」那一栏撤了：三个词就是那个意思。
+     「upward · straight · growth」旁边再写一句「Reach and escalation」，
+     是把同一件事换个说法说第二遍。
+     十行两栏太高，所以分成左右两半，每半五行。 -->
+<div class="dg dg-tbl dg-tbl-s">
 
 <div class="dg-th">Stem</div>
 <div class="dg-th">Three words</div>
-<div class="dg-th">What it has to be</div>
+<div class="dg-th">Stem</div>
+<div class="dg-th">Three words</div>
 
 <div class="dg-stage"><b>甲</b>Yang Wood</div>
 <div>upward · straight · growth</div>
-<div>Reach and escalation</div>
+<div class="dg-stage"><b>己</b>Yin Earth</div>
+<div>wet soil · mud · healing</div>
 
 <div class="dg-stage"><b>乙</b>Yin Wood</div>
 <div>soft · coiling · poison</div>
-<div>Binds and lingers</div>
+<div class="dg-stage"><b>庚</b>Yang Metal</div>
+<div>unyielding · slaughter · steel</div>
 
 <div class="dg-stage"><b>丙</b>Yang Fire</div>
 <div>deflagration · blazing sun · outward</div>
-<div>Everything at once</div>
+<div class="dg-stage"><b>辛</b>Yin Metal</div>
+<div>refined · delicate · small implements</div>
 
 <div class="dg-stage"><b>丁</b>Yin Fire</div>
 <div>candle flame · ritual · night fire</div>
-<div>Small, deliberate, marks a target</div>
+<div class="dg-stage"><b>壬</b>Yang Water</div>
+<div>ocean · storm · surging</div>
 
 <div class="dg-stage"><b>戊</b>Yang Earth</div>
 <div>mountain · mass · defence</div>
-<div>The wall that doesn't move</div>
-
-<div class="dg-stage"><b>己</b>Yin Earth</div>
-<div>wet soil · mud · healing</div>
-<div>The ground that feeds</div>
-
-<div class="dg-stage"><b>庚</b>Yang Metal</div>
-<div>unyielding · slaughter · steel</div>
-<div>The axe. Straight damage</div>
-
-<div class="dg-stage"><b>辛</b>Yin Metal</div>
-<div>refined · delicate · small implements</div>
-<div>Precision over force</div>
-
-<div class="dg-stage"><b>壬</b>Yang Water</div>
-<div>ocean · storm · surging</div>
-<div>Overwhelms by volume</div>
-
 <div class="dg-stage"><b>癸</b>Yin Water</div>
 <div>rain threads · night · cold dew</div>
-<div>Seeps in, conceals</div>
 
 </div>
 

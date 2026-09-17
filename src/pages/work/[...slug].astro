@@ -2521,6 +2521,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     grid-template-columns: minmax(0, 8rem) minmax(0, 1.75fr) minmax(0, 1fr);
   }
 
+  /* 四栏：短标签 + 内容，再来一遍。
+     十行的清单竖着排太高，对半折成左右两半，每半五行 ——
+     行还是行，只是一页里放得下两列。 */
+  .prose-body :global(.dg-tbl.dg-tbl-s) {
+    grid-template-columns:
+      minmax(0, 8.5rem) minmax(0, 1fr)
+      minmax(0, 8.5rem) minmax(0, 1fr);
+  }
+
   /* 两栏：左边一句主张，右边它换来的东西。
      三栏那套（短标签 / 说明 / 结果）装不下一整句话 —— .dg-stage 是
      大写等宽的标签身份，八个字宽，一句话塞进去只会折成四行细条。 */
@@ -2578,7 +2587,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
        竖成一条。 */
     .prose-body :global(.dg-tbl),
     .prose-body :global(.dg-tbl.dg-tbl-w),
-    .prose-body :global(.dg-tbl.dg-tbl-2) { grid-template-columns: minmax(0, 1fr); }
+    .prose-body :global(.dg-tbl.dg-tbl-2),
+    .prose-body :global(.dg-tbl.dg-tbl-s) { grid-template-columns: minmax(0, 1fr); }
     .prose-body :global(.dg-tbl > *) { border-bottom: 0; padding-block: 0.15rem; }
     .prose-body :global(.dg-tbl > .dg-th) { display: none; }
     /* 一栏之后行与行就靠这条线分开了 —— 每行的头一格顶一条线。
