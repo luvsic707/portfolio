@@ -42,30 +42,8 @@ to waver. Zhou resists them both, and destroys himself doing it.
 
 ## B — FIRST PROTOTYPE
 
-Four hidden attributes — Love, Corruption, Divine Favour, Freedom — shift with every choice
-and decide the ending you reach.
-
-Scene 1: take Su Daji's body. The goal never changes, only what it costs.
-
-<div class="dg dg-tbl dg-tbl-w">
-
-<div class="dg-th">Choice</div>
-<div class="dg-th">What you do</div>
-<div class="dg-th">Stat change</div>
-
-<div class="dg-stage"><b>01</b>Force</div>
-<div>Tear her soul open and seize the body. Rapid clicks against a soul-pressure bar.</div>
-<div>Corruption +2 · Freedom +2 · Divine Favour −2 · Love −1</div>
-
-<div class="dg-stage"><b>02</b>Dream</div>
-<div>Build her an illusion until she gives the body up willingly. Three rounds of dialogue lower her Mind Resistance.</div>
-<div>Divine Favour +2 · Love +1 · Freedom −1 · Corruption ±0</div>
-
-<div class="dg-stage"><b>03</b>Poison</div>
-<div>Serpent venom in her tea forces the soul out. Sequence clicking — kettle, poison, incense burner.</div>
-<div>Corruption +1 · Freedom +2 · Divine Favour −1 · Love −1</div>
-
-</div>
+Four hidden attributes — Love, Corruption, Divine Favour, Freedom — shift with every
+choice.
 
 Built in **ProtoPie, not Unity** — two weeks, because "does the flow hold up" doesn't need an
 engine to answer. Testers said:
