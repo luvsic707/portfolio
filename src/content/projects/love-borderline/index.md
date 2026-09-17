@@ -139,8 +139,12 @@ Someone described it as *moving through the world without skin*.
 
 MY MOST OF FILES MISSING .....
 
-<!-- auto:images -->
-<div class="grid-4 cutout">
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
+
+<!-- 四张比例是 1.39 / 0.79 / 0.96 / 1.09。grid-4 是多栏：等宽，
+     于是高度各随比例，四张挂在同一条顶线上、底下参差不齐。
+     改成等高一行，宽度各随其形，一行正好填满。 -->
+<div class="band cutout">
 
 ![B — MOODBOARD 01](./b-moodboard-01.webp)
 
@@ -151,7 +155,6 @@ MY MOST OF FILES MISSING .....
 ![B — MOODBOARD 04](./b-moodboard-04.webp)
 
 </div>
-<!-- /auto:images -->
 
 ## C — PHOTOGRAPHY
 
