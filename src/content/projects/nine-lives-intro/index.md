@@ -77,14 +77,18 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-<!-- 三张比例是 2.00 / 1.33 / 1.33，多栏排会高低不齐 -->
-<div class="band">
+<!-- 四张都是 1000×500，比例一样，所以 2×2 排正好齐。
+     铅笔画在白纸上 —— 画布白已经归到纯 255（阈值 246，再松就把
+     淡铅笔一起烫平），cutout 之后白落成纸色，草图直接摊在页面上。 -->
+<div class="rows-2 cutout">
 
-![D — VISUAL STYLE AND TECHNICAL REFINEMENT 01](./d-visual-style-and-technical-refinement-01.jpg)
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 01](./d-visual-style-and-technical-refinement-01.webp)
 
-![D — VISUAL STYLE AND TECHNICAL REFINEMENT 02](./d-visual-style-and-technical-refinement-02.jpg)
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 02](./d-visual-style-and-technical-refinement-02.webp)
 
-![D — VISUAL STYLE AND TECHNICAL REFINEMENT 03](./d-visual-style-and-technical-refinement-03.jpg)
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 03](./d-visual-style-and-technical-refinement-03.webp)
+
+![D — VISUAL STYLE AND TECHNICAL REFINEMENT 04](./d-visual-style-and-technical-refinement-04.webp)
 
 </div>
 
