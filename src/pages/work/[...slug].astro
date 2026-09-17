@@ -2901,6 +2901,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     cursor: grab;
   }
 
+  /* 小号：当脚注用的那种。工序录屏放在这个高度上读的是「有这么回事」，
+     不是「看这个」—— 再高一点就变成满屏软件界面。 */
+  .prose-body :global(.lane.small) { height: clamp(120px, 13vw, 165px); }
+
   .prose-body :global(.lane.is-dragging) { cursor: grabbing; scroll-snap-type: none; }
 
   .prose-body :global(.lane p) {

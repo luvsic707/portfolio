@@ -87,14 +87,32 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 
 </div>
 
-<!-- 狐火：这一节唯一能当画看的一段。不铺满版心 —— 满幅的黑压在纸上太重。 -->
+<!-- 狐火。原片是在访达预览窗口里录的屏：顶上一条标题栏、底下一排缩略图。
+     裁掉上下的界面（crop 2180x1268 +92），只留画面本身；前十三秒只是一点
+     火星，也剪掉了。不铺满版心 —— 满幅的深底压在纸上太重。 -->
 <div class="solo half">
 
-<p><video src="/media/nine-lives-intro/c-foxfire.mp4" width="1600" height="1164" muted loop playsinline preload="metadata" data-autoplay aria-label="C — VISUAL STYLE AND TECHNICAL REFINEMENT 05"></video></p>
+<p><video src="/media/nine-lives-intro/c-foxfire.mp4" width="1400" height="814" muted loop playsinline preload="metadata" data-autoplay aria-label="C — VISUAL STYLE AND TECHNICAL REFINEMENT 05"></video></p>
 
 </div>
 
 <sub>Flames turning into a fox — hand-drawn frame by frame.</sub>
+
+<!-- 工序录屏缩到脚注的尺寸：它们是「这活怎么做出来的」的一行注脚，
+     不是作品。放大一点就是满屏 Photoshop。 -->
+<div class="lane small">
+
+<p><video src="/media/nine-lives-intro/c-process-01.mp4" width="1280" height="930" muted loop playsinline preload="metadata" data-autoplay aria-label="Midjourney — base visuals"></video></p>
+
+<p><video src="/media/nine-lives-intro/c-process-02.mp4" width="990" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="Photoshop — repainting"></video></p>
+
+<p><video src="/media/nine-lives-intro/c-process-03.mp4" width="990" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="After Effects — the seal"></video></p>
+
+<p><video src="/media/nine-lives-intro/c-process-04.mp4" width="990" height="720" muted loop playsinline preload="metadata" data-autoplay aria-label="After Effects — 3D camera"></video></p>
+
+</div>
+
+<sub>Midjourney → Photoshop → After Effects.</sub>
 
 ## D — FILM STILLS
 
