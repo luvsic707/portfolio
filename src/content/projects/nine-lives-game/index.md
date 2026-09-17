@@ -292,19 +292,6 @@ ground, art on top, frame around — now carrying five elements:
 
 </div>
 
-<!-- auto:images -->
-<!-- 三条横杠是同一条血条的三个档位，中间隔的是白画布，不是画的一部分。
-     近白已经归到纯 255（见下面 cutout），multiply 之后正好落成纸色，
-     三条血条就直接摊在纸上，没有一个方框。 -->
-<div class="full cutout">
-
-![E.3 — UI & INTERFACE 01](./i-ui-interface-01.webp)
-
-</div>
-<!-- /auto:images -->
-
-<sub>Full, then spent: the fill clips back and the groove shows through.</sub>
-
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
 <!-- 这八张都是深色底的界面件，所以给它们一条黑带。
@@ -330,7 +317,18 @@ ground, art on top, frame around — now carrying five elements:
 
 <sub>The five who appear in the name plate.</sub>
 
-<div class="rows-3">
+<!-- 血条和那三个零件排成一行，等高、排不下就横滑（.rail）。
+
+     血条那张原本三个档位之间隔的是白画布 —— 白在纸上靠 multiply 能落成
+     纸色，可这里是黑带，白就成了三道白杠。所以按空档切开再拼回去，
+     档与档之间换成黑：拼完实测 0.00% 亮像素，压在黑带上没有边。
+
+     拼回一张而不是留成三张，是因为要「等高」：血条 5:1、零件 1:1，
+     三条血条各自站成一格的话，等高之后每条宽到一千像素，一行里全是它。
+     合成一张之后比例 1.57，和 1:1 的零件并排大小相当。 -->
+<div class="lane">
+
+![E.3 — UI & INTERFACE 01](./i-ui-healthbar.webp)
 
 ![E.3 — UI & INTERFACE 07](./i-ui-interface-07.png)
 
@@ -340,7 +338,7 @@ ground, art on top, frame around — now carrying five elements:
 
 </div>
 
-<sub>Name plate frame, energy pip, drop seal.</sub>
+<sub>Full, then spent: the fill clips back and the groove shows through. Name plate frame, energy pip, drop seal.</sub>
 
 </div>
 

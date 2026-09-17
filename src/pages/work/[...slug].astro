@@ -718,13 +718,15 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     addEventListener('pagehide', () => cancelAnimationFrame(raf));
   };
 
-  document.querySelectorAll<HTMLElement>('.strip, .slider').forEach((strip) => {
+  document.querySelectorAll<HTMLElement>('.strip, .slider, .lane').forEach((strip) => {
     const n = strip.querySelectorAll('img').length;
     strip.tabIndex = 0;
     strip.setAttribute('role', 'group');
     strip.setAttribute('aria-label', `${n} images, scroll sideways`);
 
-    const isSlider = strip.classList.contains('slider');
+    /* .lane 只借这里的按住拖和边缘提示，不进 layoutStrip ——
+       它的排法（一行等高）全在 CSS 里，分栏那套会把它拆散。 */
+    const isSlider = strip.classList.contains('slider') || strip.classList.contains('lane');
     if (!isSlider) layoutStrip(strip);
 
     let t = 0;
@@ -2565,6 +2567,52 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.strip.has-more) {
     -webkit-mask-image: linear-gradient(to right, #000 88%, transparent);
     mask-image: linear-gradient(to right, #000 88%, transparent);
+  }
+
+  /* ---- 一行等高的横排 ----
+     .strip 是「按比例分栏、栏内竖着摞」，摞出来的是好几栏，不是一行。
+     要的是另一种：所有图排成一行，高度一律，谁宽谁占地方，排不下就横滑。
+
+     高度写死，宽度交给图自己的比例（height: 100%; width: auto），
+     所以 5:1 的血条和 1:1 的印记站在同一条基线上，顶和底都齐。
+     这件事 grid 做不了 —— 它得先知道每栏多宽；flex 里让图按比例撑开
+     才是反过来的：先定高，宽自己长出来。 */
+  .prose-body :global(.lane) {
+    width: 100%;
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+    display: flex;
+    align-items: stretch;
+    gap: clamp(8px, 1vw, 16px);
+    height: clamp(180px, 24vw, 300px);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+    cursor: grab;
+  }
+
+  .prose-body :global(.lane.is-dragging) { cursor: grabbing; scroll-snap-type: none; }
+
+  .prose-body :global(.lane p) {
+    margin: 0;
+    flex: 0 0 auto;
+    height: 100%;
+    max-width: none;
+    scroll-snap-align: start;
+  }
+
+  .prose-body :global(.lane img) {
+    display: block;
+    margin: 0;
+    height: 100%;
+    width: auto;
+    max-width: none;
+  }
+
+  /* 黑带里的滚动条得自己调，不然是墨色的，压在纯黑上看不见 */
+  .prose-body :global(.dark .lane) {
+    scrollbar-color: color-mix(in srgb, var(--paper) 30%, transparent) transparent;
   }
 
   /* 一栏 = 若干张等宽的图竖着摞起来，总高正好等于整条的高度 */
