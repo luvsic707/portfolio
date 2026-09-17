@@ -2,7 +2,7 @@
 title: Love in the Time of Borderline
 year: '2022'
 categories: ['Illustration', 'Graphic']
-featured: false
+featured: true
 order: 9
 summary: A three-part book made for people living with borderline personality disorder — first-person montage, clinical explanation, and a route toward treatment.
 meta:
