@@ -1818,7 +1818,10 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
   }
 
-  .prose-body :global(.band img) {
+  /* 视频也要写上 —— 只写 img 的话混排的视频会按 width/height 属性
+     铺开，整条被它顶到一千三百像素高。 */
+  .prose-body :global(.band img),
+  .prose-body :global(.band video) {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -1836,7 +1839,8 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     }
     /* 窄屏改成定高横滑：高度写死，宽度回到跟着图走 */
     .prose-body :global(.band > p) { flex: 0 0 auto; height: clamp(120px, 34vw, 170px); }
-    .prose-body :global(.band img) { height: 100%; width: auto; }
+    .prose-body :global(.band img),
+    .prose-body :global(.band video) { height: 100%; width: auto; }
   }
 
   /* 单张图占满版心宽度。放进 grid-2 的话，「只剩一张就别缩在一栏里」
