@@ -28,7 +28,10 @@ under the withered tree, still waiting. I wanted that nihilistic comedy to be li
 stop motion.
 
 <!-- auto:images -->
-<div class="full">
+<!-- 正片叠底：画布白落成纸色，拼贴就直接摊在纸上，没有一个白方框。
+     画布那圈白已经归到纯 255（只归和边缘连通的那片，拼贴里面纸片
+     自己的白没动），multiply 之后正好等于纸色。 -->
+<div class="full cutout">
 
 ![A — INSPIRATION 01](./a-inspiration-01.webp)
 
