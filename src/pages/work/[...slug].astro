@@ -2232,6 +2232,104 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.dg-arrow.long) { height: 2.25rem; }
 
+  /* ---- 循环图：三步一圈，箭头上写这条边是什么 ----
+     原来这里贴的是一张导出的流程图截图 —— 一张 1200px 的白底图，
+     上面的字是图片里的字：搜不到、选不中、读屏读不出来，暗底上还是
+     一整块亮方。现在只留三张真正的画面，图与图之间的关系用排版说。
+
+     三步之后有一条回到起点的线：循环之所以是循环，全在那一条上，
+     少了它就只是三个步骤排成一行。 */
+  .prose-body :global(.loop) {
+    width: 100%;
+    max-width: none;
+    margin-block: clamp(1.5rem, 3.5vw, 2.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: clamp(0.75rem, 2.5vw, 2rem);
+    row-gap: 0.5rem;
+    align-items: end;
+  }
+
+  .prose-body :global(.loop figure) {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    /* 底对齐：三张图比例不同，顶对齐的话矮的那张在下面吊着 */
+    justify-content: flex-end;
+    /* 横向居中放在这里，不是放在 img 上 —— markdown 的 ![]() 外面
+       还包着一层 <p>，img 的 align-self 管的是 <p> 里的事，
+       图仍然贴在格子左边。 */
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .prose-body :global(.loop figure p) {
+    margin: 0;
+    max-width: none;
+    display: flex;
+    justify-content: center;
+  }
+
+  .prose-body :global(.loop img) {
+    display: block;
+    margin: 0;
+    width: auto;
+    max-width: 100%;
+    max-height: clamp(120px, 15vw, 190px);
+  }
+
+  .prose-body :global(.loop figcaption) {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-align: center;
+  }
+
+  /* 边：一条横线加一句话，压在两步之间。
+     线用 ::before 画，所以文字换几行都不影响线的位置。 */
+  .prose-body :global(.loop-edge) {
+    grid-column: 1 / -1;
+    position: relative;
+    margin: 0;
+    padding-top: 0.9rem;
+    max-width: none;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--ink-faint);
+  }
+
+  .prose-body :global(.loop-edge)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--line);
+  }
+
+  /* 收口那条边 —— 它是循环成立的地方，画成红线，和全站唯一那根红对齐 */
+  .prose-body :global(.loop-edge.is-back) { color: var(--red); }
+  .prose-body :global(.loop-edge.is-back)::before { background: var(--red); }
+
+  .prose-body :global(.loop-edge) b {
+    color: var(--ink);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .prose-body :global(.loop-edge.is-back) b { color: var(--red); }
+
+  @media (max-width: 640px) {
+    .prose-body :global(.loop) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .prose-body :global(.loop figcaption) { letter-spacing: 0.04em; }
+  }
+
   /* --- 一横排的小节点，中间带箭头 --- */
   .prose-body :global(.dg-row) {
     display: flex;

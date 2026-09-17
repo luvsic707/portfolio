@@ -45,14 +45,6 @@ to waver. Zhou resists them both, and destroys himself doing it.
 Four hidden attributes — Love, Corruption, Divine Favour, Freedom — shift with every choice
 and decide the ending you reach.
 
-<!-- auto:images -->
-<div class="grid-2">
-
-![B — FIRST PROTOTYPE 01](./d-game-core-loop-02.jpg)
-
-</div>
-<!-- /auto:images -->
-
 Scene 1: take Su Daji's body. The goal never changes, only what it costs.
 
 <div class="dg dg-tbl dg-tbl-w">
@@ -92,6 +84,78 @@ Everything after this section answers those two sentences.
 <!-- /auto:images -->
 
 <sub>Phase I — the ProtoPie prototype that got tested. Not the current build.</sub>
+
+<!-- auto:skip 手排版面，导入脚本不要动这里 -->
+
+The loop is the thing the testers were describing. Both versions of it, side by side:
+
+<div class="loop">
+
+<figure>
+
+![Phase I — draw a card](./b-loop-i-01.webp)
+
+<figcaption>Draw a card</figcaption>
+
+</figure>
+
+<figure>
+
+![Phase I — make a decision](./b-loop-i-02.webp)
+
+<figcaption>Make a decision</figcaption>
+
+</figure>
+
+<figure>
+
+![Phase I — change stats](./b-loop-i-03.webp)
+
+<figcaption>Change stats</figcaption>
+
+</figure>
+
+<p class="loop-edge"><b>Draw → Decide</b> a main story event, or a side quest &nbsp;·&nbsp; <b>Decide → Stats</b> each option reflects a personality or a strategy</p>
+
+<p class="loop-edge is-back"><b>Stats → Draw</b> the four values influence future events and possible endings</p>
+
+</div>
+
+<sub>Phase I. Three steps and four numbers — everything the card does happens out of sight.</sub>
+
+<div class="loop">
+
+<figure>
+
+![Phase II — narrative](./b-loop-ii-01.webp)
+
+<figcaption>Narrative</figcaption>
+
+</figure>
+
+<figure>
+
+![Phase II — combat](./b-loop-ii-02.webp)
+
+<figcaption>Combat</figcaption>
+
+</figure>
+
+<figure>
+
+![Phase II — progression](./b-loop-ii-03.webp)
+
+<figcaption>Progression</figcaption>
+
+</figure>
+
+<p class="loop-edge"><b>Narrative → Combat</b> triggers events and fate hints &nbsp;·&nbsp; <b>Combat → Progression</b> decides outcomes and stat growth</p>
+
+<p class="loop-edge is-back"><b>Progression → Narrative</b> higher stats unlock branching storylines, side quests and fate events</p>
+
+</div>
+
+<sub>Phase II. The same three beats, but the card is now played — so the loop pays you back where you can see it.</sub>
 
 ## C — THE TEN STEMS
 
