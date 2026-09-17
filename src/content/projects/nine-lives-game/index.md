@@ -69,6 +69,20 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 <div class="loop">
 
+<!-- 环整个转了一格，让牌落在中间那一栏 —— 底下 Phase II 的中间也是一张牌，
+     两排的牌于是对在同一条竖线上。环转一格内容不变：三条边、三个节点、
+     连法都一样，只是从「改属性」这一步起读。 -->
+
+<figure>
+
+![Phase I — change stats](./b-loop-i-03.webp)
+
+<figcaption>Change stats</figcaption>
+
+</figure>
+
+<p class="loop-arrow">the four values steer the events and endings you reach</p>
+
 <figure>
 
 ![Phase I — draw a card](./b-loop-i-01.webp)
@@ -87,17 +101,7 @@ The loop is the thing the testers were describing. Both versions of it, side by 
 
 </figure>
 
-<p class="loop-arrow">each option reflects a personality or a strategy</p>
-
-<figure>
-
-![Phase I — change stats](./b-loop-i-03.webp)
-
-<figcaption>Change stats</figcaption>
-
-</figure>
-
-<p class="loop-back"><span>the four values steer the events and endings you reach</span></p>
+<p class="loop-back"><span>each option reflects a personality or a strategy</span></p>
 
 </div>
 
