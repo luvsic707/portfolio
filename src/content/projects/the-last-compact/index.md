@@ -178,7 +178,95 @@ component stays independently testable and swappable.
 
 </div>
 
-## D — SEE IT IN ACTION
+## D — 400 HOUSES, ONE FLOAT
+
+Room 1 melts a suburb. Twenty by twenty, four hundred houses, each sagging and dripping on
+its own schedule so the street doesn't collapse in military formation.
+
+The obvious way to build that is a script on every house: read a timer, offset it by a
+random number, push the value into the material. It works, and it costs four hundred
+`Update()` calls and four hundred material instances — anything that writes to
+`material.SetFloat` gets its own copy of the material, and nothing batches.
+
+So the timing moved out of C# and into the vertex shader. One director script pushes a
+single global float:
+
+```csharp
+Shader.SetGlobalFloat(GlobalMeltProgressID, progress);   // 0 → 1 over 8 seconds
+```
+
+Every house reads that same float, then works out its own delay by hashing where it stands:
+
+```hlsl
+float3 objCenter = TransformObjectToWorld(float3(0, 0, 0));
+float randomVal  = frac(sin(dot(objCenter.xyz, float3(12.9898, 78.233, 45.164))) * 43758.5453);
+float delay      = randomVal * 0.5;                   // up to 50% late
+float localProgress = saturate((_GlobalMeltProgress - delay) / (1.0 - delay));
+```
+
+The hash is deterministic, so a house at a given coordinate always melts at the same
+moment. The randomness is stable across runs and costs nothing to store.
+
+<div class="dg dg-tbl">
+
+<div class="dg-th">&nbsp;</div>
+<div class="dg-th">Script per house</div>
+<div class="dg-th">One global float</div>
+
+<div><b>Scripts on houses</b></div>
+<div>400</div>
+<div>0</div>
+
+<div><b>Material instances</b></div>
+<div>400</div>
+<div>1</div>
+
+<div><b>Update() calls per frame</b></div>
+<div>400</div>
+<div>1</div>
+
+</div>
+
+Deformation is four octaves of value noise driving outward bulge, downward drip and sway.
+Dissolve is the same noise thresholded against progress, with an edge glow that burns off
+at the boundary. The grid itself stays tunable — `rows`, `cols` and spacing are fields, so
+the street can be re-scaled without touching the shader.
+
+The melt is also scrubbable in the Editor. `MeltController` runs under `[ExecuteAlways]`
+with a `debugProgress` slider, so the whole street can be posed at 40% melted without
+entering Play mode. That is how the timing curve actually got tuned.
+
+Four hundred separate renderers are still four hundred renderers, so the room ships with a
+small editor tool — `Tools → Combine Selected Meshes into One`. Select the `Houses` root
+and it groups every child by material, welds each group into one mesh, writes it out as a
+`.asset` and rebuilds the hierarchy as static geometry.
+
+Three decisions in it are worth naming, because they are the difference between a script
+that works once and a tool someone else can use:
+
+<div class="dg dg-tbl">
+
+<div class="dg-th">Decision</div>
+<div class="dg-th">Reason</div>
+<div class="dg-th">&nbsp;</div>
+
+<div><code>IndexFormat.UInt32</code></div>
+<div>Four hundred houses blow straight past the 65,535-vertex ceiling on 16-bit indices.</div>
+<div>Without it the merge silently truncates.</div>
+
+<div><code>Undo.RegisterCreatedObjectUndo</code></div>
+<div>An editor tool that can't be undone is one a person only dares run once.</div>
+<div>Ctrl+Z works on it.</div>
+
+<div><b>Originals are never deleted</b></div>
+<div>The merge is destructive and irreversible in the asset sense.</div>
+<div>It reports the counts and leaves the old hierarchy for you to delete once you've checked.</div>
+
+</div>
+
+<!-- TODO: add measured frame time / draw calls (Profiler + Frame Debugger) once captured -->
+
+## E — SEE IT IN ACTION
 
 Words and diagrams can only show so much. Watch the full walkthrough to see how it all
 comes together.
