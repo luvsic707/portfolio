@@ -91,11 +91,10 @@ const featured = all.filter((p) => p.data.featured).slice(0, 4);
 
       <div class="about-body">
         <p class="prose reveal">
-          With a Master&rsquo;s in Digital Media, I&rsquo;m exploring how
-          traditional craft and modern technology collide to create tension,
-          contradiction, and visual storytelling. My work lives somewhere between
-          the <em>tangible</em> and the <em>unreal</em>, where myth, emotion, and
-          data all intertwine.
+          {/* 换行别断在 <em> 前面 —— Astro 会把标签前那截行末空白吃掉，
+              渲染出来是「the<em>unreal</em>」，连成 theunreal。 */}
+          My work lives somewhere between the <em>tangible</em> and the <em>unreal</em>,
+          where myth, emotion, and data all intertwine.
         </p>
         <p class="prose reveal">
           I can help you turn abstract ideas into striking, story-driven visuals —
