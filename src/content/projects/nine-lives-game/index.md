@@ -26,9 +26,8 @@ cover: ./card.webp
 Colour blocks, silhouettes, proportion tests. Sharp angular forms read as danger; flowing
 contours as allure.
 
-Three figures carry it. Nüwa issues the command but never strikes. Daji, a nine-tailed fox
-in human form, is sent to bring King Zhou down and begins to waver. Zhou resists them both,
-and destroys himself doing it.
+Nüwa issues the command but never strikes. Daji is sent to bring King Zhou down and begins
+to waver. Zhou resists them both, and destroys himself doing it.
 
 <!-- auto:images -->
 <div class="slider">
@@ -43,7 +42,7 @@ and destroys himself doing it.
 ## B — FIRST PROTOTYPE
 
 Four hidden attributes — Love, Corruption, Divine Favour, Freedom — shift with every choice
-and decide the branches and endings you reach.
+and decide the ending you reach.
 
 <!-- auto:images -->
 <div class="grid-2">
@@ -53,7 +52,7 @@ and decide the branches and endings you reach.
 </div>
 <!-- /auto:images -->
 
-Scene 1: you have to take Su Daji's body. The goal never changes, only what it costs.
+Scene 1: take Su Daji's body. The goal never changes, only what it costs.
 
 <div class="dg dg-tbl dg-tbl-w">
 
@@ -75,15 +74,11 @@ Scene 1: you have to take Su Daji's body. The goal never changes, only what it c
 
 </div>
 
-I built it in **ProtoPie, not Unity** — two weeks for a clickable prototype, since "does the
-narrative flow hold up" doesn't need an engine to answer. Testers said:
+Built in **ProtoPie, not Unity** — two weeks, because "does the flow hold up" doesn't need an
+engine to answer. Testers said:
 
 > They understood the concept and did not care about the story. The loop lacked appeal and
 > reward.
-
-Structurally it worked: choices, branching, four attributes. But *understanding* a premise
-isn't wanting the next card, and four numbers moving out of sight isn't a reward you can
-feel.
 
 Everything after this section answers those two sentences.
 
@@ -99,11 +94,9 @@ Everything after this section answers those two sentences.
 
 ## C — THE TEN STEMS
 
-Not five elements with a yin and yang coat of paint. The **Ten Heavenly Stems** — each
-element already arrives as two characters: 甲 the upright tree, 乙 the coiling vine; 丙 the
-sun, 丁 the lamp.
-
-Three words per card, fixed before anything was drawn:
+Not five elements with a yin and yang coat of paint. The **Ten Heavenly Stems** arrive
+already doubled: 甲 the upright tree, 乙 the coiling vine; 丙 the sun, 丁 the lamp. Three
+words per card, fixed before anything was drawn:
 
 <div class="dg dg-tbl dg-tbl-w">
 
@@ -153,8 +146,7 @@ Three words per card, fixed before anything was drawn:
 
 </div>
 
-Underneath runs the overcoming cycle — Wood breaks Earth, Earth dams Water, Water quenches
-Fire, Fire melts Metal, Metal cuts Wood. In the build it tilts an exchange rather than
+Underneath runs the overcoming cycle. In the build it tilts an exchange rather than
 deciding it.
 
 ## D — PROCESS
@@ -180,9 +172,9 @@ Four decisions did most of the work, and none of them were about drawing.
 
 </div>
 
-The pipeline stayed plain: script and boards → thumbnails for tone → AI for initial motion →
-After Effects and TouchDesigner → sound last. Detailed narrative art is the most expensive
-thing at this size, so the storytelling leans abstract on purpose.
+Pipeline: script and boards → thumbnails → AI for initial motion → After Effects and
+TouchDesigner → sound last. The storytelling leans abstract on purpose — at this size,
+detailed narrative art is the most expensive thing there is.
 
 <!-- auto:images -->
 <div class="slider">
@@ -260,39 +252,8 @@ Fate and Artifact cards are planned. Only **Element Cards** are built, and they 
 
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
-The interface arrived as Unity's defaults, covering the painting it was meant to frame.
-Splitting the health bar into groove, fill and frame produced a grammar worth reusing — dark
-ground, art on top, frame around — now carrying five elements:
-
-<div class="dg dg-tbl">
-
-<div class="dg-th">Element</div>
-<div class="dg-th">Ground</div>
-<div class="dg-th">What the frame does</div>
-
-<div><b>Health bar</b></div>
-<div>Black groove</div>
-<div>Bronze border; spending exposes the groove behind the fill</div>
-
-<div><b>Name plate</b></div>
-<div>Portrait slot</div>
-<div>Bronze frame sized to lap over the icon, so no hairline of background shows</div>
-
-<div><b>Energy row</b></div>
-<div>Dark silhouette per point</div>
-<div>Gold halo marks what's still spendable</div>
-
-<div><b>Drop zone</b></div>
-<div>Seal circle</div>
-<div>The zone's own fill drops to 8%, so the circle reads as the shape</div>
-
-<div><b>End turn</b></div>
-<div>Black plate</div>
-<div>Reuses the health bar's frame, so the two read as one kit</div>
-
-</div>
-
-<!-- auto:skip 手排版面，导入脚本不要动这里 -->
+Unity's defaults covered the painting they were meant to frame. Rebuilt from the health bar
+out: dark ground, art on top, frame around.
 
 <!-- 这八张都是深色底的界面件，所以给它们一条黑带。
      02–06 的四角实测就是 (0,0,0) 纯黑 —— 落在黑带上边界整个消失，
@@ -342,23 +303,18 @@ ground, art on top, frame around — now carrying five elements:
 
 </div>
 
-The advantage tell, card costs and five status effects are all implemented and still
-invisible — design that was finished and never surfaced.
+The advantage tell, card costs and five status effects are built and still invisible.
 
 ## F — WHERE IT LANDED
 
-Phase II moved into Unity as a team build. **Engineering is his; my side was the card system,
-the art, and the script.**
+Phase II is a team build in Unity. **Engineering is his; the card system, the art and the
+script are mine.**
 
-The build runs Boot → Title → Town → Battle: the Su residence as a hub with NPCs and actions
-gated on story flags, and card combat carrying the ten-stem deck — energy, block, burn,
-weaken, drag-to-play. That covers both things the testers said were missing: somewhere for
-the story to happen, and a loop that pays you back.
+Boot → Title → Town → Battle: a hub gated on story flags, and combat carrying the ten-stem
+deck. The two things testers said were missing — somewhere for the story to happen, a loop
+that pays you back.
 
-A prototype, not a shipped game. The inventory has its UI and no items authored, which
-describes the whole thing — the systems are further along than the content. What it settles
-is that the ten-stem deck works as mechanics, not only as illustration.
-
-The walkthrough below is the current build.
+A prototype, not a shipped game. What it settles is that the deck works as mechanics, not
+only as illustration.
 
 <div class="tube" data-tube="v_1MZvdq1JI" data-tube-label="Nine Lives to Ruin a Kingdom — Unity build walkthrough"></div>
