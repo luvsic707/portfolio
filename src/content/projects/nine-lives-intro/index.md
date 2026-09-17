@@ -11,6 +11,7 @@ meta:
   media: Adobe Illustrator / Photoshop / After Effects · Procreate · Sora
 series: Nine Lives to Ruin a Kingdom
 surface: merge
+ground: dark
 gallery:
   - video: /media/nine-lives-intro/hero-01.mp4
     alt: Nine Lives to Ruin a Kingdom — Intro Animation — video 01
@@ -74,8 +75,8 @@ repainted and reconstructed in Photoshop and Procreate, animated in After Effect
 <!-- auto:skip 手排版面，导入脚本不要动这里 -->
 
 <!-- 四张都是 1000×500，比例一样，所以 2×2 排正好齐。
-     铅笔画在白纸上 —— 画布白已经归到纯 255（阈值 246，再松就把
-     淡铅笔一起烫平），cutout 之后白落成纸色，草图直接摊在页面上。 -->
+     暗底上 cutout 会自动反过来做（反色 + screen，见 .is-dark 那条）：
+     白纸落进页面，只剩铅笔线是白的浮在暗底上。 -->
 <div class="rows-2 cutout">
 
 ![C — VISUAL STYLE AND TECHNICAL REFINEMENT 01](./d-visual-style-and-technical-refinement-01.webp)

@@ -3126,6 +3126,21 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     mix-blend-mode: multiply;
   }
 
+  /* ---- 暗底上的 cutout 要反过来做 ----
+     multiply 是「把图里的白落到底色上」。底色一黑，白纸上的线稿就整张
+     被擦掉 —— 这四张草图均值 233–244，几乎全是白。
+
+     所以暗底上先反色（白底变近黑、铅笔线变近白），再用 screen：
+     近黑的那片落进页面，只剩白线浮在暗底上。和亮底上的 multiply 是
+     同一件事的镜像，md 里写的还是同一个 cutout。
+
+     四张实测饱和度 0，纯灰度，反色不会串出补色来。 */
+  .is-dark .prose-body :global(.cutout img),
+  .is-dark .prose-body :global(.cutout video) {
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
+
   /* 卡片没了，悬停的投影就没有东西可投 —— 它会在图形四周画出一个
      本来看不见的方框。只留放大。 */
   @media (hover: hover) and (pointer: fine) {
