@@ -8,9 +8,17 @@ const all = (await getCollection('projects'))
   .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999));
 
 const featured = all.filter((p) => p.data.featured).slice(0, 4);
+
+/* 分享卡的图。项目页早就有了，首页一直没有 —— 可首页才是贴得最多的那个
+   链接（LinkedIn 的 Featured、私信、简历页脚）。没有 og:image 的时候，
+   LinkedIn 渲染的是一张灰底纯文字卡，对做视觉的人来说是最差的第一印象。
+
+   取 SELECTED 第一件的封面，不另存一张图：封面本来就是为「一眼看懂这是
+   什么」裁的，而且换了选集它跟着换，不会哪天指向一件早就撤下的作品。 */
+const shareImage = featured[0]?.data.cover?.src ?? all[0]?.data.cover?.src;
 ---
 
-<Base>
+<Base image={shareImage}>
 
   <!-- ==================== 首屏：观察窗 ==================== -->
   <section class="hero">
