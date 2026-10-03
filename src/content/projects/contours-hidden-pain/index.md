@@ -3,7 +3,7 @@ title: Contours of Hidden Pain
 year: '2024'
 categories: ['AR/VR', 'Graphic', 'Animation']
 featured: false
-order: 6
+order: 8
 summary: An AR poster on how childhood trauma settles into the spine — a frozen memory held as posture and muscle tension. Scan it in public space and it unfolds as biological form.
 meta:
   date: 2024.11 – 2024.12
