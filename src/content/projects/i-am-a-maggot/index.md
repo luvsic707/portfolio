@@ -131,7 +131,7 @@ rewoven cage.
 
 <div class="pair cutout">
 
-![Vertical composition, 3000 × 5334](./c-vertical.png)
+![Vertical composition, 3000 × 5334](./c-vertical.jpg)
 
 <p><video src="/media/i-am-a-maggot/canvas.mp4" width="1080" height="1920" muted loop playsinline preload="metadata" data-autoplay aria-label="Spotify Canvas — six seconds, looping"></video></p>
 
