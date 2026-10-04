@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 }
 
 const { project, prev, next, siblings } = Astro.props;
-const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, status, heroFit, surface, underlay, ground, series } = project.data;
+const { title, year, categories, summary, cover, coverAlt, meta, gallery, links, releasedOn, status, heroFit, surface, underlay, ground, series } = project.data;
 
 /* 这一串里，这件排第几，以及其余几件。
    只有真的成串（两件以上）才显示 —— 一件的「系列」不是系列。
@@ -146,6 +146,21 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
             </div>
           ))}
         </dl>
+
+        {releasedOn && releasedOn.length > 0 && (
+          <div class="released">
+            <span class="released-label">Released on</span>
+            <ul class="released-list">
+              {releasedOn.map((l) => (
+                <li>
+                  <a href={l.href} target="_blank" rel="noopener noreferrer">
+                    {l.label}<span class="arrow">&#8599;</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         {links && links.length > 0 && (
           <ul class="extlinks">
@@ -1446,6 +1461,75 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     border: 1px solid var(--line);
     background: var(--paper-sunk);
   }
+
+  /* --- 平台内嵌播放器 ---
+     第三方 iframe 在这个站上是异物：它带着别人的 UI、别人的圆角、
+     别人的绿色。但这一节要的正是那份异物感 —— Spotify 的界面一眼认得出，
+     认得出才算「证据」。所以不去改它的样子，只管住它占多宽。 */
+
+  .prose-body :global(.embed) {
+    margin-block: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .prose-body :global(.embed iframe) {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+
+  /* 网易云那条只有 86px 高，和 Spotify 的 352px 并排会失衡，
+     所以它单独一行、压在下面，当"第二个平台"的注脚读。 */
+  .prose-body :global(.embed-slim) {
+    margin-top: calc(clamp(1.75rem, 4vw, 3rem) * -0.45);
+  }
+
+  /* --- 发行平台：这一页最硬的一句话，所以它是一条带子，不是脚注 --- */
+
+  .released {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.5rem clamp(1.25rem, 3vw, 2.5rem);
+    margin-top: 1.4rem;
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--ink);
+  }
+
+  .released-label {
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .released-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  /* 比 .extlinks 大两档。小字在这里是错的 —— 这不是「还可以看看」，
+     是「你自己去查」，要让人一眼看见并且点得到。 */
+  .released-list a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35em;
+    font-size: var(--step-1);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .released-list a:hover {
+    color: var(--red);
+    border-bottom-color: var(--red);
+  }
+
+  .released-list .arrow { font-size: 0.7em; color: var(--red); }
 
   /* --- 外链：源码、demo、文档 --- */
 

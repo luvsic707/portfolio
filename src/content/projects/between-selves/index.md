@@ -3,7 +3,7 @@ title: Between Selves — Flowing Through Identities
 year: '2026'
 categories: ['Illustration', 'Graphic']
 featured: false
-order: 1
+order: 2
 status: SHOWN
 summary: A five-hour interactive exhibition on fluid identity in Melbourne — work on the walls, a passport people filled in themselves, and thirty-five henna designs drawn onto whoever sat down.
 

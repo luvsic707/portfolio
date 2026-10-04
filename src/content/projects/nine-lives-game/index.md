@@ -3,7 +3,7 @@ title: Nine Lives to Ruin a Kingdom — Narrative Card Game
 year: '2025'
 categories: ['Game', 'Illustration']
 featured: true
-order: 6
+order: 7
 summary: You are the nine-tailed fox, sent by the goddess Nüwa to possess Su Daji and bring down King Zhou. A story-driven card game where every card is a moral event, and four hidden attributes decide whether you serve Heaven or break free.
 meta:
   date: 2025.05 – 2025.06 (Phase I) · 2025.10 – 2025.12 (Phase II)

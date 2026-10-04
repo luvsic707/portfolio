@@ -116,6 +116,22 @@ const projects = defineCollection({
         )
         .optional(),
 
+      /* 发行平台。和上面的 links 分开，是因为两者的身份完全不同：
+         links 是「想看更多可以点」—— 源码、demo、文档，次要信息，小字就够。
+         releasedOn 是「这件事发生过，你自己去查」—— 作品在商业平台上线、
+         署名在上面。对一个靠作品集找工作的人，这是整页最硬的一句话，
+         塞在检验表的格子里等于没说。所以它自己占一条带子。
+
+         放平台的直链（具体那张专辑/那首歌，不是艺人主页）。 */
+      releasedOn: z
+        .array(
+          z.object({
+            label: z.string(),             // 'Spotify' / '网易云音乐'
+            href: z.string().url(),
+          })
+        )
+        .optional(),
+
       /* 排序：数字越小越靠前；不写就排到最后，同序按年份倒序 */
       order: z.number().optional(),
       featured: z.boolean().default(false),
