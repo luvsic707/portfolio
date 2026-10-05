@@ -1,6 +1,6 @@
 ---
 title: NUO2 糯氧米酒
-year: '2025'
+year: '2025–2026'
 categories: ['Brand', 'Graphic', 'Illustration']
 featured: false
 order: 6
@@ -8,7 +8,7 @@ status: STAGE 1
 summary: A full visual identity for a Guizhou rice wine — logotype, a shape system drawn from the grain, seven flavour illustrations, and the labels that went to print.
 
 meta:
-  date: 2025.11 – 2025.12
+  date: 2025.01 – 2026.01
   dimension: 250ml · 7 flavours
   media: Visual Identity, Packaging, Illustration, Apparel
   client: Nuo-O₂ Rice Wine · Guiyang
@@ -17,10 +17,10 @@ ground: paper
 surface: merge
 
 gallery:
-  - image: ./hero-01.png        # 全家福 —— 七个口味一张讲完
+  - image: ./hero-01.jpg        # 全家福 —— 七个口味一张讲完
     alt: NUO2 — the range
 
-cover: ./card.png
+cover: ./card.jpg
 draft: false
 ---
 
@@ -30,19 +30,47 @@ draft: false
 Four characters rebuilt as one geometric block — compact enough to read at 8mm on a
 bottle neck, soft enough to still feel hand-made.
 
-<!-- auto:skip 手排版面，导入脚本不要动这里 -->
+<!-- auto:skip 手排版面，导入脚本不要动这里
 
-<div class="full">
+     这一节全部走 full，一件一行 —— Anagrama 的 /project/comun 就是这么排的：
+     十张图全在同一个宽度上，高度自己起落。四件东西各占一行，读下来是
+     「成品 → 符号 → 组合 → 怎么推出来的」。
+
+     以前这里是 full + pair：a-mark 是 1500×659 的扁条，a-lockups 是
+     1900×1622 的竖块，并排一行高度差两倍半，右边空一大块。同宽各占一行
+     就没这个问题，而且扁条自己成了一道分隔。
+
+     四张都是从 deck 的矢量页按 5 倍重渲、再把 #E4E2DC 的底色键成透明的。
+     原来那几张是 deck 的 1 倍截图（标志只有 470×360，铺到通栏放大 2.3 倍），
+     而且每张都带着 deck 背景那圈橙色光晕。现在是透明底，直接落在纸上。 -->
+
+<!-- 标志收到 620px 居中，不铺通栏。
+     它接近正方（1344×1407），满宽就是 1302×1363 —— 一屏半装不下，
+     你滚过去永远看不到它完整的形状，而那是这张图唯一的用途。
+     收到 620 之后一眼看得全，而且正好替上面那句「8mm 也读得出」作证。 -->
+<div class="solo half">
 
 ![Logotype](./a-logotype.png)
 
 </div>
 
-<div class="pair">
+<div class="full">
 
-![Graphic mark](./a-mark.png)
+![The NUO2 graphic mark](./a-mark.png)
 
-![Lockups](./a-lockups.png)
+</div>
+
+<div class="full">
+
+![Three approved lockups](./a-lockups.png)
+
+</div>
+
+<!-- 推演稿放最后，当证据不当开场 —— 先给成品，再给「它是怎么长出来的」。
+     从 NUO2_Logo过程.ai 直接渲的，不是截图。 -->
+<div class="full">
+
+![Logotype derivation — script studies and the ligature experiments](./a-process.jpg)
 
 </div>
 
@@ -55,21 +83,18 @@ cup sleeve, a wall. Four colours hold it together.
 
 <div class="full">
 
-![Auxiliary shape system](./b-shapes.png)
+![Auxiliary shape system — eight modules](./b-shapes.png)
 
 </div>
 
-<!-- 分子式和 tagline 是这套系统里最好的两个细节，别埋在 deck 里。
-     两条都是细长的横条，并排会互相挤 —— 各自通栏，当分隔用。 -->
-<div class="full">
+<!-- 淀粉水解成葡萄糖 —— 这坛酒的化学反应，印在标签上。
+     原来是一张 353×31 的截图，铺到通栏就是一根发丝，放大全是糊的。
+     排成活字：下标是真下标，任意尺寸都锐利，还能选中。 -->
+<div class="formula">
 
-![The starch hydrolysis the wine is made of](./b-formula.png)
+(C<sub>6</sub>H<sub>10</sub>O<sub>5</sub>)<sub>n</sub> + nH<sub>2</sub>O → nC<sub>6</sub>H<sub>12</sub>O<sub>6</sub>
 
-</div>
-
-<div class="full">
-
-![Bilingual tagline lockup](./b-tagline.png)
+<small>Starch to glucose — the reaction that makes the wine, printed on the label.</small>
 
 </div>
 
@@ -102,101 +127,129 @@ cup sleeve, a wall. Four colours hold it together.
 
 ## C — ILLUSTRATION
 
-Seven flavours, seven collages. Each one is built from the fruit itself, cut into
-the silhouette of the bottle so the label and the drawing are the same shape.
+Seven flavours, one system. The illustrations are generated, then brought into
+line — same collage language, same palette, same bottle-silhouette crop, every
+output composited and colour-matched until the seven read as one series instead
+of seven pictures. The direction is the work.
 
-<!-- 这一节是全页唯一该密的地方：七张一起看才叫一个系列。
-     七张等大（928×1232），rows-4 会留一个空位，用 rows-4 + 最后一行三张，
-     或者直接 rows-3 排成 3/3/1。先按 rows-4 试。 -->
-<!-- auto:skip -->
+<!-- auto:skip
+
+     七张是奇数，4+3 排。rows-4 装七张会在右下留一个洞，读起来像没排完；
+     拆成 rows-4 + rows-3，第二行三张各占三分之一、比上面一行略大，
+     看着是有意为之，而且没有空位。
+
+     前提是七张同比例 —— 原味和青梅本来是 1024×1024，其余五张 928×1232，
+     一行就参差。两张都裁成 771×1024（比例 0.753，和那五张差 0.0003）。
+     青梅顺带解决了另一个毛病：只有它是白底浮一个小拼贴，裁掉左右各一百
+     像素的白边之后，拼贴也满版了，不再是那一排里的一个洞。
+     原档在 _原档/ 里。 -->
 
 <div class="rows-4">
 
-![Original](./c-original.png)
+![Original](./c-original.jpg)
 
-![Osmanthus](./c-osmanthus.png)
+![Osmanthus](./c-osmanthus.jpg)
 
-![Green plum](./c-green-plum.png)
+![Green plum](./c-green-plum.jpg)
 
-![Passion fruit](./c-passion-fruit.png)
+![Passion fruit](./c-passion-fruit.jpg)
 
-![Jasmine](./c-jasmine.png)
+</div>
 
-![Rose](./c-rose.png)
+<div class="rows-3">
 
-![Sea salt pomelo](./c-sea-salt-pomelo.png)
+![Jasmine](./c-jasmine.jpg)
+
+![Rose](./c-rose.jpg)
+
+![Sea salt pomelo](./c-sea-salt-pomelo.jpg)
 
 </div>
 
 ## D — PACKAGING
 
-<!-- 七张正面标签，等大 650×945。
-     Porto Rocha 的做法：全部锁同一个带高，一行两张。
-     七张是奇数 —— 最后一张单独通栏，正好收尾。 -->
-
 The front of each bottle. Same grid, same type position, different weather.
 
-<!-- auto:skip -->
+<!-- auto:skip
 
-<div class="pair">
+     和 C 节同一个 4+3 栅格，故意的 —— 上一节七张插画，这一节七张标签，
+     同样的格子排下来，读的人自己会看出「那张画变成了这个标」。
+     原来这里是三个 pair 排六张，第七张（原味）根本没放上来。
 
-![Green plum, front](./d-front-green-plum.png)
+     标签是透明底的 PNG，merge 页面上直接落在纸上，不用裱边。 -->
+
+<div class="rows-4">
+
+![Original, front](./d-front-original.png)
 
 ![Osmanthus, front](./d-front-osmanthus.png)
 
-</div>
-
-<div class="pair">
+![Green plum, front](./d-front-green-plum.png)
 
 ![Passion fruit, front](./d-front-passion-fruit.png)
 
-![Rose, front](./d-front-rose.png)
-
 </div>
 
-<div class="pair">
+<div class="rows-3">
 
 ![Jasmine, front](./d-front-jasmine.png)
+
+![Rose, front](./d-front-rose.png)
 
 ![Sea salt pomelo, front](./d-front-sea-salt-pomelo.png)
 
 </div>
 
 <!-- 一张完整刀版（正面 + 法规背面）作为「真做到了印刷」的证据。
-     只放一张就够 —— 七张背面是重复的法规文字，没有看头。 -->
+     只放一张就够 —— 七张背面是重复的法规文字，没有看头。
+     这张从 包装方案可编辑.ai 按 6 倍渲的矢量，不是原来那张 1600×755。 -->
 <div class="full">
 
-![Full dieline — front and regulatory back](./d-dieline.png)
+![Full dieline — front and regulatory back](./d-dieline.jpg)
 
 </div>
 
 ## E — IN USE
 
-<!-- 这一节对求职权重最高：它证明这套东西离开了屏幕。
-     外卖袋那张是真实拍摄的 mockup（厨房台面），应该放大、单独通栏。 -->
+Staff tee, poster, takeaway bag, cup sleeve. The shape system does the work; the
+logotype only has to appear once.
 
-Staff tee, light-box poster, takeaway bag, cup sleeve. The shape system does the
-work; the logotype only has to appear once.
+<!-- auto:skip
 
-<!-- auto:skip -->
+     这一节对求职权重最高：它证明这套东西离开了屏幕。所以按「离真实世界
+     多近」排：有人举着 → 真实台面 → 贴在墙上 → 产品图。
+
+     四张全部从 ps文件/*.psd 里按原尺寸导的（4000×6000 / 3000×2000），
+     不是 deck 截图。deck 的 p14–p17 页面上有几团粉橙色大漩涡装饰，
+     原来那四张就是从那儿截的，每张都带着一圈光晕 —— 在纸色的 merge
+     页面上，那圈光晕比糊更难看。
+
+     海报那张「有人举着」deck 里有、网站上一直没放。它是这一节里唯一
+     有人的画面，所以排第一。 -->
 
 <div class="full">
 
-![Staff tee, back and front](./e-tee.png)
+![A poster held up, actual size](./e-poster-held.jpg)
 
 </div>
 
 <div class="full">
 
-![Takeaway bag](./e-bag.png)
+![Takeaway bag on a kitchen counter](./e-bag.jpg)
 
 </div>
 
+<div class="full">
+
+![Two posters — flat and pasted](./e-poster.jpg)
+
+</div>
+
+<!-- 这两张比例相近（1.11 和 1.35），并排不会一高一低。 -->
 <div class="pair">
 
-![Light-box poster](./e-poster.png)
+![Staff tee](./e-tee.jpg)
 
-![Cup sleeve](./e-cup-sleeve.png)
+![Cup sleeve — the bilingual tagline lockup](./e-cup-sleeve.jpg)
 
 </div>
-

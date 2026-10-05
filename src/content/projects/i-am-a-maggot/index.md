@@ -92,9 +92,10 @@ credit roll out himself in a comment, and signed off on the last line.
 
 ## C — THE COVER
 
-A maggot screaming behind a net, for a track called *I Am a Maggot*. The net is
-the whole argument: without it the drawing is a creature, with it the creature
-is caught.
+A maggot screaming behind a net, for a track called *I Am a Maggot*. Saying what
+you actually mean online has become a luxury, and this is what the pressure looks
+like from the inside: mouth wide open, nothing getting out. The net is the whole
+argument — without it the drawing is a creature, with it the creature is caught.
 
 <!-- auto:skip -->
 
@@ -108,9 +109,9 @@ is caught.
 ## D — BEFORE THE NET
 
 The first version had no cage. It is arguably the better drawing — the splatter
-and the radiating hairs all read — but it is a portrait of a maggot, and the
-track is about being stuck. The net went on top and most of the drawing went
-under it.
+and the radiating hairs all read — but it is only a portrait of a creature, and
+the track is not about the creature. The net went on top, and most of the drawing
+went under it. Losing the detail was the point.
 
 <!-- auto:skip -->
 
