@@ -66,13 +66,10 @@ bottle neck, soft enough to still feel hand-made.
 
 </div>
 
-<!-- 推演稿放最后，当证据不当开场 —— 先给成品，再给「它是怎么长出来的」。
-     从 NUO2_Logo过程.ai 直接渲的，不是截图。 -->
-<div class="full">
-
-![Logotype derivation — script studies and the ligature experiments](./a-process.jpg)
-
-</div>
+<!-- 这里曾经放过 NUO2_Logo过程.ai 渲出来的推演稿，撤了。
+     那是个工作文件不是排过的版面：一堆现成花体字（不是设计过的字形）、
+     左上角挂着半张无关照片、底下那团被画板切掉一半。
+     推演稿只有在它本身排得好的时候才值得放，不然只是暴露草稿。 -->
 
 ## B — SYSTEM
 
