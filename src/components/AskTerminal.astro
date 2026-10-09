@@ -1,0 +1,330 @@
+---
+/* 首页的问答终端。
+ *
+ * 为什么长成终端而不是聊天框：首屏本来就是 `>` 提示符那套语言，
+ * 再摆一个圆角气泡上去，整页就多了一个不属于它的东西。
+ * 这里沿用 .t-mark / .t-line 的腔调，读起来像站本来就有的一层。
+ *
+ * 匹配全在浏览器里做，没有请求。英文按词精确匹配（所以 "art" 不会
+ * 误中 key "ar"），中文按子串匹配（所以不用分词）。命中不了就退回
+ * 推荐问题列表 —— 那本身还是个能用的导航，不是一个坏掉的框。
+ */
+import { ANSWERS, PINNED } from '../data/ask';
+
+const pinned = ANSWERS.filter((a) => PINNED.includes(a.id));
+---
+
+<section id="ask" class="section ask-section">
+  <div class="wrap">
+
+    <h2 class="section-label reveal">
+      ASK <span class="index">[{ANSWERS.length}]</span>
+    </h2>
+
+    <div class="ask reveal" data-ask>
+      <p class="ask-intro"><span class="t-mark">&gt;</span> Ask what you actually need to know. No model, no server, just answers written in advance.</p>
+
+      <!-- 答完的内容堆在这里，像终端一样往下长 -->
+      <div class="ask-log" data-log aria-live="polite"></div>
+
+      <form class="ask-form" data-form autocomplete="off">
+        <label class="vh" for="ask-input">Ask about this portfolio</label>
+        <span class="t-mark" aria-hidden="true">&gt;</span>
+        <input
+          id="ask-input"
+          class="ask-input"
+          type="text"
+          name="q"
+          data-input
+          maxlength="120"
+          placeholder="has any of this actually shipped?"
+          spellcheck="false"
+        />
+        <button class="ask-send" type="submit" aria-label="Ask">&#8629;</button>
+      </form>
+
+      <!-- 无 JS 时这一段就是全部内容：问题全列出来，每条直接链到作品。
+           所以脚本挂掉的时候它退化成一个目录，而不是一个坏掉的框。
+
+           noscript 里只放链接，不重复问题文字 —— 问题就在旁边那个
+           按钮上，重复一遍等于每条显示两次。
+           输入框和日志在无 JS 时藏掉：留着也点不动，徒增困惑。 -->
+      <div class="ask-seed" data-seed>
+        <p class="ask-seed-label">____&gt; or start here</p>
+        <ul class="ask-chips">
+          {pinned.map((a) => (
+            <li>
+              <button class="ask-chip" type="button" data-chip={a.id}>{a.ask}</button>
+              {a.go?.[0] && (
+                <noscript><a class="ask-chip-static" href={a.go[0].href}>{a.go[0].label} &rarr;</a></noscript>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <noscript>
+        <style is:inline>
+          .ask-form, .ask-log { display: none; }
+          .ask-chip { cursor: default; }
+          .ask-chip-static { margin-left: 0.6em; }
+        </style>
+      </noscript>
+    </div>
+
+  </div>
+</section>
+
+<script type="application/json" data-ask-data set:html={JSON.stringify(ANSWERS)}></script>
+
+<script>
+  type Go = { label: string; href: string };
+  type Answer = { id: string; keys: string[]; ask: string; say: string; go?: Go[] };
+
+  const root = document.querySelector<HTMLElement>('[data-ask]');
+  const dataEl = document.querySelector<HTMLScriptElement>('[data-ask-data]');
+  if (root && dataEl) {
+    const ANSWERS: Answer[] = JSON.parse(dataEl.textContent || '[]');
+    const log = root.querySelector<HTMLElement>('[data-log]')!;
+    const form = root.querySelector<HTMLFormElement>('[data-form]')!;
+    const input = root.querySelector<HTMLInputElement>('[data-input]')!;
+
+    /* 规范化：小写、标点换成空格、压掉多余空白。
+       CJK 不受影响，后面按子串匹配。 */
+    const norm = (s: string) =>
+      s.toLowerCase().replace(/[^\p{L}\p{N}#+]+/gu, ' ').trim();
+
+    const hasCJK = (s: string) => /[㐀-鿿぀-ヿ]/.test(s);
+
+    /* 极轻的词干化。没有它，key 写了 exhibition 就接不住 exhibitions，
+       整词匹配一遇到复数和时态就全废。
+       两边都跑同一个函数，所以要的是「一致」不是「语言学正确」:
+       canvas → canva 并不对，但 key 和查询都变成 canva，照样匹配上。
+       只动四个字母以上的词，免得把 ai / ar / vr 这种吃掉。 */
+    function stem(w: string) {
+      if (w.length >= 6 && (w.endsWith('ing') || w.endsWith('ies'))) {
+        return w.endsWith('ies') ? w.slice(0, -3) + 'y' : w.slice(0, -3);
+      }
+      if (w.length >= 5 && w.endsWith('ed')) return w.slice(0, -2);
+      if (w.length >= 5 && w.endsWith('es')) return w.slice(0, -2);
+      if (w.length >= 4 && w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1);
+      return w;
+    }
+
+    function score(query: string, a: Answer) {
+      const q = norm(query);
+      const tokens = new Set(q.split(' ').filter(Boolean).map(stem));
+      let total = 0;
+      let hits = 0;
+      for (const key of a.keys) {
+        const k = norm(key);
+        if (!k) continue;
+        let hit = false;
+        if (hasCJK(k)) {
+          hit = q.includes(k);                 // 中文：子串
+        } else if (k.includes(' ')) {
+          hit = q.includes(k);                 // 英文词组：子串
+        } else {
+          hit = tokens.has(stem(k));           // 英文单词：词干后整词，避免 ar 误中 art
+        }
+        if (hit) { total += k.length; hits++; }
+      }
+      return { total, hits };
+    }
+
+    function best(query: string): Answer | null {
+      let top: Answer | null = null;
+      let topScore = { total: 0, hits: 0 };
+      for (const a of ANSWERS) {
+        const s = score(query, a);
+        if (s.total > topScore.total ||
+            (s.total === topScore.total && s.hits > topScore.hits)) {
+          topScore = s; top = a;
+        }
+      }
+      return topScore.total >= 2 ? top : null;
+    }
+
+    const esc = (s: string) =>
+      s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    function render(question: string, a: Answer | null) {
+      const block = document.createElement('div');
+      block.className = 'ask-entry';
+
+      const q = document.createElement('p');
+      q.className = 'ask-q';
+      q.innerHTML = `<span class="t-mark">&gt;</span> ${esc(question)}`;
+      block.appendChild(q);
+
+      const body = document.createElement('p');
+      body.className = 'ask-a';
+      if (a) {
+        body.textContent = a.say;
+      } else {
+        body.textContent =
+          'Not something I have written down. The list below is what I can answer, and email gets you a real reply.';
+      }
+      block.appendChild(body);
+
+      const links = a?.go ?? [
+        { label: 'ruojingpu19@gmail.com', href: 'mailto:ruojingpu19@gmail.com' },
+      ];
+      const ul = document.createElement('ul');
+      ul.className = 'ask-go';
+      for (const g of links) {
+        const li = document.createElement('li');
+        const link = document.createElement('a');
+        link.href = g.href;
+        link.textContent = g.label;
+        if (/^https?:/.test(g.href)) { link.target = '_blank'; link.rel = 'noopener'; }
+        li.appendChild(link);
+        ul.appendChild(li);
+      }
+      block.appendChild(ul);
+
+      log.appendChild(block);
+      /* 只留最近三轮，否则首页会被越问越长 */
+      while (log.children.length > 3) log.removeChild(log.firstChild!);
+      block.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function run(question: string) {
+      const q = question.trim();
+      if (!q) return;
+      render(q, best(q));
+      input.value = '';
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      run(input.value);
+    });
+
+    root.querySelectorAll<HTMLButtonElement>('[data-chip]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const a = ANSWERS.find((x) => x.id === btn.dataset.chip);
+        if (a) render(a.ask, a);
+      });
+    });
+  }
+</script>
+
+<style>
+  .ask-section { padding-top: 0; }
+
+  .ask {
+    font-family: var(--font-mono);
+    font-size: var(--step-0);
+    line-height: 1.85;
+    margin-top: 1.5rem;
+    max-width: 62ch;
+  }
+
+  .ask-intro {
+    margin: 0 0 1.25rem;
+    color: var(--ink-soft);
+  }
+
+  /* 答案那几块是脚本在运行时创建的，拿不到 Astro 的 data-astro-cid-*，
+     所以组件作用域的普通选择器对它们一律无效（查过：li::before 的
+     content 是 none，颜色也没上）。
+     挂在 .ask 后面写 :global()：祖先还在组件作用域里，后代选择器全局生效，
+     既能命中动态节点，又不会泄漏到站上别的地方。 */
+  .ask :global(.t-mark) { color: var(--red); }
+
+  /* ---- 已答内容 ---- */
+  .ask :global(.ask-entry) { margin-bottom: 1.5rem; }
+  .ask :global(.ask-entry + .ask-entry) {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .ask :global(.ask-q) { margin: 0 0 0.4rem; color: var(--ink-soft); }
+  .ask :global(.ask-a) { margin: 0; color: var(--ink); }
+
+  .ask :global(ul.ask-go) {
+    list-style: none;
+    margin: 0.7rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 1.1rem;
+  }
+  .ask :global(ul.ask-go li::before) {
+    content: '\2192';
+    color: var(--red);
+    margin-right: 0.4em;
+  }
+  .ask :global(ul.ask-go a) {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .ask :global(ul.ask-go a:hover) { color: var(--red); border-bottom-color: var(--red); }
+
+  /* ---- 输入行。整行就是一条终端提示符，不是一个控件。 ---- */
+  .ask-form {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5em;
+    padding: 0.55rem 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .ask-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    font: inherit;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    padding: 0;
+    outline: none;
+  }
+  .ask-input::placeholder { color: var(--ink-faint); }
+  .ask-form:focus-within { border-color: var(--red); }
+
+  .ask-send {
+    all: unset;
+    cursor: pointer;
+    color: var(--ink-faint);
+    padding: 0 0.2em;
+    line-height: 1;
+  }
+  .ask-send:hover { color: var(--red); }
+  .ask-send:focus-visible { outline: 1px solid var(--red); outline-offset: 2px; }
+
+  /* ---- 推荐问题 ---- */
+  .ask-seed { margin-top: 1.1rem; }
+  .ask-seed-label {
+    margin: 0 0 0.5rem;
+    color: var(--ink-faint);
+    font-size: var(--step--1);
+  }
+  .ask-chips { list-style: none; margin: 0; padding: 0; }
+  .ask-chips li + li { margin-top: 0.15rem; }
+
+  .ask-chip {
+    all: unset;
+    cursor: pointer;
+    color: var(--ink-soft);
+    font: inherit;
+    border-bottom: 1px solid transparent;
+  }
+  .ask-chip::before { content: '\2022'; color: var(--line-strong); margin-right: 0.6em; }
+  .ask-chip:hover { color: var(--red); }
+  .ask-chip:focus-visible { outline: 1px solid var(--red); outline-offset: 2px; }
+
+  .ask-chip-static a { color: var(--red); }
+
+  .vh {
+    position: absolute; width: 1px; height: 1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .ask { font-size: var(--step--1); line-height: 1.8; }
+  }
+</style>

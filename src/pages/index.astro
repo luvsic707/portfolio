@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import AskTerminal from '../components/AskTerminal.astro';
 
 const all = (await getCollection('projects'))
   .filter((p) => !p.data.draft)
@@ -90,6 +91,11 @@ const shareImage = featured[0]?.data.cover?.src ?? all[0]?.data.cover?.src;
 
     </div>
   </section>
+
+  <!-- ==================== 问答 ====================
+       放在作品网格之后：看完四件精选，下一个念头就是「那还做过什么」。
+       答案全是手写的，匹配在浏览器里做，没有请求也没有账单。 -->
+  <AskTerminal />
 
   <!-- ==================== 简述 ==================== -->
   <section class="section about">
