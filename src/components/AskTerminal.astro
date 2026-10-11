@@ -22,7 +22,10 @@ const pinned = ANSWERS.filter((a) => PINNED.includes(a.id));
     </h2>
 
     <div class="ask reveal" data-ask>
-      <p class="ask-intro"><span class="t-mark">&gt;</span> Ask what you actually need to know. No model, no server, just answers written in advance.</p>
+      <!-- 旁注走 ____> 那个形，不走 > ——
+           首屏里 ____> 就是旁白的写法。这样 `>` 在这一节里只有一个意思：
+           有人问了一句话。否则介绍语看起来也像一条提问。 -->
+      <p class="ask-intro">____&gt; ask what you actually need to know. no model, no server, just answers written in advance</p>
 
       <!-- 答完的内容堆在这里，像终端一样往下长 -->
       <div class="ask-log" data-log aria-live="polite"></div>
@@ -37,7 +40,7 @@ const pinned = ANSWERS.filter((a) => PINNED.includes(a.id));
           name="q"
           data-input
           maxlength="120"
-          placeholder="has any of this actually shipped?"
+          placeholder="type a question, or pick one below"
           spellcheck="false"
         />
         <button class="ask-send" type="submit" aria-label="Ask">&#8629;</button>
@@ -240,13 +243,31 @@ const pinned = ANSWERS.filter((a) => PINNED.includes(a.id));
     border-top: 1px solid var(--line);
   }
 
-  .ask :global(.ask-q) { margin: 0 0 0.4rem; color: var(--ink-soft); }
-  .ask :global(.ask-a) { margin: 0; color: var(--ink); }
+  /* 问和答原来是同一个形状：同字号同字体，只差一点灰度，
+     所以一问一答读下来是一整段，分不出谁在说话。
+     问句收小退灰，当回声；答案缩进并挂一条左边线，当输出。
+     形状不一样，眼睛扫一下就知道这是问答。 */
+  /* 用 em 不用字阶 token：窄屏下 .ask 整体会降到 --step--1，
+     如果这里写死 --step--1，两者就一样大，差别当场消失。
+     相对值保证「问永远比答小一号」在两种尺寸下都成立。 */
+  .ask :global(.ask-q) {
+    margin: 0 0 0.55rem;
+    font-size: 0.92em;
+    letter-spacing: 0.04em;
+    color: var(--ink-faint);
+  }
+
+  .ask :global(.ask-a) {
+    margin: 0;
+    color: var(--ink);
+    padding-left: 0.9rem;
+    border-left: 1px solid var(--line-strong);
+  }
 
   .ask :global(ul.ask-go) {
     list-style: none;
     margin: 0.7rem 0 0;
-    padding: 0;
+    padding: 0 0 0 0.9rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem 1.1rem;
