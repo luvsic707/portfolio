@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import AskTerminal from '../components/AskTerminal.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/portrait.webp';
 
 const all = (await getCollection('projects'))
   .filter((p) => !p.data.draft)
@@ -101,7 +103,22 @@ const shareImage = featured[0]?.data.cover?.src ?? all[0]?.data.cover?.src;
   <section class="section about">
     <div class="wrap about-grid">
 
-      <h2 class="section-label reveal">ABOUT</h2>
+      {/* 左栏原来只有一个标签，底下是三百像素的空。
+          人像已经抠干净了（alpha 在，一半以上的像素全透明），
+          所以托盘直接落在纸上，不裱边也不垫底。
+          标签那条墨线在上、标本在下，读起来是一张标本卡。 */}
+      <div class="about-side">
+        <h2 class="section-label reveal">ABOUT</h2>
+        <figure class="about-portrait reveal">
+          <Image
+            src={portrait}
+            alt="Self-portrait: the artist's face vacuum-packed in a supermarket tray, price label attached"
+            widths={[240, 480, 720]}
+            sizes="(max-width: 720px) 56vw, 14rem"
+            loading="lazy"
+          />
+        </figure>
+      </div>
 
       <div class="about-body">
         <p class="prose reveal">
@@ -402,6 +419,18 @@ const shareImage = featured[0]?.data.cover?.src ?? all[0]?.data.cover?.src;
     gap: clamp(1.5rem, 4vw, 4rem);
   }
 
+  .about-portrait {
+    margin: 1.25rem 0 0;
+    /* 托盘是斜的，紧贴着栏宽会显得被框住。收一点，让它有地方斜。 */
+    width: min(100%, 13rem);
+  }
+
+  .about-portrait :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   .about-body > * + * { margin-top: 1.4rem; }
 
   .about-more {
@@ -416,6 +445,8 @@ const shareImage = featured[0]?.data.cover?.src ?? all[0]?.data.cover?.src;
 
   @media (max-width: 720px) {
     .about-grid { grid-template-columns: 1fr; }
+    /* 单栏之后别让人像铺满屏幕 —— 它是一张标本，不是开屏图 */
+    .about-portrait { width: min(56vw, 230px); }
   }
 
   /* 认得 svh 的浏览器才用 svh —— 手机上它避开会伸缩的地址栏，比 vh 准。
