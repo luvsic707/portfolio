@@ -3700,6 +3700,90 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     opacity: 0.72;
   }
 
+  /* ---- 海报式版面 ----
+     CAFE LUMI 那套案例里最有力的一张：竖构图、白底、字标拆成上下两行
+     把产品框在中间，产品背后一圈它自己颜色的柔光，四周全是空气。
+
+     能照搬过来是因为素材对得上：那七张标签是瓶形剪影的透明 PNG，
+     和 LUMI 那块抠出来的蛋糕是同一类主体；而「糯氧米酒」本来就是
+     品牌名拆在描述词两边的结构，天然能分成上下两行。
+
+     柔光是伪元素上的 radial-gradient，颜色由 --glow 传进来，
+     每个口味给自己的那一色。 */
+  .prose-body :global(.poster) {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    justify-items: center;
+    align-items: center;
+    gap: clamp(1.25rem, 3.5vw, 2.75rem);
+    aspect-ratio: 3 / 4;
+    width: min(100%, 46rem);
+    margin: clamp(2.5rem, 7vw, 5.5rem) auto;
+    padding-block: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .prose-body :global(.poster)::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* 两层：中间一团实的，外面一圈散开的。
+       单层 radial 要么中心太淡要么边缘太硬 —— LUMI 那张的光是
+       「主体周围一圈确实在发光」，不是「背景有点脏」。 */
+    background:
+      radial-gradient(34% 25% at 50% 50%, var(--glow, rgba(244, 120, 33, 0.9)) 0%, transparent 72%),
+      radial-gradient(58% 44% at 50% 50%, var(--glow, rgba(244, 120, 33, 0.9)) 0%, transparent 78%);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+
+  .prose-body :global(.poster > *) {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+  }
+
+  /* 装图的那个 <p> 必须自己有宽度。
+     grid 项在 justify-items:center 下是按内容收缩的，而图的宽度写成
+     min(100%, …) 又回头问这个 <p> 要宽度 —— 两边互相等，算出来是 0。
+     实测过：图的 computed width 真的是 0px，整块是空的。 */
+  .prose-body :global(.poster > p) {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  /* 字距 0.42em，再用 text-indent 把最后一个字后面那块空补回来 ——
+     字距是加在每个字之后的，包括末字，不补的话整行看着偏左。 */
+  .prose-body :global(.poster-line) {
+    font-family: var(--font-mono);
+    font-size: clamp(1.4rem, 0.3rem + 4.8vw, 3.4rem);
+    font-weight: 400;
+    letter-spacing: 0.34em;
+    text-indent: 0.34em;
+    line-height: 1.1;
+    color: var(--poster-ink, #F47821);
+  }
+
+  /* 副行：口味名、拉丁名这类第二层信息 */
+  .prose-body :global(.poster-sub) {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
+    text-transform: uppercase;
+    color: var(--poster-ink, #F47821);
+    opacity: 0.74;
+  }
+
+  .prose-body :global(.poster img) {
+    display: block;
+    width: min(100%, var(--subject, 19rem));
+    height: auto;
+    margin-inline: auto;
+    background: none;
+    box-shadow: none;
+  }
+
   /* ---- 色卡：满宽的色带，规格压在带子里 ----
      原来是一张 .dg 表格。诚实，但那是整页最没被设计过的东西，
      而色彩本来是品牌案例里最该好看的一页。 */

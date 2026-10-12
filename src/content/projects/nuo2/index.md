@@ -161,6 +161,25 @@ of seven pictures. The direction is the work.
 
 ## D — PACKAGING
 
+<!-- auto:skip
+
+     这张是 CAFE LUMI 那套案例里最有力的版面，照搬过来：
+     竖构图、字标拆成上下两行框住产品、产品背后一圈它自己颜色的柔光。
+
+     能照搬是因为素材对得上 —— 标签是瓶形剪影的透明 PNG，
+     而「糯氧米酒」本来就是品牌名拆在描述词两边，天然分得开。
+     光给的是青梅自己的淡绿，不是品牌橙：这一张讲的是这个口味。 -->
+
+<div class="poster" style="--glow: rgba(144, 210, 195, 0.8); --subject: 19rem">
+
+<div class="poster-line">糯 氧 米 酒</div>
+
+![Green plum, front](./d-front-green-plum.png)
+
+<div class="poster-sub">青 梅 · Green Plum · 250ml</div>
+
+</div>
+
 The front of each bottle. Same grid, same type position, different weather.
 
 <!-- auto:skip
