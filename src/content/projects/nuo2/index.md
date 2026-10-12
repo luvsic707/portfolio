@@ -52,7 +52,13 @@ on a bottle neck and soft enough to still feel hand-made.
      各按自己的形状取宽：方的给方块，宽扁的给宽带，组合给中段。
      并排试过，符号下面空掉两百多像素 —— 量出来是 567x249 对 567x484。 -->
 
-<div class="field" style="--field: #2F3F47">
+<!-- 底色用奶油，不用板岩灰。
+     这个牌子自己的底就是奶油纸 —— 标签、海报、杯套全部是橙字印在上面。
+     板岩灰在她的色彩系统里是文字色，我把它当整屏底色用错了：
+     那个带蓝绿的灰和橙色互相发浑，而且 LUMI 那套参考几乎没有深色，
+     它是大量白加几个彩色时刻。 -->
+
+<div class="field" style="--field: #FFE7C2; --field-ink: #2F3F47">
 
 <div class="chip" style="--w: 26rem">
 
@@ -138,10 +144,9 @@ of seven pictures. The direction is the work.
      拆成 rows-4 + rows-3，第二行三张各占三分之一、比上面一行略大，
      看着是有意为之，而且没有空位。
 
-     压在奶油色上：LUMI 那个案例把产品放在浅色域里带一圈光，
-     这七张本来就是浅调的拼贴，奶油底比惨白的纸更托得住它们。 -->
-
-<div class="field" style="--field: #FFE7C2; --field-ink: #2F3F47">
+     这一节不上色域：整页的彩色时刻要稀缺才有力。
+     A 栏奶油、色卡本身、E 栏薄荷，三处够了 —— 再加一块，
+     整页就从「大量白加几个彩色瞬间」变成「一块块颜色」。 -->
 
 <div class="rows-4">
 
@@ -162,8 +167,6 @@ of seven pictures. The direction is the work.
 ![Rose](./c-rose.jpg)
 
 ![Sea salt pomelo](./c-sea-salt-pomelo.jpg)
-
-</div>
 
 </div>
 
@@ -237,9 +240,12 @@ the logotype only has to appear once.
      这一节对求职权重最高：它证明这套东西离开了屏幕。
 
      外卖袋是唯一的真实环境照（4000×6000，厨房台面），给它整条出血。
-     其余四张是白底产品图 —— 压在纸上读起来是「没做完」，压在板岩灰的
-     色域上就成了有意为之，而且主体放进更窄的槽位之后反倒更锐。
-     每张都补成 16:9 的白卡，一点没裁。 -->
+     其余四张是白底产品图 —— 压在纸上读起来是「没做完」，压在色域上
+     就成了有意为之，而且主体放进更窄的槽位之后反倒更锐。
+     每张都补成 16:9 的白卡，一点没裁。
+
+     底色用薄荷不用板岩灰：白卡要和底分得开，而薄荷是这套色里
+     唯一既够浅又不是白的那一个 —— 和橙色也是品牌自己的对比关系。 -->
 
 <div class="bleed">
 
@@ -247,7 +253,7 @@ the logotype only has to appear once.
 
 </div>
 
-<div class="field" style="--field: #2F3F47">
+<div class="field" style="--field: #90D2C3; --field-ink: #2F3F47">
 
 <div class="card">
 
