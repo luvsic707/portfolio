@@ -3631,13 +3631,18 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
   .prose-body :global(.card img) { display: block; width: 100%; height: auto; }
   .prose-body :global(.card + .card) { margin-top: clamp(0.9rem, 2.2vw, 1.8rem); }
 
-  /* 色域里的小件：标志、印章、徽记这类本来就该小的东西。
-     也用来接住像素不够的素材 —— 240px 的槽位，480 物理像素就够了，
+  /* 色域里的单件：标志、符号、组合这类自己有固定比例的东西。
+     宽度逐个给（--w），不要均分 —— 一个 2.28 的宽扁块和一个 1.17 的
+     方块并排，高度会差一倍，窄的那个下面空掉两百多像素。
+     量过：567x249 对 567x484。一个一行、各按自己的比例取宽，才是composed。
+
+     也用来接住像素不够的素材：240px 的槽位只要 480 物理像素，
      一张 511px 的图放这儿是缩小，放进 992px 的卡里就是放大 1.94 倍。 */
   .prose-body :global(.chip) {
-    width: min(100%, 15rem);
+    width: min(100%, var(--w, 15rem));
     margin-inline: auto;
   }
+  .prose-body :global(.chip + .chip) { margin-top: clamp(2rem, 5vw, 4rem); }
   .prose-body :global(.chip p) { margin: 0; }
   .prose-body :global(.chip img) { display: block; width: 100%; height: auto; }
 

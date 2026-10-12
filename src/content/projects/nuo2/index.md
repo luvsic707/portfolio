@@ -48,17 +48,25 @@ on a bottle neck and soft enough to still feel hand-made.
      两个好处同时发生：橙色压在深色上最亮，而窄槽位让 1500px 的符号
      和 1900px 的组合不再被放大 —— 之前它们在通栏里是 0.55 和 0.70 倍。 -->
 
+<!-- 三件东西的比例差太远（0.96 / 2.28 / 1.17），所以一个一行，
+     各按自己的形状取宽：方的给方块，宽扁的给宽带，组合给中段。
+     并排试过，符号下面空掉两百多像素 —— 量出来是 567x249 对 567x484。 -->
+
 <div class="field" style="--field: #2F3F47">
 
-<div class="chip">
+<div class="chip" style="--w: 26rem">
 
 ![Logotype](./a-logotype.png)
 
 </div>
 
-<div class="cards2">
+<div class="chip" style="--w: 44rem">
 
 ![The NUO2 graphic mark](./a-mark.png)
+
+</div>
+
+<div class="chip" style="--w: 34rem">
 
 ![Three approved lockups](./a-lockups.png)
 
