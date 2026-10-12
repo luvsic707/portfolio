@@ -92,6 +92,9 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* 色域那几条带子靠伪元素横向超出视口，得有人把它们收住。
+     只在这一层设：root 上再设一次（尤其是 clip）会把整页的纵向
+     滚动一起禁掉 —— 试过，页面直接不能滚。 */
   overflow-x: hidden;
 }
 

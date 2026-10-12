@@ -3563,6 +3563,178 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
     box-shadow: none;
   }
 
+  /* ==================== 整屏色域 ====================
+
+     量过 Anagrama、Porto Rocha、WAITING LINE、SHAMSI、Wopsim、CAFE LUMI
+     之后，「大气」不是一种风格，是几个可执行的结构动作，而这一条是
+     最管用的：让某一节不是「纸上的几张图」，而是一块颜色。
+
+     一个品牌案例全程只有一种白，等于把这个品牌自己的颜色扔了。
+
+     机制沿用上面 .dark 那条路（box-shadow 画在盒子外面，不占布局，
+     版心一个数都不用改），只是颜色可配：
+
+         <div class="field" style="--field: #1F3055">
+         <div class="field" style="--field: linear-gradient(...)">
+
+     .dark 等于 --field:#000 的特例，留着不动 —— 已经有页面在用它。 */
+  .prose-body :global(.field) {
+    position: relative;
+    padding-block: clamp(2rem, 6vw, 5rem);
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+    background: var(--field, #000);
+    color: var(--field-ink, #fff);
+  }
+
+  /* 渐变不能靠 box-shadow 往外铺（阴影只认纯色），所以这里用一个
+     绝对定位的伪元素横向超出视口 —— 渐变跟着它一起拉开，纯色也照样对。 */
+  .prose-body :global(.field)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    /* 精确顶到视口两边，不多铺一个像素。
+       50% 是版心的一半，50vw 是视口的一半，差值就是版心到视口边的距离。
+       用 -100vmax 那种「反正铺够」的写法会让 scrollWidth 多出上千像素，
+       虽然被 overflow 收住了，但页面从此一直处在「有横向溢出」的状态。 */
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    background: inherit;
+    pointer-events: none;
+  }
+
+  .prose-body :global(.field > *) { position: relative; z-index: 1; }
+
+  /* 色域里的图不要裱边投影 —— 那是纸上的语言 */
+  .prose-body :global(.field img),
+  .prose-body :global(.field video) {
+    background: none;
+    box-shadow: none;
+  }
+
+  /* 色域里的字一律翻成浅色（同 .dark 的道理） */
+  .prose-body :global(.field > p),
+  .prose-body :global(.field .win-cap),
+  .prose-body :global(.field sub) {
+    color: var(--field-ink, rgba(255, 255, 255, 0.78));
+  }
+
+  /* ---- 色域里的白卡 ----
+     白底产品图压在纸上读起来是「没做完」，压在色域上就成了有意为之。
+     这是 SHAMSI 那些浅色内容页的做法，也顺带解决清晰度：主体放进
+     更窄的槽位，1500px 的素材反而够用了。 */
+  .prose-body :global(.card) {
+    width: min(100%, 62rem);
+    margin-inline: auto;
+  }
+  .prose-body :global(.card p) { margin: 0; }
+  .prose-body :global(.card img) { display: block; width: 100%; height: auto; }
+  .prose-body :global(.card + .card) { margin-top: clamp(0.9rem, 2.2vw, 1.8rem); }
+
+  /* 色域里的小件：标志、印章、徽记这类本来就该小的东西。
+     也用来接住像素不够的素材 —— 240px 的槽位，480 物理像素就够了，
+     一张 511px 的图放这儿是缩小，放进 992px 的卡里就是放大 1.94 倍。 */
+  .prose-body :global(.chip) {
+    width: min(100%, 15rem);
+    margin-inline: auto;
+  }
+  .prose-body :global(.chip p) { margin: 0; }
+  .prose-body :global(.chip img) { display: block; width: 100%; height: auto; }
+
+  /* 两张并排的白卡 */
+  .prose-body :global(.cards2) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(0.9rem, 2.2vw, 1.8rem);
+    width: min(100%, 76rem);
+    margin-inline: auto;
+  }
+  .prose-body :global(.cards2 p) { margin: 0; }
+  .prose-body :global(.cards2 img) { display: block; width: 100%; height: auto; }
+
+  @media (max-width: 720px) {
+    .prose-body :global(.cards2) { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  /* ---- 出血图 ----
+     真实环境的实拍照顶满版心，只逃出两边的 gutter。
+
+     不用 100vw：那个值把滚动条宽度也算进去，会多出十几像素；
+     而且全站版心上限本来就是 1440，让某一张图单独冲到 1920
+     反而和别的每一个元素都对不上。在 1440 以下的屏上，
+     逃出 gutter 就已经是顶边了。 */
+  .prose-body :global(.bleed) {
+    margin-inline: calc(-1 * var(--gutter));
+    margin-block: clamp(2.5rem, 7vw, 5.5rem);
+  }
+  .prose-body :global(.bleed p) { margin: 0; }
+  .prose-body :global(.bleed img),
+  .prose-body :global(.bleed video) {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: none;
+    box-shadow: none;
+  }
+
+  /* ---- 字标 ----
+     CAFE LUMI 和 Wopsim 都把字标拉开字距、单独占一屏当母题。
+     这是免费的「大气」：一行字，很多空气。 */
+  .prose-body :global(.wordmark) {
+    margin-block: clamp(1rem, 3vw, 2rem);
+    font-family: var(--font-mono);
+    font-size: clamp(1.25rem, 0.6rem + 3.4vw, 3rem);
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    line-height: 1.25;
+    text-align: center;
+    text-indent: 0.3em;          /* 补掉最后一个字后面那块字距，视觉才居中 */
+    text-transform: uppercase;
+  }
+  .prose-body :global(.wordmark em) {
+    display: block;
+    margin-top: 0.9em;
+    font-style: normal;
+    font-size: 0.3em;
+    letter-spacing: 0.26em;
+    opacity: 0.72;
+  }
+
+  /* ---- 色卡：满宽的色带，规格压在带子里 ----
+     原来是一张 .dg 表格。诚实，但那是整页最没被设计过的东西，
+     而色彩本来是品牌案例里最该好看的一页。 */
+  .prose-body :global(.bands) {
+    margin-block: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .prose-body :global(.swatch) {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+    min-height: clamp(4.5rem, 10vw, 8.5rem);
+    padding: 0.8rem 1rem;
+    background: var(--c);
+    color: var(--on, #fff);
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .prose-body :global(.swatch)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    background: var(--c);
+    z-index: -1;
+  }
+  .prose-body :global(.swatch b) { font-weight: 600; }
+  .prose-body :global(.swatch span) { opacity: 0.74; }
+
   /* 黑带里的字和框都要反过来 —— 墨色的图注压在纯黑上等于没有，
      窗框那条 var(--ink) 的细线同理。
 
