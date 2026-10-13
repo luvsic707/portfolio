@@ -35,9 +35,16 @@ draft: false
 
 <div class="field" style="--field: #1A294E">
 
-<div class="chip">
+<!-- 白底抠掉了，箔直接压在深蓝上，不要白卡。
+     判别靠彩度不靠亮度：底是纯中性白（彩度 0），箔最亮处 255,254,240
+     仍有 15 的彩度 —— 按亮度切的话箔比底还亮，切不开。
 
-![The mark in gold foil](./a-foil.jpg)
+     trim 之后只剩 262x399（原图 511x780 大半是白边），所以它只能小用：
+     一枚金印压在字标上面，不是主图。128px 的槽位要 256 物理像素，刚好够。 -->
+
+<div class="chip" style="--w: 8rem">
+
+![The mark in gold foil](./a-foil.png)
 
 </div>
 
