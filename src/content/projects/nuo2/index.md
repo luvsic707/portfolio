@@ -2,8 +2,8 @@
 title: NUO2 糯氧米酒
 year: '2025–2026'
 categories: ['Brand', 'Graphic', 'Illustration']
-featured: false
-order: 6
+featured: true
+order: 1
 status: STAGE 1
 summary: A full visual identity for a Guizhou rice wine — logotype, a shape system drawn from the grain, seven flavour illustrations, and the labels that went to print.
 

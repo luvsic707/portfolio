@@ -3,7 +3,7 @@ title: 我是一只蛆 — I Am a Maggot
 year: '2026'
 categories: ['Illustration', 'Graphic', 'Animation']
 featured: false
-order: 1
+order: 5
 status: RELEASED
 summary: Single artwork and Spotify Canvas for the rapper 3Bangz — one ink drawing, and the decision to put it behind a net.
 

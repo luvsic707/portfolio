@@ -30,7 +30,11 @@ const ref = `RT-${initials}-${caseNo}`;
         <Image
           src={cover}
           alt={coverAlt ?? title}
-          widths={[400, 640, 900]}
+          {/* 候选到 900 为止时，1440 的屏上卡片是 33vw = 475 CSS，
+              Retina 要 950 物理像素，最大档只给 900 —— 全站卡片都卡在
+              0.95 倍。补一档 1200 就够到真 2x；手机上 100vw 的那档
+              也用得上。Astro 不会往上插值，原图不够大的会自动跳过。 */}
+          widths={[400, 640, 900, 1200]}
           sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
           loading="lazy"
           decoding="async"

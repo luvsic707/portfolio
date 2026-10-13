@@ -2,8 +2,8 @@
 title: 正信智汇 Zenith — Visual Identity System
 year: '2024'
 categories: ['Brand', 'Graphic']
-featured: false
-order: 5
+featured: true
+order: 2
 status: DELIVERED
 summary: A full identity manual for a Chinese construction engineering group, built for its thirtieth year — mark geometry, bilingual lockups, a woven pattern system, and the hundred objects it had to survive.
 
