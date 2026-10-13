@@ -17,6 +17,23 @@ surface: merge
 underlay: ./a-wall-run.jpg
 
 gallery:
+  # 走场视频放开屏。
+  #
+  # 它是竖幅 1080x1440、13.4 秒的混剪 —— 量过，56% 是横素材上下各垫
+  # 360px 黑边烤在竖画布里，44% 是真竖幅铺满，13 秒里来回切 8 次。
+  # 所以不能裁：按 3:2 裁掉黑边，那 44% 竖幅片段的人头就被切掉了。
+  #
+  # 不裁反而对 —— HeroGallery 的视频格本来就是 #08080a 近黑底配
+  # object-fit: contain，烤死的黑边和黑底融成一片，那些黑边于是不再是
+  # 瑕疵，而是画框。整屏高度（.stage 是 100svh）也已经是现成的。
+  #
+  # poster 取第 7.5 秒 —— 那是真竖幅的一段，展墙、长桌、十来个人在动手
+  # 同时在画面里。没有 poster 的话首屏会先黑一下。
+  #
+  # 轮播不会把视频切断：有视频的那一格不排定时器，等 ended 再翻页。
+  - video: /media/between-selves/a-walkthrough.mp4
+    poster: ./a-walkthrough-poster.jpg
+    alt: Walking the room — five hours, a hundred and fifty people
   - image: ./hero-01.jpg
     alt: Henna, finished
 
@@ -119,13 +136,11 @@ A hundred and fifty people through the room. The installation ended up the most
 photographed thing at the festival, which was the point — the work was supposed
 to leave with them.
 
-<!-- auto:skip -->
+<!-- auto:skip
 
-<div class="full">
-
-<p><video src="/media/between-selves/a-walkthrough.mp4" width="1080" height="1440" muted loop playsinline preload="metadata" data-autoplay aria-label="Walking the room"></video></p>
-
-</div>
+     走场视频挪去开屏了，这里不再重复 —— 同一段片子在一页上出两次
+     没有意义。剩下这四张照片本来就把这一节讲完了：
+     一个观众、一个在试戴、一屋子人、一场放映。 -->
 
 <div class="pair">
 
