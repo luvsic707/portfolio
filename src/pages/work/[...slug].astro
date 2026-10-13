@@ -3605,6 +3605,24 @@ const span = (meta as Record<string, string> | undefined)?.date ?? year;
 
   .prose-body :global(.field > *) { position: relative; z-index: 1; }
 
+  /* ---- .field.tall：开场用的整屏色域 ----
+     只给一行字标的 .field 高度是「字标 + padding」，量出来 191px ——
+     那是一条装饰线，不是开场。LUMI 和 Wopsim 的开场都是一整屏颜色，
+     一行字浮在正中，四周全是空气；高度本身就是那个「大气」。
+
+     用 min-height 而不是 height：内容比它高的时候（窄屏上字标会折行）
+     还能自己长，不会把字顶出去。
+     72vh 不是 100vh —— 下面要露出一点纸，读的人才知道还有内容。 */
+  .prose-body :global(.field.tall) {
+    display: grid;
+    place-items: center;
+    /* 子元素的 margin 全部抹掉，间距交给 gap —— 不然
+       「字标自己的 margin」和「grid 的居中」会互相打架，看着就偏了。 */
+    gap: clamp(1.5rem, 4vw, 3rem);
+    min-height: min(72vh, 40rem);
+  }
+  .prose-body :global(.field.tall > *) { margin-block: 0; }
+
   /* 色域里的图不要裱边投影 —— 那是纸上的语言 */
   .prose-body :global(.field img),
   .prose-body :global(.field video) {

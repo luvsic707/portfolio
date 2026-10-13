@@ -31,9 +31,12 @@ draft: false
 
      整节压在 Calm Blue #1A294E 上。这是抄 Wopsim 的第一招，也是最管用的
      一招：一个品牌案例全程只有一种白，等于把这个品牌自己的颜色扔了。
-     Zenith 有金和深蓝，就该让读的人先看见那两个颜色，再看见图。 -->
+     Zenith 有金和深蓝，就该让读的人先看见那两个颜色，再看见图。
 
-<div class="field" style="--field: #1A294E">
+     加 tall：原来这块只有 422 高，不够当开场。
+     tall 给 min(72vh, 40rem)，金印和字标浮在深蓝正中。 -->
+
+<div class="field tall" style="--field: #1A294E">
 
 <!-- 白底抠掉了，箔直接压在深蓝上，不要白卡。
      判别靠彩度不靠亮度：底是纯中性白（彩度 0），箔最亮处 255,254,240
@@ -241,7 +244,10 @@ and the half that decides whether anyone ever sees it twice.
      所以这一节从纪念物走到空间，最后落在楼体上 —— 那是这套东西
      能长到的最大尺寸。 -->
 
-<div class="field" style="--field: #B98B23; --field-ink: #1A294E">
+<!-- 只装一行字标的 .field 量出来是 191 高 —— 那是一条装饰线。
+     周年这一节的开场该是一整屏金色，所以给 tall。 -->
+
+<div class="field tall" style="--field: #B98B23; --field-ink: #1A294E">
 
 <div class="wordmark">1994 — 2024<em>Zenith in action, excellence in unity</em></div>
 

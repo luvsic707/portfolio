@@ -37,9 +37,12 @@ draft: false
      所以这一招在这儿是现成的，不是硬套。
 
      渐变不能靠 box-shadow 往外铺（阴影只认纯色），.field 的伪元素
-     是绝对定位横向超出视口的，所以渐变照样能顶到边。 -->
+     是绝对定位横向超出视口的，所以渐变照样能顶到边。
 
-<div class="field" style="--field: linear-gradient(104deg, #F47821 0%, #F9A45C 42%, #90D2C3 100%)">
+     加 tall：只给一行字标的 .field 量出来只有 191px 高，那是一条
+     装饰线，不是开场。tall 给它 min(72vh, 40rem)，字标浮在正中。 -->
+
+<div class="field tall" style="--field: linear-gradient(104deg, #F47821 0%, #F9A45C 42%, #90D2C3 100%)">
 
 <div class="wordmark">糯氧米酒<em>Nuo-O₂ · Rice Wine · Guizhou</em></div>
 
