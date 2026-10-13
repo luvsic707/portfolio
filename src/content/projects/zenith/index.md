@@ -189,9 +189,16 @@ and the half that decides whether anyone ever sees it twice.
 
 <div class="field" style="--field: #1A294E">
 
-<div class="cards2">
+<!-- 名片 1.78、垫板 1.38，这一节里其余全是 1.5 —— 只有这两张是异类。
+     并排量出来是 222 对 285，差六十多像素，所以各自独占一行。 -->
+
+<div class="card">
 
 ![Business cards](./d-cards.jpg)
+
+</div>
+
+<div class="card">
 
 ![Clipboards](./d-clipboard.jpg)
 
@@ -205,15 +212,13 @@ and the half that decides whether anyone ever sees it twice.
 
 </div>
 
+<!-- 桌牌去掉了：它是竖的（0.71），旁边两张是 1.50 的横图，并排
+     本来就不成对，而且那张 mockup 自己下面还留着一大片空白。
+     撤掉之后 Polo 和 T 恤正好配上 —— 这一节里唯一比例完全相同的两张。 -->
+
 <div class="cards2">
 
-![Desk nameplate](./d-nametag.jpg)
-
 ![Polo shirt](./d-polo.jpg)
-
-</div>
-
-<div class="card">
 
 ![Site tee, back](./d-tee.jpg)
 
