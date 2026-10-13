@@ -50,7 +50,11 @@ const hasVideo = slides.some((s) => s.video);
             class="fg"
             src={s.image}
             alt={s.alt ?? title}
-            widths={[720, 1280, 1920, 2400]}
+            {/* 首图是 100vw，所以 Retina 上要的物理像素是视口宽的两倍。
+                候选只到 2400 时：1280 的视口要 2560，挑到 2400 是 0.94；
+                1512 的 MacBook 要 3024，还是只能挑 2400，掉到 0.79 —— 看得出来。
+                Astro 不会往上插值，原图不够大的那几个项目会自动跳过高位档。 */}
+            widths={[720, 1280, 1920, 2560, 3200]}
             sizes="100vw"
             loading={i === 0 ? 'eager' : 'lazy'}
             fetchpriority={i === 0 ? 'high' : 'auto'}
