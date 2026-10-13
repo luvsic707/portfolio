@@ -24,6 +24,11 @@ gallery:
   - image: ./hero-01.jpg
     alt: The takeaway bag on a kitchen counter
 
+# 封面也用外卖袋那张真照片（见 tools/nuo2-card.cjs）。
+# 原来是 928x1232 的主插画 —— 卡片最大档槽位 900，Retina 要 1800，
+# 只有 0.52 倍，在首页列表里就是糊的。
+# 封面和首图是同一张照片的两个裁切，这是有意的：缩略图认得出来，
+# 点进去迎面还是它。E 栏那张已经换成细节特写，不会第三次重复。
 cover: ./card.jpg
 draft: false
 ---
