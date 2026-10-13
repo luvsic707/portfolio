@@ -84,12 +84,35 @@ on a bottle neck and soft enough to still feel hand-made.
 Three approved lockups, and the only three. Everything else on the bottle, the
 bag and the cup sleeve is built from these.
 
-<!-- 组合图放在纸上单独一行，76% 宽 —— 1900px 的原图够这个槽位用。
-     它和字标不是同一类东西：字标是单件，这张是一整页规范，有三行内容。 -->
+<!-- 三个组合各自一张，不再用那张三行拼在一起的 a-lockups.png。
+     那张不是被切，是三行各自停在不同位置 —— 量出来第一行的墨到
+     画布 84%，第二行 98%，第三行 100%，左右都不对齐，
+     整张读起来就像裁坏了。
+     （我先前用「边缘带墨比例」判它被切，是假阳性：几何构形的笔画
+       末端本来就是平的，紧裁后自然贴边。拿确定完整的 Asset 8 对过
+       第三行，比例差 0.002，一笔没少。字标也被我误判过，已还原。）
 
-<div class="chip" style="--w: 76%">
+     拆开之后每行各自去透明边、各自定宽，就都是有意为之的规范图。
 
-![Three approved lockups](./a-lockups.png)
+     按等高排，不按等宽：组合的可比量是字高，等宽会让 3.8 比例的
+     那行矮成一条线。基准 80% 而不是更宽 —— 最宽那行只有 1595px，
+     88% 的槽位要 1746，会放大。 -->
+
+<div class="chip" style="--w: 80%">
+
+![Lockup one: logotype beside the mark](./a-lockup-1.png)
+
+</div>
+
+<div class="chip" style="--w: 73%">
+
+![Lockup two: the mark filled with the illustration](./a-lockup-2.png)
+
+</div>
+
+<div class="chip" style="--w: 75%">
+
+![Lockup three: the mark with the bilingual name](./a-lockup-3.png)
 
 </div>
 

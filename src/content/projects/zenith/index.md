@@ -21,6 +21,8 @@ gallery:
   - image: ./hero-01.jpg
     alt: The Zenith mark lit on the reception wall
 
+# 封面是卷起的周年海报。原图 6000x4500 正好是 4:3，
+# 而卡片就是 aspect-ratio: 4/3 配 object-fit: cover —— 一个像素都没裁。
 cover: ./card.jpg
 draft: false
 ---
@@ -298,11 +300,10 @@ folders, cups, tape, and a tote. Produced, handed out, and still in the office.
 
 Then the same system at building scale.
 
-<div class="bleed">
-
-![The culture wall](./e-culture-wall.jpg)
-
-</div>
+<!-- 企业文化展板（八块价值观立牌：勤勉敬业、廉洁自律……）去掉了。
+     两个理由：它是内部文化宣传物，不是这套识别最有说服力的应用；
+     而且上面那句写的是 building scale，八块立牌撑不起这句话 ——
+     楼梯和楼体才是。 -->
 
 <div class="bleed">
 
