@@ -58,28 +58,24 @@ on a bottle neck and soft enough to still feel hand-made.
      它是大量白加几个彩色时刻。
      三张都是透明底（透明 43% / 9% / 38%），所以直接浮在奶油上，不要裱边。 -->
 
-<!-- 宽度给百分比，不给 rem。
-     之前是 26rem / 44rem / 34rem —— 在 820px 的窗口里量出来是
-     416 / 704 / 544，而色域只有 739 宽，符号左右各剩 18px，
-     读起来就是挤爆了；反过来在宽屏上这三个定值又全都偏小。
-     百分比让这组关系在任何宽度下都不变。
+<!-- 色域里只放字标一件。
+     之前放了字标 + 符号，紧接着纸上的组合图又把这两个并排摆一遍 ——
+     组合图本来就是由它们组成的，所以一节里 糯氧米酒 出现五次。
+     符号挪去 B 栏开头了：那一节讲的就是「符号拆成八个模块」，
+     先看符号再看模块，是它该在的位置。
 
-     符号给 64%，字标给 32%，正好是一半 —— 两个数字之间有关系，
-     不是各自挑好看的。不按等高对齐：符号的墨占到画面 90%，
-     字标只有 56%，等高排的话符号会把字标压死。
-     现在字标 246 高、符号 207 高，轻的那个高一点，才读得一样重。 -->
+     一件东西配一句话：旁边那句写的是「四个字重构成一个几何块」，
+     说的正是字标。现在这块色域里就只有它。
+
+     宽度给百分比不给 rem：之前 26rem 在 739 的色域里是 416，
+     而同一个定值在宽屏上又偏小。百分比在任何宽度下关系不变。
+     单独一件了，从 32% 放到 38%。 -->
 
 <div class="field" style="--field: #FFE7C2; --field-ink: #2F3F47">
 
-<div class="chip" style="--w: 32%">
+<div class="chip" style="--w: 38%">
 
 ![Logotype](./a-logotype.png)
-
-</div>
-
-<div class="chip" style="--w: 64%">
-
-![The NUO2 graphic mark](./a-mark.png)
 
 </div>
 
@@ -88,10 +84,8 @@ on a bottle neck and soft enough to still feel hand-made.
 Three approved lockups, and the only three. Everything else on the bottle, the
 bag and the cup sleeve is built from these.
 
-<!-- 组合图从色域里搬出来了。
-     它和上面两张不是同一类东西：那两张是单件标志，这张是一整页规范，
-     本身就有三行内容。和单件并排只会让三行里的每一行都变小。
-     放在纸上单独一行，76% 宽 —— 1900px 的原图够这个槽位用。 -->
+<!-- 组合图放在纸上单独一行，76% 宽 —— 1900px 的原图够这个槽位用。
+     它和字标不是同一类东西：字标是单件，这张是一整页规范，有三行内容。 -->
 
 <div class="chip" style="--w: 76%">
 
@@ -104,7 +98,19 @@ bag and the cup sleeve is built from these.
 The mark breaks into eight modules that carry the brand without it: on a bag, a
 cup sleeve, a wall.
 
-<!-- auto:skip -->
+<!-- auto:skip
+
+     符号从 A 栏的色域挪到这里。这一节讲的就是它拆成八块，
+     所以先给符号本身，再给拆出来的模块 —— 读的人自己能把两张看成一句话。
+     放在 A 栏时它紧贴着组合图，而组合图里已经有它了，纯属重复。
+
+     1500px 的原图，58% 的槽位（992 版心上是 575）要 1150，够。 -->
+
+<div class="chip" style="--w: 58%">
+
+![The NUO2 graphic mark](./a-mark.png)
+
+</div>
 
 <div class="card">
 
