@@ -11,7 +11,8 @@ meta:
   media: resin, acrylic paint, clay, ultraviolet epoxy
 surface: merge
 ground: white
-underlay: ./type-no-8-alien-pet-otaku-03.webp
+# 底衬去掉了，就留白。这一节的作品本身是黑墨的对称图形，
+# 底下再铺一张灰色水墨就是两层墨在打架 —— 符号本来要的是空白。
 gallery:
   - image: ./hero-01.jpg
     alt: The Person in a Culture Dish — Otaku 01
