@@ -8,110 +8,117 @@ import portrait from '../assets/portrait.webp';
 /* Red Thread 是实践的名字，但求职这一页得有法定名字：
    招聘的人拿到简历之后会去搜，搜的是这个；作品集上找不到它，
    简历和网站就对不上号了。所以两个都给，大的是招牌，小的是本人。 */
-const name = 'Xian Pu · 濮若菁';
-/* 定位是「跨学科视觉艺术家」，不是某一个工种 —— 她的长处正是跨度。
-   具体工种放到下面第一段里，招聘的人搜关键词照样搜得到。 */
-const role = 'Interdisciplinary Visual Artist';
+const name = 'Jane Pu · 濮若菁';
+/* 定位改成「品牌设计 + 营销」，跟简历一致。
+   原来写的是 Interdisciplinary Visual Artist —— 跨度是真的，但求职这一页
+   第一行要回答的是「你是干什么的」，而她现在投的是 design / marketing。
+   跨度不丢，挪到下面第二段讲，那里才是它该在的位置。 */
+const role = 'Brand Designer & Marketer';
 const city = 'TORONTO, ON';
 
 /* 技能按「做什么」分组，不按「会什么软件」——
    招聘的人先找的是职能，软件是第二层。
    每组都排满，整块读起来是一片密实的灰面，这是这一页的主体。 */
+/* 技能分组照简历走：Brand & Identity / Marketing & Content / Tools。
+   原来是 Design / Technical / Software / Hand & Material 四组，偏作者向；
+   简历那三组是招聘方按职能搜的词，两边得对得上号。
+
+   .cols-4 是 auto-fit，三组自然成三栏，样式不用改。
+
+   Hand & Material 那一组（纹身、海娜、水墨、装帧、定格……）撤了 ——
+   简历上没有它。那组是真的差异点，想要的话随时加回来。 */
 const skills = [
   {
-    label: 'Design',
+    label: 'Brand & Identity',
     items: [
+      'Brand & Visual Identity Systems',
+      'Packaging Design',
+      'Typography & Layout',
       'Illustration',
-      'Concept Art',
-      'Character Design',
-      'Storyboarding',
-      'Narrative Design',
-      'Brand & Visual Identity',
-      'Editorial & Book Design',
-      'UI / UX Design',
-      'Motion Graphics',
-      '2D Animation',
     ],
   },
   {
-    label: 'Technical',
+    label: 'Marketing & Content',
     items: [
-      'Unity (2D / AR)',
-      'C#',
-      'Vuforia',
-      'Blender',
-      'TouchDesigner',
-      'Game Prototyping',
-      'Usability Research',
-      'AI-assisted Creation',
+      'Brand Strategy & Positioning',
+      'Campaign & Launch Communication',
+      'Art Direction',
+      'Content Marketing',
+      'Social Media Management',
+      'Copywriting & Editing',
+      'Competitive Analysis',
+      'PR & Event Marketing',
     ],
   },
   {
-    label: 'Software',
+    label: 'Tools',
     items: [
       'Photoshop',
       'Illustrator',
       'After Effects',
       'Premiere Pro',
-      'Procreate',
+      'Canva',
       'Figma',
-      'Unity',
+      'Procreate',
       'Blender',
-    ],
-  },
-  /* 这一组是别人没有的。放进技能表里，「杂」就变成了「跨度」。 */
-  {
-    label: 'Hand & Material',
-    items: [
-      'Tattooing',
-      'Henna',
-      'Chinese Ink',
-      'Watercolour',
-      'Mixed Media',
-      'Bookbinding',
-      'Stop-Motion',
-      'Mural Painting',
-      'Print Production',
+      'Unity',
+      'HTML / CSS (Astro)',
+      'AI-assisted Creation & Workflow',
     ],
   },
 ];
 
+/* 经历照简历走：三条专业经历，和简历一字不差地对得上。
+   原来这里有六条（角色设计、纹身、Muke 实习，而且 Zenith 和西南应用心理
+   研究院分成两行）。简历把那两家并成了一条 —— 它们是一个集团下的两家公司，
+   分开写反而像两份短工。
+
+   href 指向作品集里对应的项目页。招聘的人读到 NUO2 那一行，
+   下一步想干的事就是看这个项目，中间不该隔着一次「回首页再找」。
+
+   Zenith 这条不写行业。简历上写的是 audit and legal firm，而站内
+   Zenith 项目页跟的是手册，写的是工程造价咨询 / 全过程工程项目管理 ——
+   把两种说法同时摆在一个站上，是肉眼可见的自相矛盾。
+   数字（30% 认知、30 周年、20% 触达）全部照简历保留，只是不定性行业。 */
 const experience = [
   {
     year: '2026 —',
-    role: 'Character Design Artist',
-    at: '2.5D Tactical Turn-Based Game · Vancouver',
-    note: 'Progression-based character assets from sketch to in-engine; 3D blockout to 2D refinement at 31° isometric.',
-  },
-  {
-    year: '2025 —',
-    role: 'Independent Tattoo Artist',
-    at: 'RedThread · Vancouver',
-    note: 'Narrative-driven work. Showed at the 2025 Vancouver Tattoo Convention.',
+    role: 'Digital Marketing Apprentice',
+    at: 'Speakmo, voice-based social app · Toronto',
+    note: 'Launched the organic content program on TikTok and Instagram from zero — 20+ short-form videos in the first six weeks, and the visual template that turns long-form audio into captioned, waveform-led clips. Weekly test-and-learn: the strongest format runs 4x the views of the weakest.',
   },
   {
     year: '2025 — 2026',
-    role: 'Independent Branding Designer',
-    at: 'Nuo-Oxygen Rice Wine · Remote',
-    note: 'Full visual identity and a packaging system across 8 SKUs, gift sets, apparel and retail. In use in two stores.',
-  },
-  {
-    year: '2024',
-    role: 'Brand Designer & Creative Coordinator',
-    at: 'Zenith Construction Engineering Management · Chengdu',
-    note: 'Identity rebuild and brand manual, rolled out at the firm’s 30th anniversary.',
+    role: 'Design Lead, Branding & Visual Identity (Contract)',
+    at: 'Nuo-Oxygen (NUO2), premium craft rice-wine label · Vancouver',
+    href: '/work/nuo2/',
+    note: 'Repositioned a premium craft beverage from consumer research to retail launch, placing the range in 2 Beijing locations including a counter at Parkview Green. Built the identity system — logotype, typography, colour, illustration — and applied it across a 7-flavour, 8-SKU range plus gift sets, apparel and retail banners.',
   },
   {
     year: '2023 — 2024',
-    role: 'Social Media & Content Designer',
-    at: 'Southwest Institute of Applied Psychology · Chengdu',
-    note: 'Branding, long-form articles and infographics turning clinical material into public-facing work.',
+    role: 'Brand Designer & Creative Coordinator, and Social Media & Content Designer',
+    at: 'Zenith Construction Engineering Management Co., Ltd · Chengdu',
+    href: '/work/zenith/',
+    note: 'Led a brand and visual identity upgrade that lifted brand recognition 30% among clients, and rolled it out at the firm’s 30th anniversary with event visuals and merchandise. Grew audience reach 20% at the group’s Southwest Institute of Applied Psychology, restructuring the content calendar and producing long-form learning content.',
+  },
+];
+
+/* 简历新开的一节，摆在经历和学历之间。
+   两条都有对应的项目页，所以两条都给链接。 */
+const selectedWork = [
+  {
+    year: '2026',
+    role: 'Single Artwork, “I Am a Maggot” by 3Bangz',
+    at: 'Trendsetter Media · credited as Graphic Designer',
+    href: '/work/i-am-a-maggot/',
+    note: 'Cover and the 1080 × 1920 Spotify Canvas motion loop. Released on Spotify, NetEase Cloud Music and all major platforms.',
   },
   {
-    year: '2020',
-    role: 'Illustrator Intern',
-    at: 'Muke Cultural & Creative · Hangzhou',
-    note: 'Two illustration series put into production; over 1,000 units sold.',
+    year: '2026',
+    role: '“Between Selves” — Experiential Activation',
+    at: 'Balam Balam Place · Melbourne',
+    href: '/work/between-selves/',
+    note: 'Planned and promoted end to end: set the theme, brought in local artists, ran the print, install and invites. Engaged 150+ of 300+ attendees in 5 hours with 35+ custom designs.',
   },
 ];
 
@@ -124,12 +131,10 @@ const education = [
   },
 ];
 
+/* Between Selves 挪进 Selected Work 了（简历把它放在那一节），
+   所以这里不再重复列它。留着这一节是因为参展本身是个独立的资历，
+   简历一页放不下，站上放得下。 */
 const showings = [
-  {
-    year: '2026',
-    text: 'Between Selves · Flowing Through Identities',
-    at: 'Balam Balam Place, Melbourne',
-  },
   { year: '2025', text: 'Vancouver Tattoo Convention', at: 'Vancouver' },
 ];
 
@@ -178,27 +183,35 @@ const revised = new Date().toISOString().slice(0, 10);
                而这段话正是「这张脸是谁」的答案，摆在这里才对得上。
                开场一句大、两段细节小并排 —— 一大一小，一栏一栏，
                和 protocol 抬头那条密排带是同一个道理。 -->
+          <!-- 开场改成简历那句定位。原来写的是「跨学科视觉艺术家，
+               开放于插画／概念设计／互动媒体」—— 和现在投的方向对不上。
+               简历第一句给的是可核验的事实：两套完整识别系统、30%、20%、
+               一张商业发行单曲的署名。这一页第一眼也该是这些。 -->
           <div class="id-about">
             <p class="lede">
-              I'm an interdisciplinary visual artist based in Toronto, finishing a Master
-              of Digital Media at Northeastern. I'm open to work across illustration,
-              concept art, visual and brand design, and interactive media.
+              I'm a brand designer and marketer in Toronto, finishing a Master of Digital
+              Media at Northeastern. I've built two complete visual identity systems from
+              research through production — one onto retail shelves, one across a
+              company's 30th anniversary — lifted brand recognition 30%, grew audience
+              reach 20%, and hold credited artwork on a commercially released single.
             </p>
             <div class="id-detail">
               <p class="prose">
-                Every project carries a commercial requirement and an idea of my own, and
-                I look for the form that holds both — usually with a technology the brief
-                did not come with. A sociology text becomes an ink series, clinical
-                literature becomes an AR poster, a myth becomes a card game. I take a
-                project the whole way: research, form, production, and the file that goes
-                to the printer.
+                I take a brand the whole way: research and positioning, the identity
+                itself, then the campaign that launches it and the file that goes to the
+                printer. The two halves are the same job to me — a system nobody sees is
+                not finished, and a campaign with nothing behind it runs out in a week.
+                I work bilingually in English and Chinese, which is most of why the NUO2
+                range reads correctly on a shelf in Beijing.
               </p>
+              <!-- 跨度没丢，挪到第二段。这里它是「我还能干什么」，
+                   而不是「我是什么」—— 位置对了，它就是加分项不是杂音。 -->
               <p class="prose">
-                The range runs from ink on handmade paper to a Unity build — illustration,
-                brand systems, printed books, tattoo, AR, card games. Illustration is the
-                spine of all of it: everything else is that drawing pushed into another
-                material until it has to hold up as a printed object, a playable system,
-                or a mark on skin.
+                Illustration is the spine of all of it, and the range around it runs from
+                ink on handmade paper to a Unity build — printed books, tattoo, AR, card
+                games. Everything else is that drawing pushed into another material until
+                it has to hold up as a printed object, a playable system, or a mark on
+                skin.
               </p>
             </div>
           </div>
@@ -272,7 +285,36 @@ const revised = new Date().toISOString().slice(0, 10);
               {experience.map((e) => (
                 <tr>
                   <td>
-                    {e.role}
+                    {e.href
+                      ? <a class="tbl-link" href={e.href}>{e.role}<span class="tbl-go" aria-hidden="true">→</span></a>
+                      : e.role}
+                    <span class="tbl-note">{e.note}</span>
+                  </td>
+                  <td>{e.at}</td>
+                  <td class="num">{e.year}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </div>
+
+      <!-- 简历新开的一节，位置也照简历：经历之后、学历之前。
+           两条都通到作品页 —— 读到这里的人下一步就是想看作品。 -->
+      <div class="band band-1 reveal">
+        <section class="blk">
+          <h2 class="blk-head">Selected Work</h2>
+          <table class="tbl">
+            <thead>
+              <tr><th>Project</th><th>Where</th><th class="num">Year</th></tr>
+            </thead>
+            <tbody>
+              {selectedWork.map((e) => (
+                <tr>
+                  <td>
+                    {e.href
+                      ? <a class="tbl-link" href={e.href}>{e.role}<span class="tbl-go" aria-hidden="true">→</span></a>
+                      : e.role}
                     <span class="tbl-note">{e.note}</span>
                   </td>
                   <td>{e.at}</td>
@@ -451,6 +493,33 @@ const revised = new Date().toISOString().slice(0, 10);
     font-size: var(--step--2);
     line-height: 1.65;
     color: var(--ink-soft);
+  }
+
+  /* 通往作品页的链接。
+     下划线用 1px 的淡线、hover 转红 —— 和上面 .id-meta a 同一套做法，
+     这一页不该有第二种链接长相。
+
+     箭头常驻，不是 hover 才出现：这一行能点必须在不动鼠标时就看得出来，
+     触屏上根本没有 hover。留 0.4em 的词间距，别和角色名连成一个词。 */
+  .tbl-link {
+    border-bottom: 1px solid var(--line-strong);
+    transition: border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .tbl-link:hover { border-bottom-color: var(--red); color: var(--red); }
+
+  .tbl-go {
+    display: inline-block;
+    margin-left: 0.4em;
+    font-family: var(--font-mono);
+    color: var(--ink-faint);
+    transition: transform 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .tbl-link:hover .tbl-go { transform: translateX(0.18em); color: var(--red); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tbl-link:hover .tbl-go { transform: none; }
   }
 
   @media (max-width: 640px) {
