@@ -122,6 +122,63 @@ const selectedWork = [
   },
 ];
 
+/* 西南应用心理研究所公众号上发表的长文，她从调研、撰稿、排版做到信息图。
+   这一节是上面 Zenith 那条「audience reach +20%」的实证 —— 数字写在经历里，
+   证据放在这里。
+
+   英文标题写的是那篇到底在论证什么，不是把中文标题直译过来：
+   原标题是中文语境下的标题党（「社恐是病，得治！」），直译过去在
+   英文简历页上读起来很轻浮，而内容本身是认真的科普。
+   中文原题放在下面的小字里，一是中文读者认得出，二是点进去之前
+   就知道目的地是中文 —— 不然一个多伦多的招聘方点开看到满屏中文会直接退回来。
+
+   链接全部验证过能在浏览器里正常打开（抓取工具会被微信的风控挡在
+   「环境异常」页，那只是数据中心 IP 的问题，访客不受影响）。 */
+const published = [
+  {
+    year: '2024.05.05',
+    role: 'Nonviolent communication, written as a formula',
+    cn: '非暴力沟通：与人交流的万能公式',
+    href: 'https://mp.weixin.qq.com/s/dKeJekhLCtAzhcnXhwNiEg',
+  },
+  {
+    year: '2024.05.08',
+    role: 'The lobotomy, and the Nobel Prize it won in 1949',
+    cn: '诺贝尔奖居然也有「黑历史」？',
+    href: 'https://mp.weixin.qq.com/s/OPO2mPvPFCCQCQP74zH3tQ',
+  },
+  {
+    year: '2024.05.13',
+    role: 'Sternberg’s three components, and the cost of over-giving',
+    cn: '恋爱篇：爱自己才是终生浪漫',
+    href: 'https://mp.weixin.qq.com/s/qcRXjcid_JCn1duwbsJ6RA',
+  },
+  {
+    year: '2024.05.19',
+    role: 'Body image anxiety, and what it is really about',
+    cn: '身材焦虑：要挣脱的不止身体的枷锁',
+    href: 'https://mp.weixin.qq.com/s/GAt1K3q3tdbb-e46DqN_TQ',
+  },
+  {
+    year: '2024.05.27',
+    role: 'How telephone fraud reads the person it is calling',
+    cn: '世界电信日：从心理学角度解析防范电信诈骗',
+    href: 'https://mp.weixin.qq.com/s/Y6EyfaOlTflGgwygKdJ_rA',
+  },
+  {
+    year: '2024.06.17',
+    role: 'Procrastination, and the time-self underneath it',
+    cn: '我不是拖延症，我是考虑的比较周全',
+    href: 'https://mp.weixin.qq.com/s/CE45ID8eI9iI2GC9ClrGmw',
+  },
+  {
+    year: '2024.07.30',
+    role: 'Social anxiety as a diagnosis rather than a meme',
+    cn: '社恐是病，得治！',
+    href: 'https://mp.weixin.qq.com/s/RRtXa3HPYgyV5-zIBpoYKA',
+  },
+];
+
 const education = [
   { year: '2024 — 2026', text: 'Master of Digital Media', at: 'Northeastern University' },
   {
@@ -326,6 +383,42 @@ const revised = new Date().toISOString().slice(0, 10);
         </section>
       </div>
 
+      <!-- 发表。摆在 Selected Work 和 Education 之间：它是职业产出，
+           不是学历，而且紧跟在上面 Zenith 那条「+20% reach」后面，
+           数字和证据挨着读。
+           外链一律 target/rel —— 这七条是站外的，点开不该把访客从简历页带走。
+
+           band-1 通栏，不用默认那个两栏栅格：三列里中间那列装中文原题，
+           挤在左半边的话英文标题每条都要折两行，七条叠起来就成了一堵字墙。 -->
+      <div class="band band-1 reveal">
+        <section class="blk">
+          <h2 class="blk-head">Published</h2>
+          <p class="blk-lede">
+            Long-form psychology features for the Southwest Institute of Applied
+            Psychology, taken from research through copywriting, layout and
+            infographics. Written in Chinese.
+          </p>
+          <table class="tbl">
+            <thead>
+              <tr><th>Piece</th><th>Original title</th><th class="num">Date</th></tr>
+            </thead>
+            <tbody>
+              {published.map((e) => (
+                <tr>
+                  <td>
+                    <a class="tbl-link" href={e.href} target="_blank" rel="noopener">
+                      {e.role}<span class="tbl-go" aria-hidden="true">↗</span>
+                    </a>
+                  </td>
+                  <td lang="zh">{e.cn}</td>
+                  <td class="num">{e.year}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </div>
+
       <div class="band reveal">
         <section class="blk">
           <h2 class="blk-head">Education</h2>
@@ -490,6 +583,16 @@ const revised = new Date().toISOString().slice(0, 10);
     display: block;
     margin-top: 0.45em;
     max-width: 52ch;
+    font-size: var(--step--2);
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  /* Published 那一节的引子。.lede 是整页唯一放大的那一段，不能挪用，
+     所以这里走 .tbl-note 的字级 —— 它说明的是下面整张表，不是某一行。 */
+  .blk-lede {
+    max-width: 58ch;
+    margin: -0.5rem 0 1.25rem;
     font-size: var(--step--2);
     line-height: 1.65;
     color: var(--ink-soft);
