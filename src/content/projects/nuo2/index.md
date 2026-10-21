@@ -13,6 +13,18 @@ meta:
   media: Visual Identity, Packaging, Illustration, Apparel
   client: Nuo-O₂ Rice Wine · Guiyang
 
+# 品牌自己的小红书号 —— 七个口味的推广贴、新春限定、招募店铺主理人都在上面，
+# 是这个项目「上市之后」的那一半，简历里「线上数字营销」那句说的就是它。
+#
+# 放在 links 而不是 releasedOn：releasedOn 是发行平台（Spotify 那种，
+# 作品本体就在上面），而这个是「想看更多可以点」的旁证。
+#
+# 标签里写明中文：未登录访客打开会看到账号、简介、互动数和 20 条笔记封面，
+# 中间盖一个可以关掉的登录弹窗 —— 是摩擦不是砖墙，但点之前该知道。
+links:
+  - label: Brand account on Xiaohongshu（中文）
+    href: https://www.xiaohongshu.com/user/profile/680e2788000000000e01da1e
+
 ground: paper
 surface: merge
 

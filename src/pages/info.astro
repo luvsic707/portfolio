@@ -16,10 +16,9 @@ const name = 'Jane Pu · 濮若菁';
 const role = 'Brand Designer & Marketer';
 const city = 'TORONTO, ON';
 
-/* 技能按「做什么」分组，不按「会什么软件」——
-   招聘的人先找的是职能，软件是第二层。
-   每组都排满，整块读起来是一片密实的灰面，这是这一页的主体。 */
 /* 技能分组照简历走：Brand & Identity / Marketing & Content / Tools。
+   仍然是按「做什么」分组、不按「会什么软件」—— 招聘的人先找职能，
+   软件是第二层；每组排满，整块读起来是一片密实的灰面，这是这一页的主体。
    原来是 Design / Technical / Software / Hand & Material 四组，偏作者向；
    简历那三组是招聘方按职能搜的词，两边得对得上号。
 
@@ -85,6 +84,12 @@ const experience = [
     year: '2026 —',
     role: 'Digital Marketing Apprentice',
     at: 'Speakmo, voice-based social app · Toronto',
+    /* 这条通到 Speakmo 的 TikTok 号 —— 它没有作品集页面，但那个号就是
+       这份工作的成品本身，和 NUO2 点进项目页是同一个道理：
+       读到这一行的人下一步想看的就是它。
+       外链，所以箭头是 ↗ 不是 → —— 站内导航和跳出去不是一回事。 */
+    href: 'https://www.tiktok.com/@realvoiceclips',
+    external: true,
     note: 'Launched the organic content program on TikTok and Instagram from zero — 20+ short-form videos in the first six weeks, and the visual template that turns long-form audio into captioned, waveform-led clips. Weekly test-and-learn: the strongest format runs 4x the views of the weakest.',
   },
   {
@@ -298,7 +303,13 @@ const revised = new Date().toISOString().slice(0, 10);
               <dt>Elsewhere</dt>
               <dd>
                 <a href="https://www.linkedin.com/in/ruojing-pu-94067a33b/">LinkedIn ↗</a><br />
-                <a href="https://www.instagram.com/luvsic707/">Instagram ↗</a>
+                <a href="https://www.instagram.com/luvsic707/">Instagram ↗</a><br />
+                <!-- 标明是 Speakmo 的号，不是她个人号 —— 它和上面两个不是
+                     同一类东西：那两个是「找她本人」，这个是「看她做的活」。
+                     不标的话读起来就成了她自己的频道。
+                     正因为是在职运营的账号，它反而是上面 Speakmo 那条经历
+                     最硬的证据，所以留在这一页。 -->
+                <a href="https://www.tiktok.com/@realvoiceclips">TikTok · Speakmo ↗</a>
               </dd>
             </div>
           </dl>
@@ -343,7 +354,12 @@ const revised = new Date().toISOString().slice(0, 10);
                 <tr>
                   <td>
                     {e.href
-                      ? <a class="tbl-link" href={e.href}>{e.role}<span class="tbl-go" aria-hidden="true">→</span></a>
+                      ? <a
+                          class="tbl-link"
+                          href={e.href}
+                          target={e.external ? '_blank' : undefined}
+                          rel={e.external ? 'noopener noreferrer' : undefined}
+                        >{e.role}<span class="tbl-go" aria-hidden="true">{e.external ? '↗' : '→'}</span></a>
                       : e.role}
                     <span class="tbl-note">{e.note}</span>
                   </td>
@@ -370,7 +386,12 @@ const revised = new Date().toISOString().slice(0, 10);
                 <tr>
                   <td>
                     {e.href
-                      ? <a class="tbl-link" href={e.href}>{e.role}<span class="tbl-go" aria-hidden="true">→</span></a>
+                      ? <a
+                          class="tbl-link"
+                          href={e.href}
+                          target={e.external ? '_blank' : undefined}
+                          rel={e.external ? 'noopener noreferrer' : undefined}
+                        >{e.role}<span class="tbl-go" aria-hidden="true">{e.external ? '↗' : '→'}</span></a>
                       : e.role}
                     <span class="tbl-note">{e.note}</span>
                   </td>
