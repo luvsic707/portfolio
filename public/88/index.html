@@ -8,24 +8,29 @@
 <style>
 /* ──────────────────────────────────────────────────────────────
    量自 matchamatcha.ca 的 Shopify 主题变量，不是凭印象配的：
-     字体      Helvetica, Arial —— 全站只有这一套，标题 700 正文 400
-     色板      只有五个色，下面五行就是全部
-     圆角      --border-radius-sm = 0.25rem，除了胶囊标没有别的圆角
-     按钮      padding 16/24，主按钮大写
-     行高      正文 1.6，标题 1.0–1.1
+     字体    Helvetica, Arial —— 全站只有这一套，标题 700 正文 400
+     色板    只有五个色，下面五行就是全部
+     圆角    --border-radius-sm = 0.25rem，除了胶囊标没有别的圆角
+     按钮    padding 16/24，主按钮大写
+     行高    正文 1.6，标题 1.0–1.1
+
+   整页只有一个计数装置，用两次：
+     倒数十三天   88 个夜，绿的是还没到的，一天空一格
+     5 月 2 日    88 个罐，绿的是还在墙上的，一晚空一墙
+   同一个格子、同一个绿，所以「数完夜就开始数罐」是看出来的，不是读出来的。
    ────────────────────────────────────────────────────────────── */
 :root{
-  --g:#00B550;            /* 主绿。量自他们 Shopify 主题的 color scheme */
+  --g:#00B550;            /* 主绿。量自他们主题的 color scheme */
   --ink:#000;
   --paper:#E4E0DD;        /* 商品网格的底色，也是产品图的底色 */
   --grey:#F1F1F1;
   --white:#fff;
   --line:#D3CECA;         /* 细线。网格靠它分格，不靠间隙 */
   --line-w:#E6E6E6;
-  --mute:#666;            /* 他们的 --color-border 之一，正文次级信息用它 */
+  --mute:#666;
   --f:Helvetica,Arial,sans-serif;
   --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN",Helvetica,Arial,sans-serif;
-  --bar:34px;             /* 顶部黑条 */
+  --bar:34px;
   --pad:clamp(16px,4vw,40px);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
@@ -33,24 +38,14 @@ html{-webkit-text-size-adjust:100%}
 body{background:var(--paper);color:var(--ink);font-family:var(--f);font-size:14px;
   line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
   display:flex;flex-direction:column;min-height:100svh;padding-bottom:64px}
-a{color:inherit;text-decoration:none}
 b,strong{font-weight:700}
 
-/* 大写小标签。他们整站的次级文字都是这一种 */
 .lab{font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;
   line-height:1.5}
-/* 绿色箭头链接。首页的 SHOP ALL→ 就是这个 */
-.arrow{color:var(--g);font-size:11px;font-weight:700;letter-spacing:.1em;
-  text-transform:uppercase;border:0;background:none;font-family:var(--f);
-  cursor:pointer;padding:0}
-.arrow:after{content:"\2192";margin-left:.5em}
-.arrow:disabled{opacity:.3;cursor:default}
 
-/* ── 顶部黑条 ─────────────────────────────────────────────
-   他们这条写的是「满 $100 免运费」—— 一条随状态变的通告。
-   这个 campaign 里它写还剩几罐，位置和语气都不动。 */
+/* ── 顶部黑条。他们写「满 $100 免运费」的位置 ─────────── */
 .topbar{background:var(--ink);color:var(--white);height:var(--bar);
-  display:flex;align-items:center;justify-content:center;gap:0;
+  display:flex;align-items:center;justify-content:center;
   padding:0 var(--pad);position:sticky;top:0;z-index:20}
 .topbar .lab{font-size:10.5px;letter-spacing:.11em;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis}
@@ -59,7 +54,6 @@ b,strong{font-weight:700}
 .topbar .dot{display:inline-block;width:6px;height:6px;border-radius:50%;
   background:var(--g);margin:0 .75em .1em;vertical-align:middle}
 
-/* ── 页眉。左中右三段，和他们一样 ───────────────────────── */
 header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
   padding:18px var(--pad);background:var(--paper)}
 header .l{justify-self:start}
@@ -73,61 +67,78 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .pane{display:none;flex:1;flex-direction:column;min-height:0}
 .pane.on{display:flex}
 
-/* ── 1 倒数。满幅绿底黑字，对应他们首页的满幅开屏 ───────── */
-.hero{background:var(--g);color:var(--ink);flex:1;display:flex;
-  flex-direction:column;justify-content:center;padding:clamp(36px,7vw,72px) var(--pad)}
-.hero .kick{margin-bottom:clamp(20px,4vw,34px)}
-.cd{display:flex;align-items:flex-start;gap:clamp(18px,4vw,46px);flex-wrap:wrap}
-.cdnum{font-size:clamp(108px,23vw,230px);font-weight:700;line-height:.76;
-  letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.cdtxt{flex:1;min-width:min(100%,250px);padding-top:clamp(4px,1vw,12px)}
-.cdtxt h1{font-size:clamp(22px,2.9vw,38px);font-weight:700;line-height:1.04;
-  letter-spacing:-.015em;text-transform:uppercase}
-.hero .sub{margin-top:18px;letter-spacing:.06em}
-/* 右栏放当日那条科普。不放是因为没内容，放是因为倒数十三天里
-   真正在做的事就是一天讲一件 —— 左边是还剩几天，右边是今天讲什么。 */
-.herogrid{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(0,.82fr);
-  gap:clamp(28px,5vw,64px);align-items:start}
-.teach{border-top:1px solid rgba(0,0,0,.28);padding-top:16px}
-.teach .n{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.teach p{font-size:clamp(14px,1.35vw,16.5px);line-height:1.55;margin:14px 0 18px}
-.teach .arrow{color:var(--ink)}
-
-/* ── 2 实时板 ──────────────────────────────────────────── */
-.live{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 300px;
+/* ── 两屏共用的骨架：左边一面格子，右边一栏读数 ────────── */
+.split{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 320px;
   align-items:stretch}
-.wallwrap{padding:clamp(20px,3.5vw,40px) 0 clamp(20px,3.5vw,40px) var(--pad);
+.wallwrap{padding:clamp(20px,3.5vw,38px) 0 clamp(20px,3.5vw,38px) var(--pad);
   min-height:0;display:flex}
-.side{border-left:1px solid var(--line);padding:clamp(20px,3.5vw,40px) var(--pad);
+.side{border-left:1px solid var(--line);padding:clamp(20px,3.5vw,38px) var(--pad);
   display:flex;flex-direction:column;min-height:0}
 
-/* 连续细线网格，格与格之间没有间隙 —— 这是他们商品列表的做法，
-   也是「一面墙」而不是「88 个贴纸」的关键。
-
-   墙必须一屏看全，否则「还剩几个」要靠滚动去数，这页就白做了。
-   所以尺寸由高度定：整块保持 11:8，高度吃满可用空间，宽度不够时
-   再由 max-width 收回去 —— 两个方向谁先顶到谁说了算。 */
+/* 连续细线网格，格与格之间没有间隙 —— 他们商品列表的做法。
+   尺寸由高度定：整块保持 11:8，高度吃满，宽度不够再由 max-width 收。
+   墙必须一屏看全，否则「还剩几个」要滚动去数，这页就白做了。 */
 .grid{display:grid;grid-template-columns:repeat(11,1fr);
   grid-template-rows:repeat(8,1fr);gap:1px;
   background:var(--line);border:1px solid var(--line);
   aspect-ratio:11/8;height:100%;width:auto;max-width:100%;margin:auto}
-.cell{background:var(--g);color:var(--white);display:flex;
+.cell{background:var(--paper);color:rgba(0,0,0,.2);display:flex;
   align-items:center;justify-content:center;font-weight:700;
-  font-size:clamp(11px,1.15vw,15px);font-variant-numeric:tabular-nums;
-  transition:background .55s ease,color .55s ease,opacity .35s ease;
-  position:relative}
-.cell.gone{background:var(--paper);color:rgba(0,0,0,.22)}
-.cell.dim{opacity:.22}
-@media(hover:hover){.cell:not(.dim){cursor:default}
-  .cell:not(.dim):hover{outline:2px solid var(--ink);outline-offset:-2px;z-index:2}}
+  font-size:clamp(10px,1.1vw,14px);font-variant-numeric:tabular-nums;
+  border:0;font-family:var(--f);padding:0;position:relative;
+  transition:background .5s ease,color .5s ease,opacity .3s ease,transform .18s ease}
+.cell.live{background:var(--g);color:var(--white)}      /* 还在的：夜 / 罐 */
+.cell.now{background:var(--white);color:var(--ink);
+  box-shadow:inset 0 0 0 2px var(--ink)}                /* 今天 */
+.cell.the{background:var(--ink);color:var(--white)}     /* 第 88 夜本身 */
+.cell.dim{opacity:.2}
+.cell.sel{box-shadow:inset 0 0 0 2px var(--ink);z-index:3}
+.cell.lift{transform:scale(.9);opacity:.35}             /* 正被拿在手上 */
+/* 茶季那一屏：88 个号码不是「没了」，是在 88 个人兜里。
+   所以不画成空格，画成有边框的格 —— 东西还在，只是不在墙上。 */
+.cell.held{background:var(--paper);color:rgba(0,0,0,.5);
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
 
-.left{font-size:clamp(50px,6vw,76px);font-weight:700;line-height:.85;
+/* 可以摘的格子要像可以摘。悬停时微微抬起，这是整页唯一的立体感。 */
+.cell.take{cursor:pointer}
+@media(hover:hover){
+  .cell.take:hover{transform:translateY(-3px) scale(1.06);z-index:4;
+    box-shadow:0 6px 14px rgba(0,0,0,.26)}
+  .cell.pick{cursor:pointer}
+  .cell.pick:hover{box-shadow:inset 0 0 0 2px var(--ink);z-index:3}
+}
+
+.big{font-size:clamp(50px,5.6vw,74px);font-weight:700;line-height:.85;
   letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.leftlab{margin-top:12px;color:var(--mute);max-width:12em}
-.rooms{margin-top:clamp(18px,3vw,34px)}
+.biglab{margin-top:12px;color:var(--mute);max-width:13em}
+.sidefoot{margin-top:auto;border-top:1px solid var(--line);padding-top:14px;
+  color:var(--mute);min-height:3.6em}
+.sidefoot b{color:var(--ink)}
+
+/* ── 倒数屏 ───────────────────────────────────────────── */
+.lesson{margin-top:clamp(16px,2.6vw,26px);border-top:1px solid var(--line);
+  padding-top:16px}
+.lesson .d{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.lesson p{margin-top:10px;font-size:14.5px;line-height:1.55}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;color:var(--mute);
+  font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;
+  vertical-align:-1px;font-style:normal}
+.legend .a{background:var(--g)}
+.legend .b{background:var(--white);box-shadow:inset 0 0 0 2px var(--ink)}
+.legend .c{background:var(--ink)}
+
+/* ── 实时屏的门店列表 ─────────────────────────────────── */
+.playrow{margin-top:14px}
+.play{font-family:var(--f);font-size:11px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;background:none;border:0;color:var(--g);cursor:pointer;
+  padding:0}
+.play:after{content:"\25b6";margin-left:.6em;font-size:9px}
+.play.on:after{content:"\25a0"}
+.rooms{margin-top:clamp(16px,2.6vw,28px)}
 .room{display:flex;align-items:baseline;gap:10px;width:100%;text-align:left;
   background:none;border:0;border-top:1px solid var(--line);font-family:var(--f);
-  padding:11px 0;cursor:pointer;color:var(--ink)}
+  padding:10px 0;cursor:pointer;color:var(--ink)}
 .room:last-child{border-bottom:1px solid var(--line)}
 .room .nm{flex:1;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase}
 .room .ct{font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
@@ -136,17 +147,9 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
   text-transform:uppercase;background:var(--ink);color:var(--white);
   padding:3px 8px;border-radius:999px}
 .room.all{border-top:0;padding-top:0}
-.readout{margin-top:auto;border-top:1px solid var(--line);padding-top:14px;
-  color:var(--mute);min-height:3.4em}
-.readout b{color:var(--ink)}
 
-/* ── 3 茶季 ───────────────────────────────────────────── */
-.season{flex:1;min-height:0;display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,420px);align-items:stretch;gap:0}
-.seasonwall{padding:clamp(20px,3.5vw,40px) var(--pad) clamp(20px,3.5vw,40px) var(--pad);
-  min-height:0;display:flex;flex-direction:column}
-.seasonwall .grid{flex:1;min-height:0;margin:0 auto}
-.menu{border-left:1px solid var(--line);padding:clamp(20px,3.5vw,40px) var(--pad);
+/* ── 茶季 ─────────────────────────────────────────────── */
+.menu{border-left:1px solid var(--line);padding:clamp(20px,3.5vw,38px) var(--pad);
   height:100%}
 .menu ul{list-style:none;margin-top:18px}
 .menu li{display:flex;justify-content:space-between;gap:18px;align-items:baseline;
@@ -156,19 +159,21 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .menu .d{color:var(--mute);font-size:12.5px;margin-top:3px}
 .menu .p{font-variant-numeric:tabular-nums;font-size:13.5px;white-space:nowrap}
 .menu .note{margin-top:22px;color:var(--mute)}
+.seasonwall{padding:clamp(20px,3.5vw,38px) var(--pad);min-height:0;
+  display:flex;flex-direction:column}
+.seasonwall .grid{flex:1;min-height:0;margin:0 auto}
 
-/* ── 4 口切り。白卡，照他们那个订阅弹窗的做法 ──────────── */
+/* ── 口切り ───────────────────────────────────────────── */
 .claim{flex:1;display:flex;align-items:center;justify-content:center;
   padding:clamp(18px,3vw,36px) var(--pad)}
 .cardw{background:var(--white);padding:clamp(22px,3vw,40px);width:100%;
   max-width:620px;border:1px solid var(--line-w)}
 .cardw h1{font-size:clamp(21px,3vw,32px);font-weight:700;line-height:1.08;
-  letter-spacing:-.015em;text-transform:uppercase;margin:14px 0 14px}
+  letter-spacing:-.015em;text-transform:uppercase;margin:14px 0}
 .cardw .sub{color:var(--mute);max-width:34em}
-.form{display:flex;gap:8px;margin-top:26px;flex-wrap:wrap}
+.form{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
 .form input{font-family:var(--f);font-size:15px;padding:15px 16px;
-  border:1px solid var(--line-w);border-radius:4px;background:var(--white);
-  color:var(--ink)}
+  border:1px solid var(--line-w);border-radius:4px;background:var(--white);color:var(--ink)}
 .form input::placeholder{color:#aaa;text-transform:uppercase;font-size:12px;
   letter-spacing:.08em}
 #numIn{width:96px;text-align:center;font-weight:700;font-size:19px;
@@ -179,27 +184,66 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
   text-transform:uppercase;padding:16px 24px;background:var(--ink);color:var(--white);
   border:0;border-radius:4px;cursor:pointer}
 .btn:hover{background:var(--g);color:var(--ink)}
-.out{margin-top:22px;border-top:1px solid var(--line-w);padding-top:18px;
-  display:none}
-.out.on{display:block}
+.btn.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+.btn.ghost:hover{background:var(--ink);color:var(--white)}
+.res{margin-top:22px;border-top:1px solid var(--line-w);padding-top:18px;display:none}
+.res.on{display:block}
 .pill{display:inline-block;background:var(--ink);color:var(--white);font-size:10px;
   font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;
   border-radius:999px}
 .pill.ok{background:var(--g);color:var(--ink)}
-.out .no{font-size:clamp(30px,4.6vw,44px);font-weight:700;line-height:1;
+.res .no{font-size:clamp(30px,4.6vw,44px);font-weight:700;line-height:1;
   letter-spacing:-.03em;margin:14px 0 12px;font-variant-numeric:tabular-nums}
-.out p{max-width:34em}
 
-/* ── 页脚。四家店，他们 LOCATIONS 页的排法 ─────────────── */
-footer{border-top:1px solid var(--line);padding:22px var(--pad);
+/* ── 摘下来的那张卡 ───────────────────────────────────────
+   这是整页唯一一件「拿在手上」的东西。campaign 里最核心的动作就是
+   顾客自己把号码从墙上摘走，所以这个动作必须由访客亲手做一次。
+   背面那句话是整个方案最硬的一句，让人自己翻过来看，比写在旁边强。 */
+.stage{position:fixed;inset:0;z-index:40;display:none;flex-direction:column;
+  align-items:center;justify-content:center;gap:clamp(14px,3vw,26px);
+  padding:calc(var(--bar) + 14px) var(--pad) calc(var(--demoh,64px) + 26px);
+  background:rgba(228,224,221,.86);
+  -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.stage.on{display:flex}
+/* 卡要从被点的那一格飞出来，不能凭空出现在中间 —— 这一下是整页
+   唯一一个「物理」动作，落点不对，墙和卡就是两件事。
+   外层负责飞，内层负责翻，两个 transform 不能挤在同一个元素上。 */
+.cardwrap{transition:transform .52s cubic-bezier(.19,.9,.22,1),opacity .3s ease}
+.card3d{width:min(86vw,440px);aspect-ratio:85/55;position:relative;
+  transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  cursor:pointer}
+.card3d.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;border-radius:4px;
+  box-shadow:0 18px 44px rgba(0,0,0,.28);padding:clamp(16px,3.4vw,28px);
+  display:flex;flex-direction:column}
+.face.f{background:var(--g);color:var(--ink)}
+.face.b{background:var(--white);color:var(--ink);transform:rotateY(180deg);
+  border:1px solid var(--line-w)}
+.face .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.face .jp{font-family:var(--jp);font-weight:600;letter-spacing:.2em;font-size:12px}
+.cardno{font-size:clamp(46px,11vw,86px);font-weight:700;line-height:.86;
+  letter-spacing:-.045em;font-variant-numeric:tabular-nums;margin-top:auto}
+.cardof{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  margin-top:6px}
+.face.b .hd{font-size:clamp(15px,2.3vw,21px);font-weight:700;line-height:1.14;
+  letter-spacing:-.01em;text-transform:uppercase;margin-top:14px}
+.face.b .bk{margin-top:10px;color:var(--mute);font-size:10px;letter-spacing:.09em}
+.ruleline{margin-top:auto;display:grid;gap:9px}
+.ruleline div{border-bottom:1px solid var(--line-w);padding-bottom:4px;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#999}
+.stagebar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hint{text-align:center;color:var(--mute);order:-1}
+
+/* ── 页脚 ─────────────────────────────────────────────── */
+footer{border-top:1px solid var(--line);padding:20px var(--pad);
   display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-footer .st b{display:block;font-size:11.5px;letter-spacing:.06em;
-  text-transform:uppercase}
+footer .st b{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
 footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7}
 
 /* ── demo 条 ──────────────────────────────────────────── */
 .demo{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--white);
-  display:flex;align-items:center;gap:14px;flex-wrap:wrap;z-index:30;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;z-index:50;
   padding:10px var(--pad);padding-bottom:max(10px,env(safe-area-inset-bottom))}
 .demo .tag{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#777;
   white-space:nowrap}
@@ -213,19 +257,13 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 .clock .t{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
   width:46px;text-align:right}
 
-/* ── 手机 ─────────────────────────────────────────────── */
 @media(max-width:900px){
-  /* 手机上不再「一屏装下」—— 一屏装下会把格子压到指甲盖大。
-     改成正常滚动，墙按整宽铺开，数字还读得清。 */
-  body{padding-bottom:104px}
-  .live,.season{grid-template-columns:1fr;min-height:0}
+  .split{grid-template-columns:1fr;min-height:0}
   .wallwrap,.seasonwall{padding:var(--pad) var(--pad) 0;display:block}
   .grid,.seasonwall .grid{height:auto;width:100%;max-width:none;margin:0}
   .side,.menu{border-left:0;border-top:1px solid var(--line);height:auto}
-  .rooms{margin-top:22px}
-  .live .side{order:-1;border-top:0;padding-bottom:0}
-  .readout{display:none}            /* 触屏没有 hover，这行永远空着 */
-  .herogrid{grid-template-columns:1fr;gap:clamp(24px,5vw,34px)}
+  .split .side{order:-1;border-top:0;padding-bottom:0}
+  .sidefoot{margin-top:18px}
 }
 @media(max-width:620px){
   body{font-size:13.5px}
@@ -255,61 +293,64 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 <header>
   <div class="l jpmark">八十八夜</div>
   <div class="word">Matcha Matcha</div>
-  <div class="r lab" id="stateLab">Counting down</div>
+  <div class="r lab" id="stateLab"></div>
 </header>
 
 <main>
 
-  <!-- 1 ─ COUNTDOWN ────────────────────────────────────── -->
+  <!-- 1 ─ 数夜 ─────────────────────────────────────────── -->
   <section class="pane" id="p1">
-    <div class="hero">
-      <div class="kick lab">Sunday 2 May 2027 · the 88th night after Risshun</div>
-      <div class="herogrid">
-        <div>
-          <div class="cd">
-            <div class="cdnum" id="cdNum">13</div>
-            <div class="cdtxt">
-              <h1>Days until the only night matcha has a birthday</h1>
-            </div>
-          </div>
-          <div class="sub lab">88 numbered cans · 88 bowls at $8.80 ·
-            four rooms · one evening</div>
+    <div class="split">
+      <div class="wallwrap"><div class="grid" id="nights"></div></div>
+      <div class="side">
+        <div class="lab">Nights still to count</div>
+        <div class="big" id="cdNum">13</div>
+        <div class="biglab lab" id="cdLab">until the only night matcha has a birthday</div>
+        <div class="lesson">
+          <div class="d" id="lsD"></div>
+          <p id="lsP"></p>
         </div>
-        <div class="teach">
-          <div class="n" id="tN">Day 13 of 13</div>
-          <p id="tP"></p>
-          <button class="arrow" id="tNext">Next</button>
+        <div class="legend">
+          <div><i class="a"></i>to come</div>
+          <div><i class="b"></i>today</div>
+          <div><i class="c"></i>the 88th</div>
         </div>
+        <div class="sidefoot lab" id="cdFoot">Pick any night to read what we post
+          that day. The black square is 2 May.</div>
       </div>
     </div>
   </section>
 
-  <!-- 2 ─ LIVE ─────────────────────────────────────────── -->
+  <!-- 2 ─ 数罐 ─────────────────────────────────────────── -->
   <section class="pane" id="p2">
-    <div class="live">
-      <div class="wallwrap"><div class="grid" id="grid"></div></div>
+    <div class="split">
+      <div class="wallwrap"><div class="grid" id="wall"></div></div>
       <div class="side">
         <div class="lab">On the wall right now</div>
-        <div class="left" id="leftN">88</div>
-        <div class="leftlab lab" id="leftLbl">cans left across all four rooms</div>
+        <div class="big" id="leftN">88</div>
+        <div class="biglab lab" id="leftLbl">cans left across all four rooms</div>
+        <div class="playrow"><button class="play" id="play">Play the evening</button></div>
         <div class="rooms" id="rooms"></div>
-        <div class="readout lab" id="readout">Hover a number to see where it is.</div>
+        <div class="sidefoot lab" id="readout"></div>
       </div>
     </div>
   </section>
 
-  <!-- 3 ─ SEASON ───────────────────────────────────────── -->
+  <!-- 3 ─ 茶季 ─────────────────────────────────────────── -->
   <section class="pane" id="p3">
-    <div class="season">
+    <div class="split">
       <div class="seasonwall">
-        <div class="lab" style="margin-bottom:16px">The wall, 2 May, 9.40pm</div>
+        <div class="lab" style="margin-bottom:14px">Where the eighty-eight are now</div>
         <div class="grid" id="ghost"></div>
-        <p style="margin-top:20px;max-width:40em">All eighty-eight went in one evening.
-          Eighty-eight people are holding a number, and <b>every number opens a jar in
-          November.</b></p>
+        <p style="margin-top:18px;max-width:40em">Not gone, <b>held.</b> Eighty-eight
+          cards are in eighty-eight pockets, and every one of them opens a jar.</p>
       </div>
       <div class="menu">
-        <div class="lab">Still pouring through May</div>
+        <div class="lab">The second date</div>
+        <div class="big" id="novN">180</div>
+        <div class="biglab lab">days until 口切り, when this
+          year’s leaf is finally ground</div>
+        <div class="lab" style="margin-top:clamp(18px,3vw,30px)">Still pouring through May</div>
         <ul>
           <li><div><div class="t">Shincha, cold brew</div>
             <div class="d">This year's first flush, Uji</div></div><div class="p">7.50</div></li>
@@ -326,7 +367,7 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
     </div>
   </section>
 
-  <!-- 4 ─ KUCHIKIRI ────────────────────────────────────── -->
+  <!-- 4 ─ 口切り ───────────────────────────────────────── -->
   <section class="pane" id="p4">
     <div class="claim">
       <div class="cardw">
@@ -339,7 +380,7 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
           <input id="emIn" type="email" placeholder="Your email address" aria-label="Email">
           <button class="btn" id="claimBtn">Claim</button>
         </div>
-        <div class="out" id="claimOut"></div>
+        <div class="res" id="claimOut"></div>
       </div>
     </div>
   </section>
@@ -352,6 +393,39 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
   <div class="st"><b>Markham Lab</b><span>200 Steelcase Rd E</span><span>9am – 8pm</span></div>
   <div class="st"><b>MM Studio</b><span>11 Fairburn Dr</span><span>Weekends</span></div>
 </footer>
+
+<!-- 摘下来的那张卡 -->
+<div class="stage" id="stage">
+  <div class="hint lab" id="stageHint"></div>
+  <div class="cardwrap" id="cardwrap">
+  <div class="card3d" id="card">
+    <div class="face f">
+      <div class="top">
+        <span class="jp">八十八夜</span>
+        <span class="lab" style="font-size:10px" id="cardRoom"></span>
+      </div>
+      <div class="cardno" id="cardNo">01</div>
+      <div class="cardof">/ 88 · 2 May 2027</div>
+    </div>
+    <div class="face b">
+      <div class="top">
+        <span class="lab" style="font-size:10px">Matcha Matcha</span>
+        <span class="lab" style="font-size:10px">Keep this card</span>
+      </div>
+      <div class="hd">This number opens<br>the jar in November</div>
+      <div class="bk lab" id="cardBack"></div>
+      <div class="ruleline">
+        <div>Name</div>
+        <div>Email</div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="stagebar">
+    <button class="btn ghost" id="putBack">Put it back</button>
+    <button class="btn" id="keepIt">Keep it</button>
+  </div>
+</div>
 
 
 <div class="byline">
@@ -374,30 +448,41 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 </div>
 
 <script>
-/* ── 88 罐怎么分到四家店 ──────────────────────────────── */
+/* ══ 共用 ═══════════════════════════════════════════════ */
+var $=function(i){return document.getElementById(i);};
+function nn(n){return (n<10?'0':'')+n;}
+function hhmm(m){var h=Math.floor(m/60),x=Math.round(m%60);
+  return (h<10?'0':'')+h+':'+(x<10?'0':'')+x;}
+/* 触屏说 tap，鼠标说 click —— 这是一页要递到别人手机上的东西 */
+var VERB=matchMedia('(hover: hover)').matches?'Click':'Tap';
+var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/* 立春 2027-02-04 是第 1 夜，第 88 夜就是 5 月 2 日。核对过。 */
+var RISSHUN=new Date(2027,1,4), NIGHT88=new Date(2027,4,2);
+function dateOfNight(n){var d=new Date(RISSHUN);d.setDate(d.getDate()+n-1);return d;}
+function fmt(d){return d.getDate()+' '+MON[d.getMonth()];}
+
+/* ══ 88 罐怎么分到四家店 ═══════════════════════════════ */
 var ROOMS=[
   {k:'ch',n:'Church',  full:'Toronto Flagship', a:1,  b:28},
   {k:'du',n:'Dundas',  full:'Dundas Club',      a:29, b:52},
   {k:'ma',n:'Markham', full:'Markham Lab',      a:53, b:76},
   {k:'st',n:'Studio',  full:'MM Studio',        a:77, b:88}
 ];
-/* 每家自己的节奏：[开门, 卖完] 分钟。Studio 只开周末，人最少、最晚空 */
 var PACE={ch:[540,1005],du:[600,1125],ma:[540,1065],st:[660,1245]};
-
 function roomOf(n){for(var i=0;i<4;i++)if(n>=ROOMS[i].a&&n<=ROOMS[i].b)return ROOMS[i];}
-/* 定死的抖动：真墙不会从左到右整齐地空，但每次打开要一模一样 */
 function seed(n){var x=Math.sin(n*127.1)*43758.5453;return x-Math.floor(x);}
-function soldMin(n){
-  var r=roomOf(n),p=PACE[r.k],span=r.b-r.a+1,i=n-r.a;
-  return p[0]+(p[1]-p[0])*((i+0.5)/span+(seed(n)-0.5)*0.34);
+var SOLD={};
+for(var i=1;i<=88;i++){
+  var r=roomOf(i),p=PACE[r.k],sp=r.b-r.a+1,ix=i-r.a;
+  SOLD[i]=p[0]+(p[1]-p[0])*((ix+0.5)/sp+(seed(i)-0.5)*0.34);
 }
-var SOLD={};for(var i=1;i<=88;i++)SOLD[i]=soldMin(i);
-function gone(n,m){return m>=SOLD[n];}
+var MINE={};                       /* 访客自己摘走的号码 */
+function gone(n,m){return !!MINE[n]||m>=SOLD[n];}
 function countLeft(m,f){var c=0;for(var n=1;n<=88;n++){
   if(f&&roomOf(n).k!==f)continue; if(!gone(n,m))c++;} return c;}
-function outAt(k){var t=0;for(var n=1;n<=88;n++)if(roomOf(n).k===k)t=Math.max(t,SOLD[n]);return t;}
 
-/* ── 十三天，一天一条 ─────────────────────────────────── */
+/* ══ 十三天，一天一条 ═══════════════════════════════════ */
 var TEACH={
  13:"Risshun is the first day of spring in the old calendar. Count eighty-eight nights from it and you land on the day Japan has picked tea for four hundred years.",
  12:"In 2027 that night falls on Sunday 2 May. All four rooms are open that day, including the Studio, which otherwise opens only at weekends.",
@@ -413,45 +498,76 @@ var TEACH={
   2:"Keep the card. The number on it opens a jar in November, when this year's leaf is finally ground.",
   1:"Tomorrow. Doors at nine, all four rooms. Eighty-eight cans, and then none."
 };
-var APR=['19','20','21','22','23','24','25','26','27','28','29','30'];
 
-var S={pane:1,min:1035,filter:null,day:13};
-var $=function(i){return document.getElementById(i);};
-function hhmm(m){var h=Math.floor(m/60),x=Math.round(m%60);
-  return (h<10?'0':'')+h+':'+(x<10?'0':'')+x;}
-function nn(n){return (n<10?'0':'')+n;}
+var S={pane:1,min:1035,filter:null,today:75,sel:75,taken:null};
 
-/* ── 建格子 ───────────────────────────────────────────── */
+/* ══ 建两面格子 ═════════════════════════════════════════ */
 (function(){
   var h='';
-  for(var n=1;n<=88;n++)h+='<div class="cell" data-n="'+n+'">'+nn(n)+'</div>';
-  $('grid').innerHTML=h;
-  $('ghost').innerHTML=h.replace(/class="cell"/g,'class="cell gone"');
+  for(var n=1;n<=88;n++)h+='<button class="cell" data-n="'+n+'">'+nn(n)+'</button>';
+  $('nights').innerHTML=h;
+  $('wall').innerHTML=h;
+  $('ghost').innerHTML=h;
   var r='<button class="room all on" data-r=""><span class="nm">All four rooms</span>'
-       +'<span class="ct" data-c=""></span></button>';
+       +'<span class="ct"></span></button>';
   ROOMS.forEach(function(x){
     r+='<button class="room" data-r="'+x.k+'"><span class="nm">'+x.full+'</span>'
-      +'<span class="ct" data-c="'+x.k+'"></span></button>';});
+      +'<span class="ct"></span></button>';});
   $('rooms').innerHTML=r;
 })();
 
-/* ── 画 ───────────────────────────────────────────────── */
-function drawCountdown(){
-  var d=S.day,i=13-d;
-  $('cdNum').textContent=d;
-  $('tN').textContent=d===1?'Tomorrow':'Day '+d+' of 13';
-  $('tP').textContent=TEACH[d];
-  $('tNext').disabled=(d<=1);
-  $('stateLab').textContent=(i<12?APR[i]+' April':'1 May')+' 2027';
-  $('ticker').innerHTML='<b>八十八夜 · THE 88TH NIGHT</b><span class="dot"></span>'
-    +'<span class="tail">Sunday 2 May · 88 numbered cans · four rooms</span>';
-}
-function drawLive(){
-  var c=$('grid').children;
+/* ══ 屏 1：数夜 ═════════════════════════════════════════
+   绿 = 还没到的夜，白框 = 今天，黑 = 第 88 夜。
+   点任何一格就跳到那一天，等于一台时光机 —— 这个 campaign 讲的就是
+   一个日期，所以让人自己在日期里走动是贴题的。 */
+function drawNights(){
+  var c=$('nights').children;
   for(var i=0;i<c.length;i++){
-    var n=+c[i].dataset.n;
-    c[i].className='cell'+(gone(n,S.min)?' gone':'')
-      +(S.filter&&roomOf(n).k!==S.filter?' dim':'');
+    var n=i+1,cl='cell';
+    if(n===88)cl+=' the';
+    else if(n===S.today)cl+=' now';
+    else if(n>S.today)cl+=' live';
+    if(n>=S.today)cl+=' pick';
+    if(n===S.sel)cl+=' sel';
+    c[i].className=cl;
+  }
+  var d=dateOfNight(S.sel),togo=88-S.sel;
+  $('cdNum').textContent=togo;
+  $('cdLab').textContent=togo===0
+    ? 'tonight is the eighty-eighth night'
+    : 'until the only night matcha has a birthday';
+  $('stateLab').textContent=fmt(d)+' 2027';
+  if(S.sel===88){
+    $('lsD').textContent='Night 88 · Sunday 2 May';
+    $('lsP').innerHTML='Doors at nine, all four rooms. Eighty-eight numbered cans, '
+      +'eighty-eight bowls. <b>Tap this square again to open the wall.</b>';
+  }else{
+    var k=88-S.sel;                       /* 第 75 夜 = 还有 13 天 */
+    $('lsD').textContent='Night '+S.sel+' · '+fmt(d)
+      +(S.sel===S.today?' · today':'');
+    $('lsP').textContent=TEACH[k]||'';
+  }
+  $('ticker').innerHTML='<b>'+(togo===0?'Tonight':togo+' nights to go')+'</b>'
+    +'<span class="dot"></span><span class="tail">八十八夜 · '
+    +'the 88th night · Sunday 2 May · 88 numbered cans · four rooms</span>';
+}
+$('nights').onclick=function(e){
+  var b=e.target.closest('.cell');if(!b)return;
+  var n=+b.dataset.n;
+  if(n<S.today)return;                    /* 过去的夜不能点 */
+  if(n===88&&S.sel===88){setPane(2);return;}   /* 最后一格第二下进当晚 */
+  S.sel=n;drawNights();
+};
+
+/* ══ 屏 2：数罐 ═════════════════════════════════════════ */
+function drawWall(){
+  var c=$('wall').children;
+  for(var i=0;i<c.length;i++){
+    var n=i+1,out=gone(n,S.min),off=S.filter&&roomOf(n).k!==S.filter;
+    var cl='cell'+(out?'':' live')+(off?' dim':'');
+    if(!out&&!off)cl+=' take';
+    if(S.taken===n)cl+=' lift';
+    c[i].className=cl;
   }
   var total=countLeft(S.min,null);
   $('leftN').textContent=countLeft(S.min,S.filter);
@@ -463,53 +579,113 @@ function drawLive(){
     b.classList.toggle('sold',left===0);
     ct.textContent=left===0?'Sold out':left;
   });
+  var mine=Object.keys(MINE);
+  $('readout').innerHTML=mine.length
+    ? 'You are holding <b>No. '+nn(+mine[0])+'</b>. Collect it at '
+      +roomOf(+mine[0]).full+'.'
+    : VERB+' a green number to take it off the wall.';
   $('stateLab').textContent=hhmm(S.min)+' · 2 May 2027';
-  /* 顶部黑条就是他们那条通告的位置，这里写还剩多少 */
   $('ticker').innerHTML=total>0
     ? '<b>'+total+' of 88 left</b><span class="dot"></span>'
-      +'<span class="tail">Uji Mukashi, hand-numbered · one per person · in the rooms only</span>'
+      +'<span class="tail">Uji Mukashi, hand-numbered · one per person · '
+      +'in the rooms only</span>'
     : '<b>All 88 taken</b><span class="dot"></span>'
-      +'<span class="tail">Shincha stays on the menu through May · numbers open their jars in November</span>';
+      +'<span class="tail">Shincha stays on the menu through May · '
+      +'numbers open their jars in November</span>';
 }
-function setPane(p){
-  S.pane=p;
-  for(var i=1;i<=4;i++)$('p'+i).classList.toggle('on',i===p);
-  document.querySelectorAll('.demo button[data-s]').forEach(function(b){
-    b.classList.toggle('on',+b.dataset.s===p);});
-  $('clockWrap').classList.toggle('off',p!==2);
-  if(p===1)drawCountdown();
-  if(p===2)drawLive();
-  if(p===3){$('stateLab').textContent='12 May 2027';
-    $('ticker').innerHTML='<b>Shincha is on</b><span class="dot"></span>'
-      +'<span class="tail">This year’s first flush, by the cup and by the bag, through May</span>';}
-  if(p===4){$('stateLab').textContent='8 November 2027';
-    $('ticker').innerHTML='<b>口切り · the jars open</b><span class="dot"></span>'
-      +'<span class="tail">Eighty-eight numbers, eighty-eight tins from the 2 May picking</span>';}
-  fitDemo();
-}
-
-/* ── 事件 ─────────────────────────────────────────────── */
-document.querySelectorAll('.demo button[data-s]').forEach(function(b){
-  b.onclick=function(){setPane(+b.dataset.s);};});
-$('tNext').onclick=function(){if(S.day>1){S.day--;drawCountdown();}};
-$('clock').oninput=function(){S.min=+this.value;$('clockT').textContent=hhmm(S.min);
-  drawLive();};
 $('rooms').onclick=function(e){
   var b=e.target.closest('.room');if(!b)return;
-  S.filter=b.dataset.r||null;drawLive();};
+  S.filter=b.dataset.r||null;drawWall();
+};
 
-/* 悬停读数。触屏上这行是隐藏的，所以不做点击态。 */
-$('grid').addEventListener('mouseover',function(e){
-  var c=e.target.closest('.cell');if(!c)return;
-  var n=+c.dataset.n,r=roomOf(n);
-  $('readout').innerHTML=gone(n,S.min)
-    ? 'No. <b>'+nn(n)+'</b> · '+r.full+' · taken at <b>'+hhmm(SOLD[n])+'</b>'
-    : 'No. <b>'+nn(n)+'</b> · '+r.full+' · still on the wall';
+/* 整晚放一遍。拖时间轴是「查」，按播放是「看」——
+   这个 campaign 卖的就是一个晚上，所以那个晚上要能放出来。 */
+var playing=0;
+function stopPlay(){
+  if(playing)cancelAnimationFrame(playing);
+  playing=0;$('play').classList.remove('on');
+  $('play').textContent='Play the evening';
+}
+$('play').onclick=function(){
+  if(playing){stopPlay();return;}
+  var t0=null, FROM=540, TO=1290, DUR=11000;
+  S.filter=null;
+  $('play').classList.add('on');$('play').textContent='Stop';
+  (function step(t){
+    if(t0===null)t0=t;
+    var k=Math.min(1,(t-t0)/DUR);
+    S.min=Math.round(FROM+(TO-FROM)*k);
+    $('clock').value=S.min;$('clockT').textContent=hhmm(S.min);
+    drawWall();
+    if(k<1)playing=requestAnimationFrame(step); else stopPlay();
+  })(performance.now());
+  playing=1;
+};
+
+/* ══ 摘号码 ════════════════════════════════════════════ */
+function flyFrom(cellEl){
+  /* FLIP：先把卡摆到那一格的位置和大小上，强制回流，再撤掉，它就自己飞过来。
+     不用 requestAnimationFrame —— 标签页不在前台时 rAF 不触发，
+     回调不跑，卡就会永远卡在格子大小上。这是真摔过的坑。 */
+  var w=$('cardwrap');
+  w.style.transition='none';
+  w.style.opacity='.25';
+  var a=cellEl.getBoundingClientRect(), b=$('card').getBoundingClientRect();
+  if(!b.width||!a.width)return;
+  var sc=Math.max(.05,Math.min(a.width/b.width,a.height/b.height));
+  var dx=(a.left+a.width/2)-(b.left+b.width/2);
+  var dy=(a.top+a.height/2)-(b.top+b.height/2);
+  w.style.transform='translate('+dx+'px,'+dy+'px) scale('+sc+')';
+  void w.offsetWidth;                      /* 回流，让上面这一帧真的落地 */
+  w.style.transition='';
+  w.style.opacity='';
+  w.style.transform='';
+}
+function takeNumber(n,fromEl){
+  stopPlay();
+  S.taken=n;
+  $('cardNo').textContent=nn(n);
+  $('cardRoom').textContent=roomOf(n).full;
+  $('cardBack').textContent='\u53e3\u5207\u308a \u00b7 from 8 Nov 2027 \u00b7 '
+    +roomOf(n).full+' \u00b7 one tin per number';
+  $('card').classList.remove('flip');
+  $('stageHint').textContent=VERB+' the card to turn it over';
+  $('stage').classList.add('on');
+  if(fromEl)flyFrom(fromEl);
+  drawWall();
+}
+$('wall').onclick=function(e){
+  var b=e.target.closest('.cell');if(!b)return;
+  if(!b.classList.contains('take'))return;
+  takeNumber(+b.dataset.n,b);
+};
+$('card').onclick=function(){
+  this.classList.toggle('flip');
+  $('stageHint').textContent=this.classList.contains('flip')
+    ? 'The card is a claim ticket, not a souvenir'
+    : VERB+' the card to turn it over';
+};
+$('putBack').onclick=function(){
+  if(S.taken)delete MINE[S.taken];
+  S.taken=null;$('stage').classList.remove('on');drawWall();
+};
+$('keepIt').onclick=function(){
+  if(S.taken)MINE[S.taken]=1;
+  S.taken=null;$('stage').classList.remove('on');drawWall();
+};
+addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&$('stage').classList.contains('on'))$('putBack').click();
 });
-$('grid').addEventListener('mouseleave',function(){
-  $('readout').textContent='Hover a number to see where it is.';});
 
-/* ── 认领 ─────────────────────────────────────────────── */
+/* ══ 屏 3 / 4 ══════════════════════════════════════════ */
+function drawGhost(){
+  var c=$('ghost').children;
+  for(var i=0;i<c.length;i++)c[i].className='cell held';
+  /* 第二个日期。碾茶熟成约六个月，所以这个数就是方案里「两条时间轴」
+     那页的论据，在页面上自己走。 */
+  var days=Math.round((new Date(2027,10,8)-new Date(2027,4,12))/86400000);
+  $('novN').textContent=days;
+}
 function claim(){
   var v=parseInt($('numIn').value,10),em=$('emIn').value.trim(),o=$('claimOut');
   o.classList.add('on');
@@ -530,30 +706,61 @@ $('claimBtn').onclick=claim;
 ['numIn','emIn'].forEach(function(id){
   $(id).onkeydown=function(e){if(e.key==='Enter')claim();};});
 
-/* demo 条在窄屏上会折成两三行，高度不是定值。写死 padding 一定会压住页脚，
-   所以让它自己报高度。换状态时时间轴会出现或消失，所以 setPane 里也要再量。 */
-function fitDemo(){
-  document.body.style.paddingBottom =
-    (document.querySelector('.demo').offsetHeight + 14) + 'px';
+/* ══ 换屏 ══════════════════════════════════════════════ */
+function setPane(p){
+  S.pane=p;
+  for(var i=1;i<=4;i++)$('p'+i).classList.toggle('on',i===p);
+  document.querySelectorAll('.demo button[data-s]').forEach(function(b){
+    b.classList.toggle('on',+b.dataset.s===p);});
+  $('clockWrap').classList.toggle('off',p!==2);
+  $('stage').classList.remove('on');
+  stopPlay();
+  if(p===1)drawNights();
+  if(p===2)drawWall();
+  if(p===3){drawGhost();$('stateLab').textContent='12 May 2027';
+    $('ticker').innerHTML='<b>Shincha is on</b><span class="dot"></span>'
+      +'<span class="tail">This year’s first flush, by the cup and by the bag, '
+      +'through May</span>';}
+  if(p===4){$('stateLab').textContent='8 November 2027';
+    $('ticker').innerHTML='<b>口切り · the jars open</b>'
+      +'<span class="dot"></span><span class="tail">Eighty-eight numbers, '
+      +'eighty-eight tins from the 2 May picking</span>';}
+  fitDemo();
 }
-addEventListener('resize', fitDemo);
+document.querySelectorAll('.demo button[data-s]').forEach(function(b){
+  b.onclick=function(){setPane(+b.dataset.s);};});
+$('clock').oninput=function(){stopPlay();S.min=+this.value;$('clockT').textContent=hhmm(S.min);
+  drawWall();};
 
-/* ── 真实日期决定开在哪一屏 ───────────────────────────── */
+/* demo 条在窄屏会折成两三行，高度不是定值。写死 padding 一定压住页脚，
+   所以让它自己报高度，卡片那条按钮也跟着它定位。 */
+function fitDemo(){
+  var h=document.querySelector('.demo').offsetHeight;
+  document.body.style.paddingBottom=(h+14)+'px';
+  document.documentElement.style.setProperty('--demoh',h+'px');
+}
+addEventListener('resize',fitDemo);
+
+/* ══ 真实日期决定开在哪一屏 ════════════════════════════ */
 (function(){
   var h=location.hash.replace(/[^0-9:]/g,'').split(':');
-  if(h[0]>='1'&&h[0]<='4'){           /* #1:9  #2:1035  #4:34 —— 截图用 */
+  if(h[0]>='1'&&h[0]<='4'){        /* #1:75  #2:1035  #4:34 —— 截图用 */
     var p0=+h[0];
-    if(h[1]&&p0===1)S.day=+h[1];
+    if(h[1]&&p0===1)S.sel=+h[1];
     if(h[1]&&p0===2){S.min=+h[1];$('clock').value=S.min;$('clockT').textContent=hhmm(S.min);}
     setPane(p0);
+    /* #2:1035:47 直接把 47 号摘下来，再加 :1 翻到背面 —— 附录截图就是这么出的 */
+    if(h[2]&&p0===2){takeNumber(+h[2]);
+      if(h[3]==='1'){$('card').classList.add('flip');
+        $('stageHint').textContent='The card is a claim ticket, not a souvenir';}}
     if(h[1]&&p0===4){$('numIn').value=h[1];$('emIn').value='jo@matchamatcha.ca';claim();}
     return;
   }
   var now=new Date(),p=1;
-  var days=Math.ceil((new Date(2027,4,2)-new Date(now.getFullYear(),now.getMonth(),
+  var days=Math.ceil((NIGHT88-new Date(now.getFullYear(),now.getMonth(),
             now.getDate()))/86400000);
-  if(days<=13&&days>=1)S.day=days;
-  if(days===0)p=2;
+  if(days<=13&&days>=1){S.today=88-days;S.sel=S.today;}
+  if(days===0){S.today=88;S.sel=88;p=2;}
   else if(days<0&&now.getFullYear()===2027&&now.getMonth()===4)p=3;
   else if(days<0&&now.getFullYear()===2027&&now.getMonth()>=10)p=4;
   if(p===2){S.min=Math.max(540,Math.min(1290,now.getHours()*60+now.getMinutes()));
