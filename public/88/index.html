@@ -7,25 +7,32 @@
 <title>THE 88TH NIGHT — matchamatcha.ca/88</title>
 <style>
 /* ──────────────────────────────────────────────────────────────
-   量自 matchamatcha.ca 的 Shopify 主题变量，不是凭印象配的：
-     字体    Helvetica, Arial —— 全站只有这一套，标题 700 正文 400
-     色板    只有五个色，下面五行就是全部
-     圆角    --border-radius-sm = 0.25rem，除了胶囊标没有别的圆角
-     按钮    padding 16/24，主按钮大写
-     行高    正文 1.6，标题 1.0–1.1
+   八十八夜 · /88
 
-   整页只有一个计数装置，用两次：
-     倒数十三天   88 个夜，绿的是还没到的，一天空一格
-     5 月 2 日    88 个罐，绿的是还在墙上的，一晚空一墙
-   同一个格子、同一个绿，所以「数完夜就开始数罐」是看出来的，不是读出来的。
+   概念：88 片叶子排成一个茶年。立春发芽，数到第 88 夜最盛，
+   那一夜摘走，磨开，落进环心那只碗里。
+     环 = 叶子，植物的绿，会长、不规整
+     心 = 碗，#00B550，他们的品牌绿
+   叶子永远不是品牌绿 —— 磨开了才是。环变成心的那一刻就是这个 campaign。
+
+   侘寂三条，写死不手改：
+     承认缺憾   环不闭合，顶上留 22°，年永远差一点才圆
+     接纳流变   叶子沿环长大变色，第 88 片最盛
+     朴素本真   角度、半径、大小、鼓度各带定死的偏移，没有两片一样
+
+   色号出处（都不是凭印象）：
+     #A0C830  他们自己 matcha powder 产品图，色相 76
+     #00B550  他们 Shopify 主题 color scheme 里的品牌绿，色相 147
+     #E4E0DD  商品网格和产品图的底色
+     字体 Helvetica / Arial，全站只有这一套
    ────────────────────────────────────────────────────────────── */
 :root{
-  --g:#00B550;            /* 主绿。量自他们主题的 color scheme */
+  --g:#00B550;            /* 磨开之后 */
+  --leaf:#A0C830;         /* 新叶，取自他们的粉末照 */
   --ink:#000;
-  --paper:#E4E0DD;        /* 商品网格的底色，也是产品图的底色 */
-  --grey:#F1F1F1;
+  --paper:#E4E0DD;
   --white:#fff;
-  --line:#D3CECA;         /* 细线。网格靠它分格，不靠间隙 */
+  --line:#D3CECA;
   --line-w:#E6E6E6;
   --mute:#666;
   --f:Helvetica,Arial,sans-serif;
@@ -39,7 +46,6 @@ body{background:var(--paper);color:var(--ink);font-family:var(--f);font-size:14p
   line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;
   display:flex;flex-direction:column;min-height:100svh;padding-bottom:64px}
 b,strong{font-weight:700}
-
 .lab{font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;
   line-height:1.5}
 
@@ -50,12 +56,11 @@ b,strong{font-weight:700}
 .topbar .lab{font-size:10.5px;letter-spacing:.11em;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis}
 .topbar b{font-weight:700}
-.topbar .tail{color:rgba(255,255,255,.92)}
 .topbar .dot{display:inline-block;width:6px;height:6px;border-radius:50%;
-  background:var(--g);margin:0 .75em .1em;vertical-align:middle}
+  background:var(--leaf);margin:0 .75em .1em;vertical-align:middle}
 
 header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
-  padding:18px var(--pad);background:var(--paper)}
+  padding:18px var(--pad)}
 header .l{justify-self:start}
 header .r{justify-self:end;text-align:right}
 .word{font-weight:700;font-size:15px;letter-spacing:-.01em;text-transform:uppercase;
@@ -64,78 +69,72 @@ header .r{justify-self:end;text-align:right}
   font-size:13px}
 
 main{flex:1;display:flex;flex-direction:column;min-height:0}
-.pane{display:none;flex:1;flex-direction:column;min-height:0}
-.pane.on{display:flex}
-
-/* ── 两屏共用的骨架：左边一面格子，右边一栏读数 ────────── */
-.split{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 320px;
+.split{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 330px;
   align-items:stretch}
-.wallwrap{padding:clamp(20px,3.5vw,38px) 0 clamp(20px,3.5vw,38px) var(--pad);
-  min-height:0;display:flex}
 .side{border-left:1px solid var(--line);padding:clamp(20px,3.5vw,38px) var(--pad);
-  display:flex;flex-direction:column;min-height:0}
+  display:none;flex-direction:column;min-height:0}
+.side.on{display:flex}
 
-/* 连续细线网格，格与格之间没有间隙 —— 他们商品列表的做法。
-   尺寸由高度定：整块保持 11:8，高度吃满，宽度不够再由 max-width 收。
-   墙必须一屏看全，否则「还剩几个」要滚动去数，这页就白做了。 */
-.grid{display:grid;grid-template-columns:repeat(11,1fr);
-  grid-template-rows:repeat(8,1fr);gap:1px;
-  background:var(--line);border:1px solid var(--line);
-  aspect-ratio:11/8;height:100%;width:auto;max-width:100%;margin:auto}
-.cell{background:var(--paper);color:rgba(0,0,0,.2);display:flex;
-  align-items:center;justify-content:center;font-weight:700;
-  font-size:clamp(10px,1.1vw,14px);font-variant-numeric:tabular-nums;
-  border:0;font-family:var(--f);padding:0;position:relative;
-  transition:background .5s ease,color .5s ease,opacity .3s ease,transform .18s ease}
-.cell.live{background:var(--g);color:var(--white)}      /* 还在的：夜 / 罐 */
-.cell.now{background:var(--white);color:var(--ink);
-  box-shadow:inset 0 0 0 2px var(--ink)}                /* 今天 */
-.cell.the{background:var(--ink);color:var(--white)}     /* 第 88 夜本身 */
-.cell.dim{opacity:.2}
-.cell.sel{box-shadow:inset 0 0 0 2px var(--ink);z-index:3}
-.cell.lift{transform:scale(.9);opacity:.35}             /* 正被拿在手上 */
-/* 茶季那一屏：88 个号码不是「没了」，是在 88 个人兜里。
-   所以不画成空格，画成有边框的格 —— 东西还在，只是不在墙上。 */
-.cell.held{background:var(--paper);color:rgba(0,0,0,.5);
-  box-shadow:inset 0 0 0 1px rgba(0,0,0,.2)}
+/* ── 环 ───────────────────────────────────────────────── */
+.ringwrap{position:relative;min-height:0;overflow:hidden;--rp:clamp(10px,2vw,24px)}
+/* SVG 用四边钉死，宽高由 inset 决定 —— height:100% 在这里解析不出来，
+   父格子的高度对百分比来说不算确定值，SVG 于是按宽度算出自己的高，
+   整个环就掉到屏幕外面去了。钉四边就没有这个问题。 */
+.ringsvg{position:absolute;top:var(--rp);left:var(--pad);
+  width:calc(100% - var(--pad));height:calc(100% - var(--rp)*2);display:block}
+.hit{fill:transparent}
+.bl{fill:var(--c,#A0C830);transition:fill .5s ease,opacity .45s ease}
+.rib{fill:none;stroke:rgba(0,0,0,.26);stroke-width:1.6;stroke-linecap:round;
+  transition:opacity .45s ease}
+.pop{transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.lf{transition:opacity .45s ease}
 
-/* 可以摘的格子要像可以摘。悬停时微微抬起，这是整页唯一的立体感。 */
-.cell.take{cursor:pointer}
+/* 还没长出来的那几夜：只剩一道轮廓 */
+.lf.bud .bl{fill:none;stroke:rgba(0,0,0,.22);stroke-width:1.5}
+.lf.bud .rib{opacity:0}
+.lf.bud .pop{transform:scale(.72)}
+/* 被摘走：环上留一个口子，但痕迹还在 —— 不画成凭空消失 */
+.lf.gone .bl{fill:none;stroke:rgba(0,0,0,.17);stroke-width:1.2}
+.lf.gone .rib{opacity:0}
+.lf.gone .pop{transform:scale(.8)}
+.lf.dim{opacity:.18}
+.lf.now .mk{opacity:1}
+.mk{fill:none;stroke:var(--ink);stroke-width:2.2;opacity:0;
+  transition:opacity .3s ease}
+.lf.sel .pop{transform:scale(1.24)}
+.lf.lift{opacity:0}
+.lf.take .hit,.lf.pick .hit{cursor:pointer}
 @media(hover:hover){
-  .cell.take:hover{transform:translateY(-3px) scale(1.06);z-index:4;
-    box-shadow:0 6px 14px rgba(0,0,0,.26)}
-  .cell.pick{cursor:pointer}
-  .cell.pick:hover{box-shadow:inset 0 0 0 2px var(--ink);z-index:3}
+  .lf.take:hover .pop,.lf.pick:hover .pop{transform:scale(1.26) translateY(-5px)}
 }
 
+/* 环心那只碗。被摘走多少，它就满多少 —— 环变成心 */
+.bowlfill{fill:var(--g);transition:opacity .7s ease}
+.bowlrim{fill:none;stroke:rgba(0,0,0,.18);stroke-width:1.4}
+.bowllab{font-family:var(--f);font-size:40px;font-weight:700;
+  text-anchor:middle;letter-spacing:-.02em}
+.bowllab.jp{font-family:var(--jp);font-size:34px;letter-spacing:.18em}
+.bowlsub{font-family:var(--f);font-size:14px;letter-spacing:.14em;
+  text-transform:uppercase;text-anchor:middle}
+
+/* ── 右栏 ─────────────────────────────────────────────── */
 .big{font-size:clamp(50px,5.6vw,74px);font-weight:700;line-height:.85;
   letter-spacing:-.04em;font-variant-numeric:tabular-nums}
-.biglab{margin-top:12px;color:var(--mute);max-width:13em}
+.biglab{margin-top:12px;color:var(--mute);max-width:14em}
 .sidefoot{margin-top:auto;border-top:1px solid var(--line);padding-top:14px;
   color:var(--mute);min-height:3.6em}
 .sidefoot b{color:var(--ink)}
-
-/* ── 倒数屏 ───────────────────────────────────────────── */
-.lesson{margin-top:clamp(16px,2.6vw,26px);border-top:1px solid var(--line);
-  padding-top:16px}
+.lesson{margin-top:clamp(14px,2.4vw,24px);border-top:1px solid var(--line);
+  padding-top:15px}
 .lesson .d{font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
-.lesson p{margin-top:10px;font-size:14.5px;line-height:1.55}
-.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;color:var(--mute);
-  font-size:10.5px;letter-spacing:.09em;text-transform:uppercase}
-.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;
-  vertical-align:-1px;font-style:normal}
-.legend .a{background:var(--g)}
-.legend .b{background:var(--white);box-shadow:inset 0 0 0 2px var(--ink)}
-.legend .c{background:var(--ink)}
-
-/* ── 实时屏的门店列表 ─────────────────────────────────── */
+.lesson p{margin-top:9px;font-size:14.5px;line-height:1.55}
 .playrow{margin-top:14px}
 .play{font-family:var(--f);font-size:11px;font-weight:700;letter-spacing:.1em;
   text-transform:uppercase;background:none;border:0;color:var(--g);cursor:pointer;
   padding:0}
 .play:after{content:"\25b6";margin-left:.6em;font-size:9px}
 .play.on:after{content:"\25a0"}
-.rooms{margin-top:clamp(16px,2.6vw,28px)}
+.rooms{margin-top:clamp(14px,2.4vw,24px)}
 .room{display:flex;align-items:baseline;gap:10px;width:100%;text-align:left;
   background:none;border:0;border-top:1px solid var(--line);font-family:var(--f);
   padding:10px 0;cursor:pointer;color:var(--ink)}
@@ -147,67 +146,50 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
   text-transform:uppercase;background:var(--ink);color:var(--white);
   padding:3px 8px;border-radius:999px}
 .room.all{border-top:0;padding-top:0}
-
-/* ── 茶季 ─────────────────────────────────────────────── */
-.menu{border-left:1px solid var(--line);padding:clamp(20px,3.5vw,38px) var(--pad);
-  height:100%}
-.menu ul{list-style:none;margin-top:18px}
+.menu ul{list-style:none;margin-top:16px}
 .menu li{display:flex;justify-content:space-between;gap:18px;align-items:baseline;
-  padding:14px 0;border-bottom:1px solid var(--line)}
+  padding:12px 0;border-bottom:1px solid var(--line)}
 .menu li:first-child{border-top:1px solid var(--line)}
-.menu .t{font-weight:700;font-size:13.5px;letter-spacing:.02em;text-transform:uppercase}
-.menu .d{color:var(--mute);font-size:12.5px;margin-top:3px}
-.menu .p{font-variant-numeric:tabular-nums;font-size:13.5px;white-space:nowrap}
-.menu .note{margin-top:22px;color:var(--mute)}
-.seasonwall{padding:clamp(20px,3.5vw,38px) var(--pad);min-height:0;
-  display:flex;flex-direction:column}
-.seasonwall .grid{flex:1;min-height:0;margin:0 auto}
+.menu .t{font-weight:700;font-size:13px;letter-spacing:.02em;text-transform:uppercase}
+.menu .d{color:var(--mute);font-size:12px;margin-top:2px}
+.menu .p{font-variant-numeric:tabular-nums;font-size:13px;white-space:nowrap}
 
 /* ── 口切り ───────────────────────────────────────────── */
-.claim{flex:1;display:flex;align-items:center;justify-content:center;
-  padding:clamp(18px,3vw,36px) var(--pad)}
-.cardw{background:var(--white);padding:clamp(22px,3vw,40px);width:100%;
-  max-width:620px;border:1px solid var(--line-w)}
-.cardw h1{font-size:clamp(21px,3vw,32px);font-weight:700;line-height:1.08;
-  letter-spacing:-.015em;text-transform:uppercase;margin:14px 0}
-.cardw .sub{color:var(--mute);max-width:34em}
-.form{display:flex;gap:8px;margin-top:24px;flex-wrap:wrap}
-.form input{font-family:var(--f);font-size:15px;padding:15px 16px;
+.claimside{justify-content:center}
+.claimside h1{font-size:clamp(20px,2.3vw,26px);font-weight:700;line-height:1.1;
+  letter-spacing:-.015em;text-transform:uppercase;margin:12px 0}
+.claimside .sub{color:var(--mute);font-size:13px}
+.form{display:flex;gap:8px;margin-top:20px;flex-wrap:wrap}
+.form input{font-family:var(--f);font-size:15px;padding:14px 15px;
   border:1px solid var(--line-w);border-radius:4px;background:var(--white);color:var(--ink)}
 .form input::placeholder{color:#aaa;text-transform:uppercase;font-size:12px;
   letter-spacing:.08em}
-#numIn{width:96px;text-align:center;font-weight:700;font-size:19px;
+#numIn{width:88px;text-align:center;font-weight:700;font-size:18px;
   font-variant-numeric:tabular-nums}
-#emIn{flex:1;min-width:190px}
+#emIn{flex:1;min-width:140px}
 .form input:focus{outline:none;border-color:var(--ink)}
 .btn{font-family:var(--f);font-size:11.5px;font-weight:700;letter-spacing:.12em;
-  text-transform:uppercase;padding:16px 24px;background:var(--ink);color:var(--white);
+  text-transform:uppercase;padding:15px 22px;background:var(--ink);color:var(--white);
   border:0;border-radius:4px;cursor:pointer}
 .btn:hover{background:var(--g);color:var(--ink)}
 .btn.ghost{background:none;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
 .btn.ghost:hover{background:var(--ink);color:var(--white)}
-.res{margin-top:22px;border-top:1px solid var(--line-w);padding-top:18px;display:none}
+.res{margin-top:18px;border-top:1px solid var(--line-w);padding-top:16px;display:none}
 .res.on{display:block}
 .pill{display:inline-block;background:var(--ink);color:var(--white);font-size:10px;
   font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;
   border-radius:999px}
 .pill.ok{background:var(--g);color:var(--ink)}
-.res .no{font-size:clamp(30px,4.6vw,44px);font-weight:700;line-height:1;
-  letter-spacing:-.03em;margin:14px 0 12px;font-variant-numeric:tabular-nums}
+.res .no{font-size:clamp(26px,3.4vw,38px);font-weight:700;line-height:1;
+  letter-spacing:-.03em;margin:12px 0 10px;font-variant-numeric:tabular-nums}
 
-/* ── 摘下来的那张卡 ───────────────────────────────────────
-   这是整页唯一一件「拿在手上」的东西。campaign 里最核心的动作就是
-   顾客自己把号码从墙上摘走，所以这个动作必须由访客亲手做一次。
-   背面那句话是整个方案最硬的一句，让人自己翻过来看，比写在旁边强。 */
+/* ── 摘下来的那张卡 ───────────────────────────────────── */
 .stage{position:fixed;inset:0;z-index:40;display:none;flex-direction:column;
   align-items:center;justify-content:center;gap:clamp(14px,3vw,26px);
   padding:calc(var(--bar) + 14px) var(--pad) calc(var(--demoh,64px) + 26px);
-  background:rgba(228,224,221,.86);
+  background:rgba(228,224,221,.9);
   -webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .stage.on{display:flex}
-/* 卡要从被点的那一格飞出来，不能凭空出现在中间 —— 这一下是整页
-   唯一一个「物理」动作，落点不对，墙和卡就是两件事。
-   外层负责飞，内层负责翻，两个 transform 不能挤在同一个元素上。 */
 .cardwrap{transition:transform .52s cubic-bezier(.19,.9,.22,1),opacity .3s ease}
 .card3d{width:min(86vw,440px);aspect-ratio:85/55;position:relative;
   transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.7,.2,1);
@@ -215,9 +197,9 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .card3d.flip{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;backface-visibility:hidden;
   -webkit-backface-visibility:hidden;border-radius:4px;
-  box-shadow:0 18px 44px rgba(0,0,0,.28);padding:clamp(16px,3.4vw,28px);
+  box-shadow:0 18px 44px rgba(0,0,0,.26);padding:clamp(16px,3.4vw,28px);
   display:flex;flex-direction:column}
-.face.f{background:var(--g);color:var(--ink)}
+.face.f{background:var(--leaf);color:var(--ink)}
 .face.b{background:var(--white);color:var(--ink);transform:rotateY(180deg);
   border:1px solid var(--line-w)}
 .face .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
@@ -235,13 +217,11 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .stagebar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 .hint{text-align:center;color:var(--mute);order:-1}
 
-/* ── 页脚 ─────────────────────────────────────────────── */
-footer{border-top:1px solid var(--line);padding:20px var(--pad);
-  display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+footer{border-top:1px solid var(--line);padding:18px var(--pad);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
 footer .st b{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase}
 footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7}
 
-/* ── demo 条 ──────────────────────────────────────────── */
 .demo{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:var(--white);
   display:flex;align-items:center;gap:14px;flex-wrap:wrap;z-index:50;
   padding:10px var(--pad);padding-bottom:max(10px,env(safe-area-inset-bottom))}
@@ -250,29 +230,26 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 .demo button{font-family:var(--f);font-size:10.5px;font-weight:700;letter-spacing:.1em;
   text-transform:uppercase;background:none;border:1px solid #3a3a3a;color:#aaa;
   padding:8px 11px;border-radius:4px;cursor:pointer}
-.demo button.on{background:var(--g);border-color:var(--g);color:var(--ink)}
+.demo button.on{background:var(--leaf);border-color:var(--leaf);color:var(--ink)}
 .clock{display:flex;align-items:center;gap:10px;margin-left:auto;min-width:230px}
 .clock.off{display:none}
 .clock input{flex:1;accent-color:var(--g);min-width:90px}
 .clock .t{font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
   width:46px;text-align:right}
 
-@media(max-width:900px){
+@media(max-width:920px){
   .split{grid-template-columns:1fr;min-height:0}
-  .wallwrap,.seasonwall{padding:var(--pad) var(--pad) 0;display:block}
-  .grid,.seasonwall .grid{height:auto;width:100%;max-width:none;margin:0}
-  .side,.menu{border-left:0;border-top:1px solid var(--line);height:auto}
-  .split .side{order:-1;border-top:0;padding-bottom:0}
+  .ringwrap{padding:var(--pad) var(--pad) 0}
+  .ringsvg{position:static;width:100%;height:auto}
+  .side{border-left:0;border-top:1px solid var(--line);height:auto}
   .sidefoot{margin-top:18px}
+  .claimside{justify-content:flex-start}
 }
 @media(max-width:620px){
   body{font-size:13.5px}
-  .grid{grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(11,1fr);
-    aspect-ratio:8/11}
-  footer{grid-template-columns:1fr 1fr;gap:16px}
+  footer{grid-template-columns:1fr 1fr;gap:14px}
   header{padding:14px var(--pad)}
   header .r{font-size:9.5px;letter-spacing:.06em}
-  .topbar .tail,.topbar .dot{display:none}
   .clock{margin-left:0;width:100%}
 }
 
@@ -297,104 +274,69 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 </header>
 
 <main>
+  <div class="split">
+    <div class="ringwrap" id="ringwrap"></div>
 
-  <!-- 1 ─ 数夜 ─────────────────────────────────────────── -->
-  <section class="pane" id="p1">
-    <div class="split">
-      <div class="wallwrap"><div class="grid" id="nights"></div></div>
-      <div class="side">
-        <div class="lab">Nights still to count</div>
-        <div class="big" id="cdNum">13</div>
-        <div class="biglab lab" id="cdLab">until the only night matcha has a birthday</div>
-        <div class="lesson">
-          <div class="d" id="lsD"></div>
-          <p id="lsP"></p>
-        </div>
-        <div class="legend">
-          <div><i class="a"></i>to come</div>
-          <div><i class="b"></i>today</div>
-          <div><i class="c"></i>the 88th</div>
-        </div>
-        <div class="sidefoot lab" id="cdFoot">Pick any night to read what we post
-          that day. The black square is 2 May.</div>
-      </div>
+    <!-- 1 ─ 数夜 ─────────────────────────────────────── -->
+    <div class="side" id="p1">
+      <div class="lab">Nights still to count</div>
+      <div class="big" id="cdNum">13</div>
+      <div class="biglab lab" id="cdLab">until the only night matcha has a birthday</div>
+      <div class="lesson"><div class="d" id="lsD"></div><p id="lsP"></p></div>
+      <div class="sidefoot lab">Eighty-eight leaves, one tea year. The ring does not
+        close. Pick any night to read what we post that day.</div>
     </div>
-  </section>
 
-  <!-- 2 ─ 数罐 ─────────────────────────────────────────── -->
-  <section class="pane" id="p2">
-    <div class="split">
-      <div class="wallwrap"><div class="grid" id="wall"></div></div>
-      <div class="side">
-        <div class="lab">On the wall right now</div>
-        <div class="big" id="leftN">88</div>
-        <div class="biglab lab" id="leftLbl">cans left across all four rooms</div>
-        <div class="playrow"><button class="play" id="play">Play the evening</button></div>
-        <div class="rooms" id="rooms"></div>
-        <div class="sidefoot lab" id="readout"></div>
-      </div>
+    <!-- 2 ─ 数罐 ─────────────────────────────────────── -->
+    <div class="side" id="p2">
+      <div class="lab">Still on the wall</div>
+      <div class="big" id="leftN">88</div>
+      <div class="biglab lab" id="leftLbl">cans left across all four rooms</div>
+      <div class="playrow"><button class="play" id="play">Play the evening</button></div>
+      <div class="rooms" id="rooms"></div>
+      <div class="sidefoot lab" id="readout"></div>
     </div>
-  </section>
 
-  <!-- 3 ─ 茶季 ─────────────────────────────────────────── -->
-  <section class="pane" id="p3">
-    <div class="split">
-      <div class="seasonwall">
-        <div class="lab" style="margin-bottom:14px">Where the eighty-eight are now</div>
-        <div class="grid" id="ghost"></div>
-        <p style="margin-top:18px;max-width:40em">Not gone, <b>held.</b> Eighty-eight
-          cards are in eighty-eight pockets, and every one of them opens a jar.</p>
-      </div>
-      <div class="menu">
-        <div class="lab">The second date</div>
-        <div class="big" id="novN">180</div>
-        <div class="biglab lab">days until 口切り, when this
-          year’s leaf is finally ground</div>
-        <div class="lab" style="margin-top:clamp(18px,3vw,30px)">Still pouring through May</div>
-        <ul>
-          <li><div><div class="t">Shincha, cold brew</div>
-            <div class="d">This year's first flush, Uji</div></div><div class="p">7.50</div></li>
-          <li><div><div class="t">Shincha, hot</div>
-            <div class="d">Served in two steeps</div></div><div class="p">8.00</div></li>
-          <li><div><div class="t">Usucha, Uji Mukashi</div>
-            <div class="d">Horii Shichimeien</div></div><div class="p">8.80</div></li>
-          <li><div><div class="t">Shincha 50g</div>
-            <div class="d">Leaf, to take home</div></div><div class="p">34.00</div></li>
-        </ul>
-        <p class="note lab" style="letter-spacing:.04em">Shincha tasting at the Studio,
-          15 and 16 May. Two sittings, twelve seats each.</p>
-      </div>
+    <!-- 3 ─ 茶季 ─────────────────────────────────────── -->
+    <div class="side menu" id="p3">
+      <div class="lab">The second date</div>
+      <div class="big" id="novN">180</div>
+      <div class="biglab lab">days until 口切り, when this year’s leaf is finally ground</div>
+      <ul>
+        <li><div><div class="t">Shincha, cold brew</div>
+          <div class="d">This year's first flush, Uji</div></div><div class="p">7.50</div></li>
+        <li><div><div class="t">Shincha, hot</div>
+          <div class="d">Served in two steeps</div></div><div class="p">8.00</div></li>
+        <li><div><div class="t">Usucha, Uji Mukashi</div>
+          <div class="d">Horii Shichimeien</div></div><div class="p">8.80</div></li>
+      </ul>
+      <div class="sidefoot lab">The ring is bare and the bowl is full. Eighty-eight
+        cards are in eighty-eight pockets.</div>
     </div>
-  </section>
 
-  <!-- 4 ─ 口切り ───────────────────────────────────────── -->
-  <section class="pane" id="p4">
-    <div class="claim">
-      <div class="cardw">
-        <span class="pill">口切り · November 2027</span>
-        <h1>The leaf picked on the 88th night has finished resting</h1>
-        <p class="sub">Six months in the jar, and now it gets ground. Enter the number
-          from your card and we will hold a tin from that grinding in your name.</p>
-        <div class="form">
-          <input id="numIn" inputmode="numeric" maxlength="2" placeholder="00" aria-label="Your number">
-          <input id="emIn" type="email" placeholder="Your email address" aria-label="Email">
-          <button class="btn" id="claimBtn">Claim</button>
-        </div>
-        <div class="res" id="claimOut"></div>
+    <!-- 4 ─ 口切り ───────────────────────────────────── -->
+    <div class="side claimside" id="p4">
+      <span class="pill" style="align-self:flex-start">口切り · November 2027</span>
+      <h1>The leaf picked on the 88th night has finished resting</h1>
+      <p class="sub">Six months in the jar, and now it gets ground. Enter the number
+        from your card and we will hold a tin in your name.</p>
+      <div class="form">
+        <input id="numIn" inputmode="numeric" maxlength="2" placeholder="00" aria-label="Your number">
+        <input id="emIn" type="email" placeholder="Your email" aria-label="Email">
+        <button class="btn" id="claimBtn">Claim</button>
       </div>
+      <div class="res" id="claimOut"></div>
     </div>
-  </section>
-
+  </div>
 </main>
 
 <footer>
-  <div class="st"><b>Toronto Flagship</b><span>407 Church St</span><span>8am – 8pm</span></div>
-  <div class="st"><b>Dundas Club</b><span>294 Dundas St W</span><span>8am – 8pm</span></div>
-  <div class="st"><b>Markham Lab</b><span>200 Steelcase Rd E</span><span>9am – 8pm</span></div>
-  <div class="st"><b>MM Studio</b><span>11 Fairburn Dr</span><span>Weekends</span></div>
+  <div class="st"><b>Toronto Flagship</b><span>407 Church St</span></div>
+  <div class="st"><b>Dundas Club</b><span>294 Dundas St W</span></div>
+  <div class="st"><b>Markham Lab</b><span>200 Steelcase Rd E</span></div>
+  <div class="st"><b>MM Studio</b><span>11 Fairburn Dr</span></div>
 </footer>
 
-<!-- 摘下来的那张卡 -->
 <div class="stage" id="stage">
   <div class="hint lab" id="stageHint"></div>
   <div class="cardwrap" id="cardwrap">
@@ -414,10 +356,7 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
       </div>
       <div class="hd">This number opens<br>the jar in November</div>
       <div class="bk lab" id="cardBack"></div>
-      <div class="ruleline">
-        <div>Name</div>
-        <div>Email</div>
-      </div>
+      <div class="ruleline"><div>Name</div><div>Email</div></div>
     </div>
   </div>
   </div>
@@ -448,41 +387,99 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 </div>
 
 <script>
-/* ══ 共用 ═══════════════════════════════════════════════ */
 var $=function(i){return document.getElementById(i);};
 function nn(n){return (n<10?'0':'')+n;}
 function hhmm(m){var h=Math.floor(m/60),x=Math.round(m%60);
   return (h<10?'0':'')+h+':'+(x<10?'0':'')+x;}
-/* 触屏说 tap，鼠标说 click —— 这是一页要递到别人手机上的东西 */
-var VERB=matchMedia('(hover: hover)').matches?'Click':'Tap';
 var MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-/* 立春 2027-02-04 是第 1 夜，第 88 夜就是 5 月 2 日。核对过。 */
+var VERB=matchMedia('(hover: hover)').matches?'Click':'Tap';
 var RISSHUN=new Date(2027,1,4), NIGHT88=new Date(2027,4,2);
 function dateOfNight(n){var d=new Date(RISSHUN);d.setDate(d.getDate()+n-1);return d;}
 function fmt(d){return d.getDate()+' '+MON[d.getMonth()];}
 
+/* ══ 环 ═══════════════════════════════════════════════════
+   88 片叶子排成一个茶年。顶上留 22° 不闭合 —— 承认缺憾。
+   每片的角度、半径、大小、鼓度都带定死的偏移，所以没有两片一样，
+   但每次打开又一模一样，截图和现场对得上。 */
+var CX=500, CY=500, RR=352, A0=11, SPAN=338, N=88;
+function jit(n,salt){var x=Math.sin(n*12.9898+salt*78.233)*43758.5453;
+  return (x-Math.floor(x))*2-1;}
+function lerp(a,b,t){return a+(b-a)*t;}
+function mix(c1,c2,t){return '#'+[0,1,2].map(function(i){
+  var v=Math.round(lerp(c1[i],c2[i],t));
+  return (v<16?'0':'')+v.toString(16);}).join('');}
+var BUD=[0xD7,0xDC,0xC0], NEWL=[0xC2,0xD8,0x6A],
+    LEAF=[0xA0,0xC8,0x30], DEEP=[0x5E,0x8F,0x24];
+function leafColour(i){var t=i/(N-1);
+  if(t<0.34)return mix(BUD,NEWL,t/0.34);
+  if(t<0.72)return mix(NEWL,LEAF,(t-0.34)/0.38);
+  return mix(LEAF,DEEP,(t-0.72)/0.28);}
+/* 叶形左右不对称，一边比另一边鼓 */
+function leafPath(b){var w=13*b, w2=13/b;
+  return 'M0,-46C'+w.toFixed(1)+',-28 '+(w+4).toFixed(1)+',-8 '+(w-1).toFixed(1)+',12'
+    +'C'+(w-3).toFixed(1)+',27 5,38 0,46'
+    +'C-5,38 '+(-w2+3).toFixed(1)+',27 '+(-w2+1).toFixed(1)+',12'
+    +'C'+(-w2-4).toFixed(1)+',-8 '+(-w2).toFixed(1)+',-28 0,-46Z';}
+
+(function buildRing(){
+  var g='';
+  for(var i=0;i<N;i++){
+    var n=i+1;
+    var th=A0+i*(SPAN/(N-1))+jit(n,1)*1.4;
+    var rad=th*Math.PI/180, r=RR+jit(n,2)*7;
+    var x=CX+r*Math.sin(rad), y=CY-r*Math.cos(rad);
+    var t=i/(N-1);
+    var sc=(0.40+0.54*Math.pow(t,0.78))*(1+jit(n,3)*0.07);
+    var tilt=jit(n,4)*9, bulge=1+jit(n,5)*0.22;
+    g+='<g class="lf" data-n="'+n+'" transform="translate('+x.toFixed(1)+','
+      +y.toFixed(1)+') rotate('+(th+tilt).toFixed(1)+')">'
+      +'<g transform="scale('+sc.toFixed(3)+')"><g class="pop">'
+      +'<circle class="hit" r="48"></circle>'
+      +'<circle class="mk" r="56"></circle>'
+      +'<path class="bl" d="'+leafPath(bulge)+'"></path>'
+      +'<path class="rib" d="M0,-38C'+(2*bulge).toFixed(1)+',-14 '
+      +(-1.5*bulge).toFixed(1)+',16 0,40"></path>'
+      +'</g></g></g>';
+  }
+  $('ringwrap').innerHTML=
+    '<svg viewBox="52 52 896 896" class="ringsvg">'
+    +'<circle class="bowlfill" cx="500" cy="500" r="150" opacity="0"></circle>'
+    +'<circle class="bowlrim" cx="500" cy="500" r="150"></circle>'
+    +'<text class="bowllab" id="bowlN" x="500" y="496"></text>'
+    +'<text class="bowlsub" id="bowlS" x="500" y="526"></text>'
+    +'<g id="leaves">'+g+'</g></svg>';
+  var els=$('leaves').children;
+  for(var k=0;k<els.length;k++)els[k].style.setProperty('--c',leafColour(k));
+})();
+var LF=$('leaves').children;
+function cls(el,s){el.setAttribute('class',s);}
+function setBowl(frac,big,sub,jp){
+  document.querySelector('.bowlfill').setAttribute('opacity',frac.toFixed(2));
+  $('bowlN').textContent=big||'';
+  $('bowlS').textContent=sub||'';
+  $('bowlN').setAttribute('class','bowllab'+(jp?' jp':''));
+  $('bowlN').setAttribute('fill',frac>.55?'#fff':'#000');
+  $('bowlS').setAttribute('fill',frac>.55?'rgba(255,255,255,.8)':'rgba(0,0,0,.42)');
+}
+
 /* ══ 88 罐怎么分到四家店 ═══════════════════════════════ */
 var ROOMS=[
-  {k:'ch',n:'Church',  full:'Toronto Flagship', a:1,  b:28},
-  {k:'du',n:'Dundas',  full:'Dundas Club',      a:29, b:52},
-  {k:'ma',n:'Markham', full:'Markham Lab',      a:53, b:76},
-  {k:'st',n:'Studio',  full:'MM Studio',        a:77, b:88}
+  {k:'ch',full:'Toronto Flagship', a:1,  b:28},
+  {k:'du',full:'Dundas Club',      a:29, b:52},
+  {k:'ma',full:'Markham Lab',      a:53, b:76},
+  {k:'st',full:'MM Studio',        a:77, b:88}
 ];
 var PACE={ch:[540,1005],du:[600,1125],ma:[540,1065],st:[660,1245]};
 function roomOf(n){for(var i=0;i<4;i++)if(n>=ROOMS[i].a&&n<=ROOMS[i].b)return ROOMS[i];}
 function seed(n){var x=Math.sin(n*127.1)*43758.5453;return x-Math.floor(x);}
 var SOLD={};
-for(var i=1;i<=88;i++){
-  var r=roomOf(i),p=PACE[r.k],sp=r.b-r.a+1,ix=i-r.a;
-  SOLD[i]=p[0]+(p[1]-p[0])*((ix+0.5)/sp+(seed(i)-0.5)*0.34);
-}
-var MINE={};                       /* 访客自己摘走的号码 */
+for(var i=1;i<=88;i++){var r0=roomOf(i),p0=PACE[r0.k],sp=r0.b-r0.a+1,ix=i-r0.a;
+  SOLD[i]=p0[0]+(p0[1]-p0[0])*((ix+0.5)/sp+(seed(i)-0.5)*0.34);}
+var MINE={};
 function gone(n,m){return !!MINE[n]||m>=SOLD[n];}
 function countLeft(m,f){var c=0;for(var n=1;n<=88;n++){
   if(f&&roomOf(n).k!==f)continue; if(!gone(n,m))c++;} return c;}
 
-/* ══ 十三天，一天一条 ═══════════════════════════════════ */
 var TEACH={
  13:"Risshun is the first day of spring in the old calendar. Count eighty-eight nights from it and you land on the day Japan has picked tea for four hundred years.",
  12:"In 2027 that night falls on Sunday 2 May. All four rooms are open that day, including the Studio, which otherwise opens only at weekends.",
@@ -501,75 +498,44 @@ var TEACH={
 
 var S={pane:1,min:1035,filter:null,today:75,sel:75,taken:null};
 
-/* ══ 建两面格子 ═════════════════════════════════════════ */
-(function(){
-  var h='';
-  for(var n=1;n<=88;n++)h+='<button class="cell" data-n="'+n+'">'+nn(n)+'</button>';
-  $('nights').innerHTML=h;
-  $('wall').innerHTML=h;
-  $('ghost').innerHTML=h;
-  var r='<button class="room all on" data-r=""><span class="nm">All four rooms</span>'
-       +'<span class="ct"></span></button>';
-  ROOMS.forEach(function(x){
-    r+='<button class="room" data-r="'+x.k+'"><span class="nm">'+x.full+'</span>'
-      +'<span class="ct"></span></button>';});
-  $('rooms').innerHTML=r;
-})();
-
-/* ══ 屏 1：数夜 ═════════════════════════════════════════
-   绿 = 还没到的夜，白框 = 今天，黑 = 第 88 夜。
-   点任何一格就跳到那一天，等于一台时光机 —— 这个 campaign 讲的就是
-   一个日期，所以让人自己在日期里走动是贴题的。 */
+/* ══ 屏 1：环在长 ══════════════════════════════════════ */
 function drawNights(){
-  var c=$('nights').children;
-  for(var i=0;i<c.length;i++){
-    var n=i+1,cl='cell';
-    if(n===88)cl+=' the';
-    else if(n===S.today)cl+=' now';
-    else if(n>S.today)cl+=' live';
-    if(n>=S.today)cl+=' pick';
-    if(n===S.sel)cl+=' sel';
-    c[i].className=cl;
+  for(var i=0;i<N;i++){
+    var n=i+1,c='lf';
+    if(n>S.today)c+=' bud';
+    if(n===S.today)c+=' now';
+    if(n>=S.today)c+=' pick';
+    if(n===S.sel)c+=' sel';
+    cls(LF[i],c);
   }
   var d=dateOfNight(S.sel),togo=88-S.sel;
   $('cdNum').textContent=togo;
-  $('cdLab').textContent=togo===0
-    ? 'tonight is the eighty-eighth night'
-    : 'until the only night matcha has a birthday';
+  $('cdLab').textContent=togo===0?'tonight is the eighty-eighth night'
+    :'until the only night matcha has a birthday';
   $('stateLab').textContent=fmt(d)+' 2027';
   if(S.sel===88){
     $('lsD').textContent='Night 88 · Sunday 2 May';
-    $('lsP').innerHTML='Doors at nine, all four rooms. Eighty-eight numbered cans, '
-      +'eighty-eight bowls. <b>Tap this square again to open the wall.</b>';
+    $('lsP').innerHTML='Doors at nine, all four rooms. '
+      +'<b>'+VERB+' this leaf again to open the night.</b>';
   }else{
-    var k=88-S.sel;                       /* 第 75 夜 = 还有 13 天 */
-    $('lsD').textContent='Night '+S.sel+' · '+fmt(d)
-      +(S.sel===S.today?' · today':'');
-    $('lsP').textContent=TEACH[k]||'';
+    $('lsD').textContent='Night '+S.sel+' · '+fmt(d)+(S.sel===S.today?' · today':'');
+    $('lsP').textContent=TEACH[88-S.sel]||'';
   }
+  setBowl(0,'八十八夜',togo===0?'tonight':'the 88th night · 2 may',1);
   $('ticker').innerHTML='<b>'+(togo===0?'Tonight':togo+' nights to go')+'</b>'
-    +'<span class="dot"></span><span class="tail">八十八夜 · '
-    +'the 88th night · Sunday 2 May · 88 numbered cans · four rooms</span>';
+    +'<span class="dot"></span>八十八夜 · the 88th night · Sunday 2 May';
 }
-$('nights').onclick=function(e){
-  var b=e.target.closest('.cell');if(!b)return;
-  var n=+b.dataset.n;
-  if(n<S.today)return;                    /* 过去的夜不能点 */
-  if(n===88&&S.sel===88){setPane(2);return;}   /* 最后一格第二下进当晚 */
-  S.sel=n;drawNights();
-};
 
-/* ══ 屏 2：数罐 ═════════════════════════════════════════ */
+/* ══ 屏 2：环在空，碗在满 ══════════════════════════════ */
 function drawWall(){
-  var c=$('wall').children;
-  for(var i=0;i<c.length;i++){
+  for(var i=0;i<N;i++){
     var n=i+1,out=gone(n,S.min),off=S.filter&&roomOf(n).k!==S.filter;
-    var cl='cell'+(out?'':' live')+(off?' dim':'');
-    if(!out&&!off)cl+=' take';
-    if(S.taken===n)cl+=' lift';
-    c[i].className=cl;
+    var c='lf'+(out?' gone':'')+(off?' dim':'');
+    if(!out&&!off)c+=' take';
+    if(S.taken===n)c+=' lift';
+    cls(LF[i],c);
   }
-  var total=countLeft(S.min,null);
+  var total=countLeft(S.min,null), taken=88-total;
   $('leftN').textContent=countLeft(S.min,S.filter);
   var sel=null;ROOMS.forEach(function(r){if(r.k===S.filter)sel=r;});
   $('leftLbl').textContent=sel?'left at '+sel.full:'cans left across all four rooms';
@@ -577,40 +543,109 @@ function drawWall(){
     var k=b.dataset.r,ct=b.querySelector('.ct'),left=countLeft(S.min,k||null);
     b.classList.toggle('on',(k||null)===S.filter);
     b.classList.toggle('sold',left===0);
-    ct.textContent=left===0?'Sold out':left;
-  });
+    ct.textContent=left===0?'Sold out':left;});
+  setBowl(taken/88, taken, 'ground');
   var mine=Object.keys(MINE);
   $('readout').innerHTML=mine.length
-    ? 'You are holding <b>No. '+nn(+mine[0])+'</b>. Collect it at '
-      +roomOf(+mine[0]).full+'.'
-    : VERB+' a green number to take it off the wall.';
+    ? 'You are holding <b>No. '+nn(+mine[0])+'</b>. Collect it at '+roomOf(+mine[0]).full+'.'
+    : VERB+' a leaf to take it off the wall.';
   $('stateLab').textContent=hhmm(S.min)+' · 2 May 2027';
   $('ticker').innerHTML=total>0
     ? '<b>'+total+' of 88 left</b><span class="dot"></span>'
-      +'<span class="tail">Uji Mukashi, hand-numbered · one per person · '
-      +'in the rooms only</span>'
+      +'Uji Mukashi, hand-numbered · one per person · in the rooms only'
     : '<b>All 88 taken</b><span class="dot"></span>'
-      +'<span class="tail">Shincha stays on the menu through May · '
-      +'numbers open their jars in November</span>';
+      +'Every number opens a jar in November';
 }
-$('rooms').onclick=function(e){
-  var b=e.target.closest('.room');if(!b)return;
-  S.filter=b.dataset.r||null;drawWall();
+
+/* ══ 屏 3 / 4 ══════════════════════════════════════════ */
+function bareRing(){for(var i=0;i<N;i++)cls(LF[i],'lf gone');}
+function drawSeason(){
+  bareRing();setBowl(1,'88','ground');
+  $('novN').textContent=Math.round((new Date(2027,10,8)-new Date(2027,4,12))/86400000);
+  $('stateLab').textContent='12 May 2027';
+  $('ticker').innerHTML='<b>Shincha is on</b><span class="dot"></span>'
+    +'This year’s first flush, by the cup and by the bag, through May';
+}
+function drawNov(){
+  bareRing();setBowl(1,'口切り','the jar opens',1);
+  $('stateLab').textContent='8 November 2027';
+  $('ticker').innerHTML='<b>口切り · the jars open</b><span class="dot"></span>'
+    +'Eighty-eight numbers, eighty-eight tins from the 2 May picking';
+}
+
+/* ══ 点叶子 ════════════════════════════════════════════ */
+$('ringwrap').onclick=function(e){
+  var g=e.target.closest('.lf');if(!g)return;
+  var n=+g.getAttribute('data-n');
+  if(S.pane===1){
+    if(n<S.today)return;
+    if(n===88&&S.sel===88){setPane(2);return;}
+    S.sel=n;drawNights();return;
+  }
+  if(S.pane===2&&g.getAttribute('class').indexOf('take')>=0)takeNumber(n,g);
 };
 
-/* 整晚放一遍。拖时间轴是「查」，按播放是「看」——
-   这个 campaign 卖的就是一个晚上，所以那个晚上要能放出来。 */
-var playing=0;
-function stopPlay(){
-  if(playing)cancelAnimationFrame(playing);
-  playing=0;$('play').classList.remove('on');
-  $('play').textContent='Play the evening';
+/* ══ 摘下来的那张卡 ════════════════════════════════════ */
+function flyFrom(el){
+  /* FLIP：先把卡摆到那片叶子的位置和大小上，强制回流，再撤掉，它就飞过来。
+     不用 requestAnimationFrame —— 标签页不在前台时它不触发，卡会卡在叶子大小上。 */
+  var w=$('cardwrap');
+  w.style.transition='none';w.style.opacity='.25';
+  var a=el.getBoundingClientRect(), b=$('card').getBoundingClientRect();
+  if(!b.width||!a.width)return;
+  var sc=Math.max(.05,Math.min(a.width/b.width,a.height/b.height));
+  w.style.transform='translate('+((a.left+a.width/2)-(b.left+b.width/2))+'px,'
+    +((a.top+a.height/2)-(b.top+b.height/2))+'px) scale('+sc+')';
+  void w.offsetWidth;
+  w.style.transition='';w.style.opacity='';w.style.transform='';
 }
+function takeNumber(n,fromEl){
+  stopPlay();
+  S.taken=n;
+  $('cardNo').textContent=nn(n);
+  $('cardRoom').textContent=roomOf(n).full;
+  $('cardBack').textContent='口切り · from 8 Nov 2027 · '+roomOf(n).full
+    +' · one tin per number';
+  $('card').classList.remove('flip');
+  $('stageHint').textContent=VERB+' the card to turn it over';
+  $('stage').classList.add('on');
+  if(fromEl)flyFrom(fromEl);
+  drawWall();
+}
+$('card').onclick=function(){
+  this.classList.toggle('flip');
+  $('stageHint').textContent=this.classList.contains('flip')
+    ?'The card is a claim ticket, not a souvenir':VERB+' the card to turn it over';
+};
+$('putBack').onclick=function(){
+  if(S.taken)delete MINE[S.taken];
+  S.taken=null;$('stage').classList.remove('on');drawWall();};
+$('keepIt').onclick=function(){
+  if(S.taken)MINE[S.taken]=1;
+  S.taken=null;$('stage').classList.remove('on');drawWall();};
+addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&$('stage').classList.contains('on'))$('putBack').click();});
+
+/* ══ 门店 + 放一晚 ═════════════════════════════════════ */
+(function(){
+  var r='<button class="room all on" data-r=""><span class="nm">All four rooms</span>'
+       +'<span class="ct"></span></button>';
+  ROOMS.forEach(function(x){
+    r+='<button class="room" data-r="'+x.k+'"><span class="nm">'+x.full+'</span>'
+      +'<span class="ct"></span></button>';});
+  $('rooms').innerHTML=r;
+})();
+$('rooms').onclick=function(e){
+  var b=e.target.closest('.room');if(!b)return;
+  S.filter=b.dataset.r||null;drawWall();};
+
+var playing=0;
+function stopPlay(){if(playing)cancelAnimationFrame(playing);playing=0;
+  $('play').classList.remove('on');$('play').textContent='Play the evening';}
 $('play').onclick=function(){
   if(playing){stopPlay();return;}
-  var t0=null, FROM=540, TO=1290, DUR=11000;
-  S.filter=null;
-  $('play').classList.add('on');$('play').textContent='Stop';
+  var t0=null,FROM=540,TO=1290,DUR=12000;
+  S.filter=null;$('play').classList.add('on');$('play').textContent='Stop';
   (function step(t){
     if(t0===null)t0=t;
     var k=Math.min(1,(t-t0)/DUR);
@@ -622,85 +657,20 @@ $('play').onclick=function(){
   playing=1;
 };
 
-/* ══ 摘号码 ════════════════════════════════════════════ */
-function flyFrom(cellEl){
-  /* FLIP：先把卡摆到那一格的位置和大小上，强制回流，再撤掉，它就自己飞过来。
-     不用 requestAnimationFrame —— 标签页不在前台时 rAF 不触发，
-     回调不跑，卡就会永远卡在格子大小上。这是真摔过的坑。 */
-  var w=$('cardwrap');
-  w.style.transition='none';
-  w.style.opacity='.25';
-  var a=cellEl.getBoundingClientRect(), b=$('card').getBoundingClientRect();
-  if(!b.width||!a.width)return;
-  var sc=Math.max(.05,Math.min(a.width/b.width,a.height/b.height));
-  var dx=(a.left+a.width/2)-(b.left+b.width/2);
-  var dy=(a.top+a.height/2)-(b.top+b.height/2);
-  w.style.transform='translate('+dx+'px,'+dy+'px) scale('+sc+')';
-  void w.offsetWidth;                      /* 回流，让上面这一帧真的落地 */
-  w.style.transition='';
-  w.style.opacity='';
-  w.style.transform='';
-}
-function takeNumber(n,fromEl){
-  stopPlay();
-  S.taken=n;
-  $('cardNo').textContent=nn(n);
-  $('cardRoom').textContent=roomOf(n).full;
-  $('cardBack').textContent='\u53e3\u5207\u308a \u00b7 from 8 Nov 2027 \u00b7 '
-    +roomOf(n).full+' \u00b7 one tin per number';
-  $('card').classList.remove('flip');
-  $('stageHint').textContent=VERB+' the card to turn it over';
-  $('stage').classList.add('on');
-  if(fromEl)flyFrom(fromEl);
-  drawWall();
-}
-$('wall').onclick=function(e){
-  var b=e.target.closest('.cell');if(!b)return;
-  if(!b.classList.contains('take'))return;
-  takeNumber(+b.dataset.n,b);
-};
-$('card').onclick=function(){
-  this.classList.toggle('flip');
-  $('stageHint').textContent=this.classList.contains('flip')
-    ? 'The card is a claim ticket, not a souvenir'
-    : VERB+' the card to turn it over';
-};
-$('putBack').onclick=function(){
-  if(S.taken)delete MINE[S.taken];
-  S.taken=null;$('stage').classList.remove('on');drawWall();
-};
-$('keepIt').onclick=function(){
-  if(S.taken)MINE[S.taken]=1;
-  S.taken=null;$('stage').classList.remove('on');drawWall();
-};
-addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&$('stage').classList.contains('on'))$('putBack').click();
-});
-
-/* ══ 屏 3 / 4 ══════════════════════════════════════════ */
-function drawGhost(){
-  var c=$('ghost').children;
-  for(var i=0;i<c.length;i++)c[i].className='cell held';
-  /* 第二个日期。碾茶熟成约六个月，所以这个数就是方案里「两条时间轴」
-     那页的论据，在页面上自己走。 */
-  var days=Math.round((new Date(2027,10,8)-new Date(2027,4,12))/86400000);
-  $('novN').textContent=days;
-}
+/* ══ 认领 ══════════════════════════════════════════════ */
 function claim(){
   var v=parseInt($('numIn').value,10),em=$('emIn').value.trim(),o=$('claimOut');
   o.classList.add('on');
-  if(!(v>=1&&v<=88)){
-    o.innerHTML='<span class="pill">Not found</span><p style="margin-top:12px">'
-      +'Numbers run from 01 to 88. Check the front of your card.</p>';return;}
-  if(em.indexOf('@')<1){
-    o.innerHTML='<span class="pill">One more thing</span><p style="margin-top:12px">'
-      +'We match you by the email on the back of the card.</p>';return;}
+  if(!(v>=1&&v<=88)){o.innerHTML='<span class="pill">Not found</span>'
+    +'<p style="margin-top:10px">Numbers run from 01 to 88.</p>';return;}
+  if(em.indexOf('@')<1){o.innerHTML='<span class="pill">One more thing</span>'
+    +'<p style="margin-top:10px">We match you by the email on the back of the card.</p>';
+    return;}
   var r=roomOf(v);
-  o.innerHTML='<span class="pill ok">Matched</span>'
-    +'<div class="no">'+nn(v)+' / 88</div>'
-    +'<p>Taken from the wall at <b>'+r.full+'</b> on 2 May, at '+hhmm(SOLD[v])+'.<br>'
+  o.innerHTML='<span class="pill ok">Matched</span><div class="no">'+nn(v)+' / 88</div>'
+    +'<p>Taken at <b>'+r.full+'</b> on 2 May, '+hhmm(SOLD[v])+'.<br>'
     +'One tin of the 2027 first flush, ground this week, is held in your name.<br>'
-    +'Collect at '+r.full+' from <b>8 November</b>. Confirmation sent to '+em+'.</p>';
+    +'Collect from <b>8 November</b>.</p>';
 }
 $('claimBtn').onclick=claim;
 ['numIn','emIn'].forEach(function(id){
@@ -713,27 +683,18 @@ function setPane(p){
   document.querySelectorAll('.demo button[data-s]').forEach(function(b){
     b.classList.toggle('on',+b.dataset.s===p);});
   $('clockWrap').classList.toggle('off',p!==2);
-  $('stage').classList.remove('on');
-  stopPlay();
+  $('stage').classList.remove('on');stopPlay();
   if(p===1)drawNights();
   if(p===2)drawWall();
-  if(p===3){drawGhost();$('stateLab').textContent='12 May 2027';
-    $('ticker').innerHTML='<b>Shincha is on</b><span class="dot"></span>'
-      +'<span class="tail">This year’s first flush, by the cup and by the bag, '
-      +'through May</span>';}
-  if(p===4){$('stateLab').textContent='8 November 2027';
-    $('ticker').innerHTML='<b>口切り · the jars open</b>'
-      +'<span class="dot"></span><span class="tail">Eighty-eight numbers, '
-      +'eighty-eight tins from the 2 May picking</span>';}
+  if(p===3)drawSeason();
+  if(p===4)drawNov();
   fitDemo();
 }
 document.querySelectorAll('.demo button[data-s]').forEach(function(b){
   b.onclick=function(){setPane(+b.dataset.s);};});
-$('clock').oninput=function(){stopPlay();S.min=+this.value;$('clockT').textContent=hhmm(S.min);
-  drawWall();};
+$('clock').oninput=function(){stopPlay();S.min=+this.value;
+  $('clockT').textContent=hhmm(S.min);drawWall();};
 
-/* demo 条在窄屏会折成两三行，高度不是定值。写死 padding 一定压住页脚，
-   所以让它自己报高度，卡片那条按钮也跟着它定位。 */
 function fitDemo(){
   var h=document.querySelector('.demo').offsetHeight;
   document.body.style.paddingBottom=(h+14)+'px';
@@ -744,16 +705,15 @@ addEventListener('resize',fitDemo);
 /* ══ 真实日期决定开在哪一屏 ════════════════════════════ */
 (function(){
   var h=location.hash.replace(/[^0-9:]/g,'').split(':');
-  if(h[0]>='1'&&h[0]<='4'){        /* #1:75  #2:1035  #4:34 —— 截图用 */
-    var p0=+h[0];
-    if(h[1]&&p0===1)S.sel=+h[1];
-    if(h[1]&&p0===2){S.min=+h[1];$('clock').value=S.min;$('clockT').textContent=hhmm(S.min);}
-    setPane(p0);
-    /* #2:1035:47 直接把 47 号摘下来，再加 :1 翻到背面 —— 附录截图就是这么出的 */
-    if(h[2]&&p0===2){takeNumber(+h[2]);
+  if(h[0]>='1'&&h[0]<='4'){
+    var pz=+h[0];
+    if(h[1]&&pz===1)S.sel=+h[1];
+    if(h[1]&&pz===2){S.min=+h[1];$('clock').value=S.min;$('clockT').textContent=hhmm(S.min);}
+    setPane(pz);
+    if(h[2]&&pz===2){takeNumber(+h[2],LF[+h[2]-1]);
       if(h[3]==='1'){$('card').classList.add('flip');
         $('stageHint').textContent='The card is a claim ticket, not a souvenir';}}
-    if(h[1]&&p0===4){$('numIn').value=h[1];$('emIn').value='jo@matchamatcha.ca';claim();}
+    if(h[1]&&pz===4){$('numIn').value=h[1];$('emIn').value='jo@matchamatcha.ca';claim();}
     return;
   }
   var now=new Date(),p=1;
