@@ -75,6 +75,13 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
   display:none;flex-direction:column;min-height:0}
 .side.on{display:flex}
 
+/* ── 肌理 ─────────────────────────────────────────────────
+   参考里肌理是在干活的，不是贴上去的花纹：
+   叶子边缘走一道 feDisplacementMap，断掉「数学曲线」那种干净，
+   整页再压一层极淡的纸纹。两样都很轻，印出来才看得出，屏幕上只觉得不假。 */
+.grain{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;
+  z-index:9;opacity:.5;mix-blend-mode:multiply}
+
 /* ── 环 ───────────────────────────────────────────────── */
 .ringwrap{position:relative;min-height:0;overflow:hidden;--rp:clamp(10px,2vw,24px)}
 /* SVG 用四边钉死，宽高由 inset 决定 —— height:100% 在这里解析不出来，
@@ -109,8 +116,10 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 }
 
 /* 环心那只碗。被摘走多少，它就满多少 —— 环变成心 */
-.bowlfill{fill:var(--g);transition:opacity .7s ease}
-.bowlrim{fill:none;stroke:rgba(0,0,0,.18);stroke-width:1.4}
+/* 环心不是一块平涂的绿，是网点。
+   抹茶就是磨成粉的叶子 —— 叶子是形，粉是粒，研磨就是形变成粒。
+   所以环上走连续的叶形，环心走颗粒，整套视觉系统就是 形 → 粒。 */
+.pd{fill:var(--g);transition:r .55s ease,opacity .55s ease}
 .bowllab{font-family:var(--f);font-size:40px;font-weight:700;
   text-anchor:middle;letter-spacing:-.02em}
 .bowllab.jp{font-family:var(--jp);font-size:34px;letter-spacing:.18em}
@@ -264,6 +273,12 @@ footer .st span{display:block;color:var(--mute);font-size:11.5px;line-height:1.7
 </style>
 </head>
 <body>
+
+<svg class="grain" aria-hidden="true"><filter id="pg">
+  <feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="3" seed="11"/>
+  <feColorMatrix type="saturate" values="0"/>
+  <feComponentTransfer><feFuncA type="linear" slope=".08"/></feComponentTransfer>
+</filter><rect width="100%" height="100%" filter="url(#pg)"/></svg>
 
 <div class="topbar"><div class="lab" id="ticker"></div></div>
 
@@ -443,18 +458,50 @@ function leafPath(b){var w=13*b, w2=13/b;
   }
   $('ringwrap').innerHTML=
     '<svg viewBox="52 52 896 896" class="ringsvg">'
-    +'<circle class="bowlfill" cx="500" cy="500" r="150" opacity="0"></circle>'
-    +'<circle class="bowlrim" cx="500" cy="500" r="150"></circle>'
+    +'<g id="powder"></g>'
     +'<text class="bowllab" id="bowlN" x="500" y="496"></text>'
     +'<text class="bowlsub" id="bowlS" x="500" y="526"></text>'
-    +'<g id="leaves">'+g+'</g></svg>';
+    +'<defs><filter id="rough" x="-12%" y="-12%" width="124%" height="124%">'
+    +'<feTurbulence type="fractalNoise" baseFrequency="0.028" numOctaves="3" '
+    +'seed="7" result="n"/>'
+    +'<feDisplacementMap in="SourceGraphic" in2="n" scale="6" '
+    +'xChannelSelector="R" yChannelSelector="G"/></filter></defs>'
+    +'<g id="leaves" filter="url(#rough)">'+g+'</g></svg>';
   var els=$('leaves').children;
   for(var k=0;k<els.length;k++)els[k].style.setProperty('--c',leafColour(k));
 })();
 var LF=$('leaves').children;
+
+/* ── 粉：一片抖过的点阵，中间密、外面疏 ──────────────── */
+var PD=(function(){
+  var out='',pts=[],PITCH=15,RMAX=198;
+  for(var gy=-RMAX;gy<=RMAX;gy+=PITCH){
+    for(var gx=-RMAX;gx<=RMAX;gx+=PITCH){
+      var jx=gx+jit(gx*7+gy,9)*5.2, jy=gy+jit(gx+gy*7,10)*5.2;
+      var d=Math.sqrt(jx*jx+jy*jy)/RMAX;
+      if(d>1)continue;
+      /* 门槛：越靠外越晚出现，再加抖动，边缘才会是散开的不是一刀切 */
+      var th=Math.pow(d,1.35)+jit(gx*13+gy*3,11)*0.13;
+      pts.push([500+jx,500+jy,d,Math.max(0,Math.min(1,th))]);
+    }
+  }
+  pts.forEach(function(p){
+    out+='<circle class="pd" cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)
+      +'" r="0" opacity="0"></circle>';
+  });
+  $('powder').innerHTML=out;
+  return pts;
+})();
+var PDE=$('powder').children;
 function cls(el,s){el.setAttribute('class',s);}
 function setBowl(frac,big,sub,jp){
-  document.querySelector('.bowlfill').setAttribute('opacity',frac.toFixed(2));
+  for(var i=0;i<PD.length;i++){
+    var d=PD[i][2], th=PD[i][3], on=frac>th;
+    /* 点的大小也跟着涨：先稀疏的小点，最后挤成一片 */
+    var r=on?(2.1+5.4*Math.max(0,Math.min(1,(frac-th)/0.42))*(1-d*0.28)):0;
+    PDE[i].setAttribute('r',r.toFixed(2));
+    PDE[i].setAttribute('opacity',on?(0.5+0.5*(1-d)).toFixed(2):'0');
+  }
   $('bowlN').textContent=big||'';
   $('bowlS').textContent=sub||'';
   $('bowlN').setAttribute('class','bowllab'+(jp?' jp':''));
@@ -544,7 +591,7 @@ function drawWall(){
     b.classList.toggle('on',(k||null)===S.filter);
     b.classList.toggle('sold',left===0);
     ct.textContent=left===0?'Sold out':left;});
-  setBowl(taken/88, taken, 'ground');
+  setBowl(taken/88,'','');
   var mine=Object.keys(MINE);
   $('readout').innerHTML=mine.length
     ? 'You are holding <b>No. '+nn(+mine[0])+'</b>. Collect it at '+roomOf(+mine[0]).full+'.'
@@ -560,14 +607,14 @@ function drawWall(){
 /* ══ 屏 3 / 4 ══════════════════════════════════════════ */
 function bareRing(){for(var i=0;i<N;i++)cls(LF[i],'lf gone');}
 function drawSeason(){
-  bareRing();setBowl(1,'88','ground');
+  bareRing();setBowl(1,'','');
   $('novN').textContent=Math.round((new Date(2027,10,8)-new Date(2027,4,12))/86400000);
   $('stateLab').textContent='12 May 2027';
   $('ticker').innerHTML='<b>Shincha is on</b><span class="dot"></span>'
     +'This year’s first flush, by the cup and by the bag, through May';
 }
 function drawNov(){
-  bareRing();setBowl(1,'口切り','the jar opens',1);
+  bareRing();setBowl(1,'','');
   $('stateLab').textContent='8 November 2027';
   $('ticker').innerHTML='<b>口切り · the jars open</b><span class="dot"></span>'
     +'Eighty-eight numbers, eighty-eight tins from the 2 May picking';
