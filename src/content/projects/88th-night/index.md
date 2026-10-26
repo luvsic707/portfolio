@@ -40,7 +40,11 @@ gallery:
     alt: The live page on the night, eighty-eight numbers going dark one by one
   - image: ./c-mechanic.png
     alt: The mechanic — eighty-eight cans, eighty-eight bowls, and a wall
-draft: false
+draft: true
+
+# draft: true —— 线上完全不生成这一页（首页、作品列表、页脚计数、
+# sitemap 全都没有它）。本地 npm run dev 照常能看见，见下面四个过滤器里
+# 的 import.meta.env.DEV。要重新上线就把这里改回 false。
 ---
 
 ## A — THE READ

@@ -5,7 +5,7 @@ import Base from '../../layouts/Base.astro';
 import HeroGallery from '../../components/HeroGallery.astro';
 
 export async function getStaticPaths() {
-  const projects = (await getCollection('projects')).filter((p) => !p.data.draft);
+  const projects = (await getCollection('projects')).filter((p) => (!p.data.draft || import.meta.env.DEV));
 
   const sorted = projects.sort((a, b) => {
     const ao = a.data.order ?? 999;

@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 
 /* 横栏里的数字必须是真的 —— 编出来的档案数据一眼就假。
    卷宗数取自内容集合，修订日期取自构建时间。 */
-const cases = (await getCollection('projects')).filter((p) => !p.data.draft).length;
+const cases = (await getCollection('projects')).filter((p) => (!p.data.draft || import.meta.env.DEV)).length;
 const revised = new Date().toISOString().slice(0, 10);
 
 /* 联系方式 —— 改这里就行 */
