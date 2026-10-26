@@ -481,7 +481,7 @@ var PD=(function(){
       var d=Math.sqrt(jx*jx+jy*jy)/RMAX;
       if(d>1)continue;
       /* 门槛：越靠外越晚出现，再加抖动，边缘才会是散开的不是一刀切 */
-      var th=Math.pow(d,1.35)+jit(gx*13+gy*3,11)*0.13;
+      var th=Math.pow(d,1.35)+jit(gx*13+gy*3,11)*0.30;
       pts.push([500+jx,500+jy,d,Math.max(0,Math.min(1,th))]);
     }
   }
@@ -498,9 +498,9 @@ function setBowl(frac,big,sub,jp){
   for(var i=0;i<PD.length;i++){
     var d=PD[i][2], th=PD[i][3], on=frac>th;
     /* 点的大小也跟着涨：先稀疏的小点，最后挤成一片 */
-    var r=on?(2.1+5.4*Math.max(0,Math.min(1,(frac-th)/0.42))*(1-d*0.28)):0;
+    var r=on?(2.1+5.4*Math.max(0,Math.min(1,(frac-th)/0.42))*(1-d*0.55)):0;
     PDE[i].setAttribute('r',r.toFixed(2));
-    PDE[i].setAttribute('opacity',on?(0.5+0.5*(1-d)).toFixed(2):'0');
+    PDE[i].setAttribute('opacity',on?(0.30+0.70*Math.pow(1-d,1.5)).toFixed(2):'0');
   }
   $('bowlN').textContent=big||'';
   $('bowlS').textContent=sub||'';
