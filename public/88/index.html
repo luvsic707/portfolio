@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>THE 88TH NIGHT — matchamatcha.ca/88</title>
+<style>
+:root{
+  --g:#09ae52; --dg:#108474; --cream:#E4E0DD; --ink:#111; --mute:#8a8f8c;
+  --line:rgba(17,17,17,.14);
+  --f:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  --jp:"Hiragino Sans","Hiragino Kaku Gothic ProN","Helvetica Neue",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--cream);color:var(--ink);font-family:var(--f);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{min-height:100vh;display:flex;flex-direction:column;padding-bottom:62px}
+a{color:inherit}
+
+/* ---------- head ---------- */
+header{padding:26px 24px 0;display:flex;justify-content:space-between;
+  align-items:flex-start;gap:16px}
+.mark{font-size:11px;letter-spacing:.22em;line-height:1.7;text-transform:uppercase}
+.mark .jp{font-family:var(--jp);font-size:15px;letter-spacing:.3em;display:block;
+  margin-bottom:5px;color:var(--g);font-weight:600}
+.state{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);
+  text-align:right;line-height:1.8;white-space:nowrap}
+.state b{display:block;color:var(--ink);font-weight:600}
+
+main{flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:30px 24px 36px;max-width:1040px;width:100%;margin:0 auto}
+.pane{display:none}
+.pane.on{display:block;animation:fade .45s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.kick{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--mute);
+  margin-bottom:20px}
+.lede{font-size:16px;line-height:1.65;max-width:34em;color:#333}
+.lede b{font-weight:600;color:var(--ink)}
+.jpline{font-family:var(--jp);letter-spacing:.14em}
+
+/* ---------- 1 countdown ---------- */
+.bignum{font-size:clamp(130px,30vw,260px);font-weight:600;line-height:.8;
+  letter-spacing:-.045em;color:var(--g);font-variant-numeric:tabular-nums}
+.cdrow{display:flex;align-items:flex-end;gap:26px;flex-wrap:wrap;margin-bottom:26px}
+.cdside{padding-bottom:14px}
+.cdside .big{font-size:22px;font-weight:600;line-height:1.25;letter-spacing:-.01em}
+.cdside .sm{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--mute);margin-top:9px}
+.teach{border-top:1px solid var(--line);padding-top:18px;margin-top:4px;
+  display:flex;gap:18px;align-items:baseline;max-width:40em}
+.teach .n{font-size:11px;letter-spacing:.14em;color:var(--g);font-weight:600;
+  white-space:nowrap;min-width:9em}
+.step{display:block;margin-top:9px}
+.step button{font:inherit;font-size:12px;line-height:1;padding:6px 9px;
+  background:none;border:1px solid var(--line);color:var(--mute);cursor:pointer;
+  border-radius:2px;margin-right:4px;transition:.15s}
+.step button:hover{border-color:var(--g);color:var(--g)}
+.teach p{font-size:15px;line-height:1.6;color:#333}
+
+/* ---------- 2 live grid ---------- */
+.livewrap{display:grid;grid-template-columns:minmax(0,520px) 1fr;gap:48px;
+  align-items:start}
+.liveside{padding-top:2px}
+.left{font-size:clamp(54px,8vw,82px);font-weight:600;line-height:.85;
+  letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.left em{font-style:normal}
+.left span{font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mute);font-weight:400;display:block;margin-top:14px;max-width:13em;
+  line-height:1.7}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin-top:26px}
+.liveclock{margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.chip{font:inherit;font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;
+  padding:8px 13px;border:1px solid var(--line);background:none;color:var(--mute);
+  cursor:pointer;border-radius:2px;transition:.18s}
+.chip:hover{border-color:var(--g);color:var(--g)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.chip i{font-style:normal;font-variant-numeric:tabular-nums;opacity:.6;
+  margin-left:6px}
+
+.grid{display:grid;grid-template-columns:repeat(11,1fr);gap:5px}
+.cell{aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:600;font-variant-numeric:tabular-nums;border-radius:2px;
+  background:var(--g);color:#fff;transition:background .5s,color .5s,opacity .5s;
+  cursor:default}
+.cell.gone{background:transparent;color:rgba(17,17,17,.17);
+  box-shadow:inset 0 0 0 1px rgba(17,17,17,.1)}
+.cell.dim{opacity:.13}
+.legend{display:flex;gap:22px;margin-top:20px;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--mute);flex-wrap:wrap}
+.legend b{display:inline-block;width:11px;height:11px;border-radius:2px;
+  margin-right:7px;vertical-align:-1px}
+.legend .a{background:var(--g)}
+.legend .b{background:transparent;box-shadow:inset 0 0 0 1px rgba(17,17,17,.22)}
+
+/* ---------- 3 season ---------- */
+.seasonwrap{display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start}
+.ghost{display:grid;grid-template-columns:repeat(11,1fr);gap:5px}
+.ghost div{aspect-ratio:1;border-radius:2px;box-shadow:inset 0 0 0 1px rgba(17,17,17,.1)}
+.menu{border-top:1px solid var(--line);margin-top:22px;padding-top:4px}
+.menu li{list-style:none;display:flex;justify-content:space-between;gap:18px;
+  padding:13px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.menu li b{font-weight:500}
+.menu li i{font-style:normal;color:var(--mute);font-variant-numeric:tabular-nums}
+.menu li small{display:block;font-size:11.5px;color:var(--mute);margin-top:4px;
+  letter-spacing:.02em}
+
+/* ---------- 4 kuchikiri ---------- */
+.claimwrap{max-width:30em}
+.field{display:flex;gap:9px;margin-top:26px;flex-wrap:wrap}
+.field input{font:inherit;font-size:17px;padding:14px 16px;border:1px solid var(--line);
+  background:#fff;border-radius:2px;width:118px;text-align:center;font-weight:600;
+  font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.field input.em{width:230px;text-align:left;font-weight:400;font-size:15px;
+  letter-spacing:0}
+.field input:focus{outline:none;border-color:var(--g)}
+.btn{font:inherit;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  padding:0 24px;background:var(--g);color:#fff;border:0;border-radius:2px;
+  cursor:pointer;transition:.18s}
+.btn:hover{background:var(--dg)}
+.result{margin-top:26px;border-top:1px solid var(--line);padding-top:22px;
+  font-size:15px;line-height:1.65;min-height:30px}
+.result .hit{font-size:30px;font-weight:600;letter-spacing:-.02em;margin-bottom:10px}
+.result .miss{color:var(--mute)}
+.result .tag{display:inline-block;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;background:var(--g);color:#fff;padding:5px 10px;
+  border-radius:2px;margin-bottom:14px}
+
+/* ---------- foot ---------- */
+footer{padding:0 24px 30px;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--mute);line-height:2.1;
+  border-top:1px solid var(--line);margin:0 24px;padding-top:18px}
+footer span{margin-right:26px;display:inline-block;white-space:nowrap}
+
+/* ---------- demo bar ---------- */
+.demo{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:#fff;
+  padding:11px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  z-index:9;padding-bottom:max(11px,env(safe-area-inset-bottom))}
+.demo .lab{font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:#6f756f;white-space:nowrap}
+.demo button{font:inherit;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:none;border:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.62);
+  padding:7px 12px;border-radius:2px;cursor:pointer;transition:.15s}
+.demo button:hover{color:#fff;border-color:rgba(255,255,255,.5)}
+.demo button.on{background:var(--g);border-color:var(--g);color:#fff}
+.clock{display:flex;align-items:center;gap:10px;margin-left:auto}
+.clock.off{display:none}
+.clock input{width:170px;accent-color:var(--g)}
+.clock .t{font-size:12px;font-variant-numeric:tabular-nums;letter-spacing:.08em;
+  width:52px;text-align:right}
+
+@media(max-width:860px){
+  .livewrap{grid-template-columns:1fr;gap:30px}
+  .liveside{order:-1}
+  .filters{margin-top:18px}
+}
+@media(max-width:760px){
+  .seasonwrap{grid-template-columns:1fr;gap:30px}
+  .grid,.ghost{grid-template-columns:repeat(8,1fr)}
+  header{padding:20px 18px 0}
+  main{padding:24px 18px 30px}
+  footer{margin:0 18px;padding:16px 0 26px;line-height:1.9}
+  footer span{display:block;margin-right:0}
+  .clock{margin-left:0;width:100%}
+  .clock input{flex:1;width:auto}
+}
+
+.byline{margin:0 24px;padding:14px 0 30px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;
+  font-size:10.5px;line-height:1.8;color:var(--mute)}
+.byline b{font-weight:600;color:#555}
+.byline a{color:var(--g);text-decoration:none;letter-spacing:.1em;
+  text-transform:uppercase}
+.byline a:hover{text-decoration:underline}
+@media(max-width:760px){.byline{margin:0 18px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="mark">
+    <span class="jp">八十八夜</span>
+    The 88th Night · Matcha Matcha
+  </div>
+  <div class="state"><b id="stateName">Counting down</b><span id="stateDate"></span></div>
+</header>
+
+<main>
+
+  <!-- 1 ── COUNTDOWN ───────────────────────────── -->
+  <section class="pane" id="p1">
+    <div class="kick">Sunday 2 May 2027 · the 88th night after Risshun</div>
+    <div class="cdrow">
+      <div class="bignum" id="cdNum">13</div>
+      <div class="cdside">
+        <div class="big">days until the only night<br>matcha has a birthday</div>
+        <div class="sm">88 numbered cans · 4 rooms · one evening</div>
+      </div>
+    </div>
+    <div class="teach">
+      <div class="n">
+        <span id="tN">DAY 13</span>
+        <span class="step"><button id="tPrev" aria-label="Earlier day">&larr;</button><button id="tNext" aria-label="Later day">&rarr;</button></span>
+      </div>
+      <p id="tP"></p>
+    </div>
+  </section>
+
+  <!-- 2 ── LIVE ────────────────────────────────── -->
+  <section class="pane" id="p2">
+    <div class="livewrap">
+      <div>
+        <div class="grid" id="grid"></div>
+        <div class="legend">
+          <div><b class="a"></b>still on the wall</div>
+          <div><b class="b"></b>taken</div>
+        </div>
+      </div>
+      <div class="liveside">
+        <div class="left"><em id="leftN">88</em><span id="leftLbl">cans left right now</span></div>
+        <div class="filters" id="filters"></div>
+        <div class="liveclock" id="liveClock"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ── SEASON ──────────────────────────────── -->
+  <section class="pane" id="p3">
+    <div class="seasonwrap">
+      <div>
+        <div class="kick">The wall is bare · 2 May 2027</div>
+        <div class="ghost" id="ghost"></div>
+        <p class="lede" style="margin-top:24px">All eighty-eight went in one evening.
+          Eighty-eight people are holding a number, and every number
+          <b>opens a jar in November</b>.</p>
+      </div>
+      <div>
+        <div class="kick">Still pouring through May</div>
+        <ul class="menu">
+          <li><div><b>Shincha, cold brew</b><small>This year's first flush, Uji</small></div><i>7.50</i></li>
+          <li><div><b>Shincha, hot</b><small>Served in two steeps</small></div><i>8.00</i></li>
+          <li><div><b>Usucha, Uji Mukashi</b><small>Horii Shichimeien</small></div><i>8.80</i></li>
+          <li><div><b>Shincha 50g</b><small>Leaf, to take home</small></div><i>34.00</i></li>
+        </ul>
+        <p class="lede" style="margin-top:22px;font-size:15px">Tasting at the Studio,
+          <b>15 and 16 May</b>, twelve seats each.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ── KUCHIKIRI ───────────────────────────── -->
+  <section class="pane" id="p4">
+    <div class="claimwrap">
+      <div class="kick jpline">口切り · November 2027</div>
+      <h1 style="font-size:clamp(28px,5.4vw,46px);font-weight:600;line-height:1.14;
+        letter-spacing:-.025em;margin-bottom:18px">The leaf picked on the 88th night
+        has finished resting.</h1>
+      <p class="lede">Six months in the jar. Now it gets ground.
+        <b>Enter the number on your card</b> and we will hold a tin from that grinding
+        for you.</p>
+      <div class="field">
+        <input id="numIn" inputmode="numeric" maxlength="2" placeholder="00" aria-label="Your number">
+        <input id="emIn" class="em" type="email" placeholder="your email" aria-label="Email">
+        <button class="btn" id="claimBtn">Claim</button>
+      </div>
+      <div class="result" id="claimOut"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>Toronto Flagship · 407 Church</span>
+  <span>Dundas Club · 294 Dundas W</span>
+  <span>Markham Lab · 200 Steelcase E</span>
+  <span>MM Studio · 11 Fairburn</span>
+</footer>
+
+
+<div class="byline">
+  <span>An unsolicited campaign concept by <b>Ruojing Pu</b>, 2026.
+  Not commissioned by or affiliated with MATCHA MATCHA.</span>
+  <a href="https://www.redthreadcreative.me">redthreadcreative.me</a>
+</div>
+
+<div class="demo">
+  <div class="lab">Demo only · not in production</div>
+  <button data-s="1">19 Apr</button>
+  <button data-s="2">2 May</button>
+  <button data-s="3">12 May</button>
+  <button data-s="4">8 Nov</button>
+  <div class="clock off" id="clockWrap">
+    <div class="lab">Time in the room</div>
+    <input type="range" id="clock" min="540" max="1260" step="15" value="1035">
+    <div class="t" id="clockT">17:15</div>
+  </div>
+</div>
+
+<script>
+/* ── allocation: 88 cans across four rooms ───────────────── */
+var ROOMS=[
+  {k:'ch',n:'Church',   full:'Toronto Flagship', a:1,  b:28},
+  {k:'du',n:'Dundas',   full:'Dundas Club',      a:29, b:52},
+  {k:'ma',n:'Markham',  full:'Markham Lab',      a:53, b:76},
+  {k:'st',n:'Studio',   full:'MM Studio',        a:77, b:88}
+];
+function roomOf(n){for(var i=0;i<4;i++)if(n>=ROOMS[i].a&&n<=ROOMS[i].b)return ROOMS[i];}
+
+/* each room sells at its own pace: [open, sold-out] in minutes */
+var PACE={ch:[540,1005], du:[600,1125], ma:[540,1065], st:[660,1215]};
+
+/* deterministic jitter so the wall empties unevenly, like a real one */
+function seed(n){var x=Math.sin(n*127.1)*43758.5453;return x-Math.floor(x);}
+function soldAt(n,min){
+  var r=roomOf(n),p=PACE[r.k],span=r.b-r.a+1,i=n-r.a;
+  var t=p[0]+(p[1]-p[0])*((i+0.5)/span+(seed(n)-0.5)*0.34);
+  return min>=t;
+}
+function countLeft(min,filter){
+  var c=0;
+  for(var n=1;n<=88;n++){
+    if(filter&&roomOf(n).k!==filter)continue;
+    if(!soldAt(n,min))c++;
+  }
+  return c;
+}
+
+/* ── countdown teaching lines, 13 days ───────────────────── */
+var TEACH={
+ 13:"Risshun is the first day of spring in the old calendar. Count eighty-eight nights from it and you land on the day Japan has picked tea for four hundred years.",
+ 12:"In 2027 that night falls on Sunday 2 May. Every one of our four rooms is open that day, including the Studio, which opens only at weekends.",
+ 11:"Uji picks later than anywhere else in Japan. That lateness is the whole point, and it is why the date belongs to Kyoto and not to Kagoshima.",
+ 10:"The leaf is shaded for about twenty days before it is cut. Less sun, more theanine, less bitterness.",
+  9:"Shaded leaf, steamed, never rolled, dried flat. That is tencha. Ground, it is matcha.",
+  8:"Our tencha comes from Horii Shichimeien, in Uji, founded 1879. They are picking the same morning we are pouring.",
+  7:"The first cut of the year is ichibancha. Everything after it is a second or a third.",
+  6:"Here is the part most people get wrong: tencha rests about six months before it is ground. The tea picked on 2 May is not the tea you drink on 2 May.",
+  5:"So the field has one calendar and the tea room has another. May is matcha's birthday. November is the tea person's new year.",
+  4:"On the night: eighty-eight numbered cans of Uji Mukashi. Eighty-eight bowls at $8.80. One number per person.",
+  3:"Every number is pinned to a wall. You take your own number off it. The wall goes bare as the evening goes on.",
+  2:"Keep the card. The number on it opens a jar in November, when this year's leaf is finally ground.",
+  1:"Tomorrow. Doors at nine, all four rooms. Eighty-eight cans, and then none."
+};
+
+/* ── state ───────────────────────────────────────────────── */
+var S={pane:1,min:1035,filter:null,day:13};
+var MONTH=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+var $=function(id){return document.getElementById(id);};
+
+function hhmm(m){var h=Math.floor(m/60),x=m%60;return (h<10?'0':'')+h+':'+(x<10?'0':'')+x;}
+
+/* ---------- build the grid once ---------- */
+(function(){
+  var g=$('grid'),h='';
+  for(var n=1;n<=88;n++)h+='<div class="cell" data-n="'+n+'">'+(n<10?'0':'')+n+'</div>';
+  g.innerHTML=h;
+  var gh='';for(var i=0;i<88;i++)gh+='<div></div>';
+  $('ghost').innerHTML=gh;
+  var f='';
+  f+='<button class="chip on" data-r="">All four</button>';
+  ROOMS.forEach(function(r){f+='<button class="chip" data-r="'+r.k+'">'+r.n+'<i></i></button>';});
+  $('filters').innerHTML=f;
+})();
+
+/* ---------- renderers ---------- */
+var APR=['19','20','21','22','23','24','25','26','27','28','29','30'];
+function drawCountdown(){
+  var d=S.day;
+  $('cdNum').textContent=d;
+  $('tN').textContent=(d===1?'TOMORROW':'DAY '+d+' OF 13');
+  $('tP').textContent=TEACH[d];
+  var i=13-d; /* 0 = 19 Apr */
+  $('stateDate').textContent=(i<12?APR[i]+' April':'1 May')+' 2027';
+}
+$('tPrev').onclick=function(){if(S.day<13){S.day++;drawCountdown();}};
+$('tNext').onclick=function(){if(S.day>1){S.day--;drawCountdown();}};
+function drawLive(){
+  var cells=$('grid').children;
+  for(var i=0;i<cells.length;i++){
+    var c=cells[i],n=+c.dataset.n;
+    c.className='cell'+(soldAt(n,S.min)?' gone':'')
+      +(S.filter&&roomOf(n).k!==S.filter?' dim':'');
+  }
+  $('leftN').textContent=countLeft(S.min,S.filter);
+  var sel=null;
+  ROOMS.forEach(function(r){if(r.k===S.filter)sel=r;});
+  $('leftLbl').textContent=sel?'left at '+sel.full:'cans left across all four rooms';
+  ROOMS.forEach(function(r){
+    var b=document.querySelector('.chip[data-r="'+r.k+'"] i');
+    b.textContent=countLeft(S.min,r.k);
+  });
+  $('liveClock').textContent='as of '+hhmm(S.min)+' · 2 May 2027';
+}
+function setPane(p){
+  S.pane=p;
+  for(var i=1;i<=4;i++)$('p'+i).classList.toggle('on',i===p);
+  document.querySelectorAll('.demo button[data-s]').forEach(function(b){
+    b.classList.toggle('on',+b.dataset.s===p);});
+  $('clockWrap').classList.toggle('off',p!==2);
+  var names=['Counting down','Live tonight','Tea season','Kuchikiri'];
+  var dates=['19 April 2027','2 May 2027','12 May 2027','8 November 2027'];
+  $('stateName').textContent=names[p-1];
+  $('stateDate').textContent=dates[p-1];
+  if(p===1)drawCountdown();
+  if(p===2)drawLive();
+}
+
+/* ---------- events ---------- */
+document.querySelectorAll('.demo button[data-s]').forEach(function(b){
+  b.onclick=function(){setPane(+b.dataset.s);};
+});
+$('clock').oninput=function(){
+  S.min=+this.value;$('clockT').textContent=hhmm(S.min);drawLive();
+};
+$('filters').onclick=function(e){
+  var b=e.target.closest('.chip');if(!b)return;
+  S.filter=b.dataset.r||null;
+  document.querySelectorAll('.chip').forEach(function(c){c.classList.remove('on');});
+  b.classList.add('on');
+  drawLive();
+};
+
+/* ---------- claim ---------- */
+function claim(){
+  var v=parseInt($('numIn').value,10),em=$('emIn').value.trim(),o=$('claimOut');
+  if(!(v>=1&&v<=88)){
+    o.innerHTML='<p class="miss">Numbers run from 01 to 88. Check the front of your card.</p>';
+    return;
+  }
+  if(em.indexOf('@')<0){
+    o.innerHTML='<p class="miss">We need the email on the back of your card to match you.</p>';
+    return;
+  }
+  var r=roomOf(v),nn=(v<10?'0':'')+v;
+  o.innerHTML='<span class="tag">Matched</span>'
+    +'<div class="hit">'+nn+' / 88</div>'
+    +'<p>Taken from the wall at <b>'+r.full+'</b> on 2 May.<br>'
+    +'One tin of the 2027 first flush, ground this week, is held in your name.<br>'
+    +'Collect at '+r.full+' from <b>8 November</b>. We have emailed '+em+'.</p>';
+}
+$('claimBtn').onclick=claim;
+$('numIn').onkeydown=function(e){if(e.key==='Enter')claim();};
+$('emIn').onkeydown=function(e){if(e.key==='Enter')claim();};
+
+/* ---------- real date decides the opening state ---------- */
+(function(){
+  var h=location.hash.replace(/[^0-9:]/g,'').split(':');
+  if(h[0]>='1'&&h[0]<='4'){      /* #1:9  #2:1035  #4:34 — for screenshots */
+    var p0=+h[0];
+    if(h[1]&&p0===1)S.day=+h[1];
+    if(h[1]&&p0===2){S.min=+h[1];$('clock').value=S.min;$('clockT').textContent=hhmm(S.min);}
+    setPane(p0);
+    if(h[1]&&p0===4){$('numIn').value=h[1];$('emIn').value='jo@matchamatcha.ca';claim();}
+    return;
+  }
+  var now=new Date(),p=1;
+  var days=Math.ceil((new Date(2027,4,2)-new Date(now.getFullYear(),
+            now.getMonth(),now.getDate()))/86400000);
+  if(days<=13&&days>=1)S.day=days;
+  if(days===0)p=2;
+  else if(days<0&&now.getFullYear()===2027&&now.getMonth()===4)p=3;
+  else if(days<0&&now.getFullYear()===2027&&now.getMonth()>=10)p=4;
+  if(p===2){S.min=Math.max(540,Math.min(1260,now.getHours()*60+now.getMinutes()));
+            $('clock').value=S.min;$('clockT').textContent=hhmm(S.min);}
+  setPane(p);
+})();
+</script>
+</body>
+</html>
