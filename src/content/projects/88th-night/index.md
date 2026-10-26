@@ -58,7 +58,7 @@ The pressure is real: The Matcha Tokyo opened its first Canadian store on Ossing
 in May 2026, arriving with authenticity as its weapon. When a new entrant competes
 on origin, the incumbent has to say its origin out loud first.
 
-<div class="field tall" style="--field: #09ae52">
+<div class="field tall" style="--field: #00B550">
 
 <div class="wordmark">八十八夜<em>The 88th Night · Sunday, May 2, 2027</em></div>
 
